@@ -55,5 +55,8 @@
     "splitting": false,
     "sourcemap": true,
     "clean": true
+  },
+  "resolutions": {
+    "ansi-regex": "^5.0.1"
   }
 }
