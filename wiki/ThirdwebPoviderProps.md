@@ -29,7 +29,7 @@ Advanced options.
 
 #### Defined in
 
-[src/Provider.tsx:60](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L60)
+[src/Provider.tsx:60](https://github.com/thirdweb-dev/react/blob/6e1d595/src/Provider.tsx#L60)
 
 ___
 
@@ -41,7 +41,7 @@ The name of your dApp. This will show up in the wallet connect / wallet link flo
 
 #### Defined in
 
-[src/Provider.tsx:49](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L49)
+[src/Provider.tsx:49](https://github.com/thirdweb-dev/react/blob/6e1d595/src/Provider.tsx#L49)
 
 ___
 
@@ -53,18 +53,30 @@ The chain id / network you want the client to connect to
 
 #### Defined in
 
-[src/Provider.tsx:45](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L45)
+[src/Provider.tsx:45](https://github.com/thirdweb-dev/react/blob/6e1d595/src/Provider.tsx#L45)
 
 ___
 
 ### sdkOptions
 
-• `Optional` **sdkOptions**: `Partial`<`undefined` \| { `gasSettings?`: { `maxPriceInGwei?`: `number` ; `speed?`: ``"safeLow"`` \| ``"standard"`` \| ``"fast"`` \| ``"fastest"``  } ; `gasless?`: { `openzeppelin`: { `relayerForwarderAddress?`: `string` ; `relayerUrl`: `string`  }  } \| { `biconomy`: { `apiId`: `string` ; `apiKey`: `string` ; `deadlineSeconds?`: `number`  }  } ; `readonlySettings?`: { `chainId?`: `number` ; `rpcUrl`: `string`  }  }\>
+• `Optional` **sdkOptions**: `Object`
 
 The Thirdweb SDK options.
 
-**`see`** [ISDKOptions](https://thirdweb-dev.github.io/typescript-sdk/sdk.isdkoptions.html)
+**`see`** [SDKOptions](https://github.com/thirdweb-dev/typescript-sdk/blob/v2/docs/sdk.sdkoptions.md)
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `gasSettings?` | { `maxPriceInGwei?`: `number` ; `speed?`: ``"safeLow"`` \| ``"standard"`` \| ``"fast"`` \| ``"fastest"``  } |
+| `gasSettings.maxPriceInGwei?` | `number` |
+| `gasSettings.speed?` | ``"safeLow"`` \| ``"standard"`` \| ``"fast"`` \| ``"fastest"`` |
+| `gasless?` | { `openzeppelin`: { `relayerForwarderAddress?`: `string` ; `relayerUrl`: `string`  }  } \| { `biconomy`: { `apiId`: `string` ; `apiKey`: `string` ; `deadlineSeconds?`: `number`  }  } |
+| `readonlySettings?` | { `chainId?`: `number` ; `rpcUrl`: `string`  } |
+| `readonlySettings.chainId?` | `number` |
+| `readonlySettings.rpcUrl` | `string` |
 
 #### Defined in
 
-[src/Provider.tsx:55](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L55)
+[src/Provider.tsx:55](https://github.com/thirdweb-dev/react/blob/6e1d595/src/Provider.tsx#L55)

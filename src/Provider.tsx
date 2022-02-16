@@ -50,9 +50,9 @@ export interface ThirdwebPoviderProps {
   /**
    *
    * The Thirdweb SDK options.
-   * @see {@link https://thirdweb-dev.github.io/typescript-sdk/sdk.isdkoptions.html | ISDKOptions}
+   * @see {@link https://github.com/thirdweb-dev/typescript-sdk/blob/v2/docs/sdk.sdkoptions.md| SDKOptions}
    */
-  sdkOptions?: Partial<SDKOptions>;
+  sdkOptions?: SDKOptions;
   /**
    *
    * Advanced options.

@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/Provider.tsx:88](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L88)
+[src/Provider.tsx:88](https://github.com/thirdweb-dev/react/blob/6e1d595/src/Provider.tsx#L88)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useAddress.ts:3](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/useAddress.ts#L3)
+[src/hooks/useAddress.ts:3](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/useAddress.ts#L3)
 
 ___
 
@@ -108,7 +108,7 @@ readonly [{ `data`: { `connected`: `boolean` ; `connector`: `undefined` \| `Conn
 
 #### Defined in
 
-[src/hooks/useConnect.ts:6](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/useConnect.ts#L6)
+[src/hooks/useConnect.ts:6](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/useConnect.ts#L6)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useDisconnect.ts:3](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/useDisconnect.ts#L3)
+[src/hooks/useDisconnect.ts:3](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/useDisconnect.ts#L3)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useEdition.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useEdition.ts#L4)
+[src/hooks/modules/useEdition.ts:4](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/modules/useEdition.ts#L4)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useEditionDrop.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useEditionDrop.ts#L4)
+[src/hooks/modules/useEditionDrop.ts:4](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/modules/useEditionDrop.ts#L4)
 
 ___
 
@@ -188,7 +188,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useMarketplace.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useMarketplace.ts#L4)
+[src/hooks/modules/useMarketplace.ts:4](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/modules/useMarketplace.ts#L4)
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useNFTCollection.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useNFTCollection.ts#L4)
+[src/hooks/modules/useNFTCollection.ts:4](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/modules/useNFTCollection.ts#L4)
 
 ___
 
@@ -228,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useNFTDrop.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useNFTDrop.ts#L4)
+[src/hooks/modules/useNFTDrop.ts:4](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/modules/useNFTDrop.ts#L4)
 
 ___
 
@@ -262,7 +262,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/usePack.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/usePack.ts#L4)
+[src/hooks/modules/usePack.ts:4](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/modules/usePack.ts#L4)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:214](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L214)
+[src/Provider.tsx:214](https://github.com/thirdweb-dev/react/blob/6e1d595/src/Provider.tsx#L214)
 
 ___
 
@@ -290,7 +290,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useSigner.ts:5](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/useSigner.ts#L5)
+[src/hooks/useSigner.ts:5](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/useSigner.ts#L5)
 
 ___
 
@@ -310,7 +310,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useTokenModule.ts#L4)
+[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/modules/useTokenModule.ts#L4)
 
 ___
 
@@ -330,4 +330,4 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useVoteModule.ts#L4)
+[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/6e1d595/src/hooks/modules/useVoteModule.ts#L4)
