@@ -1,0 +1,59 @@
+{
+  "name": "@thirdweb-dev/react",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:thirdweb-dev/react.git"
+  },
+  "author": "thirdweb engineering",
+  "license": "Apache-2.0",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "private": false,
+  "scripts": {
+    "build": "tsup --env.NODE_ENV production --minify --dts --format esm,cjs",
+    "lint": "eslint src/",
+    "fix": "eslint src/ --fix",
+    "typedoc": "typedoc --theme github-wiki"
+  },
+  "sideEffects:": false,
+  "devDependencies": {
+    "@types/react": "^17.0.39",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-inclusive-language": "^2.1.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "ethers": "^5.5.1",
+    "prettier": "^2.5.1",
+    "react": "^17.0.0",
+    "tsup": "^5.11.13",
+    "typedoc": "^0.22.11",
+    "typedoc-github-wiki-theme": "^1.0.0",
+    "typedoc-plugin-markdown": "^3.11.14",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@3rdweb/sdk": "^1.41.0",
+    "react-query": "^3.34.15",
+    "tiny-invariant": "^1.2.0",
+    "wagmi": "^0.2.12"
+  },
+  "peerDependencies": {
+    "ethers": "^5.5.1",
+    "react": "^17.0.0"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  }
+}
