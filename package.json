@@ -11,6 +11,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
+  "files": [
+    "dist",
+    "src"
+  ],
   "private": false,
   "scripts": {
     "build": "tsup --env.NODE_ENV production --minify --dts --format esm,cjs",
