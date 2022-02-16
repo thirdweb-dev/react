@@ -1,6 +1,6 @@
-import { ModuleType, type VoteModule } from "@3rdweb/sdk";
-import { useModule } from "./useModule";
+import { Vote } from "@thirdweb-dev/sdk";
+import { useContract } from "./useContract";
 
-export function useVoteModule(moduleAddress: string) {
-  return useModule(ModuleType.VOTE, moduleAddress) as VoteModule;
+export function useVote(moduleAddress: string) {
+  return useContract("vote", moduleAddress) as Vote;
 }

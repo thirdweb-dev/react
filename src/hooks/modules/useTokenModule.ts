@@ -1,6 +1,6 @@
-import { ModuleType, type TokenModule } from "@3rdweb/sdk";
-import { useModule } from "./useModule";
+import { Token } from "@thirdweb-dev/sdk";
+import { useContract } from "./useContract";
 
-export function useTokenModule(moduleAddress: string) {
-  return useModule(ModuleType.TOKEN, moduleAddress) as TokenModule;
+export function useToken(moduleAddress: string) {
+  return useContract("token", moduleAddress) as Token;
 }

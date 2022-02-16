@@ -1,4 +1,4 @@
-# @thirdweb-dev/react
+# @thirdweb-dev/react - v2.0.0-alpha.1
 
 ## Table of contents
 
@@ -16,21 +16,19 @@
 
 - [useAccount](../wiki/Exports#useaccount)
 - [useAddress](../wiki/Exports#useaddress)
-- [useBundleDropModule](../wiki/Exports#usebundledropmodule)
-- [useBundleModule](../wiki/Exports#usebundlemodule)
-- [useBundleSignatureModule](../wiki/Exports#usebundlesignaturemodule)
 - [useConnect](../wiki/Exports#useconnect)
 - [useDisconnect](../wiki/Exports#usedisconnect)
-- [useDropModule](../wiki/Exports#usedropmodule)
-- [useMarketModule](../wiki/Exports#usemarketmodule)
-- [useMarketplaceModule](../wiki/Exports#usemarketplacemodule)
-- [useNFTModule](../wiki/Exports#usenftmodule)
+- [useEdition](../wiki/Exports#useedition)
+- [useEditionDrop](../wiki/Exports#useeditiondrop)
+- [useMarketplace](../wiki/Exports#usemarketplace)
+- [useNFTCollection](../wiki/Exports#usenftcollection)
+- [useNFTDrop](../wiki/Exports#usenftdrop)
 - [useNetwork](../wiki/Exports#usenetwork)
 - [usePackModule](../wiki/Exports#usepackmodule)
 - [useSDK](../wiki/Exports#usesdk)
 - [useSigner](../wiki/Exports#usesigner)
-- [useTokenModule](../wiki/Exports#usetokenmodule)
-- [useVoteModule](../wiki/Exports#usevotemodule)
+- [useToken](../wiki/Exports#usetoken)
+- [useVote](../wiki/Exports#usevote)
 
 ## Variables
 
@@ -40,7 +38,7 @@
 
 #### Defined in
 
-[src/Provider.tsx:88](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/Provider.tsx#L88)
+[src/Provider.tsx:88](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L88)
 
 ___
 
@@ -94,67 +92,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useAddress.ts:3](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/useAddress.ts#L3)
-
-___
-
-### useBundleDropModule
-
-▸ **useBundleDropModule**(`moduleAddress`): `BundleDropModule`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `moduleAddress` | `string` |
-
-#### Returns
-
-`BundleDropModule`
-
-#### Defined in
-
-[src/hooks/modules/useBundleDropModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useBundleDropModule.ts#L4)
-
-___
-
-### useBundleModule
-
-▸ **useBundleModule**(`moduleAddress`): `BundleModule`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `moduleAddress` | `string` |
-
-#### Returns
-
-`BundleModule`
-
-#### Defined in
-
-[src/hooks/modules/useBundleModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useBundleModule.ts#L4)
-
-___
-
-### useBundleSignatureModule
-
-▸ **useBundleSignatureModule**(`moduleAddress`): `SignatureMint1155Module`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `moduleAddress` | `string` |
-
-#### Returns
-
-`SignatureMint1155Module`
-
-#### Defined in
-
-[src/hooks/modules/useBundleSignatureModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useBundleSignatureModule.ts#L4)
+[src/hooks/useAddress.ts:3](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/useAddress.ts#L3)
 
 ___
 
@@ -170,7 +108,7 @@ readonly [{ `data`: { `connected`: `boolean` ; `connector`: `undefined` \| `Conn
 
 #### Defined in
 
-[src/hooks/useConnect.ts:6](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/useConnect.ts#L6)
+[src/hooks/useConnect.ts:6](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/useConnect.ts#L6)
 
 ___
 
@@ -190,13 +128,13 @@ ___
 
 #### Defined in
 
-[src/hooks/useDisconnect.ts:3](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/useDisconnect.ts#L3)
+[src/hooks/useDisconnect.ts:3](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/useDisconnect.ts#L3)
 
 ___
 
-### useDropModule
+### useEdition
 
-▸ **useDropModule**(`moduleAddress`): `DropModule`
+▸ **useEdition**(`moduleAddress`): `Edition`
 
 #### Parameters
 
@@ -206,41 +144,17 @@ ___
 
 #### Returns
 
-`DropModule`
+`Edition`
 
 #### Defined in
 
-[src/hooks/modules/useDropModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useDropModule.ts#L4)
+[src/hooks/modules/useEdition.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useEdition.ts#L4)
 
 ___
 
-### useMarketModule
+### useEditionDrop
 
-▸ **useMarketModule**(`moduleAddress`): `MarketModule`
-
-**`deprecated`** - The {@link MarketModule} is deprecated in favor of {@link MarketplaceModule}
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `moduleAddress` | `string` | the address of the market module |
-
-#### Returns
-
-`MarketModule`
-
-the {@link MarketModule} instance
-
-#### Defined in
-
-[src/hooks/modules/useMarketModule.ts:11](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useMarketModule.ts#L11)
-
-___
-
-### useMarketplaceModule
-
-▸ **useMarketplaceModule**(`moduleAddress`): `MarketplaceModule`
+▸ **useEditionDrop**(`moduleAddress`): `EditionDrop`
 
 #### Parameters
 
@@ -250,17 +164,17 @@ ___
 
 #### Returns
 
-`MarketplaceModule`
+`EditionDrop`
 
 #### Defined in
 
-[src/hooks/modules/useMarketplaceModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useMarketplaceModule.ts#L4)
+[src/hooks/modules/useEditionDrop.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useEditionDrop.ts#L4)
 
 ___
 
-### useNFTModule
+### useMarketplace
 
-▸ **useNFTModule**(`moduleAddress`): `NFTModule`
+▸ **useMarketplace**(`moduleAddress`): `Marketplace`
 
 #### Parameters
 
@@ -270,11 +184,51 @@ ___
 
 #### Returns
 
-`NFTModule`
+`Marketplace`
 
 #### Defined in
 
-[src/hooks/modules/useNFTModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useNFTModule.ts#L4)
+[src/hooks/modules/useMarketplace.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useMarketplace.ts#L4)
+
+___
+
+### useNFTCollection
+
+▸ **useNFTCollection**(`moduleAddress`): `NFTCollection`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `moduleAddress` | `string` |
+
+#### Returns
+
+`NFTCollection`
+
+#### Defined in
+
+[src/hooks/modules/useNFTCollection.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useNFTCollection.ts#L4)
+
+___
+
+### useNFTDrop
+
+▸ **useNFTDrop**(`moduleAddress`): `NFTDrop`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `moduleAddress` | `string` |
+
+#### Returns
+
+`NFTDrop`
+
+#### Defined in
+
+[src/hooks/modules/useNFTDrop.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useNFTDrop.ts#L4)
 
 ___
 
@@ -294,7 +248,7 @@ ___
 
 ### usePackModule
 
-▸ **usePackModule**(`moduleAddress`): `PackModule`
+▸ **usePackModule**(`moduleAddress`): `Pack`
 
 #### Parameters
 
@@ -304,11 +258,11 @@ ___
 
 #### Returns
 
-`PackModule`
+`Pack`
 
 #### Defined in
 
-[src/hooks/modules/usePackModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/usePackModule.ts#L4)
+[src/hooks/modules/usePack.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/usePack.ts#L4)
 
 ___
 
@@ -322,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:214](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/Provider.tsx#L214)
+[src/Provider.tsx:214](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L214)
 
 ___
 
@@ -336,13 +290,13 @@ ___
 
 #### Defined in
 
-[src/hooks/useSigner.ts:5](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/useSigner.ts#L5)
+[src/hooks/useSigner.ts:5](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/useSigner.ts#L5)
 
 ___
 
-### useTokenModule
+### useToken
 
-▸ **useTokenModule**(`moduleAddress`): `TokenModule`
+▸ **useToken**(`moduleAddress`): `Token`
 
 #### Parameters
 
@@ -352,17 +306,17 @@ ___
 
 #### Returns
 
-`TokenModule`
+`Token`
 
 #### Defined in
 
-[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useTokenModule.ts#L4)
+[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useTokenModule.ts#L4)
 
 ___
 
-### useVoteModule
+### useVote
 
-▸ **useVoteModule**(`moduleAddress`): `VoteModule`
+▸ **useVote**(`moduleAddress`): `Vote`
 
 #### Parameters
 
@@ -372,8 +326,8 @@ ___
 
 #### Returns
 
-`VoteModule`
+`Vote`
 
 #### Defined in
 
-[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/hooks/modules/useVoteModule.ts#L4)
+[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/0203c2e/src/hooks/modules/useVoteModule.ts#L4)

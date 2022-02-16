@@ -29,7 +29,7 @@ Advanced options.
 
 #### Defined in
 
-[src/Provider.tsx:60](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/Provider.tsx#L60)
+[src/Provider.tsx:60](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L60)
 
 ___
 
@@ -41,7 +41,7 @@ The name of your dApp. This will show up in the wallet connect / wallet link flo
 
 #### Defined in
 
-[src/Provider.tsx:49](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/Provider.tsx#L49)
+[src/Provider.tsx:49](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L49)
 
 ___
 
@@ -53,13 +53,13 @@ The chain id / network you want the client to connect to
 
 #### Defined in
 
-[src/Provider.tsx:45](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/Provider.tsx#L45)
+[src/Provider.tsx:45](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L45)
 
 ___
 
 ### sdkOptions
 
-• `Optional` **sdkOptions**: `Partial`<`ISDKOptions`\>
+• `Optional` **sdkOptions**: `Partial`<`undefined` \| { `gasSettings?`: { `maxPriceInGwei?`: `number` ; `speed?`: ``"safeLow"`` \| ``"standard"`` \| ``"fast"`` \| ``"fastest"``  } ; `gasless?`: { `openzeppelin`: { `relayerForwarderAddress?`: `string` ; `relayerUrl`: `string`  }  } \| { `biconomy`: { `apiId`: `string` ; `apiKey`: `string` ; `deadlineSeconds?`: `number`  }  } ; `readonlySettings?`: { `chainId?`: `number` ; `rpcUrl`: `string`  }  }\>
 
 The Thirdweb SDK options.
 
@@ -67,4 +67,4 @@ The Thirdweb SDK options.
 
 #### Defined in
 
-[src/Provider.tsx:55](https://github.com/thirdweb-dev/react/blob/3f0fbbc/src/Provider.tsx#L55)
+[src/Provider.tsx:55](https://github.com/thirdweb-dev/react/blob/0203c2e/src/Provider.tsx#L55)

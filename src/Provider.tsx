@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useMemo, useState } from "react";
-import { ISDKOptions, ThirdwebSDK } from "@3rdweb/sdk";
+import { ThirdwebSDK, SDKOptions } from "@thirdweb-dev/sdk";
 import {
   WagmiProvider,
   ProviderProps as WagmiproviderProps,
@@ -52,7 +52,7 @@ export interface ThirdwebPoviderProps {
    * The Thirdweb SDK options.
    * @see {@link https://thirdweb-dev.github.io/typescript-sdk/sdk.isdkoptions.html | ISDKOptions}
    */
-  sdkOptions?: Partial<ISDKOptions>;
+  sdkOptions?: Partial<SDKOptions>;
   /**
    *
    * Advanced options.
@@ -182,7 +182,7 @@ const ThirdwebSDKProvider: React.FC<
   useEffect(() => {
     if (desiredChainId) {
       const _sdk = new ThirdwebSDK(
-        sdkOptions?.readOnlyRpcUrl || provider,
+        sdkOptions?.readonlySettings?.rpcUrl || provider,
         sdkOptions,
       );
       (_sdk as any)._chainId = desiredChainId;
@@ -192,7 +192,7 @@ const ThirdwebSDKProvider: React.FC<
 
   useEffect(() => {
     if (signer.data && sdk && (sdk as any)._chainId === desiredChainId) {
-      sdk.setProviderOrSigner(signer.data);
+      sdk.updateSignerOrProvider(signer.data);
     }
   }, [signer.data, sdk, desiredChainId]);
 
