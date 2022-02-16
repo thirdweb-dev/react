@@ -15,6 +15,8 @@
 - [useBundleDropModule](../wiki/Exports#usebundledropmodule)
 - [useBundleModule](../wiki/Exports#usebundlemodule)
 - [useBundleSignatureModule](../wiki/Exports#usebundlesignaturemodule)
+- [useConnect](../wiki/Exports#useconnect)
+- [useDisconnect](../wiki/Exports#usedisconnect)
 - [useDropModule](../wiki/Exports#usedropmodule)
 - [useMarketModule](../wiki/Exports#usemarketmodule)
 - [useMarketplaceModule](../wiki/Exports#usemarketplacemodule)
@@ -32,7 +34,7 @@
 
 #### Defined in
 
-Provider.tsx:88
+[src/Provider.tsx:88](https://github.com/thirdweb-dev/react/blob/c182cd8/src/Provider.tsx#L88)
 
 ## Functions
 
@@ -52,7 +54,7 @@ Provider.tsx:88
 
 #### Defined in
 
-hooks/modules/useBundleDropModule.ts:4
+[src/hooks/modules/useBundleDropModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useBundleDropModule.ts#L4)
 
 ___
 
@@ -72,7 +74,7 @@ ___
 
 #### Defined in
 
-hooks/modules/useBundleModule.ts:4
+[src/hooks/modules/useBundleModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useBundleModule.ts#L4)
 
 ___
 
@@ -92,7 +94,43 @@ ___
 
 #### Defined in
 
-hooks/modules/useBundleSignatureModule.ts:4
+[src/hooks/modules/useBundleSignatureModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useBundleSignatureModule.ts#L4)
+
+___
+
+### useConnect
+
+▸ **useConnect**(): readonly [{ `data`: { `connected`: `boolean` ; `connector`: `undefined` \| `Connector`<`any`, `any`\> ; `connectors`: `Connector`<`any`, `any`\>[]  } ; `error`: `undefined` \| `Error` ; `loading`: `undefined` \| `boolean`  }, (`connector`: `Connector`<`any`, `any`\>) => `Promise`<{ `data?`: `ConnectorData`<`any`\> ; `error?`: `Error`  }\>]
+
+for now just re-exported
+
+#### Returns
+
+readonly [{ `data`: { `connected`: `boolean` ; `connector`: `undefined` \| `Connector`<`any`, `any`\> ; `connectors`: `Connector`<`any`, `any`\>[]  } ; `error`: `undefined` \| `Error` ; `loading`: `undefined` \| `boolean`  }, (`connector`: `Connector`<`any`, `any`\>) => `Promise`<{ `data?`: `ConnectorData`<`any`\> ; `error?`: `Error`  }\>]
+
+#### Defined in
+
+src/hooks/useConnect.ts:6
+
+___
+
+### useDisconnect
+
+▸ **useDisconnect**(): () => `void`
+
+#### Returns
+
+`fn`
+
+▸ (): `void`
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+src/hooks/useDisconnect.ts:3
 
 ___
 
@@ -112,7 +150,7 @@ ___
 
 #### Defined in
 
-hooks/modules/useDropModule.ts:4
+[src/hooks/modules/useDropModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useDropModule.ts#L4)
 
 ___
 
@@ -136,7 +174,7 @@ the {@link MarketModule} instance
 
 #### Defined in
 
-hooks/modules/useMarketModule.ts:11
+[src/hooks/modules/useMarketModule.ts:11](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useMarketModule.ts#L11)
 
 ___
 
@@ -156,7 +194,7 @@ ___
 
 #### Defined in
 
-hooks/modules/useMarketplaceModule.ts:4
+[src/hooks/modules/useMarketplaceModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useMarketplaceModule.ts#L4)
 
 ___
 
@@ -176,7 +214,7 @@ ___
 
 #### Defined in
 
-hooks/modules/useNFTModule.ts:4
+[src/hooks/modules/useNFTModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useNFTModule.ts#L4)
 
 ___
 
@@ -196,7 +234,7 @@ ___
 
 #### Defined in
 
-hooks/modules/usePackModule.ts:4
+[src/hooks/modules/usePackModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/usePackModule.ts#L4)
 
 ___
 
@@ -210,7 +248,7 @@ ___
 
 #### Defined in
 
-Provider.tsx:214
+[src/Provider.tsx:214](https://github.com/thirdweb-dev/react/blob/c182cd8/src/Provider.tsx#L214)
 
 ___
 
@@ -230,7 +268,7 @@ ___
 
 #### Defined in
 
-hooks/modules/useTokenModule.ts:4
+[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useTokenModule.ts#L4)
 
 ___
 
@@ -250,4 +288,4 @@ ___
 
 #### Defined in
 
-hooks/modules/useVoteModule.ts:4
+[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/c182cd8/src/hooks/modules/useVoteModule.ts#L4)

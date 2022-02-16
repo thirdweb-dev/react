@@ -17,10 +17,11 @@
   ],
   "private": false,
   "scripts": {
-    "build": "tsup --env.NODE_ENV production --minify --dts --format esm,cjs",
+    "build:lib": "tsup --env.NODE_ENV production --minify --dts --format esm,cjs",
     "lint": "eslint src/",
     "fix": "eslint src/ --fix",
-    "typedoc": "typedoc --theme github-wiki"
+    "typedoc": "typedoc --theme github-wiki",
+    "build": "yarn build:lib && yarn typedoc"
   },
   "sideEffects:": false,
   "devDependencies": {

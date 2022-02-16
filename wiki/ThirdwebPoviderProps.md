@@ -29,7 +29,7 @@ Advanced options.
 
 #### Defined in
 
-Provider.tsx:60
+[src/Provider.tsx:60](https://github.com/thirdweb-dev/react/blob/c182cd8/src/Provider.tsx#L60)
 
 ___
 
@@ -41,7 +41,7 @@ The name of your dApp. This will show up in the wallet connect / wallet link flo
 
 #### Defined in
 
-Provider.tsx:49
+[src/Provider.tsx:49](https://github.com/thirdweb-dev/react/blob/c182cd8/src/Provider.tsx#L49)
 
 ___
 
@@ -53,7 +53,7 @@ The chain id / network you want the client to connect to
 
 #### Defined in
 
-Provider.tsx:45
+[src/Provider.tsx:45](https://github.com/thirdweb-dev/react/blob/c182cd8/src/Provider.tsx#L45)
 
 ___
 
@@ -67,4 +67,4 @@ The Thirdweb SDK options.
 
 #### Defined in
 
-Provider.tsx:55
+[src/Provider.tsx:55](https://github.com/thirdweb-dev/react/blob/c182cd8/src/Provider.tsx#L55)
