@@ -12,7 +12,7 @@ import {
   persistQueryClient,
   PersistQueryClientOptions,
 } from "react-query/persistQueryClient-experimental";
-import { invariant } from "@3rdweb/sdk/dist/common/invariant";
+import invariant from "tiny-invariant";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { WalletLinkConnector } from "wagmi/connectors/walletLink";
