@@ -1,4 +1,4 @@
-## @thirdweb-dev/react - v2.0.0-alpha.1
+## @thirdweb-dev/react
 
 - [Home](../wiki/Home)
 - [Exports](../wiki/Exports)

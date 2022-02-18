@@ -4,32 +4,92 @@ import {
   WagmiProvider,
   ProviderProps as WagmiproviderProps,
   useProvider,
-  Chain,
 } from "wagmi";
 import { useSigner } from "./hooks/useSigner";
-import { QueryClient, QueryClientProvider } from "react-query";
-import {
-  persistQueryClient,
-  PersistQueryClientOptions,
-} from "react-query/persistQueryClient-experimental";
 import invariant from "tiny-invariant";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { WalletLinkConnector } from "wagmi/connectors/walletLink";
+import {
+  Chain,
+  defaultSupportedChains,
+  SupportedChain,
+} from "./constants/chain";
 
-const createDefaultQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: {
-        // 24 hours
-        cacheTime: 1000 * 60 * 60 * 24,
-        // 30 seconds
-        staleTime: 1000 * 30,
-      },
-    },
-  });
+export type InjectedConnectorType =
+  | "injected"
+  | "metamask"
+  | { name: "injected" | "metamask"; options?: InjectedConnector["options"] };
 
-const DEFAULT_RPC_URL_MAP = {
+export type WalletConnectConnectorType =
+  | "walletConnect"
+  | { name: "walletConnect"; options: WalletConnectConnector["options"] };
+
+export type WalletLinkConnectorType =
+  | "walletLink"
+  | "coinbase"
+  | {
+      name: "walletLink" | "coinbase";
+      options: WalletLinkConnector["options"];
+    };
+
+export type WalletConnector =
+  | InjectedConnectorType
+  | WalletConnectConnectorType
+  | WalletLinkConnectorType;
+
+export type ChainRpc<TSupportedChain extends SupportedChain> = Record<
+  TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain,
+  string
+>;
+
+export interface DAppMetaData {
+  name: string;
+  description?: string;
+  logoUrl?: string;
+  url?: string;
+  isDarkMode?: boolean;
+}
+
+export interface ThirdwebProviderProps<
+  TSupportedChain extends SupportedChain = SupportedChain,
+> {
+  /**
+   * The {@link SDKOptions} to pass to the thirdweb SDK
+   * comes with sensible defaults
+   */
+  sdkOptions?: SDKOptions;
+  /**
+   * An array of chainIds or {@link Chain} objects that the dApp supports
+   * If not provided, all chains supported by the SDK will be supported by default
+   */
+  supportedChains?: TSupportedChain[];
+  /**
+   * An array of connector types (strings) or {@link WalletConnector} objects that the dApp supports
+   * If not provided, will default to metamask (injected), wallet connect and walletlink (coinbase wallet) with sensible defaults
+   */
+  walletConnectors?: WalletConnector[];
+  /**
+   * A partial map of chainIds to rpc urls to use for certain chains
+   * If not provided, will default to the rpcUrls of the chain objects for the supported chains
+   */
+  chainRpc?: Partial<ChainRpc<TSupportedChain>>;
+  /**
+   * Metadata to pass to wallet connect and walletlink wallet connect. (Used to show *which* dApp is being connected to in mobile wallets that support it)
+   * Defaults to just the name being passed as `thirdweb powered dApp`.
+   */
+  dAppMeta?: DAppMetaData;
+  /**
+   * The chainId that your dApp is running on.
+   * While this *can* be `undefined` it is required to be passed. Passing `undefined` will cause no SDK to be instantiated.
+   * When passing a chainId, it **must** be part of the `supportedChains` array.
+   */
+  desiredChainId: TSupportedChain extends Chain
+    ? TSupportedChain["id"]
+    : TSupportedChain | undefined;
+}
+
+const defaultChainRpc: ThirdwebProviderProps["chainRpc"] = {
   1: "mainnet",
   4: "rinkeby",
   137: "https://polygon-rpc.com",
@@ -38,130 +98,143 @@ const DEFAULT_RPC_URL_MAP = {
   80001: "https://rpc-mumbai.maticvigil.com",
 };
 
-export interface ThirdwebPoviderProps {
-  /**
-   * The chain id / network you want the client to connect to
-   */
-  desiredChainId: number;
-  /**
-   * The name of your dApp. This will show up in the wallet connect / wallet link flow.
-   */
-  dAppName: string;
-  /**
-   *
-   * The Thirdweb SDK options.
-   * @see {@link https://github.com/thirdweb-dev/typescript-sdk/blob/v2/docs/sdk.sdkoptions.md| SDKOptions}
-   */
-  sdkOptions?: SDKOptions;
-  /**
-   *
-   * Advanced options.
-   */
-  advanced?: {
-    /**
-     * Custom RPC URLs to use for different chains.
-     */
-    rpcUrlMap?: { [chainId: number]: string };
-    /**
-     * The supported chains that a user can connect to.
-     * @see {@link https://wagmi-xyz.vercel.app/docs/connectors/injected#chains-optional | Chains}
-     */
-    supportedChains?: Chain[];
-    /**
-     * The options for the underlying wagmi provider.
-     * @see {@link https://wagmi-xyz.vercel.app/docs/provider#configuration | WagmiproviderProps}
-     */
-    wagmiOptions?: Partial<WagmiproviderProps>;
-    /**
-     * The query client to use with react-query.
-     * @see {@link https://react-query.tanstack.com/reference/QueryClient | QueryClient}
-     */
-    queryClient?: QueryClient;
-    /**
-     * The persistency options for the query client.
-     * @see {@link https://react-query.tanstack.com/plugins/persistQueryClient#options | PersistQueryClientOptions}
-     */
-    persistClientOptions?: PersistQueryClientOptions;
-  };
-}
+const defaultdAppMeta: DAppMetaData = {
+  name: "thirdweb powered dApp",
+};
 
-export const ThirdwebProvider: React.FC<ThirdwebPoviderProps> = ({
+const defaultWalletConnectors: Required<
+  ThirdwebProviderProps["walletConnectors"]
+> = ["metamask", "walletConnect", "walletLink"];
+
+export const ThirdwebProvider = <
+  TSupportedChain extends SupportedChain = SupportedChain,
+>({
   sdkOptions,
-  advanced,
-  dAppName,
+  chainRpc = defaultChainRpc,
+  supportedChains = defaultSupportedChains.map(
+    (c) => c.id,
+  ) as TSupportedChain[],
+  walletConnectors = defaultWalletConnectors,
+  dAppMeta = defaultdAppMeta,
   desiredChainId,
   children,
-}) => {
-  // create the query client
-  const actualQueryClient: QueryClient = useMemo(() => {
-    return advanced?.queryClient
-      ? advanced.queryClient
-      : createDefaultQueryClient();
-  }, [advanced?.queryClient]);
-
-  // if we have a persister, persist with it
-  useEffect(() => {
-    if (advanced?.persistClientOptions) {
-      persistQueryClient(advanced.persistClientOptions);
-    }
-  }, []);
-
+}: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => {
   // construct the wagmi options
-  const wagmiProps: WagmiproviderProps = useMemo(() => {
-    const rpcUrlMap = advanced?.rpcUrlMap || DEFAULT_RPC_URL_MAP;
 
-    const defaultProps: WagmiproviderProps = {
+  const _supporrtedChains = useMemo(() => {
+    return supportedChains
+      .map((c) => {
+        if (typeof c === "number") {
+          return defaultSupportedChains.find((sc) => sc.id === c);
+        }
+        return c as Chain;
+      })
+      .filter((c) => c !== undefined) as Chain[];
+  }, [supportedChains]);
+
+  const _rpcUrlMap = useMemo(() => {
+    return _supporrtedChains.reduce((prev, curr) => {
+      prev[curr.id] =
+        curr.id in chainRpc
+          ? chainRpc[curr.id as keyof ChainRpc<TSupportedChain>] ||
+            curr.rpcUrls[0]
+          : curr.rpcUrls[0];
+      return prev;
+    }, {} as Record<number, string>);
+  }, [chainRpc, _supporrtedChains]);
+
+  const wagmiProps: WagmiproviderProps = useMemo(() => {
+    const walletConnectClientMeta = {
+      name: dAppMeta.name,
+      url: dAppMeta.url || "",
+      icons: [dAppMeta.logoUrl || ""],
+      description: dAppMeta.description || "",
+    };
+
+    const walletLinkClientMeta = {
+      appName: dAppMeta.name,
+      appLogoUrl: dAppMeta.logoUrl,
+      darkMode: dAppMeta.isDarkMode,
+    };
+
+    return {
       autoConnect: true,
       connectorStorageKey: "tw:provider:connectors",
       connectors: ({ chainId }: { chainId?: number }) => {
-        return [
-          new InjectedConnector({
-            options: { shimDisconnect: true },
-            chains: advanced?.supportedChains,
-          }),
-          new WalletConnectConnector({
-            options: {
-              chainId,
-              rpc: rpcUrlMap,
-              qrcode: true,
-            },
-            chains: advanced?.supportedChains,
-          }),
-          new WalletLinkConnector({
-            options: {
-              appName: dAppName,
-              appLogoUrl:
-                typeof window !== "undefined"
-                  ? `${window.location.origin}/favicon.ico`
-                  : undefined,
-              darkMode: false,
-              jsonRpcUrl: rpcUrlMap[chainId || -1] || undefined,
-            },
-            chains: advanced?.supportedChains,
-          }),
-        ];
+        return walletConnectors.map((connector) => {
+          // injected connector
+          if (
+            (typeof connector === "string" &&
+              (connector === "injected" || connector === "metamask")) ||
+            (typeof connector === "object" &&
+              (connector.name === "injected" || connector.name === "metamask"))
+          ) {
+            return new InjectedConnector({
+              options:
+                typeof connector === "string"
+                  ? { shimDisconnect: true }
+                  : connector.options,
+              chains: _supporrtedChains,
+            });
+          } else if (
+            (typeof connector === "string" && connector === "walletConnect") ||
+            (typeof connector === "object" &&
+              connector.name === "walletConnect")
+          ) {
+            return new WalletConnectConnector({
+              options:
+                typeof connector === "string"
+                  ? {
+                      chainId,
+                      rpc: _rpcUrlMap,
+                      clientMeta: walletConnectClientMeta,
+                      qrcode: true,
+                    }
+                  : {
+                      chainId,
+                      rpc: _rpcUrlMap,
+                      clientMeta: walletConnectClientMeta,
+                      qrcode: true,
+                      ...connector.options,
+                    },
+              chains: _supporrtedChains,
+            });
+          } else if (
+            (typeof connector === "string" &&
+              (connector === "coinbase" || connector === "walletLink")) ||
+            (typeof connector === "object" &&
+              (connector.name === "coinbase" ||
+                connector.name === "walletLink"))
+          ) {
+            return new WalletLinkConnector({
+              chains: _supporrtedChains,
+              options:
+                typeof connector === "string"
+                  ? {
+                      ...walletLinkClientMeta,
+                      jsonRpcUrl: _rpcUrlMap[chainId || -1] || undefined,
+                    }
+                  : {
+                      ...walletLinkClientMeta,
+                      jsonRpcUrl: _rpcUrlMap[chainId || -1] || undefined,
+                      ...connector.options,
+                    },
+            });
+          }
+        });
       },
-    };
-
-    return { ...defaultProps, ...advanced?.wagmiOptions };
-  }, [
-    advanced?.wagmiOptions,
-    advanced?.supportedChains,
-    advanced?.rpcUrlMap,
-    dAppName,
-  ]);
+    } as WagmiproviderProps;
+  }, [walletConnectors, _supporrtedChains, dAppMeta]);
 
   return (
-    <QueryClientProvider client={actualQueryClient}>
-      <WagmiProvider {...wagmiProps}>
-        <ThirdwebSDKProvider
-          desiredChainId={desiredChainId}
-          sdkOptions={sdkOptions}
-        >
-          {children}
-        </ThirdwebSDKProvider>
-      </WagmiProvider>
-    </QueryClientProvider>
+    <WagmiProvider {...wagmiProps}>
+      <ThirdwebSDKProvider
+        desiredChainId={desiredChainId}
+        sdkOptions={sdkOptions}
+      >
+        {children}
+      </ThirdwebSDKProvider>
+    </WagmiProvider>
   );
 };
 
@@ -173,7 +246,7 @@ interface SDKContext {
 const ThirdwebSDKContext = createContext<SDKContext>({});
 
 const ThirdwebSDKProvider: React.FC<
-  Pick<ThirdwebPoviderProps, "desiredChainId" | "sdkOptions">
+  Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions">
 > = ({ sdkOptions, desiredChainId, children }) => {
   const [sdk, setSDK] = useState<ThirdwebSDK | undefined>(undefined);
   const provider = useProvider();
@@ -181,20 +254,17 @@ const ThirdwebSDKProvider: React.FC<
 
   useEffect(() => {
     if (desiredChainId) {
-      const _sdk = new ThirdwebSDK(
-        sdkOptions?.readonlySettings?.rpcUrl || provider,
-        sdkOptions,
-      );
+      const _sdk = new ThirdwebSDK(provider, sdkOptions);
       (_sdk as any)._chainId = desiredChainId;
       setSDK(_sdk);
     }
   }, [desiredChainId]);
 
   useEffect(() => {
-    if (signer.data && sdk && (sdk as any)._chainId === desiredChainId) {
-      sdk.updateSignerOrProvider(signer.data);
+    if (signer && sdk && (sdk as any)._chainId === desiredChainId) {
+      sdk.updateSignerOrProvider(signer);
     }
-  }, [signer.data, sdk, desiredChainId]);
+  }, [signer, sdk, desiredChainId]);
 
   const ctxValue = useMemo(
     () => ({

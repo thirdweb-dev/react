@@ -24,7 +24,6 @@
     "excludeInternal": true,
     "excludePrivate": true,
     "excludeProtected": true,
-    "includeVersion": true,
     "entryPoints": ["src/index.ts"],
     "out": "wiki/"
   }
