@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/Provider.tsx:48](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L48)
+[src/Provider.tsx:48](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L48)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:51](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L51)
+[src/Provider.tsx:51](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L51)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:49](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L49)
+[src/Provider.tsx:49](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L49)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:47](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L47)
+[src/Provider.tsx:47](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L47)
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:50](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L50)
+[src/Provider.tsx:50](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L50)

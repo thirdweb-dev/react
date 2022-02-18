@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/Provider.tsx:41](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L41)
+[src/Provider.tsx:41](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L41)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:19](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L19)
+[src/Provider.tsx:19](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L19)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:24](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L24)
+[src/Provider.tsx:24](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L24)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:36](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L36)
+[src/Provider.tsx:36](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L36)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:28](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L28)
+[src/Provider.tsx:28](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L28)
 
 ## Variables
 
@@ -140,7 +140,7 @@ node_modules/wagmi-private/dist/declarations/src/constants/chains.d.ts:6
 
 #### Defined in
 
-[src/Provider.tsx:109](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L109)
+[src/Provider.tsx:109](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L109)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useAddress.ts:3](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/useAddress.ts#L3)
+[src/hooks/useAddress.ts:3](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/useAddress.ts#L3)
 
 ___
 
@@ -190,7 +190,7 @@ readonly [{ `data`: { `connected`: `boolean` ; `connector`: `undefined` \| `Conn
 
 #### Defined in
 
-[src/hooks/useConnect.ts:6](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/useConnect.ts#L6)
+[src/hooks/useConnect.ts:6](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/useConnect.ts#L6)
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useDisconnect.ts:3](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/useDisconnect.ts#L3)
+[src/hooks/useDisconnect.ts:3](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/useDisconnect.ts#L3)
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useEdition.ts:4](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/modules/useEdition.ts#L4)
+[src/hooks/modules/useEdition.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/modules/useEdition.ts#L4)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useEditionDrop.ts:4](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/modules/useEditionDrop.ts#L4)
+[src/hooks/modules/useEditionDrop.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/modules/useEditionDrop.ts#L4)
 
 ___
 
@@ -270,7 +270,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useMarketplace.ts:4](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/modules/useMarketplace.ts#L4)
+[src/hooks/modules/useMarketplace.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/modules/useMarketplace.ts#L4)
 
 ___
 
@@ -290,7 +290,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useNFTCollection.ts:4](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/modules/useNFTCollection.ts#L4)
+[src/hooks/modules/useNFTCollection.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/modules/useNFTCollection.ts#L4)
 
 ___
 
@@ -310,7 +310,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useNFTDrop.ts:4](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/modules/useNFTDrop.ts#L4)
+[src/hooks/modules/useNFTDrop.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/modules/useNFTDrop.ts#L4)
 
 ___
 
@@ -344,7 +344,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/usePack.ts:4](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/modules/usePack.ts#L4)
+[src/hooks/modules/usePack.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/modules/usePack.ts#L4)
 
 ___
 
@@ -365,7 +365,7 @@ ___
 
 #### Defined in
 
-src/hooks/useReadonlySDK.ts:4
+[src/hooks/useReadonlySDK.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/useReadonlySDK.ts#L4)
 
 ___
 
@@ -379,7 +379,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:284](https://github.com/thirdweb-dev/react/blob/69e667e/src/Provider.tsx#L284)
+[src/Provider.tsx:284](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L284)
 
 ___
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useSigner.ts:5](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/useSigner.ts#L5)
+[src/hooks/useSigner.ts:5](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/useSigner.ts#L5)
 
 ___
 
@@ -413,7 +413,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/modules/useTokenModule.ts#L4)
+[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/modules/useTokenModule.ts#L4)
 
 ___
 
@@ -433,4 +433,4 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/69e667e/src/hooks/modules/useVoteModule.ts#L4)
+[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/7d533c7/src/hooks/modules/useVoteModule.ts#L4)
