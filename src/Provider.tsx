@@ -122,6 +122,7 @@ export const ThirdwebProvider = <
   walletConnectors = defaultWalletConnectors,
   dAppMeta = defaultdAppMeta,
   desiredChainId,
+  storageInterface,
   children,
 }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => {
   // construct the wagmi options
@@ -236,6 +237,7 @@ export const ThirdwebProvider = <
       <ThirdwebSDKProvider
         desiredChainId={desiredChainId}
         sdkOptions={sdkOptions}
+        storageInterface={storageInterface}
       >
         {children}
       </ThirdwebSDKProvider>
