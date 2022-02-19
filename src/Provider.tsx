@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useMemo, useState } from "react";
-import { ThirdwebSDK, SDKOptions } from "@thirdweb-dev/sdk";
+import { ThirdwebSDK, SDKOptions, IStorage } from "@thirdweb-dev/sdk";
 import {
   WagmiProvider,
   ProviderProps as WagmiproviderProps,
@@ -87,6 +87,11 @@ export interface ThirdwebProviderProps<
   desiredChainId: TSupportedChain extends Chain
     ? TSupportedChain["id"]
     : TSupportedChain | undefined;
+
+  /**
+   * The storage interface to use with the sdk.
+   */
+  storageInterface?: IStorage;
 }
 
 const defaultChainRpc: ThirdwebProviderProps["chainRpc"] = {
@@ -246,15 +251,18 @@ interface SDKContext {
 const ThirdwebSDKContext = createContext<SDKContext>({});
 
 const ThirdwebSDKProvider: React.FC<
-  Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions">
-> = ({ sdkOptions, desiredChainId, children }) => {
+  Pick<
+    ThirdwebProviderProps,
+    "desiredChainId" | "sdkOptions" | "storageInterface"
+  >
+> = ({ sdkOptions, desiredChainId, storageInterface, children }) => {
   const [sdk, setSDK] = useState<ThirdwebSDK | undefined>(undefined);
   const provider = useProvider();
   const signer = useSigner();
 
   useEffect(() => {
     if (desiredChainId) {
-      const _sdk = new ThirdwebSDK(provider, sdkOptions);
+      const _sdk = new ThirdwebSDK(provider, sdkOptions, storageInterface);
       (_sdk as any)._chainId = desiredChainId;
       setSDK(_sdk);
     }

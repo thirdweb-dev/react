@@ -14,6 +14,7 @@
 - [dAppMeta](../wiki/ThirdwebProviderProps#dappmeta)
 - [desiredChainId](../wiki/ThirdwebProviderProps#desiredchainid)
 - [sdkOptions](../wiki/ThirdwebProviderProps#sdkoptions)
+- [storageInterface](../wiki/ThirdwebProviderProps#storageinterface)
 - [supportedChains](../wiki/ThirdwebProviderProps#supportedchains)
 - [walletConnectors](../wiki/ThirdwebProviderProps#walletconnectors)
 
@@ -28,7 +29,7 @@ If not provided, will default to the rpcUrls of the chain objects for the suppor
 
 #### Defined in
 
-[src/Provider.tsx:76](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L76)
+[src/Provider.tsx:76](https://github.com/thirdweb-dev/react/blob/5c1c54a/src/Provider.tsx#L76)
 
 ___
 
@@ -41,7 +42,7 @@ Defaults to just the name being passed as `thirdweb powered dApp`.
 
 #### Defined in
 
-[src/Provider.tsx:81](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L81)
+[src/Provider.tsx:81](https://github.com/thirdweb-dev/react/blob/5c1c54a/src/Provider.tsx#L81)
 
 ___
 
@@ -55,7 +56,7 @@ When passing a chainId, it **must** be part of the `supportedChains` array.
 
 #### Defined in
 
-[src/Provider.tsx:87](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L87)
+[src/Provider.tsx:87](https://github.com/thirdweb-dev/react/blob/5c1c54a/src/Provider.tsx#L87)
 
 ___
 
@@ -80,7 +81,19 @@ comes with sensible defaults
 
 #### Defined in
 
-[src/Provider.tsx:61](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L61)
+[src/Provider.tsx:61](https://github.com/thirdweb-dev/react/blob/5c1c54a/src/Provider.tsx#L61)
+
+___
+
+### storageInterface
+
+• `Optional` **storageInterface**: `IStorage`
+
+The storage interface to use with the sdk.
+
+#### Defined in
+
+[src/Provider.tsx:94](https://github.com/thirdweb-dev/react/blob/5c1c54a/src/Provider.tsx#L94)
 
 ___
 
@@ -93,7 +106,7 @@ If not provided, all chains supported by the SDK will be supported by default
 
 #### Defined in
 
-[src/Provider.tsx:66](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L66)
+[src/Provider.tsx:66](https://github.com/thirdweb-dev/react/blob/5c1c54a/src/Provider.tsx#L66)
 
 ___
 
@@ -106,4 +119,4 @@ If not provided, will default to metamask (injected), wallet connect and walletl
 
 #### Defined in
 
-[src/Provider.tsx:71](https://github.com/thirdweb-dev/react/blob/7d533c7/src/Provider.tsx#L71)
+[src/Provider.tsx:71](https://github.com/thirdweb-dev/react/blob/5c1c54a/src/Provider.tsx#L71)
