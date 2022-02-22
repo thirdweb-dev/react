@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/Provider.tsx:41](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/Provider.tsx#L41)
+[src/Provider.tsx:41](https://github.com/thirdweb-dev/react/blob/dd6e498/src/Provider.tsx#L41)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:19](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/Provider.tsx#L19)
+[src/Provider.tsx:19](https://github.com/thirdweb-dev/react/blob/dd6e498/src/Provider.tsx#L19)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:24](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/Provider.tsx#L24)
+[src/Provider.tsx:24](https://github.com/thirdweb-dev/react/blob/dd6e498/src/Provider.tsx#L24)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:36](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/Provider.tsx#L36)
+[src/Provider.tsx:36](https://github.com/thirdweb-dev/react/blob/dd6e498/src/Provider.tsx#L36)
 
 ___
 
@@ -94,33 +94,33 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:28](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/Provider.tsx#L28)
+[src/Provider.tsx:28](https://github.com/thirdweb-dev/react/blob/dd6e498/src/Provider.tsx#L28)
 
 ## Variables
 
 ### defaultChains
 
-• **defaultChains**: `Chain`[]
+• `Const` **defaultChains**: `Chain`[]
 
 #### Defined in
 
-node_modules/wagmi-private/dist/declarations/src/constants/chains.d.ts:5
+node_modules/wagmi-core/dist/declarations/src/constants/chains.d.ts:5
 
 ___
 
 ### defaultL2Chains
 
-• **defaultL2Chains**: `Chain`[]
+• `Const` **defaultL2Chains**: `Chain`[]
 
 #### Defined in
 
-node_modules/wagmi-private/dist/declarations/src/constants/chains.d.ts:6
+node_modules/wagmi-core/dist/declarations/src/constants/chains.d.ts:6
 
 ## Functions
 
 ### ThirdwebProvider
 
-▸ `Const` **ThirdwebProvider**<`TSupportedChain`\>(`__namedParameters`): `Element`
+▸ **ThirdwebProvider**<`TSupportedChain`\>(`__namedParameters`): `Element`
 
 #### Type parameters
 
@@ -140,13 +140,13 @@ node_modules/wagmi-private/dist/declarations/src/constants/chains.d.ts:6
 
 #### Defined in
 
-[src/Provider.tsx:114](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/Provider.tsx#L114)
+[src/Provider.tsx:114](https://github.com/thirdweb-dev/react/blob/dd6e498/src/Provider.tsx#L114)
 
 ___
 
 ### useAccount
 
-▸ `Const` **useAccount**(`__namedParameters?`): readonly [{ `data`: `undefined` \| { `address`: `string` ; `connector`: `undefined` \| `Connector`<`any`, `any`\> ; `ens`: `undefined` \| { `avatar`: `undefined` \| ``null`` \| `string` ; `name`: `string`  }  } ; `error`: `undefined` \| `Error` ; `loading`: `boolean`  }, () => `void`]
+▸ **useAccount**(`__namedParameters?`): readonly [{ `data`: `undefined` \| { `address`: `string` ; `connector`: `undefined` \| `Connector`<`any`, `any`\> ; `ens`: `undefined` \| { `avatar`: `undefined` \| ``null`` \| `string` ; `name`: `string`  }  } ; `error`: `undefined` \| `Error` ; `loading`: `boolean`  }, () => `void`]
 
 #### Parameters
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useAddress.ts:3](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/useAddress.ts#L3)
+[src/hooks/useAddress.ts:3](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/useAddress.ts#L3)
 
 ___
 
@@ -190,7 +190,7 @@ readonly [{ `data`: { `connected`: `boolean` ; `connector`: `undefined` \| `Conn
 
 #### Defined in
 
-[src/hooks/useConnect.ts:6](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/useConnect.ts#L6)
+[src/hooks/useConnect.ts:6](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/useConnect.ts#L6)
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useDisconnect.ts:3](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/useDisconnect.ts#L3)
+[src/hooks/useDisconnect.ts:3](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/useDisconnect.ts#L3)
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useEdition.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/modules/useEdition.ts#L4)
+[src/hooks/modules/useEdition.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/modules/useEdition.ts#L4)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useEditionDrop.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/modules/useEditionDrop.ts#L4)
+[src/hooks/modules/useEditionDrop.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/modules/useEditionDrop.ts#L4)
 
 ___
 
@@ -270,7 +270,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useMarketplace.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/modules/useMarketplace.ts#L4)
+[src/hooks/modules/useMarketplace.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/modules/useMarketplace.ts#L4)
 
 ___
 
@@ -290,7 +290,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useNFTCollection.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/modules/useNFTCollection.ts#L4)
+[src/hooks/modules/useNFTCollection.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/modules/useNFTCollection.ts#L4)
 
 ___
 
@@ -310,13 +310,13 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useNFTDrop.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/modules/useNFTDrop.ts#L4)
+[src/hooks/modules/useNFTDrop.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/modules/useNFTDrop.ts#L4)
 
 ___
 
 ### useNetwork
 
-▸ `Const` **useNetwork**(): readonly [{ `data`: { `chain`: `undefined` \| { `blockExplorers?`: { `name`: `string` ; `url`: `string`  }[] ; `id`: `number` ; `name?`: `string` ; `nativeCurrency?`: { `decimals`: ``18`` ; `name`: `string` ; `symbol`: `string`  } ; `rpcUrls?`: `string`[] ; `testnet?`: `boolean` ; `unsupported`: `undefined` \| `boolean`  } ; `chains`: `Chain`[]  } ; `error`: `undefined` \| `Error` ; `loading`: `undefined` \| `boolean`  }, `undefined` \| (`chainId`: `number`) => `Promise`<{ `data`: `undefined` ; `error`: `SwitchChainError`  } \| { `data`: `undefined` \| `Chain` ; `error`: `undefined`  }\>]
+▸ **useNetwork**(): readonly [{ `data`: { `chain`: `undefined` \| { `blockExplorers?`: { `name`: `string` ; `url`: `string`  }[] ; `id`: `number` ; `name?`: `string` ; `nativeCurrency?`: { `decimals`: ``18`` ; `name`: `string` ; `symbol`: `string`  } ; `rpcUrls?`: `string`[] ; `testnet?`: `boolean` ; `unsupported`: `undefined` \| `boolean`  } ; `chains`: `Chain`[]  } ; `error`: `undefined` \| `Error` ; `loading`: `undefined` \| `boolean`  }, `undefined` \| (`chainId`: `number`) => `Promise`<{ `data`: `undefined` ; `error`: `SwitchChainError`  } \| { `data`: `undefined` \| `Chain` ; `error`: `undefined`  }\>]
 
 #### Returns
 
@@ -344,7 +344,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/usePack.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/modules/usePack.ts#L4)
+[src/hooks/modules/usePack.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/modules/usePack.ts#L4)
 
 ___
 
@@ -366,7 +366,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useReadonlySDK.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/useReadonlySDK.ts#L4)
+[src/hooks/useReadonlySDK.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/useReadonlySDK.ts#L4)
 
 ___
 
@@ -380,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/Provider.tsx:294](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/Provider.tsx#L294)
+[src/Provider.tsx:294](https://github.com/thirdweb-dev/react/blob/dd6e498/src/Provider.tsx#L294)
 
 ___
 
@@ -394,7 +394,7 @@ ___
 
 #### Defined in
 
-[src/hooks/useSigner.ts:5](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/useSigner.ts#L5)
+[src/hooks/useSigner.ts:5](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/useSigner.ts#L5)
 
 ___
 
@@ -414,7 +414,7 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/modules/useTokenModule.ts#L4)
+[src/hooks/modules/useTokenModule.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/modules/useTokenModule.ts#L4)
 
 ___
 
@@ -434,4 +434,4 @@ ___
 
 #### Defined in
 
-[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/ebcd6e6/src/hooks/modules/useVoteModule.ts#L4)
+[src/hooks/modules/useVoteModule.ts:4](https://github.com/thirdweb-dev/react/blob/dd6e498/src/hooks/modules/useVoteModule.ts#L4)
