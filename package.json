@@ -44,7 +44,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@thirdweb-dev/sdk": "^2.0.0-nightly.18",
+    "@thirdweb-dev/sdk": "^2.0.0-nightly.19",
     "tiny-invariant": "^1.2.0",
     "wagmi": "^0.2.12"
   },
