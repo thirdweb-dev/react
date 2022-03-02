@@ -1,1 +1,0 @@
-# @thirdweb-dev/react

@@ -51,11 +51,14 @@ export interface DAppMetaData {
   isDarkMode?: boolean;
 }
 
+/**
+ * The props for the ThirdwebProvider.
+ */
 export interface ThirdwebProviderProps<
   TSupportedChain extends SupportedChain = SupportedChain,
 > {
   /**
-   * The {@link SDKOptions} to pass to the thirdweb SDK
+   * The {@link SDKOptions | Thirdweb SDK Options} to pass to the thirdweb SDK
    * comes with sensible defaults
    */
   sdkOptions?: SDKOptions;
@@ -111,6 +114,12 @@ const defaultWalletConnectors: Required<
   ThirdwebProviderProps["walletConnectors"]
 > = ["metamask", "walletConnect", "walletLink"];
 
+/**
+ *
+ * The main `ThirdwebProvider` component.
+ * @param param0 - Provider Props
+ *
+ */
 export const ThirdwebProvider = <
   TSupportedChain extends SupportedChain = SupportedChain,
 >({
@@ -167,67 +176,74 @@ export const ThirdwebProvider = <
       autoConnect: true,
       connectorStorageKey: "tw:provider:connectors",
       connectors: ({ chainId }: { chainId?: number }) => {
-        return walletConnectors.map((connector) => {
-          // injected connector
-          if (
-            (typeof connector === "string" &&
-              (connector === "injected" || connector === "metamask")) ||
-            (typeof connector === "object" &&
-              (connector.name === "injected" || connector.name === "metamask"))
-          ) {
-            return new InjectedConnector({
-              options:
-                typeof connector === "string"
-                  ? { shimDisconnect: true }
-                  : connector.options,
-              chains: _supporrtedChains,
-            });
-          } else if (
-            (typeof connector === "string" && connector === "walletConnect") ||
-            (typeof connector === "object" &&
-              connector.name === "walletConnect")
-          ) {
-            return new WalletConnectConnector({
-              options:
-                typeof connector === "string"
-                  ? {
-                      chainId,
-                      rpc: _rpcUrlMap,
-                      clientMeta: walletConnectClientMeta,
-                      qrcode: true,
-                    }
-                  : {
-                      chainId,
-                      rpc: _rpcUrlMap,
-                      clientMeta: walletConnectClientMeta,
-                      qrcode: true,
-                      ...connector.options,
-                    },
-              chains: _supporrtedChains,
-            });
-          } else if (
-            (typeof connector === "string" &&
-              (connector === "coinbase" || connector === "walletLink")) ||
-            (typeof connector === "object" &&
-              (connector.name === "coinbase" ||
-                connector.name === "walletLink"))
-          ) {
-            return new WalletLinkConnector({
-              chains: _supporrtedChains,
-              options:
-                typeof connector === "string"
-                  ? {
-                      ...walletLinkClientMeta,
-                      jsonRpcUrl: _rpcUrlMap[chainId || -1] || undefined,
-                    }
-                  : {
-                      ...walletLinkClientMeta,
-                      jsonRpcUrl: _rpcUrlMap[chainId || -1] || undefined,
-                      ...connector.options,
-                    },
-            });
-          }
-        });
+        return walletConnectors
+          .map((connector) => {
+            // injected connector
+            if (
+              (typeof connector === "string" &&
+                (connector === "injected" || connector === "metamask")) ||
+              (typeof connector === "object" &&
+                (connector.name === "injected" ||
+                  connector.name === "metamask"))
+            ) {
+              return new InjectedConnector({
+                options:
+                  typeof connector === "string"
+                    ? { shimDisconnect: true }
+                    : connector.options,
+                chains: _supporrtedChains,
+              });
+            }
+            if (
+              (typeof connector === "string" &&
+                connector === "walletConnect") ||
+              (typeof connector === "object" &&
+                connector.name === "walletConnect")
+            ) {
+              return new WalletConnectConnector({
+                options:
+                  typeof connector === "string"
+                    ? {
+                        chainId,
+                        rpc: _rpcUrlMap,
+                        clientMeta: walletConnectClientMeta,
+                        qrcode: true,
+                      }
+                    : {
+                        chainId,
+                        rpc: _rpcUrlMap,
+                        clientMeta: walletConnectClientMeta,
+                        qrcode: true,
+                        ...connector.options,
+                      },
+                chains: _supporrtedChains,
+              });
+            }
+            if (
+              (typeof connector === "string" &&
+                (connector === "coinbase" || connector === "walletLink")) ||
+              (typeof connector === "object" &&
+                (connector.name === "coinbase" ||
+                  connector.name === "walletLink"))
+            ) {
+              return new WalletLinkConnector({
+                chains: _supporrtedChains,
+                options:
+                  typeof connector === "string"
+                    ? {
+                        ...walletLinkClientMeta,
+                        jsonRpcUrl: _rpcUrlMap[chainId || -1] || undefined,
+                      }
+                    : {
+                        ...walletLinkClientMeta,
+                        jsonRpcUrl: _rpcUrlMap[chainId || -1] || undefined,
+                        ...connector.options,
+                      },
+              });
+            }
+            return null;
+          })
+          .filter((c) => c !== null);
       },
     } as WagmiproviderProps;
   }, [walletConnectors, _supporrtedChains, dAppMeta]);
@@ -264,9 +280,10 @@ export const ThirdwebProvider = <
 interface SDKContext {
   sdk?: ThirdwebSDK;
   _inProvider?: true;
+  desiredChainId: number;
 }
 
-const ThirdwebSDKContext = createContext<SDKContext>({});
+const ThirdwebSDKContext = createContext<SDKContext>({ desiredChainId: -1 });
 
 const ThirdwebSDKProvider: React.FC<
   Pick<
@@ -295,6 +312,7 @@ const ThirdwebSDKProvider: React.FC<
   const ctxValue = useMemo(
     () => ({
       sdk,
+      desiredChainId: desiredChainId || -1,
       _inProvider: true as const,
     }),
     [sdk],
@@ -314,4 +332,13 @@ export function useSDK(): ThirdwebSDK | undefined {
     "useSDK must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
   );
   return ctx.sdk;
+}
+
+export function useDesiredChainId(): number {
+  const ctx = React.useContext(ThirdwebSDKContext);
+  invariant(
+    ctx._inProvider,
+    "useDesiredChainId must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
+  );
+  return ctx.desiredChainId;
 }

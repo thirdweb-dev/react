@@ -17,14 +17,20 @@
   ],
   "private": false,
   "scripts": {
-    "build:lib": "tsup --env.NODE_ENV production --minify --dts --format esm,cjs",
+    "build:lib": "tsup --env.NODE_ENV production --minify --format esm,cjs",
     "lint": "eslint src/",
     "fix": "eslint src/ --fix",
-    "typedoc": "typedoc --theme github-wiki",
-    "build": "yarn build:lib && yarn typedoc"
+    "genrate-types": "tsc",
+    "extract-api": "api-extractor run --local",
+    "generate:md-docs": "yarn api-documenter markdown -i ./temp -o ./docs",
+    "build": "yarn build:lib && yarn genrate-types && yarn extract-api && yarn generate:md-docs"
   },
   "sideEffects:": false,
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.15.3",
+    "@microsoft/api-extractor": "^7.19.4",
+    "@microsoft/tsdoc": "^0.13.2",
+    "@swc/core": "^1.2.147",
     "@thirdweb-dev/sdk": "^2.0.0-nightly.22",
     "@types/react": "^17.0.39",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
@@ -39,9 +45,6 @@
     "prettier": "^2.5.1",
     "react": "^17.0.0",
     "tsup": "^5.11.13",
-    "typedoc": "^0.22.11",
-    "typedoc-github-wiki-theme": "^1.0.0",
-    "typedoc-plugin-markdown": "^3.11.14",
     "typescript": "^4.5.5"
   },
   "dependencies": {
@@ -53,6 +56,10 @@
     "ethers": "^5.5.1",
     "react": "^17"
   },
+  "resolutions": {
+    "ansi-regex": "^6.0.1",
+    "typescript": "^4.6.2"
+  },
   "tsup": {
     "entry": [
       "src/index.ts"
@@ -60,8 +67,5 @@
     "splitting": false,
     "sourcemap": true,
     "clean": true
-  },
-  "resolutions": {
-    "ansi-regex": "^6.0.1"
   }
 }
