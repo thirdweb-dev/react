@@ -232,11 +232,27 @@ export const ThirdwebProvider = <
     } as WagmiproviderProps;
   }, [walletConnectors, _supporrtedChains, dAppMeta]);
 
+  const defaultSdkReadUrl =
+    _rpcUrlMap[(desiredChainId || -1) as keyof typeof _rpcUrlMap];
+
+  const sdkOptionsWithDefaults = useMemo(() => {
+    const opts: SDKOptions = sdkOptions;
+    return {
+      ...opts,
+      readonlySettings: {
+        ...(opts?.readonlySettings || {}),
+        rpcUrl: opts?.readonlySettings?.rpcUrl
+          ? opts.readonlySettings.rpcUrl
+          : defaultSdkReadUrl,
+      },
+    };
+  }, [sdkOptions, defaultSdkReadUrl]);
+
   return (
     <WagmiProvider {...wagmiProps}>
       <ThirdwebSDKProvider
         desiredChainId={desiredChainId}
-        sdkOptions={sdkOptions}
+        sdkOptions={sdkOptionsWithDefaults}
         storageInterface={storageInterface}
       >
         {children}

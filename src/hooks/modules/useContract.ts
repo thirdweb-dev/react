@@ -10,7 +10,7 @@ import { useSDK } from "../../Provider";
 export function useContract<TContractType extends ContractType>(
   contractType: TContractType,
   contractAddress?: string,
-): ContractForContractType<TContractType> {
+): ContractForContractType<TContractType> | undefined {
   const sdk = useSDK();
   if (!sdk || !contractAddress) {
     return undefined;
