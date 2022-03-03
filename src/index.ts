@@ -1,5 +1,5 @@
 export * from "./Provider";
-export * from "./hooks/modules";
+export * from "./hooks/contracts";
 export * from "./hooks/useDisconnect";
 export * from "./hooks/useConnect";
 export * from "./hooks/useSigner";
