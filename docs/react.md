@@ -21,7 +21,7 @@
 |  [useNetworkMismatch()](./react.usenetworkmismatch.md) |  |
 |  [useNFTCollection(moduleAddress)](./react.usenftcollection.md) |  |
 |  [useNFTDrop(moduleAddress)](./react.usenftdrop.md) |  |
-|  [usePackModule(moduleAddress)](./react.usepackmodule.md) |  |
+|  [usePack(moduleAddress)](./react.usepack.md) |  |
 |  [useReadonlySDK(readonlyRpcUrl, sdkOptions, storageInterface)](./react.usereadonlysdk.md) |  |
 |  [useSDK()](./react.usesdk.md) |  |
 |  [useSigner()](./react.usesigner.md) |  |

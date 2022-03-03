@@ -242,7 +242,7 @@ export function useNFTDrop(moduleAddress?: string): NFTDrop | undefined;
 // Warning: (ae-forgotten-export) The symbol "Pack" needs to be exported by the entry point index.d.ts
 //
 // @public (undocumented)
-export function usePackModule(moduleAddress?: string): Pack | undefined;
+export function usePack(moduleAddress?: string): Pack | undefined;
 
 // Warning: (ae-forgotten-export) The symbol "ThirdwebSDK" needs to be exported by the entry point index.d.ts
 //
