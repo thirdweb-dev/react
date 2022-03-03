@@ -1,6 +1,11 @@
 import invariant from "tiny-invariant";
 import { useConnect } from "../useConnect";
 
+/**
+ * Convienience hook for connecting to a wallet via WalletLink (coinbase wallet)
+ * @returns a function that will prompt the user to connect their wallet via WalletLink (coinbase wallet)
+ * @internal
+ */
 export function useWalletLink() {
   const [connectors, connect] = useConnect();
   if (connectors.loading) {
@@ -21,7 +26,9 @@ export function useWalletLink() {
 }
 
 /**
- * an alias for the useWalletLink hook
+ * Convienience hook for connecting to a wallet via Coinbase Wallet
+ * @returns a function that will prompt the user to connect their wallet via Coinbase Wallet
+ * @public
  */
 export function useCoinbaseWallet() {
   return useWalletLink();
