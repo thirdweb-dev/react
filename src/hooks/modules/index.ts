@@ -7,3 +7,4 @@ export * from "./useNFTCollection";
 export * from "./usePack";
 export * from "./useTokenModule";
 export * from "./useVoteModule";
+export * from "./useSplit";

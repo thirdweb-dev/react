@@ -255,6 +255,11 @@ export function useSDK(): ThirdwebSDK | undefined;
 // @public (undocumented)
 export function useSigner(): Signer_2 | undefined;
 
+// Warning: (ae-forgotten-export) The symbol "Split" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+export function useSplit(moduleAddress?: string): Split | undefined;
+
 // Warning: (ae-forgotten-export) The symbol "Token" needs to be exported by the entry point index.d.ts
 //
 // @public (undocumented)

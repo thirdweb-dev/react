@@ -25,6 +25,7 @@
 |  [useReadonlySDK(readonlyRpcUrl, sdkOptions, storageInterface)](./react.usereadonlysdk.md) |  |
 |  [useSDK()](./react.usesdk.md) |  |
 |  [useSigner()](./react.usesigner.md) |  |
+|  [useSplit(moduleAddress)](./react.usesplit.md) |  |
 |  [useToken(moduleAddress)](./react.usetoken.md) |  |
 |  [useVote(moduleAddress)](./react.usevote.md) |  |
 |  [useWalletConnect()](./react.usewalletconnect.md) |  |
