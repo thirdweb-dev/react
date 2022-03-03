@@ -4,7 +4,7 @@
 
 ## useCoinbaseWallet() function
 
-an alias for the useWalletLink hook
+Convienience hook for connecting to a wallet via Coinbase Wallet
 
 <b>Signature:</b>
 
@@ -17,4 +17,6 @@ export declare function useCoinbaseWallet(): () => Promise<{
 <b>Returns:</b>
 
 () =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+
+a function that will prompt the user to connect their wallet via Coinbase Wallet
 

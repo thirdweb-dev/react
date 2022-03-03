@@ -131,7 +131,7 @@ export function useEditionDrop(contractAddress?: string): EditionDrop | undefine
 // @public
 export function useMarketplace(contractAddress?: string): Marketplace | undefined;
 
-// @public (undocumented)
+// @public
 export function useMetamask(): () => Promise<{
     data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
@@ -175,13 +175,15 @@ export function useToken(contractAddress?: string): Token | undefined;
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
 
-// @public (undocumented)
+// @public
 export function useWalletConnect(): () => Promise<{
     data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
 }>;
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "useWalletLink" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal
 export function useWalletLink(): () => Promise<{
     data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;

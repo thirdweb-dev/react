@@ -4,6 +4,7 @@ import { useConnect } from "../useConnect";
 /**
  * Convienience hook for connecting to a metamask (or any injected) wallet
  * @returns a function that will prompt the user to connect their metamask wallet
+ * @public
  */
 export function useMetamask() {
   const [connectors, connect] = useConnect();

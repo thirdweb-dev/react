@@ -4,6 +4,7 @@ import { useConnect } from "../useConnect";
 /**
  * Convienience hook for connecting to a wallet via WalletConnect
  * @returns a function that will prompt the user to connect their wallet via WalletConnect
+ * @public
  */
 export function useWalletConnect() {
   const [connectors, connect] = useConnect();
