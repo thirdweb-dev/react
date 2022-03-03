@@ -16,6 +16,7 @@ import { defaultL2Chains } from 'wagmi';
 import { Edition } from '@thirdweb-dev/sdk';
 import { EditionDrop } from '@thirdweb-dev/sdk';
 import { InjectedConnector } from 'wagmi/connectors/injected';
+import { IpfsStorage } from '@thirdweb-dev/sdk';
 import { IStorage } from '@thirdweb-dev/sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
@@ -62,6 +63,8 @@ export type InjectedConnectorType = "injected" | "metamask" | {
     name: "injected" | "metamask";
     options?: InjectedConnector["options"];
 };
+
+export { IpfsStorage }
 
 // @public
 export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
