@@ -1,8 +1,13 @@
 import { Marketplace } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
 
+/**
+ * Returns a Marketplace contract instance
+ * @param contractAddress - the address of the Marketplace contract, found in your thirdweb dashboard
+ * @public
+ */
 export function useMarketplace(
-  moduleAddress?: string,
+  contractAddress?: string,
 ): Marketplace | undefined {
-  return useContract("marketplace", moduleAddress);
+  return useContract("marketplace", contractAddress);
 }

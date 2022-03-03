@@ -4,17 +4,19 @@
 
 ## useEditionDrop() function
 
+Returns a Edition Drop contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function useEditionDrop(moduleAddress?: string): EditionDrop | undefined;
+export declare function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the Edition Drop contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

@@ -4,17 +4,19 @@
 
 ## useMarketplace() function
 
+Returns a Marketplace contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function useMarketplace(moduleAddress?: string): Marketplace | undefined;
+export declare function useMarketplace(contractAddress?: string): Marketplace | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the Marketplace contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

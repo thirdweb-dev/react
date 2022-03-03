@@ -4,80 +4,39 @@
 
 ```ts
 
-/// <reference types="node" />
-
-import { AccessControlEnumerable } from '@thirdweb-dev/contracts';
-import { BaseContract } from 'ethers';
-import { BigNumber } from 'ethers';
-import { BigNumberish } from 'ethers';
-import { BytesLike } from 'ethers';
-import { CallOverrides } from 'ethers';
-import { Chain } from 'wagmi-core';
-import { Connector } from 'wagmi-core';
-import { ConnectorData } from 'wagmi-core';
-import { ContractInterface } from 'ethers';
-import { defaultChains } from 'wagmi-core';
-import { defaultL2Chains } from 'wagmi-core';
-import { DropERC1155 } from '@thirdweb-dev/contracts';
-import { DropERC1155__factory } from '@thirdweb-dev/contracts';
-import { DropERC721 } from '@thirdweb-dev/contracts';
-import { DropERC721__factory } from '@thirdweb-dev/contracts';
-import { ethers } from 'ethers';
-import { EventEmitter2 } from 'eventemitter2';
-import { extendShape } from 'zod';
-import { IMarketplace } from '@thirdweb-dev/contracts';
-import { InjectedConnector } from 'wagmi-core';
-import { IThirdwebContract } from '@thirdweb-dev/contracts';
-import { IThirdwebPrimarySale } from '@thirdweb-dev/contracts';
-import { IThirdwebRoyalty } from '@thirdweb-dev/contracts';
-import { Log } from '@ethersproject/providers';
-import { Marketplace as Marketplace_2 } from '@thirdweb-dev/contracts';
-import { Marketplace__factory } from '@thirdweb-dev/contracts';
-import { Networkish } from '@ethersproject/providers';
-import { Pack as Pack_2 } from '@thirdweb-dev/contracts';
-import { Pack__factory } from '@thirdweb-dev/contracts';
-import { Provider } from '@ethersproject/providers';
+import type { Chain as Chain_2 } from 'wagmi';
+import { Connector } from 'wagmi';
+import { ConnectorData } from 'wagmi';
+import { ConnectorData as ConnectorData_2 } from 'wagmi-core';
+import { ContractForContractType } from '@thirdweb-dev/sdk';
+import { ContractType } from '@thirdweb-dev/sdk';
+import { defaultChains } from 'wagmi';
+import { defaultL2Chains } from 'wagmi';
+import { Edition } from '@thirdweb-dev/sdk';
+import { EditionDrop } from '@thirdweb-dev/sdk';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { IStorage } from '@thirdweb-dev/sdk';
+import { Marketplace } from '@thirdweb-dev/sdk';
+import { NFTCollection } from '@thirdweb-dev/sdk';
+import { NFTDrop } from '@thirdweb-dev/sdk';
+import { Pack } from '@thirdweb-dev/sdk';
 import { default as React_2 } from 'react';
-import { Result } from '@ethersproject/abi';
-import { Signer } from '@ethersproject/abstract-signer';
-import { Signer as Signer_2 } from 'ethers';
-import { Split as Split_2 } from '@thirdweb-dev/contracts';
-import { Split__factory } from '@thirdweb-dev/contracts';
-import { SwitchChainError } from 'wagmi-core';
-import { TokenERC1155 } from '@thirdweb-dev/contracts';
-import { TokenERC1155__factory } from '@thirdweb-dev/contracts';
-import { TokenERC20 } from '@thirdweb-dev/contracts';
-import { TokenERC20__factory } from '@thirdweb-dev/contracts';
-import { TokenERC721 } from '@thirdweb-dev/contracts';
-import { TokenERC721__factory } from '@thirdweb-dev/contracts';
-import { TransactionReceipt } from '@ethersproject/providers';
-import { TransactionReceipt as TransactionReceipt_2 } from '@ethersproject/abstract-provider';
-import { TWRegistry } from '@thirdweb-dev/contracts';
-import { VoteERC20 } from '@thirdweb-dev/contracts';
-import { VoteERC20__factory } from '@thirdweb-dev/contracts';
-import { WalletConnectConnector } from 'wagmi-core/connectors/walletConnect';
-import { WalletLinkConnector } from 'wagmi-core/connectors/walletLink';
-import { z } from 'zod';
-import { ZodArray } from 'zod';
-import { ZodBigInt } from 'zod';
-import { ZodDefault } from 'zod';
-import { ZodEffects } from 'zod';
-import { ZodLazy } from 'zod';
-import { ZodNumber } from 'zod';
-import { ZodObject } from 'zod';
-import { ZodOptional } from 'zod';
-import { ZodRecord } from 'zod';
-import { ZodString } from 'zod';
-import { ZodType } from 'zod';
-import { ZodTypeAny } from 'zod';
-import { ZodTypeDef } from 'zod';
-import { ZodUnion } from 'zod';
+import { SDKOptions } from '@thirdweb-dev/sdk';
+import { Signer } from 'ethers';
+import { Split } from '@thirdweb-dev/sdk';
+import { ThirdwebSDK } from '@thirdweb-dev/sdk';
+import { Token } from '@thirdweb-dev/sdk';
+import { useAccount } from 'wagmi';
+import { useNetwork } from 'wagmi';
+import { Vote } from '@thirdweb-dev/sdk';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletLinkConnector } from 'wagmi/connectors/walletLink';
 
 // Warning: (ae-forgotten-export) The symbol "SupportedChain" needs to be exported by the entry point index.d.ts
 // Warning: (ae-forgotten-export) The symbol "Chain" needs to be exported by the entry point index.d.ts
 //
 // @public (undocumented)
-export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain_2 ? TSupportedChain["id"] : TSupportedChain, string>;
+export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain, string>;
 
 // @public (undocumented)
 export interface DAppMetaData {
@@ -110,30 +69,14 @@ export const ThirdwebProvider: <TSupportedChain extends SupportedChain = Support
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
     dAppMeta?: DAppMetaData;
-    desiredChainId: TSupportedChain extends Chain_2 ? TSupportedChain["id"] : TSupportedChain | undefined;
-    // Warning: (ae-forgotten-export) The symbol "SDKOptions" needs to be exported by the entry point index.d.ts
+    desiredChainId: TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain | undefined;
     sdkOptions?: SDKOptions;
-    // Warning: (ae-forgotten-export) The symbol "IStorage" needs to be exported by the entry point index.d.ts
     storageInterface?: IStorage;
     supportedChains?: TSupportedChain[];
     walletConnectors?: WalletConnector[];
 }
 
-// Warning: (ae-forgotten-export) The symbol "Config" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const useAccount: ({ fetchEns }?: Config) => readonly [{
-    readonly data: {
-        address: string;
-        connector: Connector<any, any> | undefined;
-        ens: {
-            avatar: string | null | undefined;
-            name: string;
-        } | undefined;
-    } | undefined;
-    readonly error: Error | undefined;
-    readonly loading: boolean;
-}, () => void];
+export { useAccount }
 
 // @public (undocumented)
 export function useAddress(): string | undefined;
@@ -143,7 +86,7 @@ export function useChainId(): number | undefined;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{
-    data?: ConnectorData<any> | undefined;
+    data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -161,8 +104,6 @@ export function useConnect(): readonly [{
     error?: Error | undefined;
 }>];
 
-// Warning: (ae-forgotten-export) The symbol "ContractType" needs to be exported by the entry point index.d.ts
-// Warning: (ae-forgotten-export) The symbol "ContractForContractType" needs to be exported by the entry point index.d.ts
 // Warning: (ae-internal-missing-underscore) The name "useContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -174,78 +115,35 @@ export function useDesiredChainId(): number;
 // @public (undocumented)
 export function useDisconnect(): () => void;
 
-// Warning: (ae-forgotten-export) The symbol "Edition" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function useEdition(moduleAddress?: string): Edition | undefined;
+// @public
+export function useEdition(contractAddress?: string): Edition | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "EditionDrop" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function useEditionDrop(moduleAddress?: string): EditionDrop | undefined;
+// @public
+export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "Marketplace" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function useMarketplace(moduleAddress?: string): Marketplace | undefined;
+// @public
+export function useMarketplace(contractAddress?: string): Marketplace | undefined;
 
 // @public (undocumented)
 export function useMetamask(): () => Promise<{
-    data?: ConnectorData<any> | undefined;
+    data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
 }>;
 
-// @public (undocumented)
-export const useNetwork: () => readonly [{
-    readonly data: {
-        readonly chain: {
-            id: number;
-            unsupported: boolean | undefined;
-            name?: string | undefined;
-            nativeCurrency?: {
-                name: string;
-                symbol: string;
-                decimals: 18;
-            } | undefined;
-            rpcUrls?: string[] | undefined;
-            blockExplorers?: {
-                name: string;
-                url: string;
-            }[] | undefined;
-            testnet?: boolean | undefined;
-        } | undefined;
-        readonly chains: Chain[];
-    };
-    readonly error: Error | undefined;
-    readonly loading: boolean | undefined;
-}, ((chainId: number) => Promise<{
-    data: undefined;
-    error: SwitchChainError;
-} | {
-    data: Chain | undefined;
-    error: undefined;
-}>) | undefined];
+export { useNetwork }
 
 // @public (undocumented)
 export function useNetworkMismatch(): boolean;
 
-// Warning: (ae-forgotten-export) The symbol "NFTCollection" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function useNFTCollection(moduleAddress?: string): NFTCollection | undefined;
+// @public
+export function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "NFTDrop" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function useNFTDrop(moduleAddress?: string): NFTDrop | undefined;
+// @public
+export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "Pack" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function usePack(moduleAddress?: string): Pack | undefined;
+// @public
+export function usePack(contractAddress?: string): Pack | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "ThirdwebSDK" needs to be exported by the entry point index.d.ts
-//
 // @public (undocumented)
 export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage): ThirdwebSDK;
 
@@ -253,32 +151,26 @@ export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, s
 export function useSDK(): ThirdwebSDK | undefined;
 
 // @public (undocumented)
-export function useSigner(): Signer_2 | undefined;
+export function useSigner(): Signer | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "Split" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function useSplit(moduleAddress?: string): Split | undefined;
+// @public
+export function useSplit(contractAddress?: string): Split | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "Token" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function useToken(moduleAddress?: string): Token | undefined;
+// @public
+export function useToken(contractAddress?: string): Token | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "Vote" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function useVote(moduleAddress?: string): Vote | undefined;
+// @public
+export function useVote(contractAddress?: string): Vote | undefined;
 
 // @public (undocumented)
 export function useWalletConnect(): () => Promise<{
-    data?: ConnectorData<any> | undefined;
+    data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
 }>;
 
 // @public (undocumented)
 export function useWalletLink(): () => Promise<{
-    data?: ConnectorData<any> | undefined;
+    data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
 }>;
 

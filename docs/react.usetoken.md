@@ -4,17 +4,19 @@
 
 ## useToken() function
 
+Returns a Token contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function useToken(moduleAddress?: string): Token | undefined;
+export declare function useToken(contractAddress?: string): Token | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the Token contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

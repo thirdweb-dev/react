@@ -4,17 +4,19 @@
 
 ## usePack() function
 
+Returns a Pack contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function usePack(moduleAddress?: string): Pack | undefined;
+export declare function usePack(contractAddress?: string): Pack | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the Pack contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

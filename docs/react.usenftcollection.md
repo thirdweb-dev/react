@@ -4,17 +4,19 @@
 
 ## useNFTCollection() function
 
+Returns a NFT Collection contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTCollection(moduleAddress?: string): NFTCollection | undefined;
+export declare function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the NFT Collection contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

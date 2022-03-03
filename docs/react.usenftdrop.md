@@ -4,17 +4,19 @@
 
 ## useNFTDrop() function
 
+Returns a NFT Drop contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTDrop(moduleAddress?: string): NFTDrop | undefined;
+export declare function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the NFT Drop contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

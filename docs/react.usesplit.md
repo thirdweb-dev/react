@@ -4,17 +4,19 @@
 
 ## useSplit() function
 
+Returns a Split contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function useSplit(moduleAddress?: string): Split | undefined;
+export declare function useSplit(contractAddress?: string): Split | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the Split contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

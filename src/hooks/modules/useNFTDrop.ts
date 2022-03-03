@@ -1,6 +1,11 @@
 import { NFTDrop } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
 
-export function useNFTDrop(moduleAddress?: string): NFTDrop | undefined {
-  return useContract("nft-drop", moduleAddress);
+/**
+ * Returns a NFT Drop contract instance
+ * @param contractAddress - the address of the NFT Drop contract, found in your thirdweb dashboard
+ * @public
+ */
+export function useNFTDrop(contractAddress?: string): NFTDrop | undefined {
+  return useContract("nft-drop", contractAddress);
 }

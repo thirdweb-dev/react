@@ -4,17 +4,19 @@
 
 ## useEdition() function
 
+Returns a Edition contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function useEdition(moduleAddress?: string): Edition | undefined;
+export declare function useEdition(contractAddress?: string): Edition | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the Edition contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

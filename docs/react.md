@@ -14,20 +14,20 @@
 |  [useConnect()](./react.useconnect.md) | for now just re-exported |
 |  [useDesiredChainId()](./react.usedesiredchainid.md) |  |
 |  [useDisconnect()](./react.usedisconnect.md) |  |
-|  [useEdition(moduleAddress)](./react.useedition.md) |  |
-|  [useEditionDrop(moduleAddress)](./react.useeditiondrop.md) |  |
-|  [useMarketplace(moduleAddress)](./react.usemarketplace.md) |  |
+|  [useEdition(contractAddress)](./react.useedition.md) | Returns a Edition contract instance |
+|  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Returns a Edition Drop contract instance |
+|  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Returns a Marketplace contract instance |
 |  [useMetamask()](./react.usemetamask.md) |  |
 |  [useNetworkMismatch()](./react.usenetworkmismatch.md) |  |
-|  [useNFTCollection(moduleAddress)](./react.usenftcollection.md) |  |
-|  [useNFTDrop(moduleAddress)](./react.usenftdrop.md) |  |
-|  [usePack(moduleAddress)](./react.usepack.md) |  |
+|  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Returns a NFT Collection contract instance |
+|  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Returns a NFT Drop contract instance |
+|  [usePack(contractAddress)](./react.usepack.md) | Returns a Pack contract instance |
 |  [useReadonlySDK(readonlyRpcUrl, sdkOptions, storageInterface)](./react.usereadonlysdk.md) |  |
 |  [useSDK()](./react.usesdk.md) |  |
 |  [useSigner()](./react.usesigner.md) |  |
-|  [useSplit(moduleAddress)](./react.usesplit.md) |  |
-|  [useToken(moduleAddress)](./react.usetoken.md) |  |
-|  [useVote(moduleAddress)](./react.usevote.md) |  |
+|  [useSplit(contractAddress)](./react.usesplit.md) | Returns a Split contract instance |
+|  [useToken(contractAddress)](./react.usetoken.md) | Returns a Token contract instance |
+|  [useVote(contractAddress)](./react.usevote.md) | Returns a Vote contract instance |
 |  [useWalletConnect()](./react.usewalletconnect.md) |  |
 |  [useWalletLink()](./react.usewalletlink.md) |  |
 
@@ -43,8 +43,6 @@
 |  Variable | Description |
 |  --- | --- |
 |  [ThirdwebProvider](./react.thirdwebprovider.md) | The main <code>ThirdwebProvider</code> component. |
-|  [useAccount](./react.useaccount.md) |  |
-|  [useNetwork](./react.usenetwork.md) |  |
 
 ## Type Aliases
 

@@ -4,17 +4,19 @@
 
 ## useVote() function
 
+Returns a Vote contract instance
+
 <b>Signature:</b>
 
 ```typescript
-export declare function useVote(moduleAddress?: string): Vote | undefined;
+export declare function useVote(contractAddress?: string): Vote | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  moduleAddress | string |  |
+|  contractAddress | string | the address of the Vote contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 
