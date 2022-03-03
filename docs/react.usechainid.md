@@ -13,3 +13,5 @@ export declare function useChainId(): number | undefined;
 
 number \| undefined
 
+the chainId of the connected network
+

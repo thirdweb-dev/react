@@ -4,6 +4,8 @@
 
 ## DAppMetaData.isDarkMode property
 
+optional - whether to show the connect dialog in darkmode or not
+
 <b>Signature:</b>
 
 ```typescript

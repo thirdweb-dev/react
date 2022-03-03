@@ -4,10 +4,27 @@
 
 ## ThirdwebProvider variable
 
-The main `ThirdwebProvider` component.
+The `<ThirdwebProvider />` component, you need to wrap your application with this provider to use the thirdweb react sdk.
 
 <b>Signature:</b>
 
 ```typescript
 ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, children, }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element
 ```
+
+## Example
+
+Wrap your application with the Provider
+
+```jsx title="App.jsx"
+import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
+
+const App = () => {
+  return (
+    <ThirdwebProvider desiredChainId={ChainId.Mainnet}>
+      <YourApp />
+    </ThirdwebProvider>
+  );
+};
+```
+

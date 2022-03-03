@@ -4,6 +4,8 @@
 
 ## DAppMetaData.logoUrl property
 
+optional - a url that points to a logo (or favicon) of your app
+
 <b>Signature:</b>
 
 ```typescript

@@ -11,8 +11,6 @@
 |  [useAddress()](./react.useaddress.md) |  |
 |  [useChainId()](./react.usechainid.md) |  |
 |  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | an alias for the useWalletLink hook |
-|  [useConnect()](./react.useconnect.md) | for now just re-exported |
-|  [useDesiredChainId()](./react.usedesiredchainid.md) |  |
 |  [useDisconnect()](./react.usedisconnect.md) |  |
 |  [useEdition(contractAddress)](./react.useedition.md) | Returns a Edition contract instance |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Returns a Edition Drop contract instance |
@@ -22,9 +20,6 @@
 |  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Returns a NFT Collection contract instance |
 |  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Returns a NFT Drop contract instance |
 |  [usePack(contractAddress)](./react.usepack.md) | Returns a Pack contract instance |
-|  [useReadonlySDK(readonlyRpcUrl, sdkOptions, storageInterface)](./react.usereadonlysdk.md) |  |
-|  [useSDK()](./react.usesdk.md) |  |
-|  [useSigner()](./react.usesigner.md) |  |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Returns a Split contract instance |
 |  [useToken(contractAddress)](./react.usetoken.md) | Returns a Token contract instance |
 |  [useVote(contractAddress)](./react.usevote.md) | Returns a Vote contract instance |
@@ -35,22 +30,12 @@
 
 |  Interface | Description |
 |  --- | --- |
-|  [DAppMetaData](./react.dappmetadata.md) |  |
-|  [ThirdwebProviderProps](./react.thirdwebproviderprops.md) | The props for the ThirdwebProvider. |
+|  [DAppMetaData](./react.dappmetadata.md) | the metadata to pass to wallet connection dialog (may show up during the wallet-connection process) |
+|  [ThirdwebProviderProps](./react.thirdwebproviderprops.md) | The possible props for the ThirdwebProvider. |
 
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
-|  [ThirdwebProvider](./react.thirdwebprovider.md) | The main <code>ThirdwebProvider</code> component. |
-
-## Type Aliases
-
-|  Type Alias | Description |
-|  --- | --- |
-|  [ChainRpc](./react.chainrpc.md) |  |
-|  [InjectedConnectorType](./react.injectedconnectortype.md) |  |
-|  [WalletConnectConnectorType](./react.walletconnectconnectortype.md) |  |
-|  [WalletConnector](./react.walletconnector.md) |  |
-|  [WalletLinkConnectorType](./react.walletlinkconnectortype.md) |  |
+|  [ThirdwebProvider](./react.thirdwebprovider.md) | The <code>&lt;ThirdwebProvider /&gt;</code> component, you need to wrap your application with this provider to use the thirdweb react sdk. |
 

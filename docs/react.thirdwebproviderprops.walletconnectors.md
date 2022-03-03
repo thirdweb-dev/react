@@ -4,7 +4,7 @@
 
 ## ThirdwebProviderProps.walletConnectors property
 
-An array of connector types (strings) or [WalletConnector](./react.walletconnector.md) objects that the dApp supports If not provided, will default to metamask (injected), wallet connect and walletlink (coinbase wallet) with sensible defaults
+An array of connector types (strings) or wallet connector objects that the dApp supports If not provided, will default to metamask (injected), wallet connect and walletlink (coinbase wallet) with sensible defaults
 
 <b>Signature:</b>
 

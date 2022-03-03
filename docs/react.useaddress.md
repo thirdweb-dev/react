@@ -13,3 +13,5 @@ export declare function useAddress(): string | undefined;
 
 string \| undefined
 
+the address of the connected wallet
+

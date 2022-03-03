@@ -16,15 +16,24 @@ import {
   SupportedChain,
 } from "./constants/chain";
 
+/**
+ * @internal
+ */
 export type InjectedConnectorType =
   | "injected"
   | "metamask"
   | { name: "injected" | "metamask"; options?: InjectedConnector["options"] };
 
+/**
+ * @internal
+ */
 export type WalletConnectConnectorType =
   | "walletConnect"
   | { name: "walletConnect"; options: WalletConnectConnector["options"] };
 
+/**
+ * @internal
+ */
 export type WalletLinkConnectorType =
   | "walletLink"
   | "coinbase"
@@ -33,26 +42,52 @@ export type WalletLinkConnectorType =
       options: WalletLinkConnector["options"];
     };
 
+/**
+ * @internal
+ */
 export type WalletConnector =
   | InjectedConnectorType
   | WalletConnectConnectorType
   | WalletLinkConnectorType;
 
+/**
+ * @internal
+ */
 export type ChainRpc<TSupportedChain extends SupportedChain> = Record<
   TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain,
   string
 >;
 
+/**
+ * the metadata to pass to wallet connection dialog (may show up during the wallet-connection process)
+ * @remarks this is only used for wallet connect and wallet link, metamask does not support it
+ * @public
+ */
 export interface DAppMetaData {
+  /**
+   * the name of your app
+   */
   name: string;
+  /**
+   * optional - a description of your app
+   */
   description?: string;
+  /**
+   * optional - a url that points to a logo (or favicon) of your app
+   */
   logoUrl?: string;
+  /**
+   * optional - the url where your app is hosted
+   */
   url?: string;
+  /**
+   * optional - whether to show the connect dialog in darkmode or not
+   */
   isDarkMode?: boolean;
 }
 
 /**
- * The props for the ThirdwebProvider.
+ * The possible props for the ThirdwebProvider.
  */
 export interface ThirdwebProviderProps<
   TSupportedChain extends SupportedChain = SupportedChain,
@@ -68,7 +103,7 @@ export interface ThirdwebProviderProps<
    */
   supportedChains?: TSupportedChain[];
   /**
-   * An array of connector types (strings) or {@link WalletConnector} objects that the dApp supports
+   * An array of connector types (strings) or wallet connector objects that the dApp supports
    * If not provided, will default to metamask (injected), wallet connect and walletlink (coinbase wallet) with sensible defaults
    */
   walletConnectors?: WalletConnector[];
@@ -116,8 +151,25 @@ const defaultWalletConnectors: Required<
 
 /**
  *
- * The main `ThirdwebProvider` component.
- * @param param0 - Provider Props
+ * The `<ThirdwebProvider />` component, you need to wrap your application with this provider to use the thirdweb react sdk.
+ *
+ *
+ *
+ * @example
+ * Wrap your application with the Provider
+ * ```jsx title="App.jsx"
+ * import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
+ *
+ * const App = () => {
+ *   return (
+ *     <ThirdwebProvider desiredChainId={ChainId.Mainnet}>
+ *       <YourApp />
+ *     </ThirdwebProvider>
+ *   );
+ * };
+```
+ *
+ * @public
  *
  */
 export const ThirdwebProvider = <
@@ -325,6 +377,11 @@ const ThirdwebSDKProvider: React.FC<
   );
 };
 
+/**
+ *
+ * @returns {@link ThirdwebSDK}
+ * @internal
+ */
 export function useSDK(): ThirdwebSDK | undefined {
   const ctx = React.useContext(ThirdwebSDKContext);
   invariant(
@@ -334,6 +391,10 @@ export function useSDK(): ThirdwebSDK | undefined {
   return ctx.sdk;
 }
 
+/**
+ *
+ * @internal
+ */
 export function useDesiredChainId(): number {
   const ctx = React.useContext(ThirdwebSDKContext);
   invariant(

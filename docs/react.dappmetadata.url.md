@@ -4,6 +4,8 @@
 
 ## DAppMetaData.url property
 
+optional - the url where your app is hosted
+
 <b>Signature:</b>
 
 ```typescript

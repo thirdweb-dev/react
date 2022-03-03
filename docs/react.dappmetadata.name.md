@@ -4,6 +4,8 @@
 
 ## DAppMetaData.name property
 
+the name of your app
+
 <b>Signature:</b>
 
 ```typescript

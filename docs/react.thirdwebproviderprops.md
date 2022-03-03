@@ -4,7 +4,7 @@
 
 ## ThirdwebProviderProps interface
 
-The props for the ThirdwebProvider.
+The possible props for the ThirdwebProvider.
 
 <b>Signature:</b>
 
@@ -16,11 +16,11 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [chainRpc?](./react.thirdwebproviderprops.chainrpc.md) | Partial&lt;[ChainRpc](./react.chainrpc.md)<!-- -->&lt;TSupportedChain&gt;&gt; | <i>(Optional)</i> A partial map of chainIds to rpc urls to use for certain chains If not provided, will default to the rpcUrls of the chain objects for the supported chains |
+|  [chainRpc?](./react.thirdwebproviderprops.chainrpc.md) | Partial&lt;ChainRpc&lt;TSupportedChain&gt;&gt; | <i>(Optional)</i> A partial map of chainIds to rpc urls to use for certain chains If not provided, will default to the rpcUrls of the chain objects for the supported chains |
 |  [dAppMeta?](./react.thirdwebproviderprops.dappmeta.md) | [DAppMetaData](./react.dappmetadata.md) | <i>(Optional)</i> Metadata to pass to wallet connect and walletlink wallet connect. (Used to show \*which\* dApp is being connected to in mobile wallets that support it) Defaults to just the name being passed as <code>thirdweb powered dApp</code>. |
 |  [desiredChainId](./react.thirdwebproviderprops.desiredchainid.md) | TSupportedChain extends Chain ? TSupportedChain\["id"\] : TSupportedChain \| undefined | The chainId that your dApp is running on. While this \*can\* be <code>undefined</code> it is required to be passed. Passing <code>undefined</code> will cause no SDK to be instantiated. When passing a chainId, it \*\*must\*\* be part of the <code>supportedChains</code> array. |
 |  [sdkOptions?](./react.thirdwebproviderprops.sdkoptions.md) | SDKOptions | <i>(Optional)</i> The  to pass to the thirdweb SDK comes with sensible defaults |
 |  [storageInterface?](./react.thirdwebproviderprops.storageinterface.md) | IStorage | <i>(Optional)</i> The storage interface to use with the sdk. |
 |  [supportedChains?](./react.thirdwebproviderprops.supportedchains.md) | TSupportedChain\[\] | <i>(Optional)</i> An array of chainIds or  objects that the dApp supports If not provided, all chains supported by the SDK will be supported by default |
-|  [walletConnectors?](./react.thirdwebproviderprops.walletconnectors.md) | [WalletConnector](./react.walletconnector.md)<!-- -->\[\] | <i>(Optional)</i> An array of connector types (strings) or [WalletConnector](./react.walletconnector.md) objects that the dApp supports If not provided, will default to metamask (injected), wallet connect and walletlink (coinbase wallet) with sensible defaults |
+|  [walletConnectors?](./react.thirdwebproviderprops.walletconnectors.md) | WalletConnector\[\] | <i>(Optional)</i> An array of connector types (strings) or wallet connector objects that the dApp supports If not provided, will default to metamask (injected), wallet connect and walletlink (coinbase wallet) with sensible defaults |
 

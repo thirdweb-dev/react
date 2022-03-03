@@ -13,3 +13,5 @@ export declare function useDisconnect(): () => void;
 
 () =&gt; void
 
+a function to call to disconnect the connected wallet
+

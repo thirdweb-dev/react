@@ -37,21 +37,17 @@ export { ChainId }
 
 // Warning: (ae-forgotten-export) The symbol "SupportedChain" needs to be exported by the entry point index.d.ts
 // Warning: (ae-forgotten-export) The symbol "Chain" needs to be exported by the entry point index.d.ts
+// Warning: (ae-internal-missing-underscore) The name "ChainRpc" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal (undocumented)
 export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain, string>;
 
-// @public (undocumented)
+// @public
 export interface DAppMetaData {
-    // (undocumented)
     description?: string;
-    // (undocumented)
     isDarkMode?: boolean;
-    // (undocumented)
     logoUrl?: string;
-    // (undocumented)
     name: string;
-    // (undocumented)
     url?: string;
 }
 
@@ -59,7 +55,9 @@ export { defaultChains }
 
 export { defaultL2Chains }
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "InjectedConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
 export type InjectedConnectorType = "injected" | "metamask" | {
     name: "injected" | "metamask";
     options?: InjectedConnector["options"];
@@ -70,12 +68,14 @@ export const ThirdwebProvider: <TSupportedChain extends SupportedChain = Support
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
+    // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
     dAppMeta?: DAppMetaData;
     desiredChainId: TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain | undefined;
     sdkOptions?: SDKOptions;
     storageInterface?: IStorage;
     supportedChains?: TSupportedChain[];
+    // Warning: (ae-incompatible-release-tags) The symbol "walletConnectors" is marked as @public, but its signature references "WalletConnector" which is marked as @internal
     walletConnectors?: WalletConnector[];
 }
 
@@ -93,7 +93,9 @@ export function useCoinbaseWallet(): () => Promise<{
     error?: Error | undefined;
 }>;
 
-// @public
+// Warning: (ae-internal-missing-underscore) The name "useConnect" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal
 export function useConnect(): readonly [{
     readonly data: {
         readonly connected: boolean;
@@ -112,7 +114,9 @@ export function useConnect(): readonly [{
 // @internal (undocumented)
 export function useContract<TContractType extends ContractType>(contractType: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "useDesiredChainId" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
 export function useDesiredChainId(): number;
 
 // @public (undocumented)
@@ -147,13 +151,19 @@ export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "useReadonlySDK" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
 export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage): ThirdwebSDK;
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "useSDK" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
 export function useSDK(): ThirdwebSDK | undefined;
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "useSigner" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
 export function useSigner(): Signer | undefined;
 
 // @public
@@ -177,16 +187,22 @@ export function useWalletLink(): () => Promise<{
     error?: Error | undefined;
 }>;
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "WalletConnectConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
 export type WalletConnectConnectorType = "walletConnect" | {
     name: "walletConnect";
     options: WalletConnectConnector["options"];
 };
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "WalletConnector" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
 export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType | WalletLinkConnectorType;
 
-// @public (undocumented)
+// Warning: (ae-internal-missing-underscore) The name "WalletLinkConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
 export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
     name: "walletLink" | "coinbase";
     options: WalletLinkConnector["options"];

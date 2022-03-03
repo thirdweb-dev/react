@@ -4,19 +4,25 @@
 
 ## DAppMetaData interface
 
+the metadata to pass to wallet connection dialog (may show up during the wallet-connection process)
+
 <b>Signature:</b>
 
 ```typescript
 export interface DAppMetaData 
 ```
 
+## Remarks
+
+this is only used for wallet connect and wallet link, metamask does not support it
+
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [description?](./react.dappmetadata.description.md) | string | <i>(Optional)</i> |
-|  [isDarkMode?](./react.dappmetadata.isdarkmode.md) | boolean | <i>(Optional)</i> |
-|  [logoUrl?](./react.dappmetadata.logourl.md) | string | <i>(Optional)</i> |
-|  [name](./react.dappmetadata.name.md) | string |  |
-|  [url?](./react.dappmetadata.url.md) | string | <i>(Optional)</i> |
+|  [description?](./react.dappmetadata.description.md) | string | <i>(Optional)</i> optional - a description of your app |
+|  [isDarkMode?](./react.dappmetadata.isdarkmode.md) | boolean | <i>(Optional)</i> optional - whether to show the connect dialog in darkmode or not |
+|  [logoUrl?](./react.dappmetadata.logourl.md) | string | <i>(Optional)</i> optional - a url that points to a logo (or favicon) of your app |
+|  [name](./react.dappmetadata.name.md) | string | the name of your app |
+|  [url?](./react.dappmetadata.url.md) | string | <i>(Optional)</i> optional - the url where your app is hosted |
 

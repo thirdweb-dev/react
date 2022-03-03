@@ -2,6 +2,10 @@ import { useAccount, useNetwork, useSigner as useWagmiSigner } from "wagmi";
 import { Signer } from "ethers";
 import { useEffect, useRef } from "react";
 
+/**
+ *
+ * @internal
+ */
 export function useSigner() {
   const [signer, getSigner] = useWagmiSigner();
   const [account] = useAccount();

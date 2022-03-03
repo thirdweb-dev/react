@@ -4,6 +4,8 @@
 
 ## DAppMetaData.description property
 
+optional - a description of your app
+
 <b>Signature:</b>
 
 ```typescript
