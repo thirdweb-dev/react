@@ -11,9 +11,7 @@ export function useMetamask() {
   if (connectors.loading) {
     return () => Promise.reject("Metamask connector not ready to be used, yet");
   }
-  const connector = connectors.data.connectors.find(
-    (c) => c.id === "walletConnect",
-  );
+  const connector = connectors.data.connectors.find((c) => c.id === "injected");
   invariant(
     connector,
     "Metamask connector not found, please make sure it is provided to your <ThirdwebProvider />",
