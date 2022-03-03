@@ -33,11 +33,21 @@ const App = () => {
 2. Add a way for your users to connect your wallet somewhere in your app
 
 ```jsx title="ConnectMetamaskButton.jsx"
-import { useMetamask } from "@thirdweb-dev/react";
+import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 
-const ConnectMetamaskButtonComponent = () => {
+export const ConnectMetamaskButtonComponent = () => {
   const connectWithMetamask = useMetamask();
-  return <button onClick={connectWithMetamask}>Connect Metamask wallet</button>;
+  const disconnect = useDisconnect();
+  const address = useAddress();
+  return (
+    <div>
+      {address ? (
+        <button onClick={disconnect}>{address}</button>
+      ) : (
+        <button onClick={connectWithMetamask}>Connect Metamask Wallet</button>
+      )}
+    </div>
+  );
 };
 ```
 
