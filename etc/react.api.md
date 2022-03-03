@@ -5,6 +5,7 @@
 ```ts
 
 import type { Chain as Chain_2 } from 'wagmi';
+import { ChainId } from '@thirdweb-dev/sdk';
 import { Connector } from 'wagmi';
 import { ConnectorData } from 'wagmi';
 import { ConnectorData as ConnectorData_2 } from 'wagmi-core';
@@ -31,6 +32,8 @@ import { useNetwork } from 'wagmi';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink';
+
+export { ChainId }
 
 // Warning: (ae-forgotten-export) The symbol "SupportedChain" needs to be exported by the entry point index.d.ts
 // Warning: (ae-forgotten-export) The symbol "Chain" needs to be exported by the entry point index.d.ts
