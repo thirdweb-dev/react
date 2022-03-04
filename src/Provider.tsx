@@ -133,9 +133,9 @@ export interface ThirdwebProviderProps<
 }
 
 const defaultChainRpc: ThirdwebProviderProps["chainRpc"] = {
-  1: "https://mainnet.infura.io/v3",
-  4: "https://rinkeby.infura.io/v3",
-  5: "https://goerli.infura.io/v3",
+  1: "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+  4: "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+  5: "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
   137: "https://polygon-rpc.com",
   250: "https://rpc.ftm.tools",
   43114: "https://api.avax.network/ext/bc/C/rpc",

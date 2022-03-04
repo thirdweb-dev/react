@@ -11,7 +11,7 @@ const chain = {
       symbol: "ETH",
       decimals: 18,
     },
-    rpcUrls: ["https://mainnet.infura.io/v3"],
+    rpcUrls: ["https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
     blockExplorers: [
       {
         name: "Etherscan",
@@ -44,7 +44,7 @@ const chain = {
       symbol: "rETH",
       decimals: 18,
     },
-    rpcUrls: ["https://rinkeby.infura.io/v3"],
+    rpcUrls: ["https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
     blockExplorers: [
       {
         name: "Etherscan",
@@ -61,7 +61,7 @@ const chain = {
       symbol: "gETH",
       decimals: 18,
     },
-    rpcUrls: ["https://goerli.infura.io/v3"],
+    rpcUrls: ["https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
     blockExplorers: [
       {
         name: "Etherscan",
