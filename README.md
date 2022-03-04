@@ -38,7 +38,7 @@ const App = () => {
 
 ### 2. Add a way for your users to connect your wallet somewhere in your app
 
-We provide an easy way to handle wallet connections with a variety of dedicated [connector hooks](src/hooks/connectors/).
+We provide an easy way to handle wallet connections with a variety of dedicated [connector hooks](https://github.com/thirdweb-dev/react/tree/main/src/hooks/connectors/).
 
 ```jsx title="ConnectMetamaskButton.jsx"
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
@@ -63,7 +63,7 @@ export const ConnectMetamaskButtonComponent = () => {
 
 ### 3. Interact with a thirdweb contract
 
-Once connected, you can easily interact with your deployed contracts with dedicated [contract hooks](src/hooks/contracts/).
+Once connected, you can easily interact with your deployed contracts with dedicated [contract hooks](https://github.com/thirdweb-dev/react/tree/main/src/hooks/contracts/).
 
 ```jsx title="NFTList.jsx"
 import { useNFTCollection } from "@thirdweb-dev/react";
