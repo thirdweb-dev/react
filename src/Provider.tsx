@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useEffect, useMemo } from "react";
 import { ThirdwebSDK, SDKOptions, IStorage } from "@thirdweb-dev/sdk";
 import {
   WagmiProvider,
@@ -344,17 +344,17 @@ const ThirdwebSDKProvider: React.FC<
     "desiredChainId" | "sdkOptions" | "storageInterface"
   >
 > = ({ sdkOptions, desiredChainId, storageInterface, children }) => {
-  const [sdk, setSDK] = useState<ThirdwebSDK | undefined>(undefined);
   const provider = useProvider();
   const signer = useSigner();
 
-  useEffect(() => {
-    if (desiredChainId) {
-      const _sdk = new ThirdwebSDK(provider, sdkOptions, storageInterface);
-      (_sdk as any)._chainId = desiredChainId;
-      setSDK(_sdk);
+  const sdk = useMemo(() => {
+    if (!desiredChainId || typeof window === "undefined") {
+      return undefined;
     }
-  }, [desiredChainId]);
+    const _sdk = new ThirdwebSDK(provider, sdkOptions, storageInterface);
+    (_sdk as any)._chainId = desiredChainId;
+    return _sdk;
+  }, [provider, sdkOptions, storageInterface, desiredChainId]);
 
   useEffect(() => {
     if (signer && sdk && (sdk as any)._chainId === desiredChainId) {
