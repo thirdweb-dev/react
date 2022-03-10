@@ -9,13 +9,13 @@ This library doesn't come with any UI, only the logic parts. This allows you to 
 ### via NPM
 
 ```sh
-npm install @thirdweb-dev/react@nightly @thirdweb-dev/sdk@nightly ethers
+npm install @thirdweb-dev/react @thirdweb-dev/sdk ethers
 ```
 
 ### via Yarn
 
 ```sh
-yarn add @thirdweb-dev/react@nightly @thirdweb-dev/sdk@nightly ethers
+yarn add @thirdweb-dev/react @thirdweb-dev/sdk ethers
 ```
 
 ## Quick Start
