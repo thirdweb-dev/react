@@ -52,7 +52,7 @@
     "wagmi": "^0.2.12"
   },
   "peerDependencies": {
-    "@thirdweb-dev/sdk": "^2 || >= 2.0.0-nightly.40",
+    "@thirdweb-dev/sdk": "^2",
     "ethers": "^5.5.1",
     "react": "^17"
   },
