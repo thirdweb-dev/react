@@ -72,7 +72,7 @@ const NFTListComponent = () => {
   // get an instance of your own contract
   const nftCollection = useNFTCollection("{{your nft contract address}}");
 
-  const [nfts, setNfts] = useState([]);
+  const [nfts, setNfts] = useState<NFTMetadataOwner[]>([]);
 
   useEffect(() => {
     if (nftCollection) {
@@ -91,7 +91,7 @@ const NFTListComponent = () => {
   return (
     <ul>
       {nfts.map((nft) => (
-        <li key={nft.id}>{nft.name}</li>
+        <li key={nft.metadata.id.toString()}>{nft.metadata.name}</li>
       ))}
     </ul>
   );
