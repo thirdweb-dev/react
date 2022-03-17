@@ -1,5 +1,5 @@
-import { Vote } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { Vote } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a Vote contract instance

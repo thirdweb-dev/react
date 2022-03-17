@@ -1,5 +1,5 @@
-import { Split } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { Split } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a Split contract instance

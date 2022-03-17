@@ -1,5 +1,5 @@
-import invariant from "tiny-invariant";
 import { useConnect } from "../useConnect";
+import invariant from "tiny-invariant";
 
 /**
  * Convienience hook for connecting to a wallet via WalletConnect

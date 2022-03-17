@@ -19,23 +19,6 @@ const chain = {
       },
     ],
   },
-  // ropsten: {
-  //   id: 3,
-  //   name: "Ropsten",
-  //   nativeCurrency: {
-  //     name: "Ropsten Ether",
-  //     symbol: "ropETH",
-  //     decimals: 18,
-  //   },
-  //   rpcUrls: ["https://ropsten.infura.io/v3"],
-  //   blockExplorers: [
-  //     {
-  //       name: "Etherscan",
-  //       url: "https://ropsten.etherscan.io",
-  //     },
-  //   ],
-  //   testnet: true,
-  // },
   rinkeby: {
     id: 4,
     name: "Rinkeby",
@@ -70,56 +53,6 @@ const chain = {
     ],
     testnet: true,
   },
-  // kovan: {
-  //   id: 42,
-  //   name: "Kovan",
-  //   nativeCurrency: {
-  //     name: "Kovan Ether",
-  //     symbol: "kETH",
-  //     decimals: 18,
-  //   },
-  //   rpcUrls: ["https://kovan.infura.io/v3"],
-  //   blockExplorers: [
-  //     {
-  //       name: "Etherscan",
-  //       url: "https://kovan.etherscan.io",
-  //     },
-  //   ],
-  //   testnet: true,
-  // },
-  // optimisticEthereum: {
-  //   id: 10,
-  //   name: "Optimistic Ethereum",
-  //   nativeCurrency: {
-  //     name: "Optimistic Ether",
-  //     symbol: "OETH",
-  //     decimals: 18,
-  //   },
-  //   rpcUrls: ["https://mainnet.optimism.io"],
-  //   blockExplorers: [
-  //     {
-  //       name: "Etherscan",
-  //       url: "https://optimistic.etherscan.io",
-  //     },
-  //   ],
-  // },
-  // optimisticKovan: {
-  //   id: 69,
-  //   name: "Optimistic Kovan",
-  //   nativeCurrency: {
-  //     name: "Kovan Ether",
-  //     symbol: "KOR",
-  //     decimals: 18,
-  //   },
-  //   rpcUrls: ["https://kovan.optimism.io"],
-  //   blockExplorers: [
-  //     {
-  //       name: "Etherscan",
-  //       url: "https://optimistic.etherscan.io",
-  //     },
-  //   ],
-  //   testnet: true,
-  // },
   polygonMainnet: {
     id: 137,
     name: "Polygon Mainnet",
@@ -164,43 +97,6 @@ const chain = {
     ],
     testnet: true,
   },
-  // arbitrumOne: {
-  //   id: 42161,
-  //   name: "Arbitrum One",
-  //   nativeCurrency: {
-  //     name: "Ether",
-  //     symbol: "AETH",
-  //     decimals: 18,
-  //   },
-  //   rpcUrls: ["https://arb1.arbitrum.io/rpc"],
-  //   blockExplorers: [
-  //     {
-  //       name: "Arbiscan",
-  //       url: "https://arbiscan.io",
-  //     },
-  //     {
-  //       name: "Arbitrum Explorer",
-  //       url: "https://explorer.arbitrum.io",
-  //     },
-  //   ],
-  // },
-  // arbitrumRinkeby: {
-  //   id: 421611,
-  //   name: "Rinkeby Arbitrum",
-  //   nativeCurrency: {
-  //     name: "Rinkeby ArbEther",
-  //     symbol: "rinkArbETH",
-  //     decimals: 18,
-  //   },
-  //   rpcUrls: ["https://rinkeby.arbitrum.io/rpc"],
-  //   blockExplorers: [
-  //     {
-  //       name: "Arbitrum Explorer",
-  //       url: "https://rinkeby-explorer.arbitrum.io",
-  //     },
-  //   ],
-  //   testnet: true,
-  // },
   avalanche: {
     id: 43114,
     name: "Avalanche",
@@ -209,7 +105,10 @@ const chain = {
       symbol: "AVAX",
       decimals: 18,
     },
-    rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
+    rpcUrls: [
+      "https://api.avax.network/ext/bc/C/rpc",
+      "https://rpc.ankr.com/avalanche",
+    ],
     blockExplorers: [
       {
         name: "SnowTrace",

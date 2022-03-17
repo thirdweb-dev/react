@@ -1,5 +1,5 @@
-import { Marketplace } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { Marketplace } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a Marketplace contract instance

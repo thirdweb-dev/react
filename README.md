@@ -4,6 +4,22 @@ The thirdweb React SDK provides a collection of hooks to use in your React apps 
 
 This library doesn't come with any UI, only the logic parts. This allows you to use your own styles and components, without the hassle of managing the data flows yourself.
 
+## Quick start
+
+We provide template repositories to help you get started with thirdweb quickly.
+
+### Starter Templates
+
+- Next.js ([typescript](https://github.com/thirdweb-example/next-typescript-starter) / [javascript](https://github.com/thirdweb-example/next-javascript-starter))
+- Create React App ([typescript](https://github.com/thirdweb-example/cra-typescript-starter) / [javascript](https://github.com/thirdweb-example/cra-javascript-starter))
+- Vite ([typescript](https://github.com/thirdweb-example/vite-typescript-starter) / [javascript](https://github.com/thirdweb-example/vite-javascript-starter))
+
+_[All available templates.](https://github.com/thirdweb-example)_
+
+### Project Examples
+
+_coming soon_
+
 ## Installation
 
 ### via NPM
@@ -25,7 +41,7 @@ yarn add @thirdweb-dev/react @thirdweb-dev/sdk ethers
 At the top level of your application, add a `ThirdwebProvider` that will handle maintaining connection states and provide quick access to the [thirdweb SDK](https://github.com/thirdweb-dev/typescript-sdk/).
 
 ```jsx title="App.jsx"
-import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
+import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 
 const App = () => {
   return (
@@ -104,7 +120,7 @@ These all the configuration options of the `<ThirdwebProvider />`.
 We provide sane defaults for all of these, but you customize them to suit your needs.
 
 ```jsx title="App.jsx"
-import { ThirdwebProvider, ChainId, IpfsStorage } from "@thirdweb-dev/react";
+import { ChainId, IpfsStorage, ThirdwebProvider } from "@thirdweb-dev/react";
 
 const KitchenSinkExample = () => {
   return (

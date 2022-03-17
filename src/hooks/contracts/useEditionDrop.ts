@@ -1,5 +1,5 @@
-import { EditionDrop } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { EditionDrop } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a Edition Drop contract instance

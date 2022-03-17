@@ -1,5 +1,5 @@
-import { NFTCollection } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { NFTCollection } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a NFT Collection contract instance

@@ -1,20 +1,20 @@
+import {
+  Chain,
+  SupportedChain,
+  defaultSupportedChains,
+} from "./constants/chain";
+import { useSigner } from "./hooks/useSigner";
+import { IStorage, SDKOptions, ThirdwebSDK } from "@thirdweb-dev/sdk";
 import React, { createContext, useEffect, useMemo } from "react";
-import { ThirdwebSDK, SDKOptions, IStorage } from "@thirdweb-dev/sdk";
+import invariant from "tiny-invariant";
 import {
   WagmiProvider,
   ProviderProps as WagmiproviderProps,
   useProvider,
 } from "wagmi";
-import { useSigner } from "./hooks/useSigner";
-import invariant from "tiny-invariant";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { WalletLinkConnector } from "wagmi/connectors/walletLink";
-import {
-  Chain,
-  defaultSupportedChains,
-  SupportedChain,
-} from "./constants/chain";
 
 /**
  * @internal
