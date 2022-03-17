@@ -1,5 +1,5 @@
-import { Token } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { Token } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a Token contract instance

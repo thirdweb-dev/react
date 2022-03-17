@@ -1,5 +1,5 @@
-import { Pack } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { Pack } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a Pack contract instance

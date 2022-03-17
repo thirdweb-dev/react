@@ -1,6 +1,6 @@
 {
   "name": "@thirdweb-dev/react",
-  "version": "2.0.0",
+  "version": "2.0.1-0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com:thirdweb-dev/react.git"
@@ -11,6 +11,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
+  "browser": "dist/index.js",
   "files": [
     "dist",
     "src"
@@ -32,6 +33,7 @@
     "@microsoft/tsdoc": "^0.13.2",
     "@swc/core": "^1.2.147",
     "@thirdweb-dev/sdk": "^2.0.0-nightly.22",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/react": "^17.0.39",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",

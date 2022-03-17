@@ -1,5 +1,5 @@
-import { Edition } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { Edition } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a Edition contract instance

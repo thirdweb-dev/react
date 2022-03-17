@@ -1,5 +1,5 @@
-import { NFTDrop } from "@thirdweb-dev/sdk";
 import { useContract } from "./useContract";
+import { NFTDrop } from "@thirdweb-dev/sdk";
 
 /**
  * Returns a NFT Drop contract instance
