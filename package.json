@@ -24,7 +24,10 @@
     "genrate-types": "tsc",
     "extract-api": "api-extractor run --local",
     "generate:md-docs": "yarn api-documenter markdown -i ./temp -o ./docs",
-    "build": "yarn build:lib && yarn genrate-types && yarn extract-api && yarn generate:md-docs"
+    "build": "yarn build:lib && yarn genrate-types && yarn extract-api && yarn generate:md-docs",
+    "test": "yarn build && yarn test-only",
+    "test:watch": "vitest watch",
+    "test-only": "vitest run"
   },
   "sideEffects:": false,
   "devDependencies": {
@@ -32,8 +35,9 @@
     "@microsoft/api-extractor": "^7.19.4",
     "@microsoft/tsdoc": "^0.13.2",
     "@swc/core": "^1.2.147",
-    "@thirdweb-dev/sdk": "^2.0.0-nightly.22",
+    "@thirdweb-dev/sdk": "^2.0.15-0",
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",
+    "@types/mime": "^2.0.3",
     "@types/react": "^17.0.39",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
@@ -47,9 +51,13 @@
     "prettier": "^2.5.1",
     "react": "^17.0.0",
     "tsup": "^5.11.13",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "vitest": "^0.7.10"
   },
   "dependencies": {
+    "mime": "^3.0.0",
+    "react-icons": "^4.3.1",
+    "swr": "^1.2.2",
     "tiny-invariant": "^1.2.0",
     "wagmi": "^0.2.12"
   },
@@ -59,7 +67,7 @@
     "react": "^17"
   },
   "resolutions": {
-    "ansi-regex": "^6.0.1",
+    "ansi-regex": "^5.0.1",
     "typescript": "^4.6.2"
   },
   "tsup": {
