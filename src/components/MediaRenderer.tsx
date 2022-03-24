@@ -442,6 +442,7 @@ export const MediaRenderer = React.forwardRef<
           >
             <AiOutlineFileUnknown style={{ height: "64px", width: "64px" }} />
             <a
+              rel="noopener noreferrer"
               style={{
                 display: "flex",
                 alignItems: "center",
