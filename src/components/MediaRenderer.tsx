@@ -87,9 +87,9 @@ const PlayButton: React.VFC<PlayButtonProps> = ({ onClick, isPlaying }) => {
       onMouseUp={onMouseUp}
     >
       {!isPlaying ? (
-        <IoPlaySharp style={{ width: "80%", height: "80%" }} />
+        <IoPlaySharp style={{ width: "66%", height: "66%" }} />
       ) : (
-        <IoPauseSharp style={{ width: "80%", height: "80%" }} />
+        <IoPauseSharp style={{ width: "66%", height: "66%" }} />
       )}
     </button>
   );
