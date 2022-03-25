@@ -1,4 +1,5 @@
-import { useDesiredChainId, useSDK } from "../../Provider";
+import { useSDK } from "../../Provider";
+import { ChainId } from "@thirdweb-dev/sdk";
 import useSWRImmutable from "swr/immutable";
 
 /**
@@ -7,11 +8,14 @@ import useSWRImmutable from "swr/immutable";
  * @param abi - the contract abi
  * @returns the instance of the module for the given type and address
  */
-export function useUnstableCustomContract(contractAddress?: string, abi?: any) {
+export function useUnstableCustomContract(
+  contractAddress?: string,
+  chainId?: ChainId,
+  abi: any = undefined,
+) {
   const sdk = useSDK();
-  const desiredChainId = useDesiredChainId();
   return useSWRImmutable(
-    `contract.${desiredChainId}.${contractAddress}`,
+    `contract.${chainId}.${contractAddress}`,
     () =>
       sdk && "unstable_getCustomContract" in sdk && contractAddress
         ? sdk.unstable_getCustomContract(contractAddress, abi)

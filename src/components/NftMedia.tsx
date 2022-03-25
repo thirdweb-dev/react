@@ -44,8 +44,10 @@ export function useNftTokenMetadata(
   contractAddress: string,
   tokenId: BigNumberish,
 ) {
-  const contract = useUnstableCustomContract(contractAddress);
   const desiredChainId = useDesiredChainId();
+
+  const contract = useUnstableCustomContract(contractAddress, desiredChainId);
+
   return useSWRImmutable(
     contract.data
       ? `token-metadata.${desiredChainId}.${contractAddress}.${tokenId}`
