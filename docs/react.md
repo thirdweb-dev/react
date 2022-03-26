@@ -35,6 +35,7 @@
 |  [MediaType](./react.mediatype.md) |  |
 |  [NftMediaProps](./react.nftmediaprops.md) |  |
 |  [SharedMediaProps](./react.sharedmediaprops.md) |  |
+|  [ThirdwebNftMediaProps](./react.thirdwebnftmediaprops.md) | The props for the [ThirdwebNftMedia](./react.thirdwebnftmedia.md) component. |
 |  [ThirdwebProviderProps](./react.thirdwebproviderprops.md) | The possible props for the ThirdwebProvider. |
 
 ## Variables
@@ -42,5 +43,6 @@
 |  Variable | Description |
 |  --- | --- |
 |  [MediaRenderer](./react.mediarenderer.md) | A component that renders media based on the format of the media type. Handles most media types including image, audio, video, and html files. Falls back to a external link if the media type is not supported.<!-- -->props: [MediaRendererProps](./react.mediarendererprops.md) |
+|  [ThirdwebNftMedia](./react.thirdwebnftmedia.md) | Render a nft based on the common metadata returned by the thirdweb sdk. |
 |  [ThirdwebProvider](./react.thirdwebprovider.md) | The <code>&lt;ThirdwebProvider /&gt;</code> component, you need to wrap your application with this provider to use the thirdweb react sdk. |
 

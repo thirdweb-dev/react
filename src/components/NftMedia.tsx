@@ -2,7 +2,7 @@ import { useDesiredChainId } from "../Provider";
 import { useUnstableCustomContract } from "../hooks/contracts/useCustomContract";
 import { MediaRenderer, SharedMediaProps } from "./MediaRenderer";
 import { BigNumberish } from "@ethersproject/bignumber";
-import { NFTMetadataOwner } from "@thirdweb-dev/sdk";
+import { NFTMetadata, NFTMetadataOwner } from "@thirdweb-dev/sdk";
 import React from "react";
 import useSWRImmutable from "swr/immutable";
 
@@ -61,3 +61,31 @@ export function useNftTokenMetadata(
     },
   );
 }
+
+/**
+ * The props for the {@link ThirdwebNftMedia} component.
+ */
+export interface ThirdwebNftMediaProps extends SharedMediaProps {
+  /**
+   * The NFT metadata of the NFT returned by the thirdweb sdk.
+   */
+  metadata: NFTMetadata;
+}
+
+/**
+ * Render a nft based on the common metadata returned by the thirdweb sdk.
+ */
+export const ThirdwebNftMedia = React.forwardRef<
+  HTMLMediaElement,
+  ThirdwebNftMediaProps
+>(({ metadata, ...props }, ref) => {
+  return (
+    <MediaRenderer
+      src={metadata.animation_url || metadata.image}
+      poster={metadata.image}
+      alt={metadata.name}
+      ref={ref}
+      {...props}
+    />
+  );
+});

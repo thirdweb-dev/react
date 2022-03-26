@@ -22,6 +22,7 @@ import { IStorage } from '@thirdweb-dev/sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
+import { NFTMetadata } from '@thirdweb-dev/sdk';
 import { NFTMetadataOwner } from '@thirdweb-dev/sdk';
 import { Pack } from '@thirdweb-dev/sdk';
 import { default as React_2 } from 'react';
@@ -107,6 +108,14 @@ export interface SharedMediaProps {
     style?: React_2.CSSProperties;
     // (undocumented)
     width?: HTMLIFrameElement["width"];
+}
+
+// @public
+export const ThirdwebNftMedia: React_2.ForwardRefExoticComponent<ThirdwebNftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
+
+// @public
+export interface ThirdwebNftMediaProps extends SharedMediaProps {
+    metadata: NFTMetadata;
 }
 
 // @public
