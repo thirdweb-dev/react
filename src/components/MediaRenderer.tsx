@@ -2,9 +2,9 @@ import { resolveIpfsUri, resolveMimeType } from "../utils/ipfs";
 import { shouldRenderAudioTag, shouldRenderVideoTag } from "../utils/media";
 import { mergeRefs } from "../utils/react";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import useDimensions from "react-cool-dimensions";
 import { AiOutlineFileUnknown } from "react-icons/ai";
 import { FaRegFileAudio } from "react-icons/fa";
-import { FiExternalLink } from "react-icons/fi";
 import { IoPauseSharp, IoPlaySharp } from "react-icons/io5";
 import useSWRImmutable from "swr/immutable";
 
@@ -287,14 +287,26 @@ const IframePlayer = React.forwardRef<HTMLIFrameElement, MediaRendererProps>(
     },
     ref,
   ) => {
-    const iframeRef = useRef<HTMLIFrameElement>(null);
+    const { observe, width: elWidth } = useDimensions<HTMLDivElement | null>();
     const [playing, setPlaying] = useState(!requireInteraction);
 
+    if (elWidth < 300) {
+      return (
+        <div ref={observe}>
+          <LinkPlayer style={style} src={src} alt={alt} {...restProps} />
+        </div>
+      );
+    }
+
     return (
-      <div style={{ position: "relative", ...style }} {...restProps}>
+      <div
+        style={{ position: "relative", ...style }}
+        {...restProps}
+        ref={observe}
+      >
         <iframe
           src={playing ? src : undefined}
-          ref={mergeRefs([ref, iframeRef])}
+          ref={ref}
           style={{
             objectFit: "contain",
             zIndex: 1,
@@ -329,6 +341,70 @@ const IframePlayer = React.forwardRef<HTMLIFrameElement, MediaRendererProps>(
           }}
           isPlaying={playing}
         />
+      </div>
+    );
+  },
+);
+
+const LinkPlayer = React.forwardRef<HTMLAnchorElement, MediaRendererProps>(
+  (
+    {
+      src,
+      alt,
+      poster,
+      requireInteraction,
+      children,
+      style,
+      height,
+      width,
+      controls,
+      ...restProps
+    },
+    ref,
+  ) => {
+    return (
+      <div style={{ position: "relative", ...style }} {...restProps}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "grid",
+            placeItems: "center",
+            backgroundColor: "#fff",
+            color: "rgb(138, 147, 155)",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              alignItems: "center",
+              flexWrap: "nowrap",
+            }}
+          >
+            <AiOutlineFileUnknown
+              style={{
+                maxWidth: "128px",
+                minWidth: "48px",
+                width: "50%",
+                aspectRatio: "1",
+              }}
+            />
+            <a
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "underline",
+                color: "rgb(138, 147, 155)",
+              }}
+              href={src}
+              target="_blank"
+              ref={ref as unknown as React.LegacyRef<HTMLAnchorElement>}
+            >
+              {alt || "File"}
+            </a>
+          </div>
+        </div>
       </div>
     );
   },
@@ -421,47 +497,13 @@ export const MediaRenderer = React.forwardRef<
       );
     }
     return (
-      <div style={{ position: "relative", ...mergedStyle }} {...restProps}>
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "grid",
-            placeItems: "center",
-            backgroundColor: "#fff",
-            color: "rgb(138, 147, 155)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-              alignItems: "center",
-            }}
-          >
-            <AiOutlineFileUnknown style={{ height: "64px", width: "64px" }} />
-            <a
-              rel="noopener noreferrer"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-                flexDirection: "row",
-                background: "#8a939b",
-                color: "#fff",
-                borderRadius: "999px",
-                padding: "6px 12px",
-              }}
-              href={videoOrImageSrc.url}
-              target="_blank"
-              ref={ref as unknown as React.LegacyRef<HTMLAnchorElement>}
-            >
-              {alt || "Unknown File"} <FiExternalLink />
-            </a>
-          </div>
-        </div>
-      </div>
+      <LinkPlayer
+        style={mergedStyle}
+        src={videoOrImageSrc.url}
+        alt={alt}
+        ref={ref as unknown as React.Ref<HTMLAnchorElement>}
+        {...restProps}
+      />
     );
   },
 );
