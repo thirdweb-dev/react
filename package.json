@@ -60,7 +60,7 @@
     "react-icons": "^4.3.1",
     "swr": "^1.2.2",
     "tiny-invariant": "^1.2.0",
-    "wagmi": "^0.2.12"
+    "wagmi": "0.2.21"
   },
   "peerDependencies": {
     "@thirdweb-dev/sdk": "^2.0.15",

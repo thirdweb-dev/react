@@ -242,7 +242,7 @@ export const ThirdwebProvider = <
               return new InjectedConnector({
                 options:
                   typeof connector === "string"
-                    ? { shimDisconnect: true }
+                    ? { shimDisconnect: true, shimChainChangedDisconnect: true }
                     : connector.options,
                 chains: _supporrtedChains,
               });
@@ -279,17 +279,18 @@ export const ThirdwebProvider = <
                 (connector.name === "coinbase" ||
                   connector.name === "walletLink"))
             ) {
+              const jsonRpcUrl = _rpcUrlMap[chainId || desiredChainId || 1];
               return new WalletLinkConnector({
                 chains: _supporrtedChains,
                 options:
                   typeof connector === "string"
                     ? {
                         ...walletLinkClientMeta,
-                        jsonRpcUrl: _rpcUrlMap[chainId || -1] || undefined,
+                        jsonRpcUrl,
                       }
                     : {
                         ...walletLinkClientMeta,
-                        jsonRpcUrl: _rpcUrlMap[chainId || -1] || undefined,
+                        jsonRpcUrl,
                         ...connector.options,
                       },
               });
