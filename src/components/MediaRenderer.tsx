@@ -514,7 +514,7 @@ export interface MediaType {
 }
 
 /**
- * @param uri - the uri to resolve (can be a url or a ipfs://<cid>)
+ * @param uri - the uri to resolve (can be a url or a ipfs://\<cid\>)
  * @returns the fully resolved url + mime type of the media
  *
  * @example
