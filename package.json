@@ -52,7 +52,7 @@
     "react": "^17.0.0",
     "tsup": "^5.11.13",
     "typescript": "^4.6.2",
-    "vitest": "^0.7.10"
+    "vitest": "^0.8.2"
   },
   "dependencies": {
     "mime": "^3.0.0",
