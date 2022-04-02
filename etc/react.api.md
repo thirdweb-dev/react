@@ -156,7 +156,7 @@ export function useConnect(): readonly [{
 // Warning: (ae-internal-missing-underscore) The name "useContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useContract<TContractType extends ContractType>(contractType: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
+export function useContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "useDesiredChainId" should be prefixed with an underscore because the declaration is marked as @internal
 //
