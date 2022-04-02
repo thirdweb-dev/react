@@ -4,7 +4,6 @@
 
 ```ts
 
-import { BigNumberish } from '@ethersproject/bignumber';
 import type { Chain as Chain_2 } from 'wagmi';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { Connector } from 'wagmi';
@@ -23,13 +22,11 @@ import { Marketplace } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
-import { NFTMetadataOwner } from '@thirdweb-dev/sdk';
 import { Pack } from '@thirdweb-dev/sdk';
 import { default as React_2 } from 'react';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
 import { Split } from '@thirdweb-dev/sdk';
-import { SWRResponse } from 'swr';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
 import { useAccount } from 'wagmi';
@@ -89,14 +86,6 @@ export interface MediaType {
 }
 
 // @public (undocumented)
-export interface NftMediaProps extends SharedMediaProps {
-    // (undocumented)
-    contractAddress: string;
-    // (undocumented)
-    tokenId: BigNumberish;
-}
-
-// @public (undocumented)
 export interface SharedMediaProps {
     // (undocumented)
     className?: string;
@@ -133,11 +122,6 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
     // Warning: (ae-incompatible-release-tags) The symbol "walletConnectors" is marked as @public, but its signature references "WalletConnector" which is marked as @internal
     walletConnectors?: WalletConnector[];
 }
-
-// Warning: (ae-internal-missing-underscore) The name "Unstable_NftMedia" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export const Unstable_NftMedia: React_2.ForwardRefExoticComponent<NftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
 
 export { useAccount }
 
@@ -207,11 +191,6 @@ export function useNFTCollection(contractAddress?: string): NFTCollection | unde
 
 // @public
 export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
-
-// Warning: (ae-internal-missing-underscore) The name "useNftTokenMetadata" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export function useNftTokenMetadata(contractAddress: string, tokenId: BigNumberish): SWRResponse<NFTMetadataOwner | undefined, any>;
 
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;

@@ -16,7 +16,7 @@ export declare function usePack(contractAddress?: string): Pack | undefined;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | the address of the Pack contract, found in your thirdweb dashboard |
+|  contractAddress | string | <i>(Optional)</i> the address of the Pack contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 
