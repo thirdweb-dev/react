@@ -16,7 +16,7 @@ export declare function useMarketplace(contractAddress?: string): Marketplace | 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | the address of the Marketplace contract, found in your thirdweb dashboard |
+|  contractAddress | string | <i>(Optional)</i> the address of the Marketplace contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

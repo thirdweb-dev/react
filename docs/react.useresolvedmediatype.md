@@ -17,7 +17,7 @@ export declare function useResolvedMediaType(uri?: string): {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  uri | string | the uri to resolve (can be a url or a ipfs://<!-- -->&lt;<!-- -->cid<!-- -->&gt;<!-- -->) |
+|  uri | string | <i>(Optional)</i> the uri to resolve (can be a url or a ipfs://<!-- -->&lt;<!-- -->cid<!-- -->&gt;<!-- -->) |
 
 <b>Returns:</b>
 

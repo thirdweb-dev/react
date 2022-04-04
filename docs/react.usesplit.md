@@ -16,7 +16,7 @@ export declare function useSplit(contractAddress?: string): Split | undefined;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | the address of the Split contract, found in your thirdweb dashboard |
+|  contractAddress | string | <i>(Optional)</i> the address of the Split contract, found in your thirdweb dashboard |
 
 <b>Returns:</b>
 

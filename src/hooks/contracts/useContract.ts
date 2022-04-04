@@ -3,16 +3,16 @@ import { ContractForContractType, ContractType } from "@thirdweb-dev/sdk";
 
 /**
  * @internal
- * @param contractType - the module type
- * @param contractAddress - the module address
- * @returns the instance of the module for the given type and address
+ * @param contractType - the contract type
+ * @param contractAddress - the contract address
+ * @returns the instance of the contract for the given type and address
  */
 export function useContract<TContractType extends ContractType>(
-  contractType: TContractType,
+  contractType?: TContractType,
   contractAddress?: string,
 ): ContractForContractType<TContractType> | undefined {
   const sdk = useSDK();
-  if (!sdk || !contractAddress) {
+  if (!sdk || !contractAddress || !contractType) {
     return undefined;
   }
   return sdk.getContract(contractAddress, contractType);
