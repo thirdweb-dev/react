@@ -1,11 +1,14 @@
 import { resolveIpfsUri, resolveMimeType } from "../utils/ipfs";
 import { shouldRenderAudioTag, shouldRenderVideoTag } from "../utils/media";
 import { mergeRefs } from "../utils/react";
+import {
+  CarbonDocumentAudio,
+  CarbonDocumentUnknown,
+  CarbonPauseFilled,
+  CarbonPlayFilledAlt,
+} from "./Icons";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import useDimensions from "react-cool-dimensions";
-import { AiOutlineFileUnknown } from "react-icons/ai";
-import { FaRegFileAudio } from "react-icons/fa";
-import { IoPauseSharp, IoPlaySharp } from "react-icons/io5";
 import useSWRImmutable from "swr/immutable";
 
 export interface SharedMediaProps {
@@ -87,9 +90,9 @@ const PlayButton: React.VFC<PlayButtonProps> = ({ onClick, isPlaying }) => {
       onMouseUp={onMouseUp}
     >
       {!isPlaying ? (
-        <IoPlaySharp style={{ width: "66%", height: "66%" }} />
+        <CarbonPlayFilledAlt style={{ width: "66%", height: "66%" }} />
       ) : (
-        <IoPauseSharp style={{ width: "66%", height: "66%" }} />
+        <CarbonPauseFilled style={{ width: "66%", height: "66%" }} />
       )}
     </button>
   );
@@ -241,7 +244,7 @@ const AudioPlayer = React.forwardRef<HTMLAudioElement, MediaRendererProps>(
               color: "rgb(138, 147, 155)",
             }}
           >
-            <FaRegFileAudio style={{ height: "64px", width: "64px" }} />
+            <CarbonDocumentAudio style={{ height: "64px", width: "64px" }} />
           </div>
         )}
 
@@ -345,7 +348,6 @@ const IframePlayer = React.forwardRef<HTMLIFrameElement, MediaRendererProps>(
     );
   },
 );
-
 const LinkPlayer = React.forwardRef<HTMLAnchorElement, MediaRendererProps>(
   (
     {
@@ -383,7 +385,7 @@ const LinkPlayer = React.forwardRef<HTMLAnchorElement, MediaRendererProps>(
               flexWrap: "nowrap",
             }}
           >
-            <AiOutlineFileUnknown
+            <CarbonDocumentUnknown
               style={{
                 maxWidth: "128px",
                 minWidth: "48px",
