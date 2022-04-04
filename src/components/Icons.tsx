@@ -1,6 +1,8 @@
-import { SVGProps } from "react";
+import React, { SVGProps } from "react";
 
-export function CarbonDocumentUnknown(props: SVGProps<SVGSVGElement>) {
+export const CarbonDocumentUnknown: React.VFC<SVGProps<SVGSVGElement>> = (
+  props,
+) => {
   return (
     <svg width="1em" height="1em" viewBox="0 0 32 32" {...props}>
       <circle cx="9" cy="28.5" r="1.5" fill="currentColor"></circle>
@@ -14,9 +16,11 @@ export function CarbonDocumentUnknown(props: SVGProps<SVGSVGElement>) {
       ></path>
     </svg>
   );
-}
+};
 
-export function CarbonDocumentAudio(props: SVGProps<SVGSVGElement>) {
+export const CarbonDocumentAudio: React.VFC<SVGProps<SVGSVGElement>> = (
+  props,
+) => {
   return (
     <svg width="1em" height="1em" viewBox="0 0 32 32" {...props}>
       <path
@@ -29,9 +33,11 @@ export function CarbonDocumentAudio(props: SVGProps<SVGSVGElement>) {
       ></path>
     </svg>
   );
-}
+};
 
-export function CarbonPauseFilled(props: SVGProps<SVGSVGElement>) {
+export const CarbonPauseFilled: React.VFC<SVGProps<SVGSVGElement>> = (
+  props,
+) => {
   return (
     <svg width="1em" height="1em" viewBox="0 0 32 32" {...props}>
       <path
@@ -40,9 +46,11 @@ export function CarbonPauseFilled(props: SVGProps<SVGSVGElement>) {
       ></path>
     </svg>
   );
-}
+};
 
-export function CarbonPlayFilledAlt(props: SVGProps<SVGSVGElement>) {
+export const CarbonPlayFilledAlt: React.VFC<SVGProps<SVGSVGElement>> = (
+  props,
+) => {
   return (
     <svg width="1em" height="1em" viewBox="0 0 32 32" {...props}>
       <path
@@ -51,4 +59,4 @@ export function CarbonPlayFilledAlt(props: SVGProps<SVGSVGElement>) {
       ></path>
     </svg>
   );
-}
+};
