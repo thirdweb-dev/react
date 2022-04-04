@@ -864,10 +864,10 @@
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-2.1.7.tgz#433afa8541e0d696a93bc8654e67eccd6c9f88d3"
   integrity sha512-QR4LtpopyCSdIhH4rdmXCrbeli0VaZ/hvkysetZqLRBAsuDjchqIS17vkAWwKQ903sK73RnZuEVQ4HAFkxzfqg==
 
-"@thirdweb-dev/sdk@^2.0.25-0":
-  version "2.0.25-0"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.0.25-0.tgz#4ac9f89d1bf7dd672d7f9c933f17cb27bdeb330d"
-  integrity sha512-fFojotIKlGjQLyg+YNReRklfn/CVDuW2EA+IMRaPqaEjfMqdzMPr+ZWmtzQAb7GB/hNgbioHgOxRjmrSpCsHqQ==
+"@thirdweb-dev/sdk@^2.0.25":
+  version "2.0.25"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.0.25.tgz#3234c06afd2f47873c9bfd2ae5528efbe02a5afc"
+  integrity sha512-HTRHWv2VsStUc6bo5pE+xPotBS0U7r0ZDLeiODT/1w0rc+6qIryhxdry76iUMNrrUjRch5LN/y5q0RQv3l0mGQ==
   dependencies:
     "@ethersproject/bignumber" "^5.6.0"
     "@ethersproject/bytes" "^5.6.1"
@@ -3809,11 +3809,6 @@ react-cool-dimensions@^2.0.7:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/react-cool-dimensions/-/react-cool-dimensions-2.0.7.tgz#2fe6657608f034cd7c89f149ed14e79cf1cb2d50"
   integrity sha512-z1VwkAAJ5d8QybDRuYIXTE41RxGr5GYsv1bQhbOBE8cMfoZQZpcF0odL64vdgrQVzat2jayedj1GoYi80FWcbA==
-
-react-icons@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.3.1.tgz#2fa92aebbbc71f43d2db2ed1aed07361124e91ca"
-  integrity sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==
 
 react@^17.0.0:
   version "17.0.2"

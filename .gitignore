@@ -5,3 +5,4 @@ yalc.lock
 temp/
 .swc/
 *.log
+.DS_Store
