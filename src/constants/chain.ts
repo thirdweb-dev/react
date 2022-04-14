@@ -1,10 +1,11 @@
+import { ChainId } from "@thirdweb-dev/sdk";
 import type { Chain as WagmiChain } from "wagmi";
 
 export type Chain = WagmiChain;
 
 const chain = {
   mainnet: {
-    id: 1,
+    id: ChainId.Mainnet,
     name: "Mainnet",
     nativeCurrency: {
       name: "Ether",
@@ -20,7 +21,7 @@ const chain = {
     ],
   },
   rinkeby: {
-    id: 4,
+    id: ChainId.Rinkeby,
     name: "Rinkeby",
     nativeCurrency: {
       name: "Rinkeby Ether",
@@ -37,7 +38,7 @@ const chain = {
     testnet: true,
   },
   goerli: {
-    id: 5,
+    id: ChainId.Goerli,
     name: "Goerli",
     nativeCurrency: {
       name: "Goerli Ether",
@@ -54,7 +55,7 @@ const chain = {
     testnet: true,
   },
   polygonMainnet: {
-    id: 137,
+    id: ChainId.Polygon,
     name: "Polygon Mainnet",
     nativeCurrency: {
       name: "Matic",
@@ -77,7 +78,7 @@ const chain = {
     ],
   },
   polygonTestnetMumbai: {
-    id: 80001,
+    id: ChainId.Mumbai,
     name: "Polygon Testnet Mumbai",
     nativeCurrency: {
       name: "Matic",
@@ -98,7 +99,7 @@ const chain = {
     testnet: true,
   },
   avalanche: {
-    id: 43114,
+    id: ChainId.Avalanche,
     name: "Avalanche",
     nativeCurrency: {
       name: "AVAX",
@@ -136,7 +137,7 @@ const chain = {
   // },
   // custom added (non wagmi standard)
   fantom: {
-    id: 250,
+    id: ChainId.Fantom,
     name: "Fantom Opera",
     nativeCurrency: {
       name: "Fantom",
@@ -153,9 +154,8 @@ const chain = {
     testnet: false,
   },
 } as const;
-export const defaultSupportedChains = Object.values(chain);
 
-export const ChainConstants = chain;
+export const defaultSupportedChains = Object.values(chain);
 
 export type SupportedChainId = typeof defaultSupportedChains[number]["id"];
 
