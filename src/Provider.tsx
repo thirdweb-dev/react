@@ -1,6 +1,5 @@
 import {
   Chain,
-  ChainConstants,
   SupportedChain,
   defaultSupportedChains,
 } from "./constants/chain";
@@ -133,15 +132,10 @@ export interface ThirdwebProviderProps<
   storageInterface?: IStorage;
 }
 
-const defaultChainRpc: ThirdwebProviderProps["chainRpc"] = {
-  1: ChainConstants.mainnet.rpcUrls[0],
-  4: ChainConstants.rinkeby.rpcUrls[0],
-  5: ChainConstants.goerli.rpcUrls[0],
-  137: ChainConstants.polygonMainnet.rpcUrls[0],
-  250: ChainConstants.fantom.rpcUrls[0],
-  43114: ChainConstants.avalanche.rpcUrls[0],
-  80001: ChainConstants.polygonTestnetMumbai.rpcUrls[0],
-};
+const defaultChainRpc: ChainRpc<SupportedChain> = defaultSupportedChains.reduce(
+  (prev, curr) => ({ ...prev, [curr.id]: curr.rpcUrls[0] }),
+  {},
+);
 
 const defaultdAppMeta: DAppMetaData = {
   name: "thirdweb powered dApp",
