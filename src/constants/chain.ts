@@ -155,6 +155,8 @@ const chain = {
 } as const;
 export const defaultSupportedChains = Object.values(chain);
 
+export const ChainConstants = chain;
+
 export type SupportedChainId = typeof defaultSupportedChains[number]["id"];
 
 export type SupportedChain = SupportedChainId | Chain;

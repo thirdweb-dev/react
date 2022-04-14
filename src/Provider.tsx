@@ -1,5 +1,6 @@
 import {
   Chain,
+  ChainConstants,
   SupportedChain,
   defaultSupportedChains,
 } from "./constants/chain";
@@ -133,13 +134,13 @@ export interface ThirdwebProviderProps<
 }
 
 const defaultChainRpc: ThirdwebProviderProps["chainRpc"] = {
-  1: "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-  4: "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-  5: "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-  137: "https://polygon-rpc.com",
-  250: "https://rpc.ftm.tools",
-  43114: "https://api.avax.network/ext/bc/C/rpc",
-  80001: "https://rpc-mumbai.maticvigil.com",
+  1: ChainConstants.mainnet.rpcUrls[0],
+  4: ChainConstants.rinkeby.rpcUrls[0],
+  5: ChainConstants.goerli.rpcUrls[0],
+  137: ChainConstants.polygonMainnet.rpcUrls[0],
+  250: ChainConstants.fantom.rpcUrls[0],
+  43114: ChainConstants.avalanche.rpcUrls[0],
+  80001: ChainConstants.polygonTestnetMumbai.rpcUrls[0],
 };
 
 const defaultdAppMeta: DAppMetaData = {
