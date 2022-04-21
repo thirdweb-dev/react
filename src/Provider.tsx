@@ -1,3 +1,4 @@
+import { GnosisConnector, SafeConnectOptions } from "./connectors/gnosis";
 import {
   Chain,
   SupportedChain,
@@ -45,10 +46,21 @@ export type WalletLinkConnectorType =
 /**
  * @internal
  */
+export type GnosisConnectorType =
+  | "gnosis"
+  | {
+      name: "gnosis";
+      options: SafeConnectOptions;
+    };
+
+/**
+ * @internal
+ */
 export type WalletConnector =
   | InjectedConnectorType
   | WalletConnectConnectorType
-  | WalletLinkConnectorType;
+  | WalletLinkConnectorType
+  | GnosisConnectorType;
 
 /**
  * @internal
@@ -286,6 +298,20 @@ export const ThirdwebProvider = <
                     : {
                         ...walletLinkClientMeta,
                         jsonRpcUrl,
+                        ...connector.options,
+                      },
+              });
+            }
+            if (
+              (typeof connector === "string" && connector === "gnosis") ||
+              (typeof connector === "object" && connector.name === "gnosis")
+            ) {
+              return new GnosisConnector({
+                chains: _supporrtedChains,
+                options:
+                  typeof connector === "string"
+                    ? {}
+                    : {
                         ...connector.options,
                       },
               });

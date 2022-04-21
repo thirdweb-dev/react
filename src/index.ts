@@ -9,6 +9,7 @@ export * from "./hooks/useReadonlySDK";
 export * from "./hooks/connectors/useMetamask";
 export * from "./hooks/connectors/useWalletConnect";
 export * from "./hooks/connectors/useWalletLink";
+export * from "./hooks/connectors/useGnosis";
 export * from "./hooks/useChainId";
 export * from "./hooks/useNetworkMismatch";
 
