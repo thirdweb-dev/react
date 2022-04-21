@@ -154,6 +154,11 @@ export interface ThirdwebProviderProps<
    * The storage interface to use with the sdk.
    */
   storageInterface?: IStorage;
+
+  /**
+   * Whether or not to attempt auto-connect to a wallet.
+   */
+  autoConnect?: boolean;
 }
 
 const defaultChainRpc: ChainRpc<SupportedChain> = defaultSupportedChains.reduce(
@@ -204,6 +209,7 @@ export const ThirdwebProvider = <
   dAppMeta = defaultdAppMeta,
   desiredChainId,
   storageInterface,
+  autoConnect = true,
   children,
 }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => {
   // construct the wagmi options
@@ -245,7 +251,7 @@ export const ThirdwebProvider = <
     };
 
     return {
-      autoConnect: true,
+      autoConnect,
       connectorStorageKey: "tw:provider:connectors",
       connectors: ({ chainId }: { chainId?: number }) => {
         return walletConnectors

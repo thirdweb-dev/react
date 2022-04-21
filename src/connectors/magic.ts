@@ -13,7 +13,6 @@ export type MagicConnectorOptions = {
   apiKey: string;
   desiredChainId: number;
   redirect: string;
-  magicCredential: string;
   silentEagerLogin?: boolean;
 };
 
@@ -79,59 +78,43 @@ export class MagicConnector extends Connector {
   constructor(config: { chains?: Chain[]; options?: any }) {
     super({ ...config, options: config?.options });
     this.options = config?.options;
+    this.updateMagic(this.options.desiredChainId);
   }
 
   async connect() {
+    if (typeof window === "undefined") {
+      throw new Error("Cannot connect to Magic in a non-browser environment.");
+    }
+
+    if (!this.email) {
+      throw new Error("Email is not set.");
+    }
+
+    await this.updateMagic(this.options.desiredChainId);
+
     if (!this.magic) {
       throw new ConnectorNotFoundError();
     }
 
-    const isLoggedIn = await this.magic.user.isLoggedIn();
-    const metadata = isLoggedIn ? await this.magic.user.getMetadata() : null;
-    const loggedInEmail = metadata ? metadata.email : null;
-
-    if (isLoggedIn) {
-      if (this.email && loggedInEmail !== this.email) {
-        await this.magic.user.logout();
+    try {
+      await this.magic.auth.loginWithMagicLink({ email: this.email });
+    } catch (err) {
+      if (!(err instanceof RPCError)) {
+        throw err;
       }
-    }
-
-    if (!isLoggedIn && this.options.silentEagerLogin) {
-      throw new SilentEagerConnectError();
-    }
-
-    if (!isLoggedIn) {
-      try {
-        if (this.options.magicCredential) {
-          await this.magic.auth.loginWithCredential(
-            this.options.magicCredential,
-          );
-        } else if (this.email) {
-          await this.magic.auth.loginWithMagicLink({
-            email: this.email,
-            redirectURI: new URL(this.options.redirect, window.location.origin)
-              .href,
-            showUI: false,
-          });
-        }
-      } catch (err) {
-        if (!(err instanceof RPCError)) {
-          throw err;
-        }
-        if (err.code === RPCErrorCode.MagicLinkFailedVerification) {
-          throw new FailedVerificationError();
-        }
-        if (err.code === RPCErrorCode.MagicLinkExpired) {
-          throw new MagicLinkExpiredError();
-        }
-        if (err.code === RPCErrorCode.MagicLinkRateLimited) {
-          throw new MagicLinkRateLimitError();
-        }
-        // This error gets thrown when users close the login window.
-        // -32603 = JSON-RPC InternalError
-        if (err.code === -32603) {
-          throw new UserRejectedRequestError();
-        }
+      if (err.code === RPCErrorCode.MagicLinkFailedVerification) {
+        throw new FailedVerificationError();
+      }
+      if (err.code === RPCErrorCode.MagicLinkExpired) {
+        throw new MagicLinkExpiredError();
+      }
+      if (err.code === RPCErrorCode.MagicLinkRateLimited) {
+        throw new MagicLinkRateLimitError();
+      }
+      // This error gets thrown when users close the login window.
+      // -32603 = JSON-RPC InternalError
+      if (err.code === -32603) {
+        throw new UserRejectedRequestError();
       }
     }
 
@@ -139,17 +122,6 @@ export class MagicConnector extends Connector {
     const account = await provider
       .enable()
       .then((accounts: string[]): string => accounts[0]);
-
-    if (account && window.localStorage) {
-      const refreshedToken = await this.magic.user.getIdToken({
-        // 90 days
-        lifespan: 90 * 24 * 60 * 60,
-      });
-
-      if (refreshedToken) {
-        window.localStorage.setItem("magic.magic_credential", refreshedToken);
-      }
-    }
 
     return {
       account,
@@ -162,8 +134,6 @@ export class MagicConnector extends Connector {
   }
 
   async disconnect() {
-    window.localStorage.setItem("magic.email", "");
-    window.localStorage.setItem("magic.magic_credential", "");
     this.magic?.user.logout();
   }
 
