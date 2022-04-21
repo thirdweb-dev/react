@@ -83,11 +83,19 @@ export class MagicConnector extends Connector {
 
   async connect() {
     if (typeof window === "undefined") {
-      throw new Error("Cannot connect to Magic in a non-browser environment.");
+      return {
+        account: undefined,
+        chain: undefined,
+        provider: undefined,
+      };
     }
 
     if (!this.email) {
-      throw new Error("Email is not set.");
+      return {
+        account: undefined,
+        chain: undefined,
+        provider: undefined,
+      };
     }
 
     await this.updateMagic(this.options.desiredChainId);
@@ -98,6 +106,7 @@ export class MagicConnector extends Connector {
 
     try {
       await this.magic.auth.loginWithMagicLink({ email: this.email });
+      window.localStorage.setItem("tw::magic::email", this.email);
     } catch (err) {
       if (!(err instanceof RPCError)) {
         throw err;
@@ -134,6 +143,7 @@ export class MagicConnector extends Connector {
   }
 
   async disconnect() {
+    window.localStorage.setItem("tw::magic::email", "");
     this.magic?.user.logout();
   }
 
@@ -164,6 +174,10 @@ export class MagicConnector extends Connector {
   }
 
   private async updateMagic(chainId: number) {
+    if (typeof window === "undefined") {
+      return;
+    }
+
     const chainData = defaultSupportedChains.find(
       (chain) => chain.id === chainId,
     );

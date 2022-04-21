@@ -14,7 +14,6 @@
 |  [useDisconnect()](./react.usedisconnect.md) |  |
 |  [useEdition(contractAddress)](./react.useedition.md) | Returns a Edition contract instance |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Returns a Edition Drop contract instance |
-|  [useGnosis()](./react.usegnosis.md) | Convienience hook for connecting to a gnosis safe |
 |  [useMagic()](./react.usemagic.md) | Convienience hook for connecting to magic link |
 |  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Returns a Marketplace contract instance |
 |  [useMetamask()](./react.usemetamask.md) | Convienience hook for connecting to a metamask (or any injected) wallet |

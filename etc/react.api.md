@@ -22,7 +22,6 @@ import { Marketplace } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
-import { Opts } from '@gnosis.pm/safe-apps-sdk';
 import { Pack } from '@thirdweb-dev/sdk';
 import { default as React_2 } from 'react';
 import { SDKOptions } from '@thirdweb-dev/sdk';
@@ -57,14 +56,6 @@ export interface DAppMetaData {
 export { defaultChains }
 
 export { defaultL2Chains }
-
-// Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export type GnosisConnectorType = "gnosis" | {
-    name: "gnosis";
-    options: SafeConnectOptions;
-};
 
 // Warning: (ae-internal-missing-underscore) The name "InjectedConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -191,12 +182,6 @@ export function useEdition(contractAddress?: string): Edition | undefined;
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 
 // @public
-export function useGnosis(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
-    error?: Error | undefined;
-}>;
-
-// @public
 export function useMagic(): (email: string) => Promise<{
     data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
@@ -280,7 +265,7 @@ export type WalletConnectConnectorType = "walletConnect" | {
 // Warning: (ae-internal-missing-underscore) The name "WalletConnector" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType | WalletLinkConnectorType | GnosisConnectorType | MagicConnectorType;
+export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType | WalletLinkConnectorType | MagicConnectorType;
 
 // Warning: (ae-internal-missing-underscore) The name "WalletLinkConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -292,8 +277,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/Provider.d.ts:35:5 - (ae-forgotten-export) The symbol "SafeConnectOptions" needs to be exported by the entry point index.d.ts
-// dist/Provider.d.ts:42:5 - (ae-forgotten-export) The symbol "MagicConnectorOptions" needs to be exported by the entry point index.d.ts
+// dist/Provider.d.ts:34:5 - (ae-forgotten-export) The symbol "MagicConnectorOptions" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
