@@ -8,6 +8,9 @@ The `<ThirdwebProvider />` component, you need to wrap your application with thi
 
 <b>Signature:</b>
 
+```typescript
+ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, autoConnect, children, }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element
+```
 
 ## Example
 

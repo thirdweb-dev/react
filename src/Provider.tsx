@@ -154,12 +154,11 @@ export interface ThirdwebProviderProps<
    * @beta
    */
   queryClient?: QueryClient;
-    
+
   /**
    * Whether or not to attempt auto-connect to a wallet.
    */
   autoConnect?: boolean;
-
 }
 
 const defaultChainRpc: ChainRpc<SupportedChain> = defaultSupportedChains.reduce(

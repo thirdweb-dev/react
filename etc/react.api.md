@@ -21,6 +21,9 @@ import { chain } from './constants';
 import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { Connector } from './connectors';
+import { ConnectorData } from './connectors';
+import { ConnectorEvents } from './connectors';
 import { ContractForContractType } from '@thirdweb-dev/sdk';
 import { ContractTransaction } from 'ethers';
 import { ContractType } from '@thirdweb-dev/sdk';
@@ -91,7 +94,16 @@ import { utils } from 'ethers';
 import { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { Web3Provider } from '@ethersproject/providers';
+import { WebSocketProvider } from '@ethersproject/providers';
 
+// @public (undocumented)
+class AddChainError extends Error {
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    name: string;
+}
 
 export { ChainId }
 
@@ -239,6 +251,8 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps {
     metadata: NFTMetadata;
 }
 
+// @public
+export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
@@ -336,7 +350,7 @@ export function useEditionDrop(contractAddress?: string): EditionDrop | undefine
 
 // @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -537,6 +551,9 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
+// dist/index.d.ts:368:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:643:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:1742:5 - (ae-forgotten-export) The symbol "ThirdwebContract" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
