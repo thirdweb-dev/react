@@ -46,6 +46,8 @@ async function fetchContractTypeAndPublishMetadata(
       (sdk as any)._chainId,
     ),
     () => fetchContractType(contractAddress, sdk),
+    // is immutable, so infinite stale time
+    { staleTime: Infinity },
   );
   if (contractType !== "custom") {
     return {
@@ -59,6 +61,8 @@ async function fetchContractTypeAndPublishMetadata(
       (sdk as any)._chainId,
     ),
     () => fetchContractPublishMetadata(contractAddress, sdk),
+    // is immutable, so infinite stale time
+    { staleTime: Infinity },
   );
   return {
     contractType,
@@ -105,6 +109,8 @@ export function useResolvedContractType(contractAddress?: string) {
     () => fetchContractType(contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
+      // never stale, a contract's publish metadata is immutable
+      staleTime: Infinity,
     },
   );
 }
@@ -128,6 +134,8 @@ export function useContractPublishMetadata(contractAddress?: string) {
     () => fetchContractPublishMetadata(contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
+      // never stale, a contract's publish metadata is immutable
+      staleTime: Infinity,
     },
   );
 }
@@ -144,6 +152,8 @@ function useContractTypeAndPublishMetadata(contractAddress?: string) {
       fetchContractTypeAndPublishMetadata(queryClient, contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
+      // combination of type and publish metadata is immutable
+      staleTime: Infinity,
     },
   );
 }
@@ -212,6 +222,8 @@ export function useContractMetadata(contractAddress?: string) {
             contractAddress,
             sdk,
           ),
+        // is immutable, so infinite stale time
+        { staleTime: Infinity },
       );
       return getContractFromCombinedTypeAndPublishMetadata(
         contractAddress,
@@ -246,6 +258,8 @@ export function useContractFunctionsQuery(contractAddress?: string) {
             contractAddress,
             sdk,
           ),
+        // is immutable, so infinite stale time
+        { staleTime: Infinity },
       );
       const contract = getContractFromCombinedTypeAndPublishMetadata(
         contractAddress,
@@ -259,6 +273,8 @@ export function useContractFunctionsQuery(contractAddress?: string) {
     },
     {
       enabled: !!contractAddress || !!sdk,
+      // functions are based on publish metadata (abi), so this is immutable
+      staleTime: Infinity,
     },
   );
 }
