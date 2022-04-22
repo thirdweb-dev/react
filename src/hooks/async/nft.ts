@@ -1,4 +1,5 @@
-import { cacheKeys } from "../../utils/cache-keys";
+import { useActiveChainId } from "../../Provider";
+import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { BigNumber } from "@ethersproject/bignumber";
 import {
@@ -130,6 +131,7 @@ export function useNFTSupply(contract?: Erc721<any>) {
  * @beta
  */
 export function useNFTMintToSelfMutation(contract?: Erc721<any>) {
+  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
   return useMutation(
@@ -144,9 +146,17 @@ export function useNFTMintToSelfMutation(contract?: Erc721<any>) {
       onSuccess: () => {
         return Promise.all([
           queryClient.invalidateQueries(
-            cacheKeys.contract.queryAll(contractAddress),
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.queryAll(contractAddress),
+              activeChainId,
+            ),
           ),
-          cacheKeys.contract.totalSupply(contractAddress),
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.totalSupply(contractAddress),
+              activeChainId,
+            ),
+          ),
         ]);
       },
     },
