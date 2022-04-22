@@ -1,3 +1,4 @@
+import { MagicConnector, MagicConnectorArguments } from "./connectors/magic";
 import {
   Chain,
   SupportedChain,
@@ -12,9 +13,9 @@ import {
   ProviderProps as WagmiproviderProps,
   useProvider,
 } from "wagmi";
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { WalletLinkConnector } from "wagmi/connectors/walletLink";
 
 /**
  * @internal
@@ -39,7 +40,17 @@ export type WalletLinkConnectorType =
   | "coinbase"
   | {
       name: "walletLink" | "coinbase";
-      options: WalletLinkConnector["options"];
+      options: CoinbaseWalletConnector["options"];
+    };
+
+/**
+ * @internal
+ */
+export type MagicConnectorType =
+  | "magic"
+  | {
+      name: "magic";
+      options: Omit<MagicConnectorArguments, "network">;
     };
 
 /**
@@ -48,7 +59,8 @@ export type WalletLinkConnectorType =
 export type WalletConnector =
   | InjectedConnectorType
   | WalletConnectConnectorType
-  | WalletLinkConnectorType;
+  | WalletLinkConnectorType
+  | MagicConnectorType;
 
 /**
  * @internal
@@ -130,6 +142,11 @@ export interface ThirdwebProviderProps<
    * The storage interface to use with the sdk.
    */
   storageInterface?: IStorage;
+
+  /**
+   * Whether or not to attempt auto-connect to a wallet.
+   */
+  autoConnect?: boolean;
 }
 
 const defaultChainRpc: ChainRpc<SupportedChain> = defaultSupportedChains.reduce(
@@ -180,6 +197,7 @@ export const ThirdwebProvider = <
   dAppMeta = defaultdAppMeta,
   desiredChainId,
   storageInterface,
+  autoConnect = true,
   children,
 }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => {
   // construct the wagmi options
@@ -221,7 +239,7 @@ export const ThirdwebProvider = <
     };
 
     return {
-      autoConnect: true,
+      autoConnect,
       connectorStorageKey: "tw:provider:connectors",
       connectors: ({ chainId }: { chainId?: number }) => {
         return walletConnectors
@@ -275,7 +293,7 @@ export const ThirdwebProvider = <
                   connector.name === "walletLink"))
             ) {
               const jsonRpcUrl = _rpcUrlMap[chainId || desiredChainId || 1];
-              return new WalletLinkConnector({
+              return new CoinbaseWalletConnector({
                 chains: _supporrtedChains,
                 options:
                   typeof connector === "string"
@@ -288,6 +306,17 @@ export const ThirdwebProvider = <
                         jsonRpcUrl,
                         ...connector.options,
                       },
+              });
+            }
+            if (typeof connector === "object" && connector.name === "magic") {
+              const jsonRpcUrl = _rpcUrlMap[chainId || desiredChainId || 1];
+              return new MagicConnector({
+                chains: _supporrtedChains,
+                options: {
+                  ...connector.options,
+                  network: { rpcUrl: jsonRpcUrl, chainId: desiredChainId || 1 },
+                  rpcUrls: _rpcUrlMap,
+                },
               });
             }
             return null;
