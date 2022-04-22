@@ -309,15 +309,19 @@ export const ThirdwebProvider = <
               });
             }
             if (typeof connector === "object" && connector.name === "magic") {
-              return new MagicConnector(
-                {
-                  chains: _supporrtedChains,
-                  options: connector.options,
-                },
-                typeof window === "undefined"
-                  ? ""
-                  : window.localStorage.getItem("tw::magic::email") || "",
-              );
+              const magicConnector = new MagicConnector({
+                chains: _supporrtedChains,
+                options: connector.options,
+              });
+              if (
+                typeof window !== "undefined" &&
+                window.localStorage.getItem("tw::magic::email")
+              ) {
+                magicConnector.setEmail(
+                  window.localStorage.getItem("tw::magic::email") as string,
+                );
+              }
+              return magicConnector;
             }
             return null;
           })

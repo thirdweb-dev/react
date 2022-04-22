@@ -1,5 +1,10 @@
 import { defaultSupportedChains } from "../constants/chain";
 import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
+import {
+  InstanceWithExtensions,
+  MagicSDKExtensionsOption,
+  SDKBase,
+} from "@magic-sdk/provider";
 import { getAddress } from "ethers/lib/utils";
 import { Magic, RPCError, RPCErrorCode } from "magic-sdk";
 import {
@@ -67,46 +72,25 @@ export class MagicLinkExpiredError extends ConnectorError {
 export class MagicConnector extends Connector {
   readonly id = "magic";
   readonly name = "Magic";
-  ready = true;
+  readonly ready = true;
 
-  private magic?: Magic;
-  private provider?: Web3Provider;
   override options: MagicConnectorOptions;
-
   private email = "";
 
-  constructor(config: { chains?: Chain[]; options?: any }, initialEmail = "") {
+  constructor(config: { chains?: Chain[]; options?: any }) {
     super({ ...config, options: config?.options });
     this.options = config?.options;
-    this.email = initialEmail;
-    this.updateMagic(this.options.desiredChainId);
   }
 
   async connect() {
-    if (typeof window === "undefined") {
-      return {
-        account: undefined,
-        chain: undefined,
-        provider: undefined,
-      };
-    }
-
     if (!this.email) {
-      return {
-        account: undefined,
-        chain: undefined,
-        provider: undefined,
-      };
+      throw Error("Email is not currently set.");
     }
 
-    await this.updateMagic(this.options.desiredChainId);
-
-    if (!this.magic) {
-      throw new ConnectorNotFoundError();
-    }
+    const magic = this.getMagic();
 
     try {
-      await this.magic.auth.loginWithMagicLink({ email: this.email });
+      await magic.auth.loginWithMagicLink({ email: this.email });
       window.localStorage.setItem("tw::magic::email", this.email);
     } catch (err) {
       if (!(err instanceof RPCError)) {
@@ -128,10 +112,8 @@ export class MagicConnector extends Connector {
       }
     }
 
-    const provider = this.magic.rpcProvider;
-    const account = await provider
-      .enable()
-      .then((accounts: string[]): string => accounts[0]);
+    const provider = this.getProvider();
+    const account = await this.getProvider().getSigner().getAddress();
 
     return {
       account,
@@ -144,22 +126,15 @@ export class MagicConnector extends Connector {
   }
 
   async disconnect() {
-    window.localStorage.setItem("tw::magic::email", "");
-    this.magic?.user.logout();
+    this.getMagic().user.logout();
   }
 
   async getAccount() {
-    if (!this.magic) {
-      throw new ConnectorNotFoundError();
-    }
-
-    return this.magic.rpcProvider
-      .send("eth_accounts")
-      .then((accounts: string[]): string => accounts[0]);
+    return this.getProvider().getSigner().getAddress();
   }
 
   async getChainId() {
-    if (!this.provider) {
+    if (!this.getProvider()) {
       throw new ConnectorNotFoundError();
     }
 
@@ -167,36 +142,29 @@ export class MagicConnector extends Connector {
   }
 
   getProvider(): Web3Provider {
-    if (!this.provider) {
-      this.updateMagic(this.options.desiredChainId);
-    }
-
-    return this.provider as Web3Provider;
+    return new Web3Provider(
+      this.getMagic().rpcProvider as unknown as ExternalProvider,
+    );
   }
 
-  private async updateMagic(chainId: number) {
-    if (typeof window === "undefined") {
-      return;
-    }
-
+  private getMagic(): InstanceWithExtensions<
+    SDKBase,
+    MagicSDKExtensionsOption<string>
+  > {
     const chainData = defaultSupportedChains.find(
-      (chain) => chain.id === chainId,
+      (chain) => chain.id === this.options.desiredChainId,
     );
 
     if (!chainData) {
-      throw new Error(`Chain ${chainId} is not supported`);
+      throw new Error(`Chain ${this.options.desiredChainId} is not supported`);
     }
 
-    this.magic = new Magic(this.options.apiKey, {
+    return new Magic(this.options.apiKey, {
       network: {
         chainId: chainData.id,
         rpcUrl: chainData.rpcUrls[0],
       },
     });
-
-    this.provider = new Web3Provider(
-      this.magic.rpcProvider as unknown as ExternalProvider,
-    );
   }
 
   async getSigner() {
