@@ -4,17 +4,23 @@ import {
   defaultSupportedChains,
 } from "./constants/chain";
 import { useSigner } from "./hooks/useSigner";
-import { IStorage, SDKOptions, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import {
+  IStorage,
+  SDKOptions,
+  SUPPORTED_CHAIN_ID,
+  ThirdwebSDK,
+} from "@thirdweb-dev/sdk";
 import React, { createContext, useEffect, useMemo } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import invariant from "tiny-invariant";
 import {
   WagmiProvider,
   ProviderProps as WagmiproviderProps,
   useProvider,
 } from "wagmi";
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { WalletLinkConnector } from "wagmi/connectors/walletLink";
 
 /**
  * @internal
@@ -39,7 +45,7 @@ export type WalletLinkConnectorType =
   | "coinbase"
   | {
       name: "walletLink" | "coinbase";
-      options: WalletLinkConnector["options"];
+      options: CoinbaseWalletConnector["options"];
     };
 
 /**
@@ -130,6 +136,12 @@ export interface ThirdwebProviderProps<
    * The storage interface to use with the sdk.
    */
   storageInterface?: IStorage;
+
+  /**
+   * The react-query client to use. (Defaults to a default client.)
+   * @beta
+   */
+  queryClient?: QueryClient;
 }
 
 const defaultChainRpc: ChainRpc<SupportedChain> = defaultSupportedChains.reduce(
@@ -180,6 +192,7 @@ export const ThirdwebProvider = <
   dAppMeta = defaultdAppMeta,
   desiredChainId,
   storageInterface,
+  queryClient,
   children,
 }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => {
   // construct the wagmi options
@@ -275,7 +288,7 @@ export const ThirdwebProvider = <
                   connector.name === "walletLink"))
             ) {
               const jsonRpcUrl = _rpcUrlMap[chainId || desiredChainId || 1];
-              return new WalletLinkConnector({
+              return new CoinbaseWalletConnector({
                 chains: _supporrtedChains,
                 options:
                   typeof connector === "string"
@@ -313,16 +326,22 @@ export const ThirdwebProvider = <
     };
   }, [sdkOptions, defaultSdkReadUrl]);
 
+  const queryClientWithDefault: QueryClient = useMemo(() => {
+    return queryClient ? queryClient : new QueryClient();
+  }, [queryClient]);
+
   return (
-    <WagmiProvider {...wagmiProps}>
-      <ThirdwebSDKProvider
-        desiredChainId={desiredChainId}
-        sdkOptions={sdkOptionsWithDefaults}
-        storageInterface={storageInterface}
-      >
-        {children}
-      </ThirdwebSDKProvider>
-    </WagmiProvider>
+    <QueryClientProvider client={queryClientWithDefault}>
+      <WagmiProvider {...wagmiProps}>
+        <ThirdwebSDKProvider
+          desiredChainId={desiredChainId}
+          sdkOptions={sdkOptionsWithDefaults}
+          storageInterface={storageInterface}
+        >
+          {children}
+        </ThirdwebSDKProvider>
+      </WagmiProvider>
+    </QueryClientProvider>
   );
 };
 
@@ -335,9 +354,11 @@ interface SDKContext {
 const ThirdwebSDKContext = createContext<SDKContext>({ desiredChainId: -1 });
 
 const ThirdwebSDKProvider: React.FC<
-  Pick<
-    ThirdwebProviderProps,
-    "desiredChainId" | "sdkOptions" | "storageInterface"
+  React.PropsWithChildren<
+    Pick<
+      ThirdwebProviderProps,
+      "desiredChainId" | "sdkOptions" | "storageInterface"
+    >
   >
 > = ({ sdkOptions, desiredChainId, storageInterface, children }) => {
   const provider = useProvider();
@@ -399,4 +420,17 @@ export function useDesiredChainId(): number {
     "useDesiredChainId must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
   );
   return ctx.desiredChainId;
+}
+
+/**
+ *
+ * @internal
+ */
+export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined {
+  const ctx = React.useContext(ThirdwebSDKContext);
+  invariant(
+    ctx._inProvider,
+    "useActiveChainId must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
+  );
+  return (ctx.sdk as any)?._chainId;
 }

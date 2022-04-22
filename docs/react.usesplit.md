@@ -9,7 +9,7 @@ Returns a Split contract instance
 <b>Signature:</b>
 
 ```typescript
-export declare function useSplit(contractAddress?: string): Split | undefined;
+declare function useSplit(contractAddress?: string): Split | undefined;
 ```
 
 ## Parameters

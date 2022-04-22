@@ -9,7 +9,7 @@ Returns a Pack contract instance
 <b>Signature:</b>
 
 ```typescript
-export declare function usePack(contractAddress?: string): Pack | undefined;
+declare function usePack(contractAddress?: string): Pack | undefined;
 ```
 
 ## Parameters

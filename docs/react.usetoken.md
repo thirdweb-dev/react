@@ -9,7 +9,7 @@ Returns a Token contract instance
 <b>Signature:</b>
 
 ```typescript
-export declare function useToken(contractAddress?: string): Token | undefined;
+declare function useToken(contractAddress?: string): Token | undefined;
 ```
 
 ## Parameters

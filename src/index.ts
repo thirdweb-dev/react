@@ -15,7 +15,10 @@ export * from "./hooks/useNetworkMismatch";
 // re-exports
 export { defaultChains, defaultL2Chains, useAccount, useNetwork } from "wagmi";
 export { ChainId, IpfsStorage } from "@thirdweb-dev/sdk";
-
 // ui components
 export * from "./components/MediaRenderer";
 export * from "./components/NftMedia";
+
+// async hooks
+export * from "./hooks/async/contracts";
+export * from "./hooks/async/nft";

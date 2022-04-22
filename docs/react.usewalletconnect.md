@@ -9,14 +9,14 @@ Convienience hook for connecting to a wallet via WalletConnect
 <b>Signature:</b>
 
 ```typescript
-export declare function useWalletConnect(): () => Promise<{
-    data?: import("wagmi-core").ConnectorData<any> | undefined;
+declare function useWalletConnect(): () => Promise<{
+    data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 ```
 <b>Returns:</b>
 
-() =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+() =&gt; Promise&lt;{ data?: wagmi\_core.ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
 
 a function that will prompt the user to connect their wallet via WalletConnect
 

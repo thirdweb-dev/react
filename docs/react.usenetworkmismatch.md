@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useNetworkMismatch(): boolean;
+declare function useNetworkMismatch(): boolean;
 ```
 <b>Returns:</b>
 

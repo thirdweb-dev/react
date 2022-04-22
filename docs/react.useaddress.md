@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useAddress(): string | undefined;
+declare function useAddress(): string | undefined;
 ```
 <b>Returns:</b>
 

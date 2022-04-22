@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export interface MediaType 
+interface MediaType 
 ```
 
 ## Properties

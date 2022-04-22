@@ -9,7 +9,7 @@ Returns a Edition contract instance
 <b>Signature:</b>
 
 ```typescript
-export declare function useEdition(contractAddress?: string): Edition | undefined;
+declare function useEdition(contractAddress?: string): Edition | undefined;
 ```
 
 ## Parameters

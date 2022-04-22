@@ -4,38 +4,114 @@
 
 ```ts
 
-import type { Chain as Chain_2 } from 'wagmi';
+/// <reference types="node" />
+
+import { allChains } from './constants';
+import { Balance } from './types';
+import { balanceAction } from './actions';
+import { BalanceActionArgs } from './actions';
+import { BalanceActionResult } from './actions';
+import { BaseContract } from 'ethers';
+import { BaseProvider } from '@ethersproject/providers';
+import { BigNumber as BigNumber_2 } from 'ethers';
+import { BigNumberish as BigNumberish_2 } from 'ethers';
+import { BytesLike as BytesLike_2 } from 'ethers';
+import { CallOverrides } from 'ethers';
+import { chain } from './constants';
+import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
-import { Connector } from 'wagmi';
-import { ConnectorData } from 'wagmi';
-import { ConnectorData as ConnectorData_2 } from 'wagmi-core';
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { Connector } from './connectors';
+import { ConnectorData } from './connectors';
+import { ConnectorEvents } from './connectors';
 import { ContractForContractType } from '@thirdweb-dev/sdk';
+import { ContractTransaction } from 'ethers';
 import { ContractType } from '@thirdweb-dev/sdk';
-import { defaultChains } from 'wagmi';
-import { defaultL2Chains } from 'wagmi';
+import { CustomContract } from '@thirdweb-dev/sdk';
+import { defaultChains } from './constants';
+import { defaultL2Chains } from './constants';
+import { developmentChains } from './constants';
 import { Edition } from '@thirdweb-dev/sdk';
 import { EditionDrop } from '@thirdweb-dev/sdk';
+import { erc1155ABI } from './constants';
+import { erc20ABI } from './constants';
+import { Erc721 } from '@thirdweb-dev/sdk';
+import { erc721ABI } from './constants';
+import { Event as Event_2 } from 'ethers';
+import { EventFilter as EventFilter_2 } from 'ethers';
 import { InjectedConnector } from 'wagmi/connectors/injected';
+import { InjectedConnector as InjectedConnector_2 } from './connectors';
 import { IpfsStorage } from '@thirdweb-dev/sdk';
 import { IStorage } from '@thirdweb-dev/sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
+import { normalizeChainId } from './utils';
+import { Overrides } from 'ethers';
 import { Pack } from '@thirdweb-dev/sdk';
+import { PayableOverrides } from 'ethers';
+import { PopulatedTransaction } from 'ethers';
+import { QueryAllParams } from '@thirdweb-dev/sdk';
+import { QueryClient } from 'react-query';
 import { default as React_2 } from 'react';
+import * as React_3 from 'react';
+import * as react_query from 'react-query';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
 import { Split } from '@thirdweb-dev/sdk';
+import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
+import * as _thirdweb_dev_sdk from '@thirdweb-dev/sdk';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
-import { useAccount } from 'wagmi';
-import { useNetwork } from 'wagmi';
+import { Unit } from './types';
+import { units } from './constants';
+import { useAccount } from './hooks';
+import { useBalance } from './hooks';
+import { useBlockNumber } from './hooks';
+import { useConnect as useConnect_2 } from './hooks';
+import { useContract as useContract_2 } from './hooks';
+import { useContractEvent } from './hooks';
+import { useContractRead } from './hooks';
+import { useContractWrite } from './hooks';
+import { useEnsAvatar } from './hooks';
+import { useEnsLookup } from './hooks';
+import { useEnsResolveName } from './hooks';
+import { useEnsResolver } from './hooks';
+import { useFeeData } from './hooks';
+import { useNetwork } from './hooks';
+import { useProvider } from './hooks';
+import { useSigner as useSigner_2 } from './hooks';
+import { useSignMessage } from './hooks';
+import { useSignTypedData } from './hooks';
+import { useToken as useToken_2 } from './hooks';
+import { useTransaction } from './hooks';
+import { useWaitForTransaction } from './hooks';
+import { useWebSocketProvider } from './hooks';
+import { utils } from 'ethers';
+import { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { WalletLinkConnector } from 'wagmi/connectors/walletLink';
+import { Web3Provider } from '@ethersproject/providers';
+import { WebSocketProvider } from '@ethersproject/providers';
+
+// @public (undocumented)
+class AddChainError extends Error {
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    name: string;
+}
 
 export { ChainId }
+
+// @public (undocumented)
+class ChainNotConfiguredError extends Error {
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    name: string;
+}
 
 // Warning: (ae-forgotten-export) The symbol "SupportedChain" needs to be exported by the entry point index.d.ts
 // Warning: (ae-forgotten-export) The symbol "Chain" needs to be exported by the entry point index.d.ts
@@ -43,6 +119,27 @@ export { ChainId }
 //
 // @internal (undocumented)
 export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain, string>;
+
+// @public (undocumented)
+class ConnectorAlreadyConnectedError extends Error {
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    name: string;
+}
+
+// @public (undocumented)
+class ConnectorNotFoundError extends Error {
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    name: string;
+}
+
+// Warning: (ae-forgotten-export) The symbol "ContextValue" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+const Context: React_3.Context<ContextValue | null>;
 
 // @public
 export interface DAppMetaData {
@@ -57,6 +154,13 @@ export { defaultChains }
 
 export { defaultL2Chains }
 
+// Warning: (ae-forgotten-export) The symbol "ERC721" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "ERC721Metadata" needs to be exported by the entry point index.d.ts
+// Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function detectErc721Instance(contract?: ValidContractInstance | CustomContract | null): Erc721<ERC721 & ERC721Metadata> | undefined;
+
 // Warning: (ae-internal-missing-underscore) The name "InjectedConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -68,7 +172,9 @@ export type InjectedConnectorType = "injected" | "metamask" | {
 export { IpfsStorage }
 
 // @public
-export const MediaRenderer: React_2.ForwardRefExoticComponent<MediaRendererProps & React_2.RefAttributes<HTMLMediaElement>>;
+export const MediaRenderer: React_2.ForwardRefExoticComponent<MediaRendererProps & {
+    children?: React_2.ReactNode;
+} & React_2.RefAttributes<HTMLMediaElement>>;
 
 // @public
 export interface MediaRendererProps extends SharedMediaProps {
@@ -86,6 +192,26 @@ export interface MediaType {
 }
 
 // @public (undocumented)
+type Props = {
+    autoConnect?: boolean;
+    connectorStorageKey?: string;
+    connectors?: Connector[] | ((config: {
+        chainId?: number;
+    }) => Connector[]);
+    provider?: BaseProvider | ((config: {
+        chainId?: number;
+        connector?: Connector;
+    }) => BaseProvider);
+    webSocketProvider?: WebSocketProvider | ((config: {
+        chainId?: number;
+        connector?: Connector;
+    }) => WebSocketProvider | undefined);
+};
+
+// @public (undocumented)
+const Provider_2: ({ autoConnect, children, connectors: connectors_, connectorStorageKey, provider: provider_, webSocketProvider: webSocketProvider_, }: React_3.PropsWithChildren<Props>) => React_3.FunctionComponentElement<React_3.ProviderProps<ContextValue | null>>;
+
+// @public (undocumented)
 export interface SharedMediaProps {
     // (undocumented)
     className?: string;
@@ -99,6 +225,14 @@ export interface SharedMediaProps {
     width?: HTMLIFrameElement["width"];
 }
 
+// @public (undocumented)
+class SwitchChainError extends Error {
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    name: string;
+}
+
 // @public
 export const ThirdwebNftMedia: React_2.ForwardRefExoticComponent<ThirdwebNftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
 
@@ -108,7 +242,7 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps {
 }
 
 // @public
-export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
+export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
@@ -116,6 +250,8 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
     dAppMeta?: DAppMetaData;
     desiredChainId: TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain | undefined;
+    // @beta
+    queryClient?: QueryClient;
     sdkOptions?: SDKOptions;
     storageInterface?: IStorage;
     supportedChains?: TSupportedChain[];
@@ -125,6 +261,11 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
 
 export { useAccount }
 
+// Warning: (ae-internal-missing-underscore) The name "useActiveChainId" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
+
 // @public (undocumented)
 export function useAddress(): string | undefined;
 
@@ -133,30 +274,54 @@ export function useChainId(): number | undefined;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
+// Warning: (ae-forgotten-export) The symbol "wagmi" needs to be exported by the entry point index.d.ts
 // Warning: (ae-internal-missing-underscore) The name "useConnect" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
 export function useConnect(): readonly [{
     readonly data: {
         readonly connected: boolean;
-        readonly connector: Connector<any, any> | undefined;
-        readonly connectors: Connector<any, any>[];
+        readonly connector: wagmi.Connector<any, any> | undefined;
+        readonly connectors: wagmi.Connector<any, any>[];
     };
     readonly error: Error | undefined;
     readonly loading: boolean | undefined;
-}, (connector: Connector<any, any>) => Promise<{
-    data?: ConnectorData<any> | undefined;
+}, (connector: wagmi.Connector<any, any>) => Promise<{
+    data?: wagmi.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>];
+
+// @public (undocumented)
+const useContext: () => ContextValue;
 
 // Warning: (ae-internal-missing-underscore) The name "useContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export function useContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
+
+// Warning: (ae-forgotten-export) The symbol "AbiFunction" needs to be exported by the entry point index.d.ts
+// Warning: (ae-internal-missing-underscore) The name "useContractFunctionsQuery" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function useContractFunctionsQuery(contractAddress?: string): react_query.UseQueryResult<AbiFunction[] | null, unknown>;
+
+// @beta
+export function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<{
+    [x: string]: _thirdweb_dev_sdk.Json;
+    description?: string | undefined;
+    image?: string | undefined;
+    external_link?: string | undefined;
+    name: string;
+} | undefined, unknown>;
+
+// Warning: (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
+//
+// @beta
+export function useContractPublishMetadata(contractAddress?: string): react_query.UseQueryResult<PublishedMetadata | null | undefined, unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useDesiredChainId" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -177,7 +342,7 @@ export function useMarketplace(contractAddress?: string): Marketplace | undefine
 
 // @public
 export function useMetamask(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -192,6 +357,14 @@ export function useNFTCollection(contractAddress?: string): NFTCollection | unde
 // @public
 export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 
+// @beta
+export function useNFTList(contract?: Erc721<any>, queryParams?: QueryAllParams): react_query.UseQueryResult<_thirdweb_dev_sdk.NFTMetadataOwner[], unknown>;
+
+// Warning: (ae-forgotten-export) The symbol "BigNumber" needs to be exported by the entry point index.d.ts
+//
+// @beta
+export function useNFTSupply(contract?: Erc721<any>): react_query.UseQueryResult<BigNumber, unknown>;
+
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
 
@@ -200,11 +373,97 @@ export function usePack(contractAddress?: string): Pack | undefined;
 // @internal (undocumented)
 export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage): ThirdwebSDK;
 
+// @beta
+export function useResolvedContract(contractAddress?: string): {
+    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | CustomContract<ThirdwebContract> | null;
+    data: {
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        pubishMetadata: null;
+    } | {
+        contractType: "custom";
+        pubishMetadata: PublishedMetadata | null | undefined;
+    } | undefined;
+    error: unknown;
+    isError: true;
+    isLoading: false;
+    isLoadingError: false;
+    isRefetchError: true;
+    isSuccess: false;
+    status: "error";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (react_query.RefetchOptions & react_query.RefetchQueryFilters<TPageData>) | undefined) => Promise<react_query.QueryObserverResult<{
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        pubishMetadata: null;
+    } | {
+        contractType: "custom";
+        pubishMetadata: PublishedMetadata | null | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: react_query.FetchStatus;
+} | {
+    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | CustomContract<ThirdwebContract> | null;
+    data: {
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        pubishMetadata: null;
+    } | {
+        contractType: "custom";
+        pubishMetadata: PublishedMetadata | null | undefined;
+    } | undefined;
+    error: null;
+    isError: false;
+    isLoading: false;
+    isLoadingError: false;
+    isRefetchError: false;
+    isSuccess: true;
+    status: "success";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (react_query.RefetchOptions & react_query.RefetchQueryFilters<TPageData>) | undefined) => Promise<react_query.QueryObserverResult<{
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        pubishMetadata: null;
+    } | {
+        contractType: "custom";
+        pubishMetadata: PublishedMetadata | null | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: react_query.FetchStatus;
+} | null;
+
+// @beta
+export function useResolvedContractType(contractAddress?: string): react_query.UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
+
 // @public (undocumented)
 export function useResolvedMediaType(uri?: string): {
     url: string | undefined;
     mimeType: string | undefined;
 };
+
+// @public (undocumented)
+class UserRejectedRequestError extends Error {
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    name: string;
+}
 
 // Warning: (ae-internal-missing-underscore) The name "useSDK" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -227,7 +486,7 @@ export function useVote(contractAddress?: string): Vote | undefined;
 
 // @public
 export function useWalletConnect(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -235,7 +494,7 @@ export function useWalletConnect(): () => Promise<{
 //
 // @internal
 export function useWalletLink(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -257,8 +516,13 @@ export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType
 // @internal (undocumented)
 export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
     name: "walletLink" | "coinbase";
-    options: WalletLinkConnector["options"];
+    options: CoinbaseWalletConnector["options"];
 };
+
+// Warnings were encountered during analysis:
+//
+// dist/index.d.ts:408:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:1714:5 - (ae-forgotten-export) The symbol "ThirdwebContract" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

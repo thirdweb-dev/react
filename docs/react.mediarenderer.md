@@ -11,7 +11,9 @@ props: [MediaRendererProps](./react.mediarendererprops.md)
 <b>Signature:</b>
 
 ```typescript
-MediaRenderer: React.ForwardRefExoticComponent<MediaRendererProps & React.RefAttributes<HTMLMediaElement>>
+MediaRenderer: React.ForwardRefExoticComponent<MediaRendererProps & {
+    children?: React.ReactNode;
+} & React.RefAttributes<HTMLMediaElement>>
 ```
 
 ## Example

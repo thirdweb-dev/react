@@ -9,7 +9,7 @@ Returns a NFT Drop contract instance
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
+declare function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 ```
 
 ## Parameters

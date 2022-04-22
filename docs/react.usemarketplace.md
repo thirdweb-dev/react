@@ -9,7 +9,7 @@ Returns a Marketplace contract instance
 <b>Signature:</b>
 
 ```typescript
-export declare function useMarketplace(contractAddress?: string): Marketplace | undefined;
+declare function useMarketplace(contractAddress?: string): Marketplace | undefined;
 ```
 
 ## Parameters

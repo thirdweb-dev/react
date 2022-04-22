@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useChainId(): number | undefined;
+declare function useChainId(): number | undefined;
 ```
 <b>Returns:</b>
 

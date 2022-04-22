@@ -9,7 +9,7 @@ Returns a Vote contract instance
 <b>Signature:</b>
 
 ```typescript
-export declare function useVote(contractAddress?: string): Vote | undefined;
+declare function useVote(contractAddress?: string): Vote | undefined;
 ```
 
 ## Parameters
