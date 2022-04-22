@@ -47,35 +47,51 @@ export class MagicConnector extends Connector {
       if (this.options.doNotAutoConnect || !this.getConfiguration()) {
         return;
       }
-      this.connect();
+      this.connect(true);
     }
   }
 
-  async connect() {
+  async connect(isAutoConnect?: true) {
     const { apiKey, doNotAutoConnect, rpcUrls, ...options } = this.options;
     const configuration = this.getConfiguration();
-    invariant(
-      configuration,
-      "did you forget to set the configuration via: setConfiguration()?",
-    );
-    return import("magic-sdk").then(async (m) => {
-      this.magic = new m.Magic(apiKey, options);
 
-      await this.magic.auth.loginWithMagicLink(configuration);
-      const provider = this.getProvider();
-      if (provider.on) {
-        provider.on("accountsChanged", this.onAccountsChanged);
-        provider.on("chainChanged", this.onChainChanged);
-        provider.on("disconnect", this.onDisconnect);
+    try {
+      invariant(
+        configuration,
+        "did you forget to set the configuration via: setConfiguration()?",
+      );
+      if (isAutoConnect) {
+        configuration.showUI = false;
       }
-      const account = await this.getAccount();
-      const id = await this.getChainId();
+
+      return import("magic-sdk").then(async (m) => {
+        this.magic = new m.Magic(apiKey, options);
+
+        await this.magic.auth.loginWithMagicLink(configuration);
+        const provider = this.getProvider();
+        if (provider.on) {
+          provider.on("accountsChanged", this.onAccountsChanged);
+          provider.on("chainChanged", this.onChainChanged);
+          provider.on("disconnect", this.onDisconnect);
+        }
+        const account = await this.getAccount();
+        const id = await this.getChainId();
+        return {
+          account,
+          provider,
+          chain: { id, unsupported: this.isChainUnsupported(id) },
+        };
+      });
+    } catch (e) {
+      if (!isAutoConnect) {
+        throw e;
+      }
       return {
-        account,
-        provider,
-        chain: { id, unsupported: this.isChainUnsupported(id) },
+        account: undefined,
+        provider: undefined,
+        chain: undefined,
       };
-    });
+    }
   }
   async disconnect() {
     const provider = this.getProvider();
