@@ -360,6 +360,19 @@ export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 // @beta
 export function useNFTList(contract?: Erc721<any>, queryParams?: QueryAllParams): react_query.UseQueryResult<_thirdweb_dev_sdk.NFTMetadataOwner[], unknown>;
 
+// @beta
+export function useNFTMintToSelfMutation(contract?: Erc721<any>): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
+    [x: string]: _thirdweb_dev_sdk.Json;
+    description?: string | undefined;
+    image?: any;
+    external_url?: any;
+    animation_url?: any;
+    background_color?: string | undefined;
+    properties?: Record<string, _thirdweb_dev_sdk.Json> | Record<string, _thirdweb_dev_sdk.Json>[] | undefined;
+    attributes?: Record<string, _thirdweb_dev_sdk.Json> | Record<string, _thirdweb_dev_sdk.Json>[] | undefined;
+    name: string;
+}, unknown>;
+
 // Warning: (ae-forgotten-export) The symbol "BigNumber" needs to be exported by the entry point index.d.ts
 //
 // @beta

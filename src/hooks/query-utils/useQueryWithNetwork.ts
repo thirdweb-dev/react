@@ -1,16 +1,11 @@
 import { useActiveChainId } from "../../Provider";
 import { createCacheKeyWithNetwork } from "../../utils/cache-keys";
-import { useCallback } from "react";
 import {
-  MutationFunction,
   QueryFunction,
   QueryKey,
-  UseMutationOptions,
   UseQueryOptions,
   UseQueryResult,
-  useMutation,
   useQuery,
-  useQueryClient,
 } from "react-query";
 
 /** @internal */
@@ -42,51 +37,4 @@ export function useQueryWithNetwork<
     queryFn,
     mergedOptions,
   );
-}
-
-/** @internal */
-export function useMutationWithInvalidate<
-  TData = unknown,
-  TError = unknown,
-  TVariables = void,
-  TContext = unknown,
-  TQueryKey extends QueryKey = QueryKey,
->(
-  mutationFn: MutationFunction<TData, TVariables>,
-  options?: Omit<
-    UseMutationOptions<TData, TError, TVariables, TContext>,
-    "mutationFn" | "onSuccess"
-  > & {
-    onSuccess?: (
-      data: TData,
-      variables: TVariables,
-      context: TContext | undefined,
-      wrapCacheKeys: (cacheKeysToInvalidate: TQueryKey[]) => Promise<void[]>,
-    ) => Promise<unknown> | void;
-  },
-) {
-  const activeChainId = useActiveChainId();
-  const queryClient = useQueryClient();
-
-  const invalidate = useCallback(
-    (cacheKeysToInvalidate: TQueryKey[]) => {
-      return Promise.all(
-        cacheKeysToInvalidate.map((cacheKey) => {
-          return queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(cacheKey, activeChainId) as TQueryKey,
-          );
-        }),
-      );
-    },
-    [queryClient, activeChainId],
-  );
-
-  return useMutation(mutationFn, {
-    ...options,
-    onSuccess: (...args) => {
-      if (options?.onSuccess) {
-        options.onSuccess(...args, invalidate);
-      }
-    },
-  });
 }

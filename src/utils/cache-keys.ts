@@ -45,8 +45,11 @@ export const cacheKeys = {
       createContractCacheKey(contractAddress, ["contract-type-and-metadata"]),
     metadata: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["metadata"]),
-    getAll: (contractAddress?: string, queryParams?: QueryAllParams) =>
-      createContractCacheKey(contractAddress, ["getAll", queryParams]),
+    queryAll: (contractAddress?: string, queryParams?: QueryAllParams) =>
+      createContractCacheKey(
+        contractAddress,
+        queryParams ? ["queryAll", queryParams] : ["queryAll"],
+      ),
     totalSupply: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["totalSupply"]),
     extractFunctions: (contractAddress?: string) =>

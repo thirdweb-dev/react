@@ -7,6 +7,9 @@ import {
   QueryAllParams,
   ValidContractInstance,
 } from "@thirdweb-dev/sdk";
+import { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/schema";
+import { useMutation, useQueryClient } from "react-query";
+import invariant from "tiny-invariant";
 
 /**
  @internal
@@ -25,6 +28,10 @@ export function detectErc721Instance(
   }
   return undefined;
 }
+
+/** **********************/
+/**     READ  HOOKS     **/
+/** **********************/
 
 /**
  * Use this to get a list of NFT tokens of your ERC721 contract.
@@ -45,7 +52,7 @@ export function useNFTList(
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.getAll(contractAddress, queryParams),
+    cacheKeys.contract.queryAll(contractAddress, queryParams),
     async () => {
       if (contract && contract.query?.all) {
         return await contract.query.all(queryParams);
@@ -83,6 +90,65 @@ export function useNFTSupply(contract?: Erc721<any>) {
     },
     {
       enabled: !!contract,
+    },
+  );
+}
+
+/** **********************/
+/**     WRITE HOOKS     **/
+/** **********************/
+
+/**
+ * Use this to mint a new NFT on your ERC721 contract. (To the connected wallet.)
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: mintNft,
+ *     isLoading,
+ *     error,
+ *   } = useNFTMintToSelfMutation(">>YourERC721ContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to mint nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *     >
+ *       Mint!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
+ * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @beta
+ */
+export function useNFTMintToSelfMutation(contract?: Erc721<any>) {
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (data: NFTMetadataOrUri) => {
+      invariant(
+        contract?.mint?.toSelf,
+        "contract does not support mint.toSelf",
+      );
+      return await contract.mint.toSelf(data);
+    },
+    {
+      onSuccess: () => {
+        return Promise.all([
+          queryClient.invalidateQueries(
+            cacheKeys.contract.queryAll(contractAddress),
+          ),
+          cacheKeys.contract.totalSupply(contractAddress),
+        ]);
+      },
     },
   );
 }
