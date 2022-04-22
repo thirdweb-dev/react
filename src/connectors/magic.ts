@@ -66,7 +66,7 @@ export class MagicLinkExpiredError extends ConnectorError {
 
 export class MagicConnector extends Connector {
   readonly id = "magic";
-  readonly name = "gnosis";
+  readonly name = "Magic";
   ready = true;
 
   private magic?: Magic;
