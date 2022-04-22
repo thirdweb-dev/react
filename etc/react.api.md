@@ -21,9 +21,6 @@ import { chain } from './constants';
 import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { Connector } from './connectors';
-import { ConnectorData } from './connectors';
-import { ConnectorEvents } from './connectors';
 import { ContractForContractType } from '@thirdweb-dev/sdk';
 import { ContractTransaction } from 'ethers';
 import { ContractType } from '@thirdweb-dev/sdk';
@@ -43,6 +40,8 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { InjectedConnector as InjectedConnector_2 } from './connectors';
 import { IpfsStorage } from '@thirdweb-dev/sdk';
 import { IStorage } from '@thirdweb-dev/sdk';
+import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
+import { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
@@ -92,16 +91,7 @@ import { utils } from 'ethers';
 import { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { Web3Provider } from '@ethersproject/providers';
-import { WebSocketProvider } from '@ethersproject/providers';
 
-// @public (undocumented)
-class AddChainError extends Error {
-    // (undocumented)
-    message: string;
-    // (undocumented)
-    name: string;
-}
 
 export { ChainId }
 
@@ -170,6 +160,14 @@ export type InjectedConnectorType = "injected" | "metamask" | {
 };
 
 export { IpfsStorage }
+
+// Warning: (ae-internal-missing-underscore) The name "MagicConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export type MagicConnectorType = "magic" | {
+    name: "magic";
+    options: Omit<MagicConnectorArguments, "network">;
+};
 
 // @public
 export const MediaRenderer: React_2.ForwardRefExoticComponent<MediaRendererProps & {
@@ -241,11 +239,10 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps {
     metadata: NFTMetadata;
 }
 
-// @public
-export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
+    autoConnect?: boolean;
     // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
     dAppMeta?: DAppMetaData;
@@ -336,6 +333,12 @@ export function useEdition(contractAddress?: string): Edition | undefined;
 
 // @public
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
+
+// @public
+export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
+    data?: ConnectorData_2<any> | undefined;
+    error?: Error | undefined;
+}>;
 
 // @public
 export function useMarketplace(contractAddress?: string): Marketplace | undefined;
@@ -522,7 +525,7 @@ export type WalletConnectConnectorType = "walletConnect" | {
 // Warning: (ae-internal-missing-underscore) The name "WalletConnector" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType | WalletLinkConnectorType;
+export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType | WalletLinkConnectorType | MagicConnectorType;
 
 // Warning: (ae-internal-missing-underscore) The name "WalletLinkConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -534,8 +537,6 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/index.d.ts:408:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:1714:5 - (ae-forgotten-export) The symbol "ThirdwebContract" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

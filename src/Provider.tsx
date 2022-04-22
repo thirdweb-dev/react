@@ -1,3 +1,4 @@
+import { MagicConnector, MagicConnectorArguments } from "./connectors/magic";
 import {
   Chain,
   SupportedChain,
@@ -51,10 +52,21 @@ export type WalletLinkConnectorType =
 /**
  * @internal
  */
+export type MagicConnectorType =
+  | "magic"
+  | {
+      name: "magic";
+      options: Omit<MagicConnectorArguments, "network">;
+    };
+
+/**
+ * @internal
+ */
 export type WalletConnector =
   | InjectedConnectorType
   | WalletConnectConnectorType
-  | WalletLinkConnectorType;
+  | WalletLinkConnectorType
+  | MagicConnectorType;
 
 /**
  * @internal
@@ -142,6 +154,12 @@ export interface ThirdwebProviderProps<
    * @beta
    */
   queryClient?: QueryClient;
+    
+  /**
+   * Whether or not to attempt auto-connect to a wallet.
+   */
+  autoConnect?: boolean;
+
 }
 
 const defaultChainRpc: ChainRpc<SupportedChain> = defaultSupportedChains.reduce(
@@ -193,6 +211,7 @@ export const ThirdwebProvider = <
   desiredChainId,
   storageInterface,
   queryClient,
+  autoConnect = true,
   children,
 }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => {
   // construct the wagmi options
@@ -234,7 +253,7 @@ export const ThirdwebProvider = <
     };
 
     return {
-      autoConnect: true,
+      autoConnect,
       connectorStorageKey: "tw:provider:connectors",
       connectors: ({ chainId }: { chainId?: number }) => {
         return walletConnectors
@@ -301,6 +320,17 @@ export const ThirdwebProvider = <
                         jsonRpcUrl,
                         ...connector.options,
                       },
+              });
+            }
+            if (typeof connector === "object" && connector.name === "magic") {
+              const jsonRpcUrl = _rpcUrlMap[chainId || desiredChainId || 1];
+              return new MagicConnector({
+                chains: _supporrtedChains,
+                options: {
+                  ...connector.options,
+                  network: { rpcUrl: jsonRpcUrl, chainId: desiredChainId || 1 },
+                  rpcUrls: _rpcUrlMap,
+                },
               });
             }
             return null;
