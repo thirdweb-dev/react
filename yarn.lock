@@ -921,15 +921,15 @@
     "@swc/core-win32-ia32-msvc" "1.2.171"
     "@swc/core-win32-x64-msvc" "1.2.171"
 
-"@thirdweb-dev/contracts@2.3.0-5":
-  version "2.3.0-5"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-2.3.0-5.tgz#c86541750247e8221e04751035bacd33fd92b26c"
-  integrity sha512-1vzs/MnhdFn42+QLIQ9eZke1Dc32vyWnqgGBCUBodCWcOtql0/K52Vfo5EnlTRgGrZdrckELftWxKySWtf2f2g==
+"@thirdweb-dev/contracts@2.3.0-9":
+  version "2.3.0-9"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-2.3.0-9.tgz#42dea7cf00f2f92d15b623391ac15ce7e7005ae9"
+  integrity sha512-fgXm6KT6ydF5yysbA/3u/MLNfoGVYA4J47zzOqqX5JvjK1KvzZawf4y5T1OY7qxgT7cmvXTD5BomIw5Bcv5xYw==
 
-"@thirdweb-dev/sdk@^2.1.0-18":
-  version "2.1.0-19"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.1.0-19.tgz#850f30a59f211463d95ef92f0544f68ebc8c18bb"
-  integrity sha512-nVk80egtZn9LKzYFs0qPy6KmISSVVt0iDxVU65slDWwUaicRSSt8jkxe4PWVWuv2eR6h7stzc61McmteBrUAhg==
+"@thirdweb-dev/sdk@^2.1.0-22":
+  version "2.1.0-22"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.1.0-22.tgz#94380d77b81cb967f9c39c3e809ec6514b339b9a"
+  integrity sha512-y+taod2mOPlHD+8SohAGv/A3HY/0a6gmlUltLso825vxGuW3t4v+T4g7FWQOls/f7O8cRErpIozCPw10UjDYLw==
   dependencies:
     "@ethersproject/bignumber" "^5.6.0"
     "@ethersproject/bytes" "^5.6.1"
@@ -937,7 +937,7 @@
     "@ethersproject/contracts" "^5.6.0"
     "@ethersproject/providers" "^5.6.1"
     "@ethersproject/units" "^5.6.0"
-    "@thirdweb-dev/contracts" "2.3.0-5"
+    "@thirdweb-dev/contracts" "2.3.0-9"
     "@web-std/file" "^3.0.0"
     cross-fetch "^3.1.5"
     deep-equal "^2.0.5"

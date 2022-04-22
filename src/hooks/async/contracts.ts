@@ -95,14 +95,14 @@ function getContractFromCombinedTypeAndPublishMetadata(
  *
  * @example
  * ```javascript
- * const { data: contractType, isLoading, error } = useResolvedContractType("{{contract_address}}");
+ * const { data: contractType, isLoading, error } = useContractType("{{contract_address}}");
  * ```
  *
  * @param contractAddress - the address of the deployed contract
  * @returns a response object that includes the contract type of the contract
  * @beta
  */
-export function useResolvedContractType(contractAddress?: string) {
+export function useContractType(contractAddress?: string) {
   const sdk = useSDK();
   return useQueryWithNetwork(
     cacheKeys.contract.type(contractAddress),
@@ -163,14 +163,14 @@ function useContractTypeAndPublishMetadata(contractAddress?: string) {
  *
  * @example
  * ```javascript
- * const { contract, isLoading, error } = useResolvedContract("{{contract_address}}");
+ * const { contract, isLoading, error } = useCustomContract("{{contract_address}}");
  * ```
  *
  * @param contractAddress - the address of the deployed contract
  * @returns a response object that includes the contract once it is resolved
  * @beta
  */
-export function useResolvedContract(contractAddress?: string) {
+export function useCustomContract(contractAddress?: string) {
   const sdk = useSDK();
 
   const contractTypeAndPublishMetadata =
@@ -240,7 +240,7 @@ export function useContractMetadata(contractAddress?: string) {
 /**
  @internal
  */
-export function useContractFunctionsQuery(contractAddress?: string) {
+export function useContractFunctions(contractAddress?: string) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
   const activeChainId = useActiveChainId();

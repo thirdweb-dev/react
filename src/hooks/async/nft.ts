@@ -8,7 +8,7 @@ import {
   QueryAllParams,
   ValidContractInstance,
 } from "@thirdweb-dev/sdk";
-import { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/schema";
+import { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -109,7 +109,7 @@ export function useNFTSupply(contract?: Erc721<any>) {
  *     mutate: mintNft,
  *     isLoading,
  *     error,
- *   } = useNFTMintToSelfMutation(">>YourERC721ContractInstance<<");
+ *   } = useNFTMintToSelf(">>YourERC721ContractInstance<<");
  *
  *   if (error) {
  *     console.error("failed to mint nft", error);
@@ -130,7 +130,7 @@ export function useNFTSupply(contract?: Erc721<any>) {
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useNFTMintToSelfMutation(contract?: Erc721<any>) {
+export function useNFTMintToSelf(contract?: Erc721<any>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();

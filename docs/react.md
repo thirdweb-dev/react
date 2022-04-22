@@ -13,6 +13,8 @@
 |  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | Convienience hook for connecting to a wallet via Coinbase Wallet |
 |  [useContractMetadata(contractAddress)](./react.usecontractmetadata.md) | <b><i>(BETA)</i></b> Use this to get the contract metadata for a (built-in or custom) contract. |
 |  [useContractPublishMetadata(contractAddress)](./react.usecontractpublishmetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
+|  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
+|  [useCustomContract(contractAddress)](./react.usecustomcontract.md) | <b><i>(BETA)</i></b> Use this resolve a contract address to a thirdweb (built-in / custom) contract instance. |
 |  [useDisconnect()](./react.usedisconnect.md) |  |
 |  [useEdition(contractAddress)](./react.useedition.md) | Returns a Edition contract instance |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Returns a Edition Drop contract instance |
@@ -23,11 +25,9 @@
 |  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Returns a NFT Collection contract instance |
 |  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Returns a NFT Drop contract instance |
 |  [useNFTList(contract, queryParams)](./react.usenftlist.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your ERC721 contract. |
-|  [useNFTMintToSelfMutation(contract)](./react.usenftminttoselfmutation.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract. (To the connected wallet.) |
+|  [useNFTMintToSelf(contract)](./react.usenftminttoself.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract. (To the connected wallet.) |
 |  [useNFTSupply(contract)](./react.usenftsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your ERC721 contract. |
 |  [usePack(contractAddress)](./react.usepack.md) | Returns a Pack contract instance |
-|  [useResolvedContract(contractAddress)](./react.useresolvedcontract.md) | <b><i>(BETA)</i></b> Use this resolve a contract address to a thirdweb (built-in / custom) contract instance. |
-|  [useResolvedContractType(contractAddress)](./react.useresolvedcontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Returns a Split contract instance |
 |  [useToken(contractAddress)](./react.usetoken.md) | Returns a Token contract instance |
