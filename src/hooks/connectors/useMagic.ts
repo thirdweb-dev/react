@@ -1,5 +1,6 @@
 import { MagicConnector } from "../../connectors/magic";
 import { useConnect } from "../useConnect";
+import { LoginWithMagicLinkConfiguration } from "magic-sdk";
 import invariant from "tiny-invariant";
 
 /**
@@ -20,8 +21,8 @@ export function useMagic() {
     "Magic connector not found, please make sure it is provided to your <ThirdwebProvider />",
   );
 
-  return (email: string) => {
-    (connector as MagicConnector).setEmail(email);
+  return (configuration: LoginWithMagicLinkConfiguration) => {
+    (connector as MagicConnector).setConfiguration(configuration);
     return connect(connector);
   };
 }

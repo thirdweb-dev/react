@@ -1,180 +1,113 @@
-import { defaultSupportedChains } from "../constants/chain";
 import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
-import {
-  InstanceWithExtensions,
-  MagicSDKExtensionsOption,
-  SDKBase,
-} from "@magic-sdk/provider";
 import { getAddress } from "ethers/lib/utils";
-import { Magic, RPCError, RPCErrorCode } from "magic-sdk";
 import {
-  Chain,
-  Connector,
-  ConnectorNotFoundError,
-  normalizeChainId,
-} from "wagmi";
+  LoginWithMagicLinkConfiguration,
+  Magic as MagicInstance,
+  MagicSDKAdditionalConfiguration,
+} from "magic-sdk";
+import invariant from "tiny-invariant";
+import { Chain, Connector, normalizeChainId } from "wagmi";
 
-export type MagicConnectorOptions = {
+export interface MagicConnectorArguments
+  extends MagicSDKAdditionalConfiguration {
   apiKey: string;
-  desiredChainId: number;
-  redirect: string;
-  silentEagerLogin?: boolean;
-};
-
-export class ConnectorError extends Error {
-  public constructor() {
-    super();
-    this.name = this.constructor.name;
-    this.message = "Connector error.";
-  }
+  doNotAutoConnect?: boolean;
 }
 
-export class SilentEagerConnectError extends ConnectorError {
-  public constructor() {
-    super();
-    this.name = this.constructor.name;
-    this.message = "Silent eager error.";
-  }
-}
-
-export class UserRejectedRequestError extends ConnectorError {
-  public constructor() {
-    super();
-    this.name = this.constructor.name;
-    this.message = "The user rejected the request.";
-  }
-}
-
-export class FailedVerificationError extends ConnectorError {
-  public constructor() {
-    super();
-    this.name = this.constructor.name;
-    this.message = "The email verification failed.";
-  }
-}
-
-export class MagicLinkRateLimitError extends ConnectorError {
-  public constructor() {
-    super();
-    this.name = this.constructor.name;
-    this.message = "The Magic rate limit has been reached.";
-  }
-}
-
-export class MagicLinkExpiredError extends ConnectorError {
-  public constructor() {
-    super();
-    this.name = this.constructor.name;
-    this.message = "The Magic link has expired.";
-  }
-}
+const __IS_SERVER__ = typeof window === "undefined";
 
 export class MagicConnector extends Connector {
   readonly id = "magic";
   readonly name = "Magic";
-  readonly ready = true;
+  readonly ready = __IS_SERVER__;
 
-  override options: MagicConnectorOptions;
-  private email = "";
+  override options: MagicConnectorArguments;
+  private configuration?: LoginWithMagicLinkConfiguration;
+  public magic?: MagicInstance;
 
-  constructor(config: { chains?: Chain[]; options?: any }) {
+  getConfiguration() {
+    if (__IS_SERVER__) {
+      return undefined;
+    }
+
+    const config = window.localStorage.getItem("tw-magic-config");
+    if (config) {
+      this.configuration = JSON.parse(config);
+    }
+    return this.configuration;
+  }
+
+  constructor(config: { chains?: Chain[]; options: MagicConnectorArguments }) {
     super({ ...config, options: config?.options });
-    this.options = config?.options;
+    this.options = config.options;
+
+    if (!__IS_SERVER__) {
+      this.ready = true;
+      if (this.options.doNotAutoConnect || !this.getConfiguration()) {
+        return;
+      }
+      this.connect();
+    }
   }
 
   async connect() {
-    if (!this.email) {
-      throw Error("Email is not currently set.");
-    }
-
-    const magic = this.getMagic();
-
-    try {
-      await magic.auth.loginWithMagicLink({ email: this.email });
-      window.localStorage.setItem("tw::magic::email", this.email);
-    } catch (err) {
-      if (!(err instanceof RPCError)) {
-        throw err;
-      }
-      if (err.code === RPCErrorCode.MagicLinkFailedVerification) {
-        throw new FailedVerificationError();
-      }
-      if (err.code === RPCErrorCode.MagicLinkExpired) {
-        throw new MagicLinkExpiredError();
-      }
-      if (err.code === RPCErrorCode.MagicLinkRateLimited) {
-        throw new MagicLinkRateLimitError();
-      }
-      // This error gets thrown when users close the login window.
-      // -32603 = JSON-RPC InternalError
-      if (err.code === -32603) {
-        throw new UserRejectedRequestError();
-      }
-    }
-
-    const provider = this.getProvider();
-    const account = await this.getProvider().getSigner().getAddress();
-
-    return {
-      account,
-      provider,
-      chain: {
-        id: this.options.desiredChainId,
-        unsupported: this.isChainUnsupported(this.options.desiredChainId),
-      },
-    };
-  }
-
-  async disconnect() {
-    this.getMagic().user.logout();
-  }
-
-  async getAccount() {
-    return this.getProvider().getSigner().getAddress();
-  }
-
-  async getChainId() {
-    if (!this.getProvider()) {
-      throw new ConnectorNotFoundError();
-    }
-
-    return this.options.desiredChainId;
-  }
-
-  getProvider(): Web3Provider {
-    return new Web3Provider(
-      this.getMagic().rpcProvider as unknown as ExternalProvider,
+    const { apiKey, doNotAutoConnect, ...options } = this.options;
+    const configuration = this.getConfiguration();
+    invariant(
+      configuration,
+      "did you forget to set the configuration via: setConfiguration()?",
     );
-  }
+    return import("magic-sdk").then(async (m) => {
+      this.magic = new m.Magic(apiKey, options);
 
-  private getMagic(): InstanceWithExtensions<
-    SDKBase,
-    MagicSDKExtensionsOption<string>
-  > {
-    const chainData = defaultSupportedChains.find(
-      (chain) => chain.id === this.options.desiredChainId,
-    );
-
-    if (!chainData) {
-      throw new Error(`Chain ${this.options.desiredChainId} is not supported`);
-    }
-
-    return new Magic(this.options.apiKey, {
-      network: {
-        chainId: chainData.id,
-        rpcUrl: chainData.rpcUrls[0],
-      },
+      await this.magic.auth.loginWithMagicLink(configuration);
+      const provider = this.getProvider();
+      if (provider.on) {
+        provider.on("accountsChanged", this.onAccountsChanged);
+        provider.on("chainChanged", this.onChainChanged);
+        provider.on("disconnect", this.onDisconnect);
+      }
+      const account = await this.getAccount();
+      const id = await this.getChainId();
+      return {
+        account,
+        provider,
+        chain: { id, unsupported: this.isChainUnsupported(id) },
+      };
     });
   }
-
-  async getSigner() {
+  async disconnect() {
     const provider = this.getProvider();
-    return provider.getSigner();
+    if (provider?.removeListener) {
+      provider.removeListener("accountsChanged", this.onAccountsChanged);
+      provider.removeListener("chainChanged", this.onChainChanged);
+      provider.removeListener("disconnect", this.onDisconnect);
+    }
+    this.setConfiguration();
   }
-
+  async getAccount() {
+    const signer = await this.getSigner();
+    return await signer.getAddress();
+  }
+  async getChainId() {
+    const signer = await this.getSigner();
+    return await signer.getChainId();
+  }
+  getProvider() {
+    invariant(this.magic, "connector is not initialized");
+    return new Web3Provider(
+      this.magic.rpcProvider as unknown as ExternalProvider,
+    );
+  }
+  async getSigner() {
+    if (!this.magic) {
+      await this.connect();
+    }
+    return this.getProvider().getSigner();
+  }
   async isAuthorized() {
     try {
-      const account = this.getAccount();
+      const account = await this.getAccount();
       return !!account;
     } catch {
       return false;
@@ -203,7 +136,16 @@ export class MagicConnector extends Connector {
     this.emit("disconnect");
   }
 
-  public setEmail(email: string) {
-    this.email = email;
+  public setConfiguration(configuration?: LoginWithMagicLinkConfiguration) {
+    if (configuration) {
+      this.configuration = configuration;
+      window.localStorage.setItem(
+        "tw-magic-config",
+        JSON.stringify(configuration),
+      );
+    } else {
+      this.configuration = undefined;
+      window.localStorage.removeItem("tw-magic-config");
+    }
   }
 }

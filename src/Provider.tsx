@@ -1,4 +1,4 @@
-import { MagicConnector, MagicConnectorOptions } from "./connectors/magic";
+import { MagicConnector, MagicConnectorArguments } from "./connectors/magic";
 import {
   Chain,
   SupportedChain,
@@ -13,9 +13,9 @@ import {
   ProviderProps as WagmiproviderProps,
   useProvider,
 } from "wagmi";
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { WalletLinkConnector } from "wagmi/connectors/walletLink";
 
 /**
  * @internal
@@ -40,7 +40,7 @@ export type WalletLinkConnectorType =
   | "coinbase"
   | {
       name: "walletLink" | "coinbase";
-      options: WalletLinkConnector["options"];
+      options: CoinbaseWalletConnector["options"];
     };
 
 /**
@@ -50,7 +50,7 @@ export type MagicConnectorType =
   | "magic"
   | {
       name: "magic";
-      options: MagicConnectorOptions;
+      options: Omit<MagicConnectorArguments, "network">;
     };
 
 /**
@@ -293,7 +293,7 @@ export const ThirdwebProvider = <
                   connector.name === "walletLink"))
             ) {
               const jsonRpcUrl = _rpcUrlMap[chainId || desiredChainId || 1];
-              return new WalletLinkConnector({
+              return new CoinbaseWalletConnector({
                 chains: _supporrtedChains,
                 options:
                   typeof connector === "string"
@@ -309,19 +309,14 @@ export const ThirdwebProvider = <
               });
             }
             if (typeof connector === "object" && connector.name === "magic") {
-              const magicConnector = new MagicConnector({
+              const jsonRpcUrl = _rpcUrlMap[chainId || desiredChainId || 1];
+              return new MagicConnector({
                 chains: _supporrtedChains,
-                options: connector.options,
+                options: {
+                  ...connector.options,
+                  network: { rpcUrl: jsonRpcUrl, chainId: desiredChainId || 1 },
+                },
               });
-              if (
-                typeof window !== "undefined" &&
-                window.localStorage.getItem("tw::magic::email")
-              ) {
-                magicConnector.setEmail(
-                  window.localStorage.getItem("tw::magic::email") as string,
-                );
-              }
-              return magicConnector;
             }
             return null;
           })

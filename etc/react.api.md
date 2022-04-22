@@ -6,6 +6,7 @@
 
 import type { Chain as Chain_2 } from 'wagmi';
 import { ChainId } from '@thirdweb-dev/sdk';
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from 'wagmi';
 import { ConnectorData } from 'wagmi';
 import { ConnectorData as ConnectorData_2 } from 'wagmi-core';
@@ -18,6 +19,8 @@ import { EditionDrop } from '@thirdweb-dev/sdk';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { IpfsStorage } from '@thirdweb-dev/sdk';
 import { IStorage } from '@thirdweb-dev/sdk';
+import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
+import { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
@@ -33,7 +36,6 @@ import { useAccount } from 'wagmi';
 import { useNetwork } from 'wagmi';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { WalletLinkConnector } from 'wagmi/connectors/walletLink';
 
 export { ChainId }
 
@@ -72,7 +74,7 @@ export { IpfsStorage }
 // @internal (undocumented)
 export type MagicConnectorType = "magic" | {
     name: "magic";
-    options: MagicConnectorOptions;
+    options: Omit<MagicConnectorArguments, "network">;
 };
 
 // @public
@@ -182,7 +184,7 @@ export function useEdition(contractAddress?: string): Edition | undefined;
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 
 // @public
-export function useMagic(): (email: string) => Promise<{
+export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
     data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
 }>;
@@ -272,12 +274,12 @@ export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType
 // @internal (undocumented)
 export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
     name: "walletLink" | "coinbase";
-    options: WalletLinkConnector["options"];
+    options: CoinbaseWalletConnector["options"];
 };
 
 // Warnings were encountered during analysis:
 //
-// dist/Provider.d.ts:34:5 - (ae-forgotten-export) The symbol "MagicConnectorOptions" needs to be exported by the entry point index.d.ts
+// dist/Provider.d.ts:34:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
