@@ -315,6 +315,7 @@ export const ThirdwebProvider = <
                 options: {
                   ...connector.options,
                   network: { rpcUrl: jsonRpcUrl, chainId: desiredChainId || 1 },
+                  rpcUrls: _rpcUrlMap,
                 },
               });
             }

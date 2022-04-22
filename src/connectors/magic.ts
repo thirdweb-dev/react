@@ -12,6 +12,7 @@ export interface MagicConnectorArguments
   extends MagicSDKAdditionalConfiguration {
   apiKey: string;
   doNotAutoConnect?: boolean;
+  rpcUrls: Record<number, string>;
 }
 
 const __IS_SERVER__ = typeof window === "undefined";
@@ -30,7 +31,7 @@ export class MagicConnector extends Connector {
       return undefined;
     }
 
-    const config = window.localStorage.getItem("tw-magic-config");
+    const config = window.localStorage.getItem("-magic-link:configuration");
     if (config) {
       this.configuration = JSON.parse(config);
     }
@@ -51,7 +52,7 @@ export class MagicConnector extends Connector {
   }
 
   async connect() {
-    const { apiKey, doNotAutoConnect, ...options } = this.options;
+    const { apiKey, doNotAutoConnect, rpcUrls, ...options } = this.options;
     const configuration = this.getConfiguration();
     invariant(
       configuration,
@@ -83,8 +84,27 @@ export class MagicConnector extends Connector {
       provider.removeListener("chainChanged", this.onChainChanged);
       provider.removeListener("disconnect", this.onDisconnect);
     }
-    this.setConfiguration();
+    this.setConfiguration(undefined);
   }
+
+  override async switchChain(chainId: number) {
+    invariant(!this.isChainUnsupported(chainId), "chain is not supported");
+    const provider = this.getProvider();
+    if (provider?.removeListener) {
+      provider.removeListener("accountsChanged", this.onAccountsChanged);
+      provider.removeListener("chainChanged", this.onChainChanged);
+      provider.removeListener("disconnect", this.onDisconnect);
+    }
+
+    this.options.network = {
+      chainId,
+      rpcUrl: this.options.rpcUrls[chainId],
+    };
+    await this.connect();
+    this.onChainChanged(chainId);
+    return this.chains.find((c) => c.id === chainId);
+  }
+
   async getAccount() {
     const signer = await this.getSigner();
     return await signer.getAddress();
@@ -140,12 +160,12 @@ export class MagicConnector extends Connector {
     if (configuration) {
       this.configuration = configuration;
       window.localStorage.setItem(
-        "tw-magic-config",
+        "-magic-link:configuration",
         JSON.stringify(configuration),
       );
     } else {
       this.configuration = undefined;
-      window.localStorage.removeItem("tw-magic-config");
+      window.localStorage.removeItem("-magic-link:configuration");
     }
   }
 }
