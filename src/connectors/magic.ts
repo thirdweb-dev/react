@@ -75,9 +75,10 @@ export class MagicConnector extends Connector {
 
   private email = "";
 
-  constructor(config: { chains?: Chain[]; options?: any }) {
+  constructor(config: { chains?: Chain[]; options?: any }, initialEmail = "") {
     super({ ...config, options: config?.options });
     this.options = config?.options;
+    this.email = initialEmail;
     this.updateMagic(this.options.desiredChainId);
   }
 

@@ -43,16 +43,6 @@ export type WalletLinkConnectorType =
       options: WalletLinkConnector["options"];
     };
 
-// /**
-//  * @internal
-//  */
-// export type GnosisConnectorType =
-//   | "gnosis"
-//   | {
-//       name: "gnosis";
-//       options: SafeConnectOptions;
-//     };
-
 /**
  * @internal
  */
@@ -70,7 +60,6 @@ export type WalletConnector =
   | InjectedConnectorType
   | WalletConnectConnectorType
   | WalletLinkConnectorType
-  // | GnosisConnectorType
   | MagicConnectorType;
 
 /**
@@ -319,25 +308,12 @@ export const ThirdwebProvider = <
                       },
               });
             }
-            // if (
-            //   (typeof connector === "string" && connector === "gnosis") ||
-            //   (typeof connector === "object" && connector.name === "gnosis")
-            // ) {
-            //   return new GnosisConnector({
-            //     chains: _supporrtedChains,
-            //     options:
-            //       typeof connector === "string"
-            //         ? {}
-            //         : {
-            //             ...connector.options,
-            //           },
-            //   });
-            // }
             if (typeof connector === "object" && connector.name === "magic") {
-              return new MagicConnector({
-                chains: _supporrtedChains,
-                options: connector.options,
-              }).setEmail(
+              return new MagicConnector(
+                {
+                  chains: _supporrtedChains,
+                  options: connector.options,
+                },
                 typeof window === "undefined"
                   ? ""
                   : window.localStorage.getItem("tw::magic::email") || "",
