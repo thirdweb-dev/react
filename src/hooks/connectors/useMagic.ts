@@ -7,6 +7,9 @@ import invariant from "tiny-invariant";
  * Convienience hook for connecting to magic link (email wallet).
  *
  * @example
+ * In order to use the hook to connect users with magic link, you just need to provide the users email to the connect function.
+ *
+ * You can setup the hook with the following configuration:
  * ```javascript
  * import { useMagic } from "@thirdweb-dev/react"
  * import { useState } from "react"
