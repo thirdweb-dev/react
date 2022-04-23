@@ -22,6 +22,9 @@ a function that will prompt the user to connect their magic link, given an email
 
 ## Example
 
+In order to use the hook to connect users with magic link, you just need to provide the users email to the connect function.
+
+You can setup the hook with the following configuration:
 
 ```javascript
 import { useMagic } from "@thirdweb-dev/react"
