@@ -1,6 +1,7 @@
 import { useActiveChainId } from "../../Provider";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import { useAddress } from "../useAddress";
 import { BigNumber } from "@ethersproject/bignumber";
 import {
   CustomContract,
@@ -100,7 +101,7 @@ export function useNFTSupply(contract?: Erc721<any>) {
 /** **********************/
 
 /**
- * Use this to mint a new NFT on your ERC721 contract. (To the connected wallet.)
+ * Use this to mint a new NFT on your ERC721 contract
  *
  * @example
  * ```jsx
@@ -109,7 +110,7 @@ export function useNFTSupply(contract?: Erc721<any>) {
  *     mutate: mintNft,
  *     isLoading,
  *     error,
- *   } = useNFTMintToSelf(">>YourERC721ContractInstance<<");
+ *   } = useNFTMint(">>YourERC721ContractInstance<<");
  *
  *   if (error) {
  *     console.error("failed to mint nft", error);
@@ -127,20 +128,23 @@ export function useNFTSupply(contract?: Erc721<any>) {
  * ```
  *
  * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
+ * @param toAddress - an address to mint the NFT to (defaults to the connected wallet)
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useNFTMintToSelf(contract?: Erc721<any>) {
+export function useNFTMint(contract?: Erc721<any>, toAddress?: string) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
+  const walletAddress = useAddress();
   return useMutation(
     async (data: NFTMetadataOrUri) => {
+      invariant(walletAddress, "no wallet connected, cannot mint.toAddress");
       invariant(
-        contract?.mint?.toSelf,
-        "contract does not support mint.toSelf",
+        contract?.mint?.toAddress,
+        "contract does not support mint.toAddress",
       );
-      return await contract.mint.toSelf(data);
+      return await contract.mint.toAddress(toAddress || walletAddress, data);
     },
     {
       onSuccess: () => {

@@ -442,7 +442,7 @@ export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 export function useNFTList(contract?: Erc721<any>, queryParams?: QueryAllParams): react_query.UseQueryResult<_thirdweb_dev_sdk.NFTMetadataOwner[], unknown>;
 
 // @beta
-export function useNFTMintToSelf(contract?: Erc721<any>): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
+export function useNFTMint(contract?: Erc721<any>, toAddress?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
     [x: string]: _thirdweb_dev_sdk.Json;
     description?: string | undefined;
     image?: any;

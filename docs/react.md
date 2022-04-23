@@ -25,7 +25,7 @@
 |  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Returns a NFT Collection contract instance |
 |  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Returns a NFT Drop contract instance |
 |  [useNFTList(contract, queryParams)](./react.usenftlist.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your ERC721 contract. |
-|  [useNFTMintToSelf(contract)](./react.usenftminttoself.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract. (To the connected wallet.) |
+|  [useNFTMint(contract, toAddress)](./react.usenftmint.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract |
 |  [useNFTSupply(contract)](./react.usenftsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your ERC721 contract. |
 |  [usePack(contractAddress)](./react.usepack.md) | Returns a Pack contract instance |
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
