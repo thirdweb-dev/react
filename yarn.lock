@@ -927,9 +927,9 @@
   integrity sha512-fgXm6KT6ydF5yysbA/3u/MLNfoGVYA4J47zzOqqX5JvjK1KvzZawf4y5T1OY7qxgT7cmvXTD5BomIw5Bcv5xYw==
 
 "@thirdweb-dev/sdk@^2.1.0-22":
-  version "2.1.0-22"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.1.0-22.tgz#94380d77b81cb967f9c39c3e809ec6514b339b9a"
-  integrity sha512-y+taod2mOPlHD+8SohAGv/A3HY/0a6gmlUltLso825vxGuW3t4v+T4g7FWQOls/f7O8cRErpIozCPw10UjDYLw==
+  version "2.1.0-23"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.1.0-23.tgz#aa4762f1e7276b2e5674070dc5ca73695b9fdf46"
+  integrity sha512-2ooBVuvysDyabv6DtboLsQB/ABnTyoIgA/xuzRqyNtQ44a4p81Ct/E+1KF6kMl73EXWtWx5yZ03gHKPqQo6/KA==
   dependencies:
     "@ethersproject/bignumber" "^5.6.0"
     "@ethersproject/bytes" "^5.6.1"
