@@ -1,4 +1,6 @@
+import { GnosisSafeConnector } from "../../connectors/gnosis-safe";
 import { useConnect } from "../useConnect";
+import { Signer } from "ethers";
 import invariant from "tiny-invariant";
 
 /**
@@ -11,11 +13,18 @@ export function useGnosis() {
   if (connectors.loading) {
     return () => Promise.reject("Gnosis connector not ready to be used, yet");
   }
+  console.log("JOEE", connectors);
   const connector = connectors.data.connectors.find((c) => c.id === "gnosis");
   invariant(
     connector,
     "Gnosis connector not found, please make sure it is provided to your <ThirdwebProvider />",
   );
 
-  return () => connect(connector);
+  return (personalSigner: Signer, safeAddress: string) => {
+    (connector as GnosisSafeConnector).setConfiguration(
+      personalSigner,
+      safeAddress,
+    );
+    return connect(connector);
+  };
 }

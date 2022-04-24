@@ -57,6 +57,8 @@
   "dependencies": {
     "@gnosis.pm/safe-apps-provider": "^0.11.0",
     "@gnosis.pm/safe-apps-sdk": "^7.3.0",
+    "@gnosis.pm/safe-ethers-adapters": "^0.1.0-alpha.9",
+    "@gnosis.pm/safe-ethers-lib": "^1.1.0",
     "magic-sdk": "^8.1.1",
     "mime": "^3.0.0",
     "react-cool-dimensions": "^2.0.7",
