@@ -12,15 +12,11 @@ export function useNetworkMismatch() {
   const activeChainId = useChainId();
 
   if (desiredChainId === -1) {
-    console.warn(
-      "useNetworkMismatch: desiredChainId is -1, this is not a valid chainId, please provide a valid chainId to the <ThirdwebProvider />",
-    );
+    // means no desiredChainId is set in the <ThirdwebProvider />, so we don't care about the network mismatch
     return false;
   }
   if (!activeChainId) {
-    console.debug(
-      "useNetworkMismatch: activeChainId is undefined, this means there is no wallet connected yet",
-    );
+    // means no wallet is connected yet, so we don't care about the network mismatch
     return false;
   }
   // check if the chainIds are different

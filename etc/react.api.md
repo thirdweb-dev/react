@@ -38,6 +38,7 @@ import { IStorage } from '@thirdweb-dev/sdk';
 import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
+import { NetworkOrSignerOrProvider } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
@@ -49,7 +50,7 @@ import { default as React_2 } from 'react';
 import * as React_3 from 'react';
 import * as react_query from 'react-query';
 import { SDKOptions } from '@thirdweb-dev/sdk';
-import { Signer } from 'ethers';
+import { Signer as Signer_2 } from 'ethers';
 import { Split } from '@thirdweb-dev/sdk';
 import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
 import * as _thirdweb_dev_sdk from '@thirdweb-dev/sdk';
@@ -205,7 +206,7 @@ type Props = {
 };
 
 // @public (undocumented)
-const Provider: ({ autoConnect, children, connectors: connectors_, connectorStorageKey, provider: provider_, webSocketProvider: webSocketProvider_, }: React_3.PropsWithChildren<Props>) => React_3.FunctionComponentElement<React_3.ProviderProps<ContextValue | null>>;
+const Provider_2: ({ autoConnect, children, connectors: connectors_, connectorStorageKey, provider: provider_, webSocketProvider: webSocketProvider_, }: React_3.PropsWithChildren<Props>) => React_3.FunctionComponentElement<React_3.ProviderProps<ContextValue | null>>;
 
 // @public (undocumented)
 export interface SharedMediaProps {
@@ -254,6 +255,19 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
     supportedChains?: TSupportedChain[];
     // Warning: (ae-incompatible-release-tags) The symbol "walletConnectors" is marked as @public, but its signature references "WalletConnector" which is marked as @internal
     walletConnectors?: WalletConnector[];
+}
+
+// @beta
+export const ThirdwebSDKProvider: React_2.FC<React_2.PropsWithChildren<ThirdwebSDKProviderProps>>;
+
+// @public (undocumented)
+export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> {
+    // (undocumented)
+    provider: NetworkOrSignerOrProvider;
+    // Warning: (ae-forgotten-export) The symbol "Signer" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    signer?: Signer;
 }
 
 export { useAccount }
@@ -489,7 +503,7 @@ export function useSDK(): ThirdwebSDK | undefined;
 // Warning: (ae-internal-missing-underscore) The name "useSigner" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useSigner(): Signer | undefined;
+export function useSigner(): Signer_2 | undefined;
 
 // @public
 export function useSplit(contractAddress?: string): Split | undefined;
@@ -537,8 +551,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/index.d.ts:192:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:467:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:391:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:680:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

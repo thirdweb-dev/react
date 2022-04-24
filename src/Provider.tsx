@@ -5,8 +5,10 @@ import {
   defaultSupportedChains,
 } from "./constants/chain";
 import { useSigner } from "./hooks/useSigner";
+import { Signer } from "@ethersproject/abstract-signer";
 import {
   IStorage,
+  NetworkOrSignerOrProvider,
   SDKOptions,
   SUPPORTED_CHAIN_ID,
   ThirdwebSDK,
@@ -362,15 +364,36 @@ export const ThirdwebProvider = <
   return (
     <QueryClientProvider client={queryClientWithDefault}>
       <WagmiProvider {...wagmiProps}>
-        <ThirdwebSDKProvider
+        <ThirdwebSDKProviderWagmiWrapper
           desiredChainId={desiredChainId}
           sdkOptions={sdkOptionsWithDefaults}
           storageInterface={storageInterface}
         >
           {children}
-        </ThirdwebSDKProvider>
+        </ThirdwebSDKProviderWagmiWrapper>
       </WagmiProvider>
     </QueryClientProvider>
+  );
+};
+
+export interface ThirdwebSDKProviderProps
+  extends Pick<
+    ThirdwebProviderProps,
+    "desiredChainId" | "sdkOptions" | "storageInterface"
+  > {
+  signer?: Signer;
+  provider: NetworkOrSignerOrProvider;
+}
+
+const ThirdwebSDKProviderWagmiWrapper: React.FC<
+  React.PropsWithChildren<Omit<ThirdwebSDKProviderProps, "signer" | "provider">>
+> = ({ children, ...props }) => {
+  const provider = useProvider();
+  const signer = useSigner();
+  return (
+    <ThirdwebSDKProvider signer={signer} provider={provider} {...props}>
+      {children}
+    </ThirdwebSDKProvider>
   );
 };
 
@@ -382,17 +405,25 @@ interface SDKContext {
 
 const ThirdwebSDKContext = createContext<SDKContext>({ desiredChainId: -1 });
 
-const ThirdwebSDKProvider: React.FC<
-  React.PropsWithChildren<
-    Pick<
-      ThirdwebProviderProps,
-      "desiredChainId" | "sdkOptions" | "storageInterface"
-    >
-  >
-> = ({ sdkOptions, desiredChainId, storageInterface, children }) => {
-  const provider = useProvider();
-  const signer = useSigner();
-
+/**
+ * A barebones wrapper around the Thirdweb SDK.
+ *
+ * You can use this in order to be able to pass a provider & signer directly to the SDK.
+ *
+ * @remarks Utilizing this provider will mean hooks for wallet management are not available, if you need those please use the {@link ThirdwebProvider} instead.
+ *
+ * @beta
+ */
+export const ThirdwebSDKProvider: React.FC<
+  React.PropsWithChildren<ThirdwebSDKProviderProps>
+> = ({
+  sdkOptions,
+  desiredChainId,
+  storageInterface,
+  provider,
+  signer,
+  children,
+}) => {
   const sdk = useMemo(() => {
     if (!desiredChainId || typeof window === "undefined") {
       return undefined;
