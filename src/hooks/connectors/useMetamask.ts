@@ -2,8 +2,29 @@ import { useConnect } from "../useConnect";
 import invariant from "tiny-invariant";
 
 /**
- * Convienience hook for connecting to a metamask (or any injected) wallet
- * @returns a function that will prompt the user to connect their metamask wallet
+ * Hook for connecting to a Metamask wallet.
+ *
+ * ```javascript
+ * import { useMetamask } from "@thirdweb-dev/react"
+ * ```
+ *
+ *
+ * ## Usage
+ * ```javascript
+ * import { useMetamask } from "@thirdweb-dev/react"
+ *
+ * const App = () => {
+ *   const connectWithMetamask = useMetamask()
+ *
+ *   return (
+ *     <button onClick={connectWithMetamask}>
+ *       Connect Metamask
+ *     </button>
+ *   )
+ * }
+ * ```
+ *
+ * ## Types
  * @public
  */
 export function useMetamask() {

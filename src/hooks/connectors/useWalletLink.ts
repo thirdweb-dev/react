@@ -2,8 +2,29 @@ import { useConnect } from "../useConnect";
 import invariant from "tiny-invariant";
 
 /**
- * Convienience hook for connecting to a wallet via Coinbase Wallet
- * @returns a function that will prompt the user to connect their wallet via Coinbase Wallet
+ * Hook for connecting to a Coinbase wallet.
+ *
+ * ```javascript
+ * import { useCoinbaseWallet } from "@thirdweb-dev/react"
+ * ```
+ *
+ *
+ * ## Usage
+ * ```javascript
+ * import { useCoinbaseWallet } from "@thirdweb-dev/react"
+ *
+ * const App = () => {
+ *   const connectWithCoinbaseWallet = useCoinbaseWallet()
+ *
+ *   return (
+ *     <button onClick={connectWithCoinbaseWallet}>
+ *       Connect Coinbase Wallet
+ *     </button>
+ *   )
+ * }
+ * ```
+ *
+ * ## Types
  * @public
  */
 export function useCoinbaseWallet() {

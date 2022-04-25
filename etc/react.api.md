@@ -136,7 +136,7 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
 
 export { useAccount }
 
-// @public (undocumented)
+// @public
 export function useAddress(): string | undefined;
 
 // @public (undocumented)

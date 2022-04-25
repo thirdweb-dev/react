@@ -2,8 +2,29 @@ import { useConnect } from "../useConnect";
 import invariant from "tiny-invariant";
 
 /**
- * Convienience hook for connecting to a wallet via WalletConnect
- * @returns a function that will prompt the user to connect their wallet via WalletConnect
+ * Hook for connecting to a mobile wallet with Wallet Connect
+ *
+ * ```javascript
+ * import { useWalletConnect } from "@thirdweb-dev/react"
+ * ```
+ *
+ *
+ * ## Usage
+ * ```javascript
+ * import { useWalletConnect } from "@thirdweb-dev/react"
+ *
+ * const App = () => {
+ *   const connectWithWalletConnect = useWalletConnect()
+ *
+ *   return (
+ *     <button onClick={connectWithWalletConnect}>
+ *       Connect WalletConnect
+ *     </button>
+ *   )
+ * }
+ * ```
+ *
+ * ## Types
  * @public
  */
 export function useWalletConnect() {

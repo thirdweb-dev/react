@@ -1,6 +1,6 @@
-# Thirdweb react SDK
+# Thirdweb React SDK
 
-The thirdweb React SDK provides a collection of hooks to use in your React apps to interact with your thirdweb contracts.
+The Thirdweb React SDK provides a collection of hooks to use in your React apps to interact with your thirdweb contracts.
 
 This library doesn't come with any UI, only the logic parts. This allows you to use your own styles and components, without the hassle of managing the data flows yourself.
 

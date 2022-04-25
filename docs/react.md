@@ -8,7 +8,21 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [useAddress()](./react.useaddress.md) |  |
+|  [useAddress()](./react.useaddress.md) | Hook for accessing the address of the connected wallet
+```javascript
+import { useAddress } from "@thirdweb-dev/react"
+```
+\#\# Usage
+```javascript
+import { useAddress } from "@thirdweb-dev/react"
+
+const App = () => {
+  const address = useAddress()
+
+  return <div>{address}</div>
+}
+```
+\#\# Signature |
 |  [useChainId()](./react.usechainid.md) |  |
 |  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | Convienience hook for connecting to a wallet via Coinbase Wallet |
 |  [useDisconnect()](./react.usedisconnect.md) |  |
