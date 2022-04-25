@@ -4,9 +4,14 @@ import { LoginWithMagicLinkConfiguration } from "magic-sdk";
 import invariant from "tiny-invariant";
 
 /**
- * Convienience hook for connecting to magic link (email wallet).
+ * Hook for connecting to an email wallet using magic link
  *
- * @example
+ * ```javascript
+ * import { useMagic } from "@thirdweb-dev/react"
+ * ```
+ *
+ *
+ * ## Usage
  * Before using this hook, you first need to set up the magic configuration in your `ThirdwebProvider`, including your magic API key.
  *
  * ```javascript
@@ -61,7 +66,7 @@ import invariant from "tiny-invariant";
  * }
  * ```
  *
- * @returns a function that will prompt the user to connect their magic link, given an email.
+ * ## Types
  * @public
  */
 export function useMagic() {

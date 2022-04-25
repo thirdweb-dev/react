@@ -4,7 +4,27 @@
 
 ## useMetamask() function
 
-Convienience hook for connecting to a metamask (or any injected) wallet
+Hook for connecting to a Metamask wallet.
+
+```javascript
+import { useMetamask } from "@thirdweb-dev/react"
+```
+\#\# Usage
+
+```javascript
+import { useMetamask } from "@thirdweb-dev/react"
+
+const App = () => {
+  const connectWithMetamask = useMetamask()
+
+  return (
+    <button onClick={connectWithMetamask}>
+      Connect Metamask
+    </button>
+  )
+}
+```
+\#\# Types
 
 <b>Signature:</b>
 
@@ -17,6 +37,4 @@ export declare function useMetamask(): () => Promise<{
 <b>Returns:</b>
 
 () =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
-
-a function that will prompt the user to connect their metamask wallet
 

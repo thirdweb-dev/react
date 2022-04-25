@@ -136,10 +136,10 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
 
 export { useAccount }
 
-// @public (undocumented)
+// @public
 export function useAddress(): string | undefined;
 
-// @public (undocumented)
+// @public
 export function useChainId(): number | undefined;
 
 // @public
@@ -174,7 +174,7 @@ export function useContract<TContractType extends ContractType>(contractType?: T
 // @internal (undocumented)
 export function useDesiredChainId(): number;
 
-// @public (undocumented)
+// @public
 export function useDisconnect(): () => void;
 
 // @public
@@ -200,7 +200,7 @@ export function useMetamask(): () => Promise<{
 
 export { useNetwork }
 
-// @public (undocumented)
+// @public
 export function useNetworkMismatch(): boolean;
 
 // @public
