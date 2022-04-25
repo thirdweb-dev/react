@@ -13,9 +13,10 @@ export * from "./hooks/connectors/useWalletLink";
 export * from "./hooks/connectors/useMagic";
 export * from "./hooks/useChainId";
 export * from "./hooks/useNetworkMismatch";
+export * from "./hooks/useNetwork";
 
 // re-exports
-export { defaultChains, defaultL2Chains, useAccount, useNetwork } from "wagmi";
+export { defaultChains, defaultL2Chains, useAccount } from "wagmi";
 export { ChainId, IpfsStorage } from "@thirdweb-dev/sdk";
 
 // ui components

@@ -33,7 +33,15 @@ const App = () => {
 
   // Now you can use the edition contract in the rest of the component
 
-  ...
+  // For example, this function will return all the NFTs on this contract
+  async function getNFTs() {
+    const nfts = await edition.getAll()
+    return nfts
+  }
+
+  return (
+    ...
+  )
 }
 ```
 

@@ -33,7 +33,15 @@ const App = () => {
 
   // Now you can use the split contract in the rest of the component
 
-  ...
+  // For example, this function will retrun all the receipients of the split
+  async function getRecipients() {
+    const recipients = await split.getAllRecipients()
+    return recipients
+  }
+
+  return (
+    ...
+  )
 }
 ```
 

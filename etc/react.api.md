@@ -4,7 +4,7 @@
 
 ```ts
 
-import type { Chain as Chain_2 } from 'wagmi';
+import { Chain as Chain_2 } from 'wagmi';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from 'wagmi';
@@ -30,10 +30,10 @@ import { default as React_2 } from 'react';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
 import { Split } from '@thirdweb-dev/sdk';
+import { SwitchChainError } from 'wagmi';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
 import { useAccount } from 'wagmi';
-import { useNetwork } from 'wagmi';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
@@ -198,7 +198,36 @@ export function useMetamask(): () => Promise<{
     error?: Error | undefined;
 }>;
 
-export { useNetwork }
+// @public
+export function useNetwork(): readonly [{
+    readonly data: {
+        readonly chain: {
+            id: number;
+            unsupported: boolean | undefined;
+            name?: string | undefined;
+            nativeCurrency?: {
+                name: string;
+                symbol: string;
+                decimals: 18;
+            } | undefined;
+            rpcUrls?: string[] | undefined;
+            blockExplorers?: {
+                name: string;
+                url: string;
+            }[] | undefined;
+            testnet?: boolean | undefined;
+        } | undefined;
+        readonly chains: Chain_2[];
+    };
+    readonly error: Error | undefined;
+    readonly loading: boolean | undefined;
+}, ((chainId: number) => Promise<{
+    data: undefined;
+    error: SwitchChainError;
+} | {
+    data: Chain_2 | undefined;
+    error: undefined;
+}>) | undefined];
 
 // @public
 export function useNetworkMismatch(): boolean;
