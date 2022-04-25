@@ -21,6 +21,7 @@ export declare function useDisconnect(): () => void;
 
 ## Example
 
+The following will enable users to disconnect their wallet from the page.
 
 ```javascript
 import { useDisconnect } from "@thirdweb-dev/react"
@@ -35,4 +36,5 @@ const App = () => {
   )
 }
 ```
+Once users disconnect their wallet, the `useAddress`<!-- -->, `useChainId`<!-- -->, `useAccount`<!-- -->, and `useNetwork` hooks will no longer return values until a user connects their wallet again.
 
