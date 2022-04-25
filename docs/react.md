@@ -12,177 +12,52 @@
 ```javascript
 import { useAddress } from "@thirdweb-dev/react"
 ```
-\#\# Usage
-```javascript
-import { useAddress } from "@thirdweb-dev/react"
-
-const App = () => {
-  const address = useAddress()
-
-  return <div>{address}</div>
-}
-```
-\#\# Types |
+ |
 |  [useChainId()](./react.usechainid.md) | Hook for accessing the chain ID of the network the current wallet is connected to
 ```javascript
 import { useChainId } from "@thirdweb-dev/react"
 ```
-\#\# Usage
-```javascript
-import { useChainId } from "@thirdweb-dev/react"
-
-const App = () => {
-  const chainId = useChainId()
-
-  return <div>{chainId}</div>
-}
-```
-\#\# Types |
+ |
 |  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | Hook for connecting to a Coinbase wallet.
 ```javascript
 import { useCoinbaseWallet } from "@thirdweb-dev/react"
 ```
-\#\# Usage
-```javascript
-import { useCoinbaseWallet } from "@thirdweb-dev/react"
-
-const App = () => {
-  const connectWithCoinbaseWallet = useCoinbaseWallet()
-
-  return (
-    <button onClick={connectWithCoinbaseWallet}>
-      Connect Coinbase Wallet
-    </button>
-  )
-}
-```
-\#\# Types |
+ |
 |  [useDisconnect()](./react.usedisconnect.md) | Hook for disconnecting the currently connected wallet
 ```javascript
 import { useDisconnect } from "@thirdweb-dev/react"
 ```
-\#\# Usage
-```javascript
-import { useDisconnect } from "@thirdweb-dev/react"
-
-const App = () => {
-  const disconnect = useDisconnect()
-
-  return (
-    <button onClick={disconnect}>
-      Disconnect
-    </button>
-  )
-}
-```
-\#\# Types |
-|  [useEdition(contractAddress)](./react.useedition.md) | Returns a Edition contract instance |
-|  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Returns a Edition Drop contract instance |
+ |
+|  [useEdition(contractAddress)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |
+|  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
 |  [useMagic()](./react.usemagic.md) | Hook for connecting to an email wallet using magic link
 ```javascript
 import { useMagic } from "@thirdweb-dev/react"
 ```
-\#\# Usage Before using this hook, you first need to set up the magic configuration in your <code>ThirdwebProvider</code>, including your magic API key.
-```javascript
-// Add the magic configuration object to your wallet connectors
-const connectors = [
-  "metamask",
-  "walletConnect",
-  "walletLink",
-  {
-    name: "magic",
-    options: {
-      apiKey: "your-magic-api-key",
-      // Add RPC URLs for chainIds you want to support
-      rpcUrls: {
-        1: "https://mainnet.infura.io/v3/your-alchemy-api-key",
-      }
-    }
-  }
-]
-
-// Add the above to the walletConnectors prop of your <ThirdwebProvider />
-const Provider = ({ children }) => (
-  return (
-    <ThirdwebProvider
-      walletConnectors={connectors}
-      // Specify remaining parameters
-      ...
-    >
-      {children}
-    </ThirdwebProvider>
-  )
-}
-```
-In order to use the hook to connect users with magic link, you just need to provide the users email to the connect function.<!-- -->You can setup the hook with the following configuration:
-```javascript
-import { useMagic } from "@thirdweb-dev/react"
-import { useState } from "react"
-
-const LoginWithMagicLink = () => {
-  const connectWithMagic = useMagic()
-  const [email, setEmail] = useState()
-
-  return (
-    <div>
-      <input value={email} onChange={(e) => setEmail(e.target.value)} />
-      <button onClick={() => connectWithMagic({ email })}>Login</button>
-    </div>
-  )
-}
-```
-\#\# Types |
-|  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Returns a Marketplace contract instance |
+ |
+|  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Hook for getting an instance of a <code>Marketplace</code> contract. This contract is used to support marketplace for purchase and sale of on-chain assets. |
 |  [useMetamask()](./react.usemetamask.md) | Hook for connecting to a Metamask wallet.
 ```javascript
 import { useMetamask } from "@thirdweb-dev/react"
 ```
-\#\# Usage
-```javascript
-import { useMetamask } from "@thirdweb-dev/react"
-
-const App = () => {
-  const connectWithMetamask = useMetamask()
-
-  return (
-    <button onClick={connectWithMetamask}>
-      Connect Metamask
-    </button>
-  )
-}
-```
-\#\# Types |
+ |
 |  [useNetworkMismatch()](./react.usenetworkmismatch.md) | Hook for checking whether the connected wallet is on the correct network specified by the <code>desiredChainId</code> passed to the <code>&lt;ThirdwebProvider /&gt;</code>.
 ```javascript
 import { useNetworkMistmatch } from "@thirdweb-dev/react"
 ```
  |
-|  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Returns a NFT Collection contract instance |
-|  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Returns a NFT Drop contract instance |
-|  [usePack(contractAddress)](./react.usepack.md) | Returns a Pack contract instance |
+|  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Hook for getting an instance of an <code>NFTCollection</code> contract. This contract is meant to interface with ERC721 compliant NFTs. |
+|  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Hook for getting an instance of an <code>NFTDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
+|  [usePack(contractAddress)](./react.usepack.md) | Hook for getting an instance of a <code>Pack</code> contract. This contract supports the creation of on-chain luck-based lootboxes. |
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
-|  [useSplit(contractAddress)](./react.usesplit.md) | Returns a Split contract instance |
-|  [useToken(contractAddress)](./react.usetoken.md) | Returns a Token contract instance |
-|  [useVote(contractAddress)](./react.usevote.md) | Returns a Vote contract instance |
+|  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
+|  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
+|  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
 |  [useWalletConnect()](./react.usewalletconnect.md) | Hook for connecting to a mobile wallet with Wallet Connect
 ```javascript
 import { useWalletConnect } from "@thirdweb-dev/react"
 ```
-\#\# Usage
-```javascript
-import { useWalletConnect } from "@thirdweb-dev/react"
-
-const App = () => {
-  const connectWithWalletConnect = useWalletConnect()
-
-  return (
-    <button onClick={connectWithWalletConnect}>
-      Connect WalletConnect
-    </button>
-  )
-}
-```
-\#\# Types |
+ |
 
 ## Interfaces
 
@@ -201,5 +76,5 @@ const App = () => {
 |  --- | --- |
 |  [MediaRenderer](./react.mediarenderer.md) | A component that renders media based on the format of the media type. Handles most media types including image, audio, video, and html files. Falls back to a external link if the media type is not supported.<!-- -->props: [MediaRendererProps](./react.mediarendererprops.md) |
 |  [ThirdwebNftMedia](./react.thirdwebnftmedia.md) | Render a nft based on the common metadata returned by the thirdweb sdk. |
-|  [ThirdwebProvider](./react.thirdwebprovider.md) | The <code>&lt;ThirdwebProvider /&gt;</code> component, you need to wrap your application with this provider to use the thirdweb react sdk. |
+|  [ThirdwebProvider](./react.thirdwebprovider.md) | The <code>&lt;ThirdwebProvider /&gt;</code> component lets you control what networks you want users to connect to, what types of wallets can connect to your app, and the settings for the \[Typescript SDK\](https://docs.thirdweb.com/typescript). |
 

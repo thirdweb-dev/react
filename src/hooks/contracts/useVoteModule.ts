@@ -2,8 +2,21 @@ import { useContract } from "./useContract";
 import { Vote } from "@thirdweb-dev/sdk";
 
 /**
- * Returns a Vote contract instance
+ * Hook for getting an instance of an `Vote` contract. This contract enables fully featured voting-based decentralized governance systems.
  * @param contractAddress - the address of the Vote contract, found in your thirdweb dashboard
+ *
+ * @example
+ * ```javascript
+ * import { useVote } from '@thirdweb/react-hooks'
+ *
+ * const App = () => {
+ *   const vote = useVote("<YOUR-CONTRACT-ADDRESS>")
+ *
+ *   // Now you can use the vote contract in the rest of the component
+ *
+ *   ...
+ * }
+ * ```
  * @public
  */
 export function useVote(contractAddress?: string): Vote | undefined {

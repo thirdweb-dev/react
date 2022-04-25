@@ -4,7 +4,7 @@
 
 ## useMarketplace() function
 
-Returns a Marketplace contract instance
+Hook for getting an instance of a `Marketplace` contract. This contract is used to support marketplace for purchase and sale of on-chain assets.
 
 <b>Signature:</b>
 
@@ -21,4 +21,19 @@ export declare function useMarketplace(contractAddress?: string): Marketplace | 
 <b>Returns:</b>
 
 Marketplace \| undefined
+
+## Example
+
+
+```javascript
+import { useMarketplace } from '@thirdweb/react-hooks'
+
+const App = () => {
+  const marketplace = useMarketplace("<YOUR-CONTRACT-ADDRESS>")
+
+  // Now you can use the marketplace contract in the rest of the component
+
+  ...
+}
+```
 

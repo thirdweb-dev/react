@@ -8,7 +8,7 @@ import { useAccount } from "wagmi";
  * ```
  *
  *
- * ## Usage
+ * @example
  * ```javascript
  * import { useDisconnect } from "@thirdweb-dev/react"
  *
@@ -23,7 +23,6 @@ import { useAccount } from "wagmi";
  * }
  * ```
  *
- * ## Types
  * @public
  */
 export function useDisconnect() {
