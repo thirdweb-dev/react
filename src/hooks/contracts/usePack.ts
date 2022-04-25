@@ -14,7 +14,15 @@ import { Pack } from "@thirdweb-dev/sdk";
  *
  *   // Now you can use the pack contract in the rest of the component
  *
- *   ...
+ *   // For example, this function will get all the packs on this contract
+ *   async function getPacks() {
+ *     const packs = await pack.getAll()
+ *     return packs
+ *   }
+ *
+ *   return (
+ *     ...
+ *   )
  * }
  * ```
  * @public

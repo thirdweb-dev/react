@@ -17,13 +17,11 @@ yarn add @thirdweb-dev/react @thirdweb-dev/sdk ethers
 
 ## Starter Templates
 
-We provide template repositories to help you get started with thirdweb quickly. You can find all the available starter respositories below.
+We provide template repositories that already have the Thirdweb React SDK setup and ready-to-go to help you get started with thirdweb quickly. You can find all the available starter respositories below.
 
 - Next.js ([typescript](https://github.com/thirdweb-example/next-typescript-starter) / [javascript](https://github.com/thirdweb-example/next-javascript-starter))
 - Create React App ([typescript](https://github.com/thirdweb-example/cra-typescript-starter) / [javascript](https://github.com/thirdweb-example/cra-javascript-starter))
 - Vite ([typescript](https://github.com/thirdweb-example/vite-typescript-starter) / [javascript](https://github.com/thirdweb-example/vite-javascript-starter))
-
-_[All available templates.](https://github.com/thirdweb-example)_
 
 ## Quick Start
 
