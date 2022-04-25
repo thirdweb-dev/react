@@ -7,8 +7,7 @@ import { useNetwork } from "wagmi";
  * import { useChainId } from "@thirdweb-dev/react"
  * ```
  *
- *
- * ## Usage
+ * @example
  * ```javascript
  * import { useChainId } from "@thirdweb-dev/react"
  *
@@ -18,8 +17,6 @@ import { useNetwork } from "wagmi";
  *   return <div>{chainId}</div>
  * }
  * ```
- *
- * ## Types
  * @public
  */
 export function useChainId(): number | undefined {
