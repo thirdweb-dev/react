@@ -4,7 +4,27 @@
 
 ## useWalletConnect() function
 
-Convienience hook for connecting to a wallet via WalletConnect
+Hook for connecting to a mobile wallet with Wallet Connect
+
+```javascript
+import { useWalletConnect } from "@thirdweb-dev/react"
+```
+\#\# Usage
+
+```javascript
+import { useWalletConnect } from "@thirdweb-dev/react"
+
+const App = () => {
+  const connectWithWalletConnect = useWalletConnect()
+
+  return (
+    <button onClick={connectWithWalletConnect}>
+      Connect WalletConnect
+    </button>
+  )
+}
+```
+\#\# Types
 
 <b>Signature:</b>
 
@@ -17,6 +37,4 @@ export declare function useWalletConnect(): () => Promise<{
 <b>Returns:</b>
 
 () =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
-
-a function that will prompt the user to connect their wallet via WalletConnect
 

@@ -8,16 +8,155 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [useAddress()](./react.useaddress.md) |  |
-|  [useChainId()](./react.usechainid.md) |  |
-|  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | Convienience hook for connecting to a wallet via Coinbase Wallet |
-|  [useDisconnect()](./react.usedisconnect.md) |  |
+|  [useAddress()](./react.useaddress.md) | Hook for accessing the address of the connected wallet
+```javascript
+import { useAddress } from "@thirdweb-dev/react"
+```
+\#\# Usage
+```javascript
+import { useAddress } from "@thirdweb-dev/react"
+
+const App = () => {
+  const address = useAddress()
+
+  return <div>{address}</div>
+}
+```
+\#\# Types |
+|  [useChainId()](./react.usechainid.md) | Hook for accessing the chain ID of the network the current wallet is connected to
+```javascript
+import { useChainId } from "@thirdweb-dev/react"
+```
+\#\# Usage
+```javascript
+import { useChainId } from "@thirdweb-dev/react"
+
+const App = () => {
+  const chainId = useChainId()
+
+  return <div>{chainId}</div>
+}
+```
+\#\# Types |
+|  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | Hook for connecting to a Coinbase wallet.
+```javascript
+import { useCoinbaseWallet } from "@thirdweb-dev/react"
+```
+\#\# Usage
+```javascript
+import { useCoinbaseWallet } from "@thirdweb-dev/react"
+
+const App = () => {
+  const connectWithCoinbaseWallet = useCoinbaseWallet()
+
+  return (
+    <button onClick={connectWithCoinbaseWallet}>
+      Connect Coinbase Wallet
+    </button>
+  )
+}
+```
+\#\# Types |
+|  [useDisconnect()](./react.usedisconnect.md) | Hook for disconnecting the currently connected wallet
+```javascript
+import { useDisconnect } from "@thirdweb-dev/react"
+```
+\#\# Usage
+```javascript
+import { useDisconnect } from "@thirdweb-dev/react"
+
+const App = () => {
+  const disconnect = useDisconnect()
+
+  return (
+    <button onClick={disconnect}>
+      Disconnect
+    </button>
+  )
+}
+```
+\#\# Types |
 |  [useEdition(contractAddress)](./react.useedition.md) | Returns a Edition contract instance |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Returns a Edition Drop contract instance |
-|  [useMagic()](./react.usemagic.md) | Convienience hook for connecting to magic link (email wallet). |
+|  [useMagic()](./react.usemagic.md) | Hook for connecting to an email wallet using magic link
+```javascript
+import { useMagic } from "@thirdweb-dev/react"
+```
+\#\# Usage Before using this hook, you first need to set up the magic configuration in your <code>ThirdwebProvider</code>, including your magic API key.
+```javascript
+// Add the magic configuration object to your wallet connectors
+const connectors = [
+  "metamask",
+  "walletConnect",
+  "walletLink",
+  {
+    name: "magic",
+    options: {
+      apiKey: "your-magic-api-key",
+      // Add RPC URLs for chainIds you want to support
+      rpcUrls: {
+        1: "https://mainnet.infura.io/v3/your-alchemy-api-key",
+      }
+    }
+  }
+]
+
+// Add the above to the walletConnectors prop of your <ThirdwebProvider />
+const Provider = ({ children }) => (
+  return (
+    <ThirdwebProvider
+      walletConnectors={connectors}
+      // Specify remaining parameters
+      ...
+    >
+      {children}
+    </ThirdwebProvider>
+  )
+}
+```
+In order to use the hook to connect users with magic link, you just need to provide the users email to the connect function.<!-- -->You can setup the hook with the following configuration:
+```javascript
+import { useMagic } from "@thirdweb-dev/react"
+import { useState } from "react"
+
+const LoginWithMagicLink = () => {
+  const connectWithMagic = useMagic()
+  const [email, setEmail] = useState()
+
+  return (
+    <div>
+      <input value={email} onChange={(e) => setEmail(e.target.value)} />
+      <button onClick={() => connectWithMagic({ email })}>Login</button>
+    </div>
+  )
+}
+```
+\#\# Types |
 |  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Returns a Marketplace contract instance |
-|  [useMetamask()](./react.usemetamask.md) | Convienience hook for connecting to a metamask (or any injected) wallet |
-|  [useNetworkMismatch()](./react.usenetworkmismatch.md) |  |
+|  [useMetamask()](./react.usemetamask.md) | Hook for connecting to a Metamask wallet.
+```javascript
+import { useMetamask } from "@thirdweb-dev/react"
+```
+\#\# Usage
+```javascript
+import { useMetamask } from "@thirdweb-dev/react"
+
+const App = () => {
+  const connectWithMetamask = useMetamask()
+
+  return (
+    <button onClick={connectWithMetamask}>
+      Connect Metamask
+    </button>
+  )
+}
+```
+\#\# Types |
+|  [useNetworkMismatch()](./react.usenetworkmismatch.md) | Hook for checking whether the connected wallet is on the correct network specified by the <code>desiredChainId</code> passed to the <code>&lt;ThirdwebProvider /&gt;</code>.
+```javascript
+import { useNetworkMistmatch } from "@thirdweb-dev/react"
+```
+ |
 |  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Returns a NFT Collection contract instance |
 |  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Returns a NFT Drop contract instance |
 |  [usePack(contractAddress)](./react.usepack.md) | Returns a Pack contract instance |
@@ -25,7 +164,25 @@
 |  [useSplit(contractAddress)](./react.usesplit.md) | Returns a Split contract instance |
 |  [useToken(contractAddress)](./react.usetoken.md) | Returns a Token contract instance |
 |  [useVote(contractAddress)](./react.usevote.md) | Returns a Vote contract instance |
-|  [useWalletConnect()](./react.usewalletconnect.md) | Convienience hook for connecting to a wallet via WalletConnect |
+|  [useWalletConnect()](./react.usewalletconnect.md) | Hook for connecting to a mobile wallet with Wallet Connect
+```javascript
+import { useWalletConnect } from "@thirdweb-dev/react"
+```
+\#\# Usage
+```javascript
+import { useWalletConnect } from "@thirdweb-dev/react"
+
+const App = () => {
+  const connectWithWalletConnect = useWalletConnect()
+
+  return (
+    <button onClick={connectWithWalletConnect}>
+      Connect WalletConnect
+    </button>
+  )
+}
+```
+\#\# Types |
 
 ## Interfaces
 

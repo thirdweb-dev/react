@@ -2,8 +2,29 @@ import { useConnect } from "../useConnect";
 import invariant from "tiny-invariant";
 
 /**
- * Convienience hook for connecting to a gnosis safe
- * @returns a function that will prompt the user to connect their gnosis safe
+ * Hook for connecting to a gnosis safe
+ *
+ * ```javascript
+ * import { useGnosis } from "@thirdweb-dev/react"
+ * ```
+ *
+ *
+ * ## Usage
+ * ```javascript
+ * import { useGnosis } from "@thirdweb-dev/react"
+ *
+ * const App = () => {
+ *   const connectWithGnosis = useGnosis()
+ *
+ *   return (
+ *     <button onClick={connectWithGnosis}>
+ *       Connect Gnosis Safe
+ *     </button>
+ *   )
+ * }
+ * ```
+ *
+ * ## Types
  * @public
  */
 export function useGnosis() {
