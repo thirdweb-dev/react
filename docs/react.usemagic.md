@@ -22,6 +22,39 @@ a function that will prompt the user to connect their magic link, given an email
 
 ## Example
 
+Before using this hook, you first need to set up the magic configuration in your `ThirdwebProvider`<!-- -->, including your magic API key.
+
+```javascript
+// Add the magic configuration object to your wallet connectors
+const connectors = [
+  "metamask",
+  "walletConnect",
+  "walletLink",
+  {
+    name: "magic",
+    options: {
+      apiKey: "your-magic-api-key",
+      // Add RPC URLs for chainIds you want to support
+      rpcUrls: {
+        1: "https://mainnet.infura.io/v3/your-alchemy-api-key",
+      }
+    }
+  }
+]
+
+// Add the above to the walletConnectors prop of your <ThirdwebProvider />
+const Provider = ({ children }) => (
+  return (
+    <ThirdwebProvider
+      walletConnectors={connectors}
+      // Specify remaining parameters
+      ...
+    >
+      {children}
+    </ThirdwebProvider>
+  )
+}
+```
 In order to use the hook to connect users with magic link, you just need to provide the users email to the connect function.
 
 You can setup the hook with the following configuration:
