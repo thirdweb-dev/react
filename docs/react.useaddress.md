@@ -20,7 +20,7 @@ const App = () => {
   return <div>{address}</div>
 }
 ```
-\#\# Signature
+\#\# Types
 
 <b>Signature:</b>
 
