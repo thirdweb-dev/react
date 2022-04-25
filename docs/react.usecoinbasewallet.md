@@ -9,7 +9,21 @@ Hook for connecting to a Coinbase wallet.
 ```javascript
 import { useCoinbaseWallet } from "@thirdweb-dev/react"
 ```
-\#\# Usage
+
+<b>Signature:</b>
+
+```typescript
+export declare function useCoinbaseWallet(): () => Promise<{
+    data?: import("wagmi-core").ConnectorData<any> | undefined;
+    error?: Error | undefined;
+}>;
+```
+<b>Returns:</b>
+
+() =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+
+## Example
+
 
 ```javascript
 import { useCoinbaseWallet } from "@thirdweb-dev/react"
@@ -24,17 +38,4 @@ const App = () => {
   )
 }
 ```
-\#\# Types
-
-<b>Signature:</b>
-
-```typescript
-export declare function useCoinbaseWallet(): () => Promise<{
-    data?: import("wagmi-core").ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
-```
-<b>Returns:</b>
-
-() =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
 

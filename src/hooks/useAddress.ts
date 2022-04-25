@@ -8,7 +8,7 @@ import { useAccount } from "wagmi";
  * ```
  *
  *
- * ## Usage
+ * @example
  * ```javascript
  * import { useAddress } from "@thirdweb-dev/react"
  *
@@ -19,7 +19,6 @@ import { useAccount } from "wagmi";
  * }
  * ```
  *
- * ## Types
  * @public
  */
 export function useAddress(): string | undefined {

@@ -11,7 +11,7 @@ import invariant from "tiny-invariant";
  * ```
  *
  *
- * ## Usage
+ * @example
  * Before using this hook, you first need to set up the magic configuration in your `ThirdwebProvider`, including your magic API key.
  *
  * ```javascript
@@ -66,7 +66,6 @@ import invariant from "tiny-invariant";
  * }
  * ```
  *
- * ## Types
  * @public
  */
 export function useMagic() {

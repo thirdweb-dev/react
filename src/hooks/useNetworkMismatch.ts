@@ -10,7 +10,7 @@ import { useChainId } from "./useChainId";
  *
  * @returns `true` if the chainId of the connected wallet is different from the desired chainId passed into <ThirdwebProvider />
  *
- * ## Usage
+ * @example
  * ```javascript
  * import { useNetworkMismatch } from "@thirdweb-dev/react"
  *
@@ -21,7 +21,6 @@ import { useChainId } from "./useChainId";
  * }
  * ```
  *
- * ## Types
  * @public
  */
 export function useNetworkMismatch() {

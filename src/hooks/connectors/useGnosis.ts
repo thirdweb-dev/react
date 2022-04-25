@@ -9,7 +9,7 @@ import invariant from "tiny-invariant";
  * ```
  *
  *
- * ## Usage
+ * @example
  * ```javascript
  * import { useGnosis } from "@thirdweb-dev/react"
  *
@@ -24,7 +24,6 @@ import invariant from "tiny-invariant";
  * }
  * ```
  *
- * ## Types
  * @public
  */
 export function useGnosis() {
