@@ -10,6 +10,7 @@ import invariant from "tiny-invariant";
  *
  *
  * @example
+ * We can allow users to connect with Coinbase Wallet as follows:
  * ```javascript
  * import { useCoinbaseWallet } from "@thirdweb-dev/react"
  *
@@ -23,6 +24,9 @@ import invariant from "tiny-invariant";
  *   )
  * }
  * ```
+ *
+ * Upon clicking this button, users will be prompted with a popup asking them scan a QR code with their Coinbase Wallet.
+ * Once they scan the QR code, their wallet will then be connected to the page as expected.
  *
  * @public
  */

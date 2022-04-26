@@ -9,6 +9,7 @@ import { useAccount } from "wagmi";
  *
  *
  * @example
+ * The following will enable users to disconnect their wallet from the page.
  * ```javascript
  * import { useDisconnect } from "@thirdweb-dev/react"
  *
@@ -22,6 +23,8 @@ import { useAccount } from "wagmi";
  *   )
  * }
  * ```
+ *
+ * Once users disconnect their wallet, the `useAddress`, `useChainId`, `useAccount`, and `useNetwork` hooks will no longer return values until a user connects their wallet again.
  *
  * @public
  */

@@ -11,6 +11,7 @@ import { useChainId } from "./useChainId";
  * @returns `true` if the chainId of the connected wallet is different from the desired chainId passed into <ThirdwebProvider />
  *
  * @example
+ * You can check if a users wallet is connected to the correct chain ID as follows:
  * ```javascript
  * import { useNetworkMismatch } from "@thirdweb-dev/react"
  *
@@ -20,6 +21,8 @@ import { useChainId } from "./useChainId";
  *   return <div>{isMismatched}</div>
  * }
  * ```
+ *
+ * From here, you can prompt users to switch their network using the `useNetwork` hook.
  *
  * @public
  */

@@ -33,7 +33,15 @@ const App = () => {
 
   // Now you can use the vote contract in the rest of the component
 
-  ...
+  // For example, this function will get all the proposals on this contract
+  async function getProposals() {
+    const proposals = await vote.getAll()
+    return proposals
+  }
+
+  return (
+    ...
+  )
 }
 ```
 

@@ -24,6 +24,7 @@ export declare function useMetamask(): () => Promise<{
 
 ## Example
 
+We can allow users to connect their metamask wallets as follows:
 
 ```javascript
 import { useMetamask } from "@thirdweb-dev/react"
@@ -38,4 +39,5 @@ const App = () => {
   )
 }
 ```
+Here, we use the `useMetamask` hook to handle metamask connection. When a user clicks the button, we'll call the `connectWithMetamask` function, which will prompt users to connect their metamask wallet.
 

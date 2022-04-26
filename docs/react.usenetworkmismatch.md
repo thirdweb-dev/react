@@ -23,6 +23,7 @@ boolean
 
 ## Example
 
+You can check if a users wallet is connected to the correct chain ID as follows:
 
 ```javascript
 import { useNetworkMismatch } from "@thirdweb-dev/react"
@@ -33,4 +34,5 @@ const App = () => {
   return <div>{isMismatched}</div>
 }
 ```
+From here, you can prompt users to switch their network using the `useNetwork` hook.
 

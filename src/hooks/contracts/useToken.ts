@@ -14,7 +14,15 @@ import { Token } from "@thirdweb-dev/sdk";
  *
  *   // Now you can use the token contract in the rest of the component
  *
- *   ...
+ *   // For example, this function will get the connected wallets token balance
+ *   async function balance() {
+ *     const balance = await token.balance()
+ *     return balance
+ *   }
+ *
+ *   return (
+ *     ...
+ *   )
  * }
  * ```
  * @public

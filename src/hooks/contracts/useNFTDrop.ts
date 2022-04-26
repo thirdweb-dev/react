@@ -14,7 +14,14 @@ import { NFTDrop } from "@thirdweb-dev/sdk";
  *
  *   // Now you can use the nft drop contract in the rest of the component
  *
- *   ...
+ *   // For example, this function will let the connected wallet claim a new NFT
+ *   async function claim(quantity) {
+ *     await nftDrop.claim(quantity)
+ *   }
+ *
+ *   return (
+ *     ...
+ *   )
  * }
  * ```
  * @public

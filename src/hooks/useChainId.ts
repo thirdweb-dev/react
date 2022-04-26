@@ -8,6 +8,7 @@ import { useNetwork } from "wagmi";
  * ```
  *
  * @example
+ * You can get the chain ID of the connected wallet by using the hook as follows:
  * ```javascript
  * import { useChainId } from "@thirdweb-dev/react"
  *

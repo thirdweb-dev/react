@@ -5,6 +5,6 @@ export * from "./useMarketplace";
 export * from "./useContract";
 export * from "./useNFTCollection";
 export * from "./usePack";
-export * from "./useTokenModule";
-export * from "./useVoteModule";
+export * from "./useToken";
+export * from "./useVote";
 export * from "./useSplit";
