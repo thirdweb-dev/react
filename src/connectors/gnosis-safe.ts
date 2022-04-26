@@ -6,7 +6,16 @@ import { getAddress } from "ethers/lib/utils";
 import invariant from "tiny-invariant";
 import { Chain, Connector, ConnectorData, normalizeChainId } from "wagmi";
 
-export interface GnosisConnectorArguments {}
+// TODO handle all the browserfy
+// if (!globalThis.fs) {
+//   // eslint-disable-next-line @typescript-eslint/no-var-requires
+//   globalThis.fs = require("browserify-fs");
+// }
+
+export interface GnosisConnectorArguments {
+  safeAddress: string;
+  safeChainId: number;
+}
 
 export class GnosisSafeConnector extends Connector {
   id: string = "gnosis";
@@ -14,13 +23,15 @@ export class GnosisSafeConnector extends Connector {
   name: string = "Gnosis Safe";
   // config
   personalSigner?: Signer;
-  safeAddress?: string;
+  private config?: GnosisConnectorArguments;
+  private safeSigner?: Signer;
 
-  constructor(config: { chains?: Chain[]; options: GnosisConnectorArguments }) {
-    super({ ...config, options: config?.options });
+  constructor(config: { chains?: Chain[] }) {
+    super({ ...config, options: undefined });
   }
 
   async connect(): Promise<ConnectorData<any>> {
+    this.safeSigner = await this.createSafeSigner();
     const account = await this.getAccount();
     const provider = await this.getProvider();
     const id = await this.getChainId();
@@ -30,6 +41,25 @@ export class GnosisSafeConnector extends Connector {
       chain: { id, unsupported: this.isChainUnsupported(id) },
     };
   }
+
+  private async createSafeSigner() {
+    const signer = this.personalSigner;
+    const safeAddress = this.config?.safeAddress;
+    invariant(signer, "Signer not set");
+    invariant(safeAddress, "Safe address not set");
+    // TODO map for addresses
+    const service = new SafeService(
+      "https://safe-transaction.rinkeby.gnosis.io",
+    );
+    const ethAdapter = new EthersAdapter({ ethers, signer });
+    const safe = await Safe.create({
+      ethAdapter,
+      safeAddress,
+    });
+    const provider = signer.provider;
+    return new SafeEthersSigner(safe, service, provider);
+  }
+
   disconnect(): Promise<void> {
     throw new Error("Method not implemented.");
   }
@@ -48,20 +78,10 @@ export class GnosisSafeConnector extends Connector {
   }
 
   async getSigner(): Promise<Signer> {
-    const signer = this.personalSigner;
-    const safeAddress = this.safeAddress;
-    invariant(signer, "Signer not set");
-    invariant(safeAddress, "Safe address not set");
-    const service = new SafeService(
-      "https://safe-transaction.rinkeby.gnosis.io",
-    );
-    const ethAdapter = new EthersAdapter({ ethers, signer });
-    const safe = await Safe.create({
-      ethAdapter,
-      safeAddress,
-    });
-    const provider = signer.provider;
-    return new SafeEthersSigner(safe, service, provider);
+    if (!this.safeSigner) {
+      this.safeSigner = await this.createSafeSigner();
+    }
+    return this.safeSigner;
   }
 
   async isAuthorized(): Promise<boolean> {
@@ -82,7 +102,10 @@ export class GnosisSafeConnector extends Connector {
   }
 
   protected override isChainUnsupported(chainId: number) {
-    return !this.chains.some((x) => x.id === chainId);
+    console.info("isChainUnsupported", chainId);
+    return this.config?.safeChainId
+      ? chainId === this.config.safeChainId
+      : false;
   }
 
   protected onChainChanged(chainId: string | number) {
@@ -95,8 +118,8 @@ export class GnosisSafeConnector extends Connector {
     this.emit("disconnect");
   }
 
-  public setConfiguration(signer: Signer, safeAddress: string) {
+  public setConfiguration(signer: Signer, config: GnosisConnectorArguments) {
     this.personalSigner = signer;
-    this.safeAddress = safeAddress;
+    this.config = config;
   }
 }

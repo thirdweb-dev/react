@@ -338,20 +338,8 @@ export const ThirdwebProvider = <
               (typeof connector === "string" && connector === "gnosis") ||
               (typeof connector === "object" && connector.name === "gnosis")
             ) {
-              const jsonRpcUrl = _rpcUrlMap[chainId || desiredChainId || 1];
               return new GnosisSafeConnector({
                 chains: _supporrtedChains,
-                options:
-                  typeof connector === "string"
-                    ? {
-                        ...walletLinkClientMeta,
-                        jsonRpcUrl,
-                      }
-                    : {
-                        ...walletLinkClientMeta,
-                        jsonRpcUrl,
-                        ...connector.options,
-                      },
               });
             }
             return null;
