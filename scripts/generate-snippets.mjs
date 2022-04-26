@@ -62,8 +62,6 @@ const hooks = json.members[0].members.filter(
   (m) => m.kind === "Function" && CONTRACT_HOOKS.includes(m.name),
 );
 
-console.log(hooks);
-
 function parseExampleTag(docComment) {
   const exampleBlocks = docComment._customBlocks.filter(
     (b) => b._blockTag._tagName === "@example",
