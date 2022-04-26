@@ -11,7 +11,7 @@ async function fetchContractType(contractAddress?: string, sdk?: ThirdwebSDK) {
   try {
     return await sdk.resolveContractType(contractAddress);
   } catch (err) {
-    console.info("failed to load contract type, custom contract");
+    // expected error, return custom type instead
     return "custom" as const;
   }
 }
@@ -28,7 +28,7 @@ async function fetchContractPublishMetadata(
       contractAddress,
     );
   } catch (err) {
-    console.info("failed to load contract publish metadata");
+    console.info("failed to load contract publish metadata", err);
     return null;
   }
 }
