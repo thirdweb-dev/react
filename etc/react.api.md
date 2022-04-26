@@ -4,8 +4,16 @@
 
 ```ts
 
+/// <reference types="node" />
 
-import { Chain as Chain_2 } from 'wagmi';
+import { allChains } from './constants';
+import { Balance } from './types';
+import { balanceAction } from './actions';
+import { BalanceActionArgs } from './actions';
+import { BalanceActionResult } from './actions';
+import { BaseProvider } from '@ethersproject/providers';
+import { chain } from './constants';
+import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from './connectors';
@@ -44,10 +52,35 @@ import * as react_query from 'react-query';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { Signer as Signer_2 } from 'ethers';
 import { Split } from '@thirdweb-dev/sdk';
-import { SwitchChainError } from 'wagmi';
+import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
+import * as _thirdweb_dev_sdk from '@thirdweb-dev/sdk';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
-import { useAccount } from 'wagmi';
+import { Unit } from './types';
+import { units } from './constants';
+import { useAccount } from './hooks';
+import { useBalance } from './hooks';
+import { useBlockNumber } from './hooks';
+import { useConnect as useConnect_2 } from './hooks';
+import { useContract as useContract_2 } from './hooks';
+import { useContractEvent } from './hooks';
+import { useContractRead } from './hooks';
+import { useContractWrite } from './hooks';
+import { useEnsAvatar } from './hooks';
+import { useEnsLookup } from './hooks';
+import { useEnsResolveName } from './hooks';
+import { useEnsResolver } from './hooks';
+import { useFeeData } from './hooks';
+import { useNetwork as useNetwork_2 } from './hooks';
+import { useProvider } from './hooks';
+import { useSigner as useSigner_2 } from './hooks';
+import { useSignMessage } from './hooks';
+import { useSignTypedData } from './hooks';
+import { useToken as useToken_2 } from './hooks';
+import { useTransaction } from './hooks';
+import { useWaitForTransaction } from './hooks';
+import { useWebSocketProvider } from './hooks';
+import { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { Web3Provider } from '@ethersproject/providers';
@@ -239,6 +272,10 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
 
 export { useAccount }
 
+// Warning: (ae-internal-missing-underscore) The name "useActiveChainId" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 
 // @public
 export function useAddress(): string | undefined;
@@ -423,15 +460,15 @@ export function useNetwork(): readonly [{
             }[] | undefined;
             testnet?: boolean | undefined;
         } | undefined;
-        readonly chains: Chain_2[];
+        readonly chains: wagmi.Chain[];
     };
     readonly error: Error | undefined;
     readonly loading: boolean | undefined;
 }, ((chainId: number) => Promise<{
     data: undefined;
-    error: SwitchChainError;
+    error: wagmi.SwitchChainError;
 } | {
-    data: Chain_2 | undefined;
+    data: wagmi.Chain | undefined;
     error: undefined;
 }>) | undefined];
 
@@ -544,7 +581,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // Warnings were encountered during analysis:
 //
 // dist/index.d.ts:391:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:671:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:971:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

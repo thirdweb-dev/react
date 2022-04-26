@@ -50,7 +50,7 @@
     "prettier": "^2.5.1",
     "tsup": "^5.11.13",
     "typescript": "^4.6.2",
-    "vitest": "^0.9.3"
+    "vitest": "^0.10.0"
   },
   "dependencies": {
     "@gnosis.pm/safe-apps-provider": "^0.11.0",
