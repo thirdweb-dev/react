@@ -98,7 +98,10 @@ const PlayButton: React.VFC<PlayButtonProps> = ({ onClick, isPlaying }) => {
   );
 };
 
-const VideoPlayer = React.forwardRef<HTMLVideoElement, MediaRendererProps>(
+const VideoPlayer = React.forwardRef<
+  HTMLVideoElement,
+  React.PropsWithChildren<MediaRendererProps>
+>(
   (
     {
       src,
@@ -187,7 +190,10 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, MediaRendererProps>(
   },
 );
 
-const AudioPlayer = React.forwardRef<HTMLAudioElement, MediaRendererProps>(
+const AudioPlayer = React.forwardRef<
+  HTMLAudioElement,
+  React.PropsWithChildren<MediaRendererProps>
+>(
   (
     {
       src,
@@ -274,7 +280,10 @@ const AudioPlayer = React.forwardRef<HTMLAudioElement, MediaRendererProps>(
   },
 );
 
-const IframePlayer = React.forwardRef<HTMLIFrameElement, MediaRendererProps>(
+const IframePlayer = React.forwardRef<
+  HTMLIFrameElement,
+  React.PropsWithChildren<MediaRendererProps>
+>(
   (
     {
       src,
@@ -348,7 +357,10 @@ const IframePlayer = React.forwardRef<HTMLIFrameElement, MediaRendererProps>(
     );
   },
 );
-const LinkPlayer = React.forwardRef<HTMLAnchorElement, MediaRendererProps>(
+const LinkPlayer = React.forwardRef<
+  HTMLAnchorElement,
+  React.PropsWithChildren<MediaRendererProps>
+>(
   (
     {
       src,
@@ -434,7 +446,7 @@ const LinkPlayer = React.forwardRef<HTMLAnchorElement, MediaRendererProps>(
  */
 export const MediaRenderer = React.forwardRef<
   HTMLMediaElement,
-  MediaRendererProps
+  React.PropsWithChildren<MediaRendererProps>
 >(
   (
     {
