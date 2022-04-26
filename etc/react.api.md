@@ -33,6 +33,7 @@ import { Split } from '@thirdweb-dev/sdk';
 import { SwitchChainError } from 'wagmi';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
+import { TokenDrop } from '@thirdweb-dev/sdk';
 import { useAccount } from 'wagmi';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -267,6 +268,9 @@ export function useSplit(contractAddress?: string): Split | undefined;
 
 // @public
 export function useToken(contractAddress?: string): Token | undefined;
+
+// @public
+export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
