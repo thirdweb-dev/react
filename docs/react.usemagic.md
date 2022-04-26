@@ -36,10 +36,6 @@ const connectors = [
     name: "magic",
     options: {
       apiKey: "your-magic-api-key",
-      // Add RPC URLs for chainIds you want to support
-      rpcUrls: {
-        1: "https://mainnet.infura.io/v3/your-alchemy-api-key",
-      }
     }
   }
 ]
