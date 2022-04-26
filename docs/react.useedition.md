@@ -4,7 +4,7 @@
 
 ## useEdition() function
 
-Returns a Edition contract instance
+Hook for getting an instance of an `Edition` contract. This contract is used to interface with ERC1155 compliant NFTs.
 
 <b>Signature:</b>
 
@@ -21,4 +21,27 @@ declare function useEdition(contractAddress?: string): Edition | undefined;
 <b>Returns:</b>
 
 Edition \| undefined
+
+## Example
+
+
+```javascript
+import { useEdition } from '@thirdweb/react-hooks'
+
+const App = () => {
+  const edition = useEdition("<YOUR-CONTRACT-ADDRESS>")
+
+  // Now you can use the edition contract in the rest of the component
+
+  // For example, this function will return all the NFTs on this contract
+  async function getNFTs() {
+    const nfts = await edition.getAll()
+    return nfts
+  }
+
+  return (
+    ...
+  )
+}
+```
 

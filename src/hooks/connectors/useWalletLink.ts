@@ -2,8 +2,32 @@ import { useConnect } from "../useConnect";
 import invariant from "tiny-invariant";
 
 /**
- * Convienience hook for connecting to a wallet via Coinbase Wallet
- * @returns a function that will prompt the user to connect their wallet via Coinbase Wallet
+ * Hook for connecting to a Coinbase wallet.
+ *
+ * ```javascript
+ * import { useCoinbaseWallet } from "@thirdweb-dev/react"
+ * ```
+ *
+ *
+ * @example
+ * We can allow users to connect with Coinbase Wallet as follows:
+ * ```javascript
+ * import { useCoinbaseWallet } from "@thirdweb-dev/react"
+ *
+ * const App = () => {
+ *   const connectWithCoinbaseWallet = useCoinbaseWallet()
+ *
+ *   return (
+ *     <button onClick={connectWithCoinbaseWallet}>
+ *       Connect Coinbase Wallet
+ *     </button>
+ *   )
+ * }
+ * ```
+ *
+ * Upon clicking this button, users will be prompted with a popup asking them scan a QR code with their Coinbase Wallet.
+ * Once they scan the QR code, their wallet will then be connected to the page as expected.
+ *
  * @public
  */
 export function useCoinbaseWallet() {

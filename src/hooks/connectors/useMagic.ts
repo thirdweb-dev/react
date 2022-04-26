@@ -4,7 +4,13 @@ import { LoginWithMagicLinkConfiguration } from "magic-sdk";
 import invariant from "tiny-invariant";
 
 /**
- * Convienience hook for connecting to magic link (email wallet).
+ * Hook for connecting to an email wallet using magic link.
+ * This enables users without their own wallets to connect to your application and sign transactions securely using their email.
+ *
+ * ```javascript
+ * import { useMagic } from "@thirdweb-dev/react"
+ * ```
+ *
  *
  * @example
  * Before using this hook, you first need to set up the magic configuration in your `ThirdwebProvider`, including your magic API key.
@@ -19,10 +25,6 @@ import invariant from "tiny-invariant";
  *     name: "magic",
  *     options: {
  *       apiKey: "your-magic-api-key",
- *       // Add RPC URLs for chainIds you want to support
- *       rpcUrls: {
- *         1: "https://mainnet.infura.io/v3/your-alchemy-api-key",
- *       }
  *     }
  *   }
  * ]
@@ -61,7 +63,6 @@ import invariant from "tiny-invariant";
  * }
  * ```
  *
- * @returns a function that will prompt the user to connect their magic link, given an email.
  * @public
  */
 export function useMagic() {

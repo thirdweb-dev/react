@@ -2,8 +2,28 @@ import { useConnect } from "../useConnect";
 import invariant from "tiny-invariant";
 
 /**
- * Convienience hook for connecting to a gnosis safe
- * @returns a function that will prompt the user to connect their gnosis safe
+ * Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.
+ *
+ * ```javascript
+ * import { useGnosis } from "@thirdweb-dev/react"
+ * ```
+ *
+ *
+ * @example
+ * ```javascript
+ * import { useGnosis } from "@thirdweb-dev/react"
+ *
+ * const App = () => {
+ *   const connectWithGnosis = useGnosis()
+ *
+ *   return (
+ *     <button onClick={connectWithGnosis}>
+ *       Connect Gnosis Safe
+ *     </button>
+ *   )
+ * }
+ * ```
+ *
  * @public
  */
 export function useGnosis() {

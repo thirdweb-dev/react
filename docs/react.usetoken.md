@@ -4,7 +4,7 @@
 
 ## useToken() function
 
-Returns a Token contract instance
+Hook for getting an instance of an `Token` contract. This contract supports ERC20 compliant tokens.
 
 <b>Signature:</b>
 
@@ -21,4 +21,27 @@ declare function useToken(contractAddress?: string): Token | undefined;
 <b>Returns:</b>
 
 Token \| undefined
+
+## Example
+
+
+```javascript
+import { useToken } from '@thirdweb/react-hooks'
+
+const App = () => {
+  const token = useToken("<YOUR-CONTRACT-ADDRESS>")
+
+  // Now you can use the token contract in the rest of the component
+
+  // For example, this function will get the connected wallets token balance
+  async function balance() {
+    const balance = await token.balance()
+    return balance
+  }
+
+  return (
+    ...
+  )
+}
+```
 

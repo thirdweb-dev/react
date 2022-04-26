@@ -4,16 +4,8 @@
 
 ```ts
 
-/// <reference types="node" />
 
-import { allChains } from './constants';
-import { Balance } from './types';
-import { balanceAction } from './actions';
-import { BalanceActionArgs } from './actions';
-import { BalanceActionResult } from './actions';
-import { BaseProvider } from '@ethersproject/providers';
-import { chain } from './constants';
-import { Chain as Chain_2 } from './types';
+import { Chain as Chain_2 } from 'wagmi';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from './connectors';
@@ -52,35 +44,10 @@ import * as react_query from 'react-query';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { Signer as Signer_2 } from 'ethers';
 import { Split } from '@thirdweb-dev/sdk';
-import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
-import * as _thirdweb_dev_sdk from '@thirdweb-dev/sdk';
+import { SwitchChainError } from 'wagmi';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
-import { Unit } from './types';
-import { units } from './constants';
-import { useAccount } from './hooks';
-import { useBalance } from './hooks';
-import { useBlockNumber } from './hooks';
-import { useConnect as useConnect_2 } from './hooks';
-import { useContract as useContract_2 } from './hooks';
-import { useContractEvent } from './hooks';
-import { useContractRead } from './hooks';
-import { useContractWrite } from './hooks';
-import { useEnsAvatar } from './hooks';
-import { useEnsLookup } from './hooks';
-import { useEnsResolveName } from './hooks';
-import { useEnsResolver } from './hooks';
-import { useFeeData } from './hooks';
-import { useNetwork } from './hooks';
-import { useProvider } from './hooks';
-import { useSigner as useSigner_2 } from './hooks';
-import { useSignMessage } from './hooks';
-import { useSignTypedData } from './hooks';
-import { useToken as useToken_2 } from './hooks';
-import { useTransaction } from './hooks';
-import { useWaitForTransaction } from './hooks';
-import { useWebSocketProvider } from './hooks';
-import { ValidContractInstance } from '@thirdweb-dev/sdk';
+import { useAccount } from 'wagmi';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { Web3Provider } from '@ethersproject/providers';
@@ -272,15 +239,11 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
 
 export { useAccount }
 
-// Warning: (ae-internal-missing-underscore) The name "useActiveChainId" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 
-// @public (undocumented)
+// @public
 export function useAddress(): string | undefined;
 
-// @public (undocumented)
+// @public
 export function useChainId(): number | undefined;
 
 // @public
@@ -417,7 +380,7 @@ export function useCustomContract(contractAddress?: string): {
 // @internal (undocumented)
 export function useDesiredChainId(): number;
 
-// @public (undocumented)
+// @public
 export function useDisconnect(): () => void;
 
 // @public
@@ -441,9 +404,38 @@ export function useMetamask(): () => Promise<{
     error?: Error | undefined;
 }>;
 
-export { useNetwork }
+// @public
+export function useNetwork(): readonly [{
+    readonly data: {
+        readonly chain: {
+            id: number;
+            unsupported: boolean | undefined;
+            name?: string | undefined;
+            nativeCurrency?: {
+                name: string;
+                symbol: string;
+                decimals: 18;
+            } | undefined;
+            rpcUrls?: string[] | undefined;
+            blockExplorers?: {
+                name: string;
+                url: string;
+            }[] | undefined;
+            testnet?: boolean | undefined;
+        } | undefined;
+        readonly chains: Chain_2[];
+    };
+    readonly error: Error | undefined;
+    readonly loading: boolean | undefined;
+}, ((chainId: number) => Promise<{
+    data: undefined;
+    error: SwitchChainError;
+} | {
+    data: Chain_2 | undefined;
+    error: undefined;
+}>) | undefined];
 
-// @public (undocumented)
+// @public
 export function useNetworkMismatch(): boolean;
 
 // @public

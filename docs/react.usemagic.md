@@ -4,7 +4,11 @@
 
 ## useMagic() function
 
-Convienience hook for connecting to magic link (email wallet).
+Hook for connecting to an email wallet using magic link. This enables users without their own wallets to connect to your application and sign transactions securely using their email.
+
+```javascript
+import { useMagic } from "@thirdweb-dev/react"
+```
 
 <b>Signature:</b>
 
@@ -17,8 +21,6 @@ declare function useMagic(): (configuration: LoginWithMagicLinkConfiguration) =>
 <b>Returns:</b>
 
 (configuration: LoginWithMagicLinkConfiguration) =&gt; Promise&lt;{ data?: wagmi\_core.ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
-
-a function that will prompt the user to connect their magic link, given an email.
 
 ## Example
 
@@ -34,10 +36,6 @@ const connectors = [
     name: "magic",
     options: {
       apiKey: "your-magic-api-key",
-      // Add RPC URLs for chainIds you want to support
-      rpcUrls: {
-        1: "https://mainnet.infura.io/v3/your-alchemy-api-key",
-      }
     }
   }
 ]
