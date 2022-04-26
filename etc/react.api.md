@@ -269,7 +269,9 @@ export function useSplit(contractAddress?: string): Split | undefined;
 // @public
 export function useToken(contractAddress?: string): Token | undefined;
 
-// @public
+// Warning: (ae-internal-missing-underscore) The name "useTokenDrop" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal
 export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 
 // @public

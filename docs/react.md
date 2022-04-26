@@ -57,7 +57,6 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
-|  [useTokenDrop(contractAddress)](./react.usetokendrop.md) | Returns a Token contract instance |
 |  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
 |  [useWalletConnect()](./react.usewalletconnect.md) | Hook for connecting to a mobile wallet with Wallet Connect
 ```javascript
