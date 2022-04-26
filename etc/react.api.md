@@ -587,7 +587,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // Warnings were encountered during analysis:
 //
 // dist/index.d.ts:391:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:971:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:978:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
