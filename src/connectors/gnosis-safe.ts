@@ -1,6 +1,7 @@
 import Safe from "@gnosis.pm/safe-core-sdk";
 import { SafeEthersSigner, SafeService } from "@gnosis.pm/safe-ethers-adapters";
 import EthersAdapter from "@gnosis.pm/safe-ethers-lib";
+import { ChainId } from "@thirdweb-dev/sdk";
 import { Signer, ethers } from "ethers";
 import { getAddress } from "ethers/lib/utils";
 import invariant from "tiny-invariant";
@@ -11,6 +12,14 @@ import { Chain, Connector, ConnectorData, normalizeChainId } from "wagmi";
 //   // eslint-disable-next-line @typescript-eslint/no-var-requires
 //   globalThis.fs = require("browserify-fs");
 // }
+
+const CHAIN_ID_TO_GNOSIS_SERVER_URL = {
+  [ChainId.Mainnet]: "https://safe-transaction.mainnet.gnosis.io/",
+  [ChainId.Avalanche]: "https://safe-transaction.avalanche.gnosis.io/",
+  [ChainId.Polygon]: "https://safe-transaction.polygon.gnosis.io/",
+  [ChainId.Goerli]: "https://safe-transaction.goerli.gnosis.io/",
+  [ChainId.Rinkeby]: "https://safe-transaction.rinkeby.gnosis.io/",
+};
 
 export interface GnosisConnectorArguments {
   safeAddress: string;
@@ -45,12 +54,14 @@ export class GnosisSafeConnector extends Connector {
   private async createSafeSigner() {
     const signer = this.personalSigner;
     const safeAddress = this.config?.safeAddress;
+    const safeChainId = this.config
+      ?.safeChainId as keyof typeof CHAIN_ID_TO_GNOSIS_SERVER_URL;
     invariant(signer, "Signer not set");
     invariant(safeAddress, "Safe address not set");
-    // TODO map for addresses
-    const service = new SafeService(
-      "https://safe-transaction.rinkeby.gnosis.io",
-    );
+    invariant(safeChainId, "ChainId not set");
+    const serverUrl = CHAIN_ID_TO_GNOSIS_SERVER_URL[safeChainId];
+    invariant(serverUrl, "Chain not supported");
+    const service = new SafeService(serverUrl);
     const ethAdapter = new EthersAdapter({ ethers, signer });
     const safe = await Safe.create({
       ethAdapter,
