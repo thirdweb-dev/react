@@ -192,7 +192,7 @@ export function useEdition(contractAddress?: string): Edition | undefined;
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 
 // @public
-export function useGnosis(): (personalSigner: Signer, safeAddress: string) => Promise<{
+export function useGnosis(): (personalSigner: Signer, config: GnosisConnectorArguments) => Promise<{
     data?: ConnectorData_2<any> | undefined;
     error?: Error | undefined;
 }>;

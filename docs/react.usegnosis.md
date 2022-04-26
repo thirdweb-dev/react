@@ -9,14 +9,14 @@ Convienience hook for connecting to a gnosis safe
 <b>Signature:</b>
 
 ```typescript
-export declare function useGnosis(): (personalSigner: Signer, safeAddress: string) => Promise<{
+export declare function useGnosis(): (personalSigner: Signer, config: GnosisConnectorArguments) => Promise<{
     data?: import("wagmi-core").ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 ```
 <b>Returns:</b>
 
-(personalSigner: Signer, safeAddress: string) =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+(personalSigner: Signer, config: GnosisConnectorArguments) =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
 
 a function that will prompt the user to connect their gnosis safe
 
