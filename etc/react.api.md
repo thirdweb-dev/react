@@ -56,6 +56,7 @@ import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
 import * as _thirdweb_dev_sdk from '@thirdweb-dev/sdk';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
+import { TokenDrop } from '@thirdweb-dev/sdk';
 import { Unit } from './types';
 import { units } from './constants';
 import { useAccount } from './hooks';
@@ -539,6 +540,11 @@ export function useSplit(contractAddress?: string): Split | undefined;
 
 // @public
 export function useToken(contractAddress?: string): Token | undefined;
+
+// Warning: (ae-internal-missing-underscore) The name "useTokenDrop" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal
+export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
