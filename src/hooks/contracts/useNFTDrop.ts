@@ -7,7 +7,7 @@ import { NFTDrop } from "@thirdweb-dev/sdk";
  *
  * @example
  * ```javascript
- * import { useNFTDrop } from '@thirdweb/react-hooks'
+ * import { useNFTDrop } from '@thirdweb-dev/react'
  *
  * const App = () => {
  *   const nftDrop = useNFTDrop("<YOUR-CONTRACT-ADDRESS>")
@@ -19,9 +19,7 @@ import { NFTDrop } from "@thirdweb-dev/sdk";
  *     await nftDrop.claim(quantity)
  *   }
  *
- *   return (
- *     ...
- *   )
+ *   ...
  * }
  * ```
  * @public

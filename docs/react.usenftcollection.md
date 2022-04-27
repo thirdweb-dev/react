@@ -26,7 +26,7 @@ NFTCollection \| undefined
 
 
 ```javascript
-import { useNFTCollection } from '@thirdweb/react-hooks'
+import { useNFTCollection } from '@thirdweb-dev/react'
 
 const App = () => {
   const nftCollection = useNFTCollection("<YOUR-CONTRACT-ADDRESS>")
@@ -39,9 +39,7 @@ const App = () => {
     return nfts
   }
 
-  return (
-    ...
-  )
+  ...
 }
 ```
 

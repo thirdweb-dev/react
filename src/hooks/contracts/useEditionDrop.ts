@@ -7,7 +7,7 @@ import { EditionDrop } from "@thirdweb-dev/sdk";
  *
  * @example
  * ```javascript
- * import { useEditionDrop } from '@thirdweb/react-hooks'
+ * import { useEditionDrop } from '@thirdweb-dev/react'
  *
  * const App = () => {
  *   const editionDrop = useEditionDrop("<YOUR-CONTRACT-ADDRESS>")
@@ -19,9 +19,7 @@ import { EditionDrop } from "@thirdweb-dev/sdk";
  *     await editionDrop.claim(tokenId, quantity)
  *   }
  *
- *   return (
- *     ...
- *   )
+ *   ...
  * }
  * ```
  * @public

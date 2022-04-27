@@ -7,7 +7,7 @@ import { Edition } from "@thirdweb-dev/sdk";
  *
  * @example
  * ```javascript
- * import { useEdition } from '@thirdweb/react-hooks'
+ * import { useEdition } from '@thirdweb-dev/react'
  *
  * const App = () => {
  *   const edition = useEdition("<YOUR-CONTRACT-ADDRESS>")
@@ -20,9 +20,7 @@ import { Edition } from "@thirdweb-dev/sdk";
  *     return nfts
  *   }
  *
- *   return (
- *     ...
- *   )
+ *   ...
  * }
  * ```
  * @public
