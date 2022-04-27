@@ -9,7 +9,7 @@ import { EditionDrop } from "@thirdweb-dev/sdk";
  * ```javascript
  * import { useEditionDrop } from '@thirdweb-dev/react'
  *
- * const App = () => {
+ * export default function Component() {
  *   const editionDrop = useEditionDrop("<YOUR-CONTRACT-ADDRESS>")
  *
  *   // Now you can use the edition drop contract in the rest of the component

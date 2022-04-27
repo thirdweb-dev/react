@@ -28,7 +28,7 @@ NFTDrop \| undefined
 ```javascript
 import { useNFTDrop } from '@thirdweb-dev/react'
 
-const App = () => {
+export default function Component() {
   const nftDrop = useNFTDrop("<YOUR-CONTRACT-ADDRESS>")
 
   // Now you can use the nft drop contract in the rest of the component
