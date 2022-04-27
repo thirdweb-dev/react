@@ -81,7 +81,7 @@ function parseExampleTag(docComment) {
       regex.lastIndex++;
     }
 
-    const re = /\/\/ For example((.|\n)*)\.\.\./g;
+    const re = /\n( *)\/\/ For example((.|\n)*)\.\.\.\n/g;
     const example = matches[2].replace(re, "");
     examples[languageNameToKey(matches[1])] = example;
   }

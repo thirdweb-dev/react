@@ -9,12 +9,12 @@ import { Marketplace } from "@thirdweb-dev/sdk";
  * ```javascript
  * import { useMarketplace } from '@thirdweb-dev/react'
  *
- * const App = () => {
+ * export default function Component() {
  *   const marketplace = useMarketplace("<YOUR-CONTRACT-ADDRESS>")
  *
  *   // Now you can use the marketplace contract in the rest of the component
  *
- * // For example, this function will return all the listings on the marketplace
+ *   // For example, this function will return all the listings on the marketplace
  *   async function getListings() {
  *     const listings = await marketplace.getAll()
  *     return listings
