@@ -7,7 +7,7 @@ import { Pack } from "@thirdweb-dev/sdk";
  *
  * @example
  * ```javascript
- * import { usePack } from '@thirdweb/react-hooks'
+ * import { usePack } from '@thirdweb-dev/react'
  *
  * const App = () => {
  *   const pack = usePack("<YOUR-CONTRACT-ADDRESS>")
@@ -20,9 +20,7 @@ import { Pack } from "@thirdweb-dev/sdk";
  *     return packs
  *   }
  *
- *   return (
- *     ...
- *   )
+ *   ...
  * }
  * ```
  * @public

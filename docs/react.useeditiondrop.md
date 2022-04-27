@@ -26,7 +26,7 @@ EditionDrop \| undefined
 
 
 ```javascript
-import { useEditionDrop } from '@thirdweb/react-hooks'
+import { useEditionDrop } from '@thirdweb-dev/react'
 
 const App = () => {
   const editionDrop = useEditionDrop("<YOUR-CONTRACT-ADDRESS>")
@@ -38,9 +38,7 @@ const App = () => {
     await editionDrop.claim(tokenId, quantity)
   }
 
-  return (
-    ...
-  )
+  ...
 }
 ```
 
