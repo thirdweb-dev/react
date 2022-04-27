@@ -24,7 +24,8 @@
     "genrate-types": "tsc",
     "extract-api": "api-extractor run --local",
     "generate:md-docs": "yarn api-documenter markdown -i ./temp -o ./docs",
-    "build": "yarn build:lib && yarn genrate-types && yarn extract-api && yarn generate:md-docs",
+    "generate-snippets": "node ./scripts/generate-snippets.mjs",
+    "build": "yarn build:lib && yarn genrate-types && yarn extract-api && yarn generate:md-docs && yarn generate-snippets",
     "test": "yarn build && yarn test-only",
     "test:watch": "vitest watch",
     "test-only": "vitest run"
