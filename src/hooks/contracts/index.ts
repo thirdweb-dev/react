@@ -6,5 +6,6 @@ export * from "./useContract";
 export * from "./useNFTCollection";
 export * from "./usePack";
 export * from "./useToken";
+export * from "./useTokenDrop";
 export * from "./useVote";
 export * from "./useSplit";

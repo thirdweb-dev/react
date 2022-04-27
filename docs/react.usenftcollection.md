@@ -9,7 +9,7 @@ Hook for getting an instance of an `NFTCollection` contract. This contract is me
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
+declare function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
 ```
 
 ## Parameters

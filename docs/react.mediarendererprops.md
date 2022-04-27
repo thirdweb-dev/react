@@ -9,9 +9,9 @@ The props for the [MediaRenderer](./react.mediarenderer.md) component.
 <b>Signature:</b>
 
 ```typescript
-export interface MediaRendererProps extends SharedMediaProps 
+interface MediaRendererProps extends SharedMediaProps 
 ```
-<b>Extends:</b> [SharedMediaProps](./react.sharedmediaprops.md)
+<b>Extends:</b> SharedMediaProps
 
 ## Properties
 

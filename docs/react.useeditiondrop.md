@@ -9,7 +9,7 @@ Hook for getting an instance of an `EditionDrop` contract. This conract is used 
 <b>Signature:</b>
 
 ```typescript
-export declare function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
+declare function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 ```
 
 ## Parameters
