@@ -26,9 +26,9 @@ Edition \| undefined
 
 
 ```javascript
-import { useEdition } from '@thirdweb/react-hooks'
+import { useEdition } from '@thirdweb-dev/react'
 
-const App = () => {
+export default function Component() {
   const edition = useEdition("<YOUR-CONTRACT-ADDRESS>")
 
   // Now you can use the edition contract in the rest of the component
@@ -39,9 +39,7 @@ const App = () => {
     return nfts
   }
 
-  return (
-    ...
-  )
+  ...
 }
 ```
 

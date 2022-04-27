@@ -26,9 +26,9 @@ EditionDrop \| undefined
 
 
 ```javascript
-import { useEditionDrop } from '@thirdweb/react-hooks'
+import { useEditionDrop } from '@thirdweb-dev/react'
 
-const App = () => {
+export default function Component() {
   const editionDrop = useEditionDrop("<YOUR-CONTRACT-ADDRESS>")
 
   // Now you can use the edition drop contract in the rest of the component
@@ -38,9 +38,7 @@ const App = () => {
     await editionDrop.claim(tokenId, quantity)
   }
 
-  return (
-    ...
-  )
+  ...
 }
 ```
 

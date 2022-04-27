@@ -26,9 +26,9 @@ Pack \| undefined
 
 
 ```javascript
-import { usePack } from '@thirdweb/react-hooks'
+import { usePack } from '@thirdweb-dev/react'
 
-const App = () => {
+export default function Component() {
   const pack = usePack("<YOUR-CONTRACT-ADDRESS>")
 
   // Now you can use the pack contract in the rest of the component
@@ -39,9 +39,7 @@ const App = () => {
     return packs
   }
 
-  return (
-    ...
-  )
+  ...
 }
 ```
 

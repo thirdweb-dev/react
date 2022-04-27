@@ -128,11 +128,11 @@ export function useNFTSupply(contract?: Erc721<any>) {
  * ```
  *
  * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
- * @param toAddress - an address to mint the NFT to (defaults to the connected wallet)
+ * @param to - an address to mint the NFT to (defaults to the connected wallet)
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useNFTMint(contract?: Erc721<any>, toAddress?: string) {
+export function useNFTMint(contract?: Erc721<any>, to?: string) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
@@ -140,11 +140,8 @@ export function useNFTMint(contract?: Erc721<any>, toAddress?: string) {
   return useMutation(
     async (data: NFTMetadataOrUri) => {
       invariant(walletAddress, "no wallet connected, cannot mint.toAddress");
-      invariant(
-        contract?.mint?.toAddress,
-        "contract does not support mint.toAddress",
-      );
-      return await contract.mint.toAddress(toAddress || walletAddress, data);
+      invariant(contract?.mint?.to, "contract does not support mint.toAddress");
+      return await contract.mint.to(to || walletAddress, data);
     },
     {
       onSuccess: () => {

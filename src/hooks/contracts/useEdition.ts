@@ -7,9 +7,9 @@ import { Edition } from "@thirdweb-dev/sdk";
  *
  * @example
  * ```javascript
- * import { useEdition } from '@thirdweb/react-hooks'
+ * import { useEdition } from '@thirdweb-dev/react'
  *
- * const App = () => {
+ * export default function Component() {
  *   const edition = useEdition("<YOUR-CONTRACT-ADDRESS>")
  *
  *   // Now you can use the edition contract in the rest of the component
@@ -20,9 +20,7 @@ import { Edition } from "@thirdweb-dev/sdk";
  *     return nfts
  *   }
  *
- *   return (
- *     ...
- *   )
+ *   ...
  * }
  * ```
  * @public

@@ -26,9 +26,9 @@ Vote \| undefined
 
 
 ```javascript
-import { useVote } from '@thirdweb/react-hooks'
+import { useVote } from '@thirdweb-dev/react'
 
-const App = () => {
+export default function Component() {
   const vote = useVote("<YOUR-CONTRACT-ADDRESS>")
 
   // Now you can use the vote contract in the rest of the component
@@ -39,9 +39,7 @@ const App = () => {
     return proposals
   }
 
-  return (
-    ...
-  )
+  ...
 }
 ```
 
