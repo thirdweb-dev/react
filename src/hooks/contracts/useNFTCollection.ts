@@ -7,7 +7,7 @@ import { NFTCollection } from "@thirdweb-dev/sdk";
  *
  * @example
  * ```javascript
- * import { useNFTCollection } from '@thirdweb/react-hooks'
+ * import { useNFTCollection } from '@thirdweb-dev/react'
  *
  * const App = () => {
  *   const nftCollection = useNFTCollection("<YOUR-CONTRACT-ADDRESS>")
@@ -20,9 +20,7 @@ import { NFTCollection } from "@thirdweb-dev/sdk";
  *     return nfts
  *   }
  *
- *   return (
- *     ...
- *   )
+ *   ...
  * }
  * ```
  * @public

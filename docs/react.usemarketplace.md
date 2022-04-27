@@ -26,7 +26,7 @@ Marketplace \| undefined
 
 
 ```javascript
-import { useMarketplace } from '@thirdweb/react-hooks'
+import { useMarketplace } from '@thirdweb-dev/react'
 
 const App = () => {
   const marketplace = useMarketplace("<YOUR-CONTRACT-ADDRESS>")
@@ -39,9 +39,7 @@ const App = () => {
     return listings
   }
 
-  return (
-    ...
-  )
+  ...
 }
 ```
 

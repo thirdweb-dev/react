@@ -7,7 +7,7 @@ import { Marketplace } from "@thirdweb-dev/sdk";
  *
  * @example
  * ```javascript
- * import { useMarketplace } from '@thirdweb/react-hooks'
+ * import { useMarketplace } from '@thirdweb-dev/react'
  *
  * const App = () => {
  *   const marketplace = useMarketplace("<YOUR-CONTRACT-ADDRESS>")
@@ -20,9 +20,7 @@ import { Marketplace } from "@thirdweb-dev/sdk";
  *     return listings
  *   }
  *
- *   return (
- *     ...
- *   )
+ *   ...
  * }
  * ```
  * @public

@@ -7,7 +7,7 @@ import { Token } from "@thirdweb-dev/sdk";
  *
  * @example
  * ```javascript
- * import { useToken } from '@thirdweb/react-hooks'
+ * import { useToken } from '@thirdweb-dev/react'
  *
  * const App = () => {
  *   const token = useToken("<YOUR-CONTRACT-ADDRESS>")
@@ -20,9 +20,7 @@ import { Token } from "@thirdweb-dev/sdk";
  *     return balance
  *   }
  *
- *   return (
- *     ...
- *   )
+ *   ...
  * }
  * ```
  * @public
