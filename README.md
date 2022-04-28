@@ -1,6 +1,17 @@
-# Thirdweb React SDK
+<p align="center">
+<br />
+<a href="https://thirdweb.com"><img src="https://github.com/thirdweb-dev/typescript-sdk/blob/main/logo.svg?raw=true" width="200" alt=""></a>
+<br />
+</p>
+<h1 align="center">Thirdweb React SDK</h1>
+<p align="center">
+<a href="https://www.npmjs.com/package/@thirdweb-dev/react"><img src="https://img.shields.io/github/package-json/v/thirdweb-dev/react?color=red&label=npm&logo=npm" alt="npm version"></a>
+<a href="https://github.com/thirdweb-dev/react/actions"><img alt="Build Status" src="https://github.com/thirdweb-dev/react/actions/workflows/build.yml/badge.svg"></a>
+<a href="https://discord.gg/thirdweb"><img alt="Join our Discord!" src="https://img.shields.io/discord/834227967404146718.svg?color=7289da&label=discord&logo=discord&style=flat"></a>
 
-The Thirdweb React SDK provides a collection of hooks with everything you need to start building your own web3 apps with [React](https://reactjs.org/).
+</p>
+<p align="center"><strong>Ultimate collection of React hooks for your web3 apps</strong></p>
+<br />
 
 ## Installation
 
@@ -13,7 +24,6 @@ npm install @thirdweb-dev/react @thirdweb-dev/sdk ethers
 ```sh
 yarn add @thirdweb-dev/react @thirdweb-dev/sdk ethers
 ```
-
 
 ## Starter Templates
 
@@ -54,7 +64,6 @@ import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 
 export const ConnectMetamaskButtonComponent = () => {
   const connectWithMetamask = useMetamask();
-
   const address = useAddress();
   return (
     <div>
@@ -80,34 +89,33 @@ Let's setup a simple component to interact with an NFT Collection contract and g
 import { useNFTCollection } from "@thirdweb-dev/react";
 
 const NFTListComponent = () => {
+  const address = useAddress();
   const nftCollection = useNFTCollection("<NFT-COLLECTION-CONTRACT-ADDRESS>");
+  const { data: nfts } = useNFTList(nftCollection);
 
-  const [nfts, setNfts] = useState<NFTMetadataOwner[]>([]);
-
-  useEffect(() => {
-    if (nftCollection) {
-      nftCollection
-        .getAll()
-        .then((nfts) => {
-          setNfts(nfts);
-        })
-        .catch((error) => {
-          console.error("failed to fetch nfts", error);
-        });
+  const mint = async () => {
+    if (nftCollection && address) {
+      nftCollection.mintTo(address, {
+        name: "Cool NFT",
+        description: "Minted from react",
+      });
     }
-  }, [nftCollection]);
+  };
 
   return (
-    <ul>
-      {nfts.map((nft) => (
-        <li key={nft.metadata.id.toString()}>{nft.metadata.name}</li>
-      ))}
-    </ul>
+    <div>
+      <button onClick={mint}>Mint</button>
+      <ul>
+        {nfts?.map((nft) => (
+          <li key={nft.metadata.id.toString()}>{nft.metadata.name}</li>
+        ))}
+      </ul>
+    </div>
   );
 };
 ```
 
-Here, we get an `NFTCollection` contract instance from the [Typescript SDK](https://docs.thirdweb.com/typescript). We can then use all the methods on this thirdweb contract SDK instance - so we use the `getAll` method to get all the NFTs from the contract, and we display them on the page.
+Here, we get an `NFTCollection` contract instance from the [Typescript SDK](https://docs.thirdweb.com/typescript). We can then use all the methods on this thirdweb contract SDK instance - here we use the `mintTo` method to mint an NFT on the contract, and we use `useNFTList` to display all the NFTs in the collection on the page.
 
 And that's all for the setup! Just like that, you can setup a `ThirdwebProvider` and use all the hooks of the SDK, allowing you to let users connect wallets, interact with contracts, and more!
 
@@ -149,10 +157,10 @@ const KitchenSinkExample = () => {
           options: {
             apiKey: "your-magic-api-key",
             rpcUrls: {
-              [ChainId.Mainnet]: "https://mainnet.infura.io/v3"
+              [ChainId.Mainnet]: "https://mainnet.infura.io/v3",
             },
           },
-        }
+        },
       ]}
       sdkOptions={{
         gasSettings: { maxPriceInGwei: 500, speed: "fast" },
