@@ -1,4 +1,4 @@
-name: Build
+name: Run Tests
 
 on: [push]
 
@@ -17,4 +17,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
-      - run: yarn build
+      - run: yarn test
