@@ -57,6 +57,11 @@ export class GnosisSafeConnector extends Connector {
     const safeChainId = this.config
       ?.safeChainId as keyof typeof CHAIN_ID_TO_GNOSIS_SERVER_URL;
     invariant(signer, "Signer not set");
+    const signerChainId = await signer.getChainId();
+    invariant(
+      signerChainId === safeChainId,
+      "Signer chainId does not match safeChainId",
+    );
     invariant(safeAddress, "Safe address not set");
     invariant(safeChainId, "ChainId not set");
     const serverUrl = CHAIN_ID_TO_GNOSIS_SERVER_URL[safeChainId];
@@ -71,8 +76,11 @@ export class GnosisSafeConnector extends Connector {
     return new SafeEthersSigner(safe, service, provider);
   }
 
-  disconnect(): Promise<void> {
-    throw new Error("Method not implemented.");
+  async disconnect(): Promise<void> {
+    this.config = undefined;
+    this.safeSigner = undefined;
+    this.personalSigner = undefined; // TODO make this the new connector
+    return undefined;
   }
 
   async getAccount(): Promise<string> {
