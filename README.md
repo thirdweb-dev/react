@@ -1,44 +1,45 @@
-# Thirdweb react SDK
+<p align="center">
+<br />
+<a href="https://thirdweb.com"><img src="https://github.com/thirdweb-dev/typescript-sdk/blob/main/logo.svg?raw=true" width="200" alt=""></a>
+<br />
+</p>
+<h1 align="center">Thirdweb React SDK</h1>
+<p align="center">
+<a href="https://www.npmjs.com/package/@thirdweb-dev/react"><img src="https://img.shields.io/github/package-json/v/thirdweb-dev/react?color=red&label=npm&logo=npm" alt="npm version"></a>
+<a href="https://github.com/thirdweb-dev/react/actions"><img alt="Build Status" src="https://github.com/thirdweb-dev/react/actions/workflows/build.yml/badge.svg"></a>
+<a href="https://discord.gg/thirdweb"><img alt="Join our Discord!" src="https://img.shields.io/discord/834227967404146718.svg?color=7289da&label=discord&logo=discord&style=flat"></a>
 
-The thirdweb React SDK provides a collection of hooks to use in your React apps to interact with your thirdweb contracts.
-
-This library doesn't come with any UI, only the logic parts. This allows you to use your own styles and components, without the hassle of managing the data flows yourself.
-
-## Quick start
-
-We provide template repositories to help you get started with thirdweb quickly.
-
-### Starter Templates
-
-- Next.js ([typescript](https://github.com/thirdweb-example/next-typescript-starter) / [javascript](https://github.com/thirdweb-example/next-javascript-starter))
-- Create React App ([typescript](https://github.com/thirdweb-example/cra-typescript-starter) / [javascript](https://github.com/thirdweb-example/cra-javascript-starter))
-- Vite ([typescript](https://github.com/thirdweb-example/vite-typescript-starter) / [javascript](https://github.com/thirdweb-example/vite-javascript-starter))
-
-_[All available templates.](https://github.com/thirdweb-example)_
-
-### Project Examples
-
-_coming soon_
+</p>
+<p align="center"><strong>Ultimate collection of React hooks for your web3 apps</strong></p>
+<br />
 
 ## Installation
 
-### via NPM
+You can install this SDK with either `npm` or `yarn`:
 
 ```sh
 npm install @thirdweb-dev/react @thirdweb-dev/sdk ethers
 ```
 
-### via Yarn
-
 ```sh
 yarn add @thirdweb-dev/react @thirdweb-dev/sdk ethers
 ```
 
+## Starter Templates
+
+We provide template repositories that already have the Thirdweb React SDK setup and ready-to-go to help you get started with thirdweb quickly. You can find all the available starter respositories below.
+
+- Next.js ([typescript](https://github.com/thirdweb-example/next-typescript-starter) / [javascript](https://github.com/thirdweb-example/next-javascript-starter))
+- Create React App ([typescript](https://github.com/thirdweb-example/cra-typescript-starter) / [javascript](https://github.com/thirdweb-example/cra-javascript-starter))
+- Vite ([typescript](https://github.com/thirdweb-example/vite-typescript-starter) / [javascript](https://github.com/thirdweb-example/vite-javascript-starter))
+
 ## Quick Start
 
-### 1. Wrap your application in the Provider
+**Configure the Thirdweb Provider**
 
-At the top level of your application, add a `ThirdwebProvider` that will handle maintaining connection states and provide quick access to the [thirdweb SDK](https://github.com/thirdweb-dev/typescript-sdk/).
+In order to use the hooks offered by the React SDK, you need to first setup a `ThirdwebProvider` for your app which lets you optionally configure your app. You can use this configuration to control what networks you want users to connect to, what types of wallets can connect to your app, and the settings for the [Typescript SDK](https://docs.thirdweb.com/typescript).
+
+At the top level of your application, add a `ThirdwebProvider` as follows:
 
 ```jsx title="App.jsx"
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
@@ -52,18 +53,17 @@ const App = () => {
 };
 ```
 
-### 2. Add a way for your users to connect your wallet somewhere in your app
+Now you'll be able to use all the hooks provided by the React SDK! Let's take a look.
 
-We provide an easy way to handle wallet connections with a variety of dedicated [connector hooks](https://github.com/thirdweb-dev/react/tree/main/src/hooks/connectors/).
+**Let Users Connect Wallets**
+
+Next, we'll add a button to our app which will let users conect their wallets. For now, we'll make it so that users with metamask wallets can connect.
 
 ```jsx title="ConnectMetamaskButton.jsx"
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 
 export const ConnectMetamaskButtonComponent = () => {
-  // get a function to connect to a particular wallet
-  // options: useMetamask() - useCoinbase() - useWalletConnect()
   const connectWithMetamask = useMetamask();
-  // once connected, you can get the connected wallet information from anywhere (address, signer)
   const address = useAddress();
   return (
     <div>
@@ -77,47 +77,54 @@ export const ConnectMetamaskButtonComponent = () => {
 };
 ```
 
-### 3. Interact with a thirdweb contract
+Here, we use the `useMetamask` hook to handle metamask connection. When a user clicks the button, we'll call the `connectWithMetamask` function, which will prompt users to connect their metamask wallet.
 
-Once connected, you can easily interact with your deployed contracts with dedicated [contract hooks](https://github.com/thirdweb-dev/react/tree/main/src/hooks/contracts/).
+**Interact With Contracts**
+
+The Thirdweb React SDK also enables you to interact directly with contracts through simple hooks!
+
+Let's setup a simple component to interact with an NFT Collection contract and get the data of all the NFTs on the contract.
 
 ```jsx title="NFTList.jsx"
 import { useNFTCollection } from "@thirdweb-dev/react";
 
 const NFTListComponent = () => {
-  // get an instance of your own contract
-  const nftCollection = useNFTCollection("{{your nft contract address}}");
+  const address = useAddress();
+  const nftCollection = useNFTCollection("<NFT-COLLECTION-CONTRACT-ADDRESS>");
+  const { data: nfts } = useNFTList(nftCollection);
 
-  const [nfts, setNfts] = useState<NFTMetadataOwner[]>([]);
-
-  useEffect(() => {
-    if (nftCollection) {
-      // call functions on your contract
-      nftCollection
-        .getAll()
-        .then((nfts) => {
-          setNfts(nfts);
-        })
-        .catch((error) => {
-          console.error("failed to fetch nfts", error);
-        });
+  const mint = async () => {
+    if (nftCollection && address) {
+      nftCollection.mintTo(address, {
+        name: "Cool NFT",
+        description: "Minted from react",
+      });
     }
-  }, [nftCollection]);
+  };
 
   return (
-    <ul>
-      {nfts.map((nft) => (
-        <li key={nft.metadata.id.toString()}>{nft.metadata.name}</li>
-      ))}
-    </ul>
+    <div>
+      <button onClick={mint}>Mint</button>
+      <ul>
+        {nfts?.map((nft) => (
+          <li key={nft.metadata.id.toString()}>{nft.metadata.name}</li>
+        ))}
+      </ul>
+    </div>
   );
 };
 ```
 
+Here, we get an `NFTCollection` contract instance from the [Typescript SDK](https://docs.thirdweb.com/typescript). We can then use all the methods on this thirdweb contract SDK instance - here we use the `mintTo` method to mint an NFT on the contract, and we use `useNFTList` to display all the NFTs in the collection on the page.
+
+And that's all for the setup! Just like that, you can setup a `ThirdwebProvider` and use all the hooks of the SDK, allowing you to let users connect wallets, interact with contracts, and more!
+
 ## Advanced Configuration
 
+The `ThirdwebProvider` offers a number of configuration options to control the behavior of the React and Typescript SDK.
+
 These all the configuration options of the `<ThirdwebProvider />`.
-We provide sane defaults for all of these, but you customize them to suit your needs.
+We provide defaults for all of these, but you customize them to suit your needs.
 
 ```jsx title="App.jsx"
 import { ChainId, IpfsStorage, ThirdwebProvider } from "@thirdweb-dev/react";
@@ -143,6 +150,15 @@ const KitchenSinkExample = () => {
           name: "walletLink",
           options: {
             appName: "Example App",
+          },
+        },
+        {
+          name: "magic",
+          options: {
+            apiKey: "your-magic-api-key",
+            rpcUrls: {
+              [ChainId.Mainnet]: "https://mainnet.infura.io/v3",
+            },
           },
         },
       ]}

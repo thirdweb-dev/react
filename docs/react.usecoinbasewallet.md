@@ -4,19 +4,40 @@
 
 ## useCoinbaseWallet() function
 
-Convienience hook for connecting to a wallet via Coinbase Wallet
+Hook for connecting to a Coinbase wallet.
+
+```javascript
+import { useCoinbaseWallet } from "@thirdweb-dev/react"
+```
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useCoinbaseWallet(): () => Promise<{
-    data?: import("wagmi-core").ConnectorData<any> | undefined;
+declare function useCoinbaseWallet(): () => Promise<{
+    data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 ```
 <b>Returns:</b>
 
-() =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+() =&gt; Promise&lt;{ data?: wagmi\_core.ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
 
-a function that will prompt the user to connect their wallet via Coinbase Wallet
+## Example
+
+We can allow users to connect with Coinbase Wallet as follows:
+
+```javascript
+import { useCoinbaseWallet } from "@thirdweb-dev/react"
+
+const App = () => {
+  const connectWithCoinbaseWallet = useCoinbaseWallet()
+
+  return (
+    <button onClick={connectWithCoinbaseWallet}>
+      Connect Coinbase Wallet
+    </button>
+  )
+}
+```
+Upon clicking this button, users will be prompted with a popup asking them scan a QR code with their Coinbase Wallet. Once they scan the QR code, their wallet will then be connected to the page as expected.
 

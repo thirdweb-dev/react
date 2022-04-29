@@ -4,12 +4,12 @@
 
 ## useNFTDrop() function
 
-Returns a NFT Drop contract instance
+Hook for getting an instance of an `NFTDrop` contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
+declare function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 ```
 
 ## Parameters
@@ -21,4 +21,24 @@ export declare function useNFTDrop(contractAddress?: string): NFTDrop | undefine
 <b>Returns:</b>
 
 NFTDrop \| undefined
+
+## Example
+
+
+```javascript
+import { useNFTDrop } from '@thirdweb-dev/react'
+
+export default function Component() {
+  const nftDrop = useNFTDrop("<YOUR-CONTRACT-ADDRESS>")
+
+  // Now you can use the nft drop contract in the rest of the component
+
+  // For example, this function will let the connected wallet claim a new NFT
+  async function claim(quantity) {
+    await nftDrop.claim(quantity)
+  }
+
+  ...
+}
+```
 

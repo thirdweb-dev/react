@@ -4,17 +4,17 @@
 
 ## ThirdwebProvider variable
 
-The `<ThirdwebProvider />` component, you need to wrap your application with this provider to use the thirdweb react sdk.
+The `<ThirdwebProvider />` component lets you control what networks you want users to connect to, what types of wallets can connect to your app, and the settings for the \[Typescript SDK\](https://docs.thirdweb.com/typescript).
 
 <b>Signature:</b>
 
 ```typescript
-ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, autoConnect, children, }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element
+ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, autoConnect, children, }: React.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element
 ```
 
 ## Example
 
-Wrap your application with the Provider
+You can wrap your application with the provider as follows:
 
 ```jsx title="App.jsx"
 import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";

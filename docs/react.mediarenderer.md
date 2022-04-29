@@ -4,19 +4,21 @@
 
 ## MediaRenderer variable
 
-A component that renders media based on the format of the media type. Handles most media types including image, audio, video, and html files. Falls back to a external link if the media type is not supported.
+This component can be used to render any media type, including image, audio, video, and html files. Its convenient for rendering NFT media files, as these can be a variety of different types. The component falls back to a external link if the media type is not supported.
 
-props: [MediaRendererProps](./react.mediarendererprops.md)
+Props: [MediaRendererProps](./react.mediarendererprops.md)
 
 <b>Signature:</b>
 
 ```typescript
-MediaRenderer: React.ForwardRefExoticComponent<MediaRendererProps & React.RefAttributes<HTMLMediaElement>>
+MediaRenderer: React.ForwardRefExoticComponent<MediaRendererProps & {
+    children?: React.ReactNode;
+} & React.RefAttributes<HTMLMediaElement>>
 ```
 
 ## Example
 
-Render a video hosted on ipfs
+We can take a video file hosted on IPFS and render it using this component as follows
 
 ```jsx
 const Component = () => {
@@ -26,4 +28,5 @@ const Component = () => {
   />
 }
 ```
+You can try switching out the `src` prop to different types of URLs and media types to explore the possibilities.
 

@@ -4,19 +4,38 @@
 
 ## useGnosis() function
 
-Convienience hook for connecting to a gnosis safe
+Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.
+
+```javascript
+import { useGnosis } from "@thirdweb-dev/react"
+```
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useGnosis(): (personalSigner: Signer, config: GnosisConnectorArguments) => Promise<{
-    data?: import("wagmi-core").ConnectorData<any> | undefined;
+declare function useGnosis(): (personalSigner: Signer$1, config: GnosisConnectorArguments) => Promise<{
+    data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 ```
 <b>Returns:</b>
 
-(personalSigner: Signer, config: GnosisConnectorArguments) =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+(personalSigner: Signer$1, config: GnosisConnectorArguments) =&gt; Promise&lt;{ data?: wagmi\_core.ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
 
-a function that will prompt the user to connect their gnosis safe
+## Example
+
+
+```javascript
+import { useGnosis } from "@thirdweb-dev/react"
+
+const App = () => {
+  const connectWithGnosis = useGnosis()
+
+  return (
+    <button onClick={connectWithGnosis}>
+      Connect Gnosis Safe
+    </button>
+  )
+}
+```
 

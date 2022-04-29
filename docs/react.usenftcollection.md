@@ -4,12 +4,12 @@
 
 ## useNFTCollection() function
 
-Returns a NFT Collection contract instance
+Hook for getting an instance of an `NFTCollection` contract. This contract is meant to interface with ERC721 compliant NFTs.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
+declare function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
 ```
 
 ## Parameters
@@ -21,4 +21,25 @@ export declare function useNFTCollection(contractAddress?: string): NFTCollectio
 <b>Returns:</b>
 
 NFTCollection \| undefined
+
+## Example
+
+
+```javascript
+import { useNFTCollection } from '@thirdweb-dev/react'
+
+export default function Component() {
+  const nftCollection = useNFTCollection("<YOUR-CONTRACT-ADDRESS>")
+
+  // Now you can use the nftCollection contract in the rest of the component
+
+  // For example, this function will return all the NFTs on this contract
+  async function getNFTs() {
+    const nfts = await nftCollection.getAll()
+    return nfts
+  }
+
+  ...
+}
+```
 
