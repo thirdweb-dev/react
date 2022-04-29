@@ -427,7 +427,12 @@ export function useCustomContract(contractAddress?: string): {
 export function useDesiredChainId(): number;
 
 // @public
-export function useDisconnect(): () => void;
+export function useDisconnect(options?: {
+    reconnectAfterGnosis?: boolean;
+}): () => Promise<void | {
+    data?: wagmi.ConnectorData<any> | undefined;
+    error?: Error | undefined;
+}>;
 
 // @public
 export function useEdition(contractAddress?: string): Edition | undefined;
@@ -436,7 +441,7 @@ export function useEdition(contractAddress?: string): Edition | undefined;
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 
 // @public
-export function useGnosis(): (personalSigner: Signer_2, config: GnosisConnectorArguments) => Promise<{
+export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
     data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
@@ -602,7 +607,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 //
 // dist/index.d.ts:396:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/index.d.ts:403:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:972:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:977:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

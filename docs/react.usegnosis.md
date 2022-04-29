@@ -13,14 +13,14 @@ import { useGnosis } from "@thirdweb-dev/react"
 <b>Signature:</b>
 
 ```typescript
-declare function useGnosis(): (personalSigner: Signer$1, config: GnosisConnectorArguments) => Promise<{
+declare function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
     data?: wagmi_core.ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 ```
 <b>Returns:</b>
 
-(personalSigner: Signer$1, config: GnosisConnectorArguments) =&gt; Promise&lt;{ data?: wagmi\_core.ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+(config: GnosisConnectorArguments) =&gt; Promise&lt;{ data?: wagmi\_core.ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
 
 ## Example
 
@@ -32,7 +32,7 @@ const App = () => {
   const connectWithGnosis = useGnosis()
 
   return (
-    <button onClick={connectWithGnosis}>
+    <button onClick={() => connectWithGnosis({ safeAddress: "0x...", safeChainId: 1 })}>
       Connect Gnosis Safe
     </button>
   )

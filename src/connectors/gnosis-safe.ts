@@ -27,11 +27,11 @@ export interface GnosisConnectorArguments {
 }
 
 export class GnosisSafeConnector extends Connector {
-  id: string = "gnosis";
-  ready: boolean = true;
-  name: string = "Gnosis Safe";
+  id = "gnosis";
+  ready = true;
+  name = "Gnosis Safe";
   // config
-  personalSigner?: Signer;
+  public previousConnector?: Connector<any>;
   private config?: GnosisConnectorArguments;
   private safeSigner?: Signer;
 
@@ -52,7 +52,7 @@ export class GnosisSafeConnector extends Connector {
   }
 
   private async createSafeSigner() {
-    const signer = this.personalSigner;
+    const signer = await this.previousConnector?.getSigner();
     const safeAddress = this.config?.safeAddress;
     const safeChainId = this.config
       ?.safeChainId as keyof typeof CHAIN_ID_TO_GNOSIS_SERVER_URL;
@@ -79,7 +79,7 @@ export class GnosisSafeConnector extends Connector {
   async disconnect(): Promise<void> {
     this.config = undefined;
     this.safeSigner = undefined;
-    this.personalSigner = undefined; // TODO make this the new connector
+    this.previousConnector = undefined;
     return undefined;
   }
 
@@ -137,8 +137,11 @@ export class GnosisSafeConnector extends Connector {
     this.emit("disconnect");
   }
 
-  public setConfiguration(signer: Signer, config: GnosisConnectorArguments) {
-    this.personalSigner = signer;
+  public setConfiguration(
+    connector: Connector<any>,
+    config: GnosisConnectorArguments,
+  ) {
+    this.previousConnector = connector;
     this.config = config;
   }
 }

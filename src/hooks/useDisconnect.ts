@@ -1,3 +1,5 @@
+import { GnosisSafeConnector } from "../connectors/gnosis-safe";
+import { useConnect } from "./useConnect";
 import { useAccount } from "wagmi";
 
 /**
@@ -28,8 +30,27 @@ import { useAccount } from "wagmi";
  *
  * @public
  */
-export function useDisconnect() {
-  const [, disconnect] = useAccount();
+export function useDisconnect(options?: { reconnectAfterGnosis?: boolean }) {
+  const optsWithDefaults = { ...{ reconnectAfterGnosis: true }, ...options };
+  const [, connect] = useConnect();
+  const [data, disconnect] = useAccount();
 
-  return disconnect;
+  return async () => {
+    const previousConnector =
+      (data.data?.connector instanceof GnosisSafeConnector &&
+        data.data.connector.previousConnector) ||
+      undefined;
+    // if it's gnosis, just connect the previous connector
+    if (optsWithDefaults.reconnectAfterGnosis && previousConnector) {
+      try {
+        return await connect(previousConnector);
+      } catch (err) {
+        console.error("failed to re-connect to previous connector", err);
+        // if it fails for whatever reason just disconnect
+        return disconnect();
+      }
+    }
+
+    return disconnect();
+  };
 }
