@@ -14,11 +14,11 @@ import { Chain, Connector, ConnectorData, normalizeChainId } from "wagmi";
 // }
 
 const CHAIN_ID_TO_GNOSIS_SERVER_URL = {
-  [ChainId.Mainnet]: "https://safe-transaction.mainnet.gnosis.io/",
-  [ChainId.Avalanche]: "https://safe-transaction.avalanche.gnosis.io/",
-  [ChainId.Polygon]: "https://safe-transaction.polygon.gnosis.io/",
-  [ChainId.Goerli]: "https://safe-transaction.goerli.gnosis.io/",
-  [ChainId.Rinkeby]: "https://safe-transaction.rinkeby.gnosis.io/",
+  [ChainId.Mainnet]: "https://safe-transaction.mainnet.gnosis.io",
+  [ChainId.Avalanche]: "https://safe-transaction.avalanche.gnosis.io",
+  [ChainId.Polygon]: "https://safe-transaction.polygon.gnosis.io",
+  [ChainId.Goerli]: "https://safe-transaction.goerli.gnosis.io",
+  [ChainId.Rinkeby]: "https://safe-transaction.rinkeby.gnosis.io",
 };
 
 export interface GnosisConnectorArguments {
