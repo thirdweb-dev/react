@@ -1,4 +1,6 @@
+/* eslint-disable prettier/prettier */
 import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
+import { OAuthExtension, OAuthRedirectConfiguration } from "@magic-ext/oauth";
 import { getAddress } from "ethers/lib/utils";
 import {
   LoginWithMagicLinkConfiguration,
@@ -23,8 +25,10 @@ export class MagicConnector extends Connector {
   readonly ready = __IS_SERVER__;
 
   override options: MagicConnectorArguments;
-  private configuration?: LoginWithMagicLinkConfiguration;
-  public magic?: MagicInstance;
+  private configuration?:
+    | LoginWithMagicLinkConfiguration
+    | OAuthRedirectConfiguration;
+  public magic?: any;
 
   getConfiguration() {
     if (__IS_SERVER__) {
@@ -61,27 +65,47 @@ export class MagicConnector extends Connector {
         "did you forget to set the configuration via: setConfiguration()?",
       );
       if (isAutoConnect) {
-        configuration.showUI = false;
+        if ((configuration as LoginWithMagicLinkConfiguration).email) {
+          (configuration as LoginWithMagicLinkConfiguration).showUI = false;
+        }
       }
 
-      return import("magic-sdk").then(async (m) => {
-        this.magic = new m.Magic(apiKey, options);
+      return import("magic-sdk")
+        .then(() => import("@magic-ext/oauth"))
+        .then(async () => {
+          this.magic = new MagicInstance(apiKey, {
+            ...options,
+            extensions: [...options.extensions, new OAuthExtension()],
+          });
 
-        await this.magic.auth.loginWithMagicLink(configuration);
-        const provider = this.getProvider();
-        if (provider.on) {
-          provider.on("accountsChanged", this.onAccountsChanged);
-          provider.on("chainChanged", this.onChainChanged);
-          provider.on("disconnect", this.onDisconnect);
-        }
-        const account = await this.getAccount();
-        const id = await this.getChainId();
-        return {
-          account,
-          provider,
-          chain: { id, unsupported: this.isChainUnsupported(id) },
-        };
-      });
+          // email
+          if ((configuration as LoginWithMagicLinkConfiguration).email) {
+            await this.magic.auth.loginWithMagicLink(
+              configuration as LoginWithMagicLinkConfiguration,
+            );
+          }
+
+          // social
+          if ((configuration as OAuthRedirectConfiguration).provider) {
+            await this.magic.oauth.loginWithRedirect(
+              configuration as OAuthRedirectConfiguration,
+            );
+          }
+
+          const provider = this.getProvider();
+          if (provider.on) {
+            provider.on("accountsChanged", this.onAccountsChanged);
+            provider.on("chainChanged", this.onChainChanged);
+            provider.on("disconnect", this.onDisconnect);
+          }
+          const account = await this.getAccount();
+          const id = await this.getChainId();
+          return {
+            account,
+            provider,
+            chain: { id, unsupported: this.isChainUnsupported(id) },
+          };
+        });
     } catch (e) {
       if (!isAutoConnect) {
         throw e;
