@@ -1,0 +1,13 @@
+diff --git a/node_modules/@gnosis.pm/safe-core-sdk/dist/src/utils/signatures/index.js b/node_modules/@gnosis.pm/safe-core-sdk/dist/src/utils/signatures/index.js
+index 84f9cf7..f966778 100644
+--- a/node_modules/@gnosis.pm/safe-core-sdk/dist/src/utils/signatures/index.js
++++ b/node_modules/@gnosis.pm/safe-core-sdk/dist/src/utils/signatures/index.js
+@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+ };
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.generateSignature = exports.adjustVInSignature = exports.isTxHashSignedWithPrefix = exports.generatePreValidatedSignature = void 0;
+-const ethereumjs_util_1 = require("ethereumjs-util");
++const ethereumjs_util_1 = require("ethereumjs-util/dist.browser/index.js");
+ const utils_1 = require("../../utils");
+ const SafeSignature_1 = __importDefault(require("./SafeSignature"));
+ function generatePreValidatedSignature(ownerAddress) {
