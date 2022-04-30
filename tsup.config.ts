@@ -4,8 +4,7 @@ export default defineConfig({
   entry: ["src/index.ts"],
   sourcemap: true,
   clean: true,
-  minify: false,
-  splitting: false,
+  minify: true,
   format: ["cjs", "esm"],
   env: {
     NODE_ENV: "production",
