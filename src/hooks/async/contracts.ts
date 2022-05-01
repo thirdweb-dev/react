@@ -1,7 +1,7 @@
 import { useActiveChainId, useSDK } from "../../Provider";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { CustomContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { SmartContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { QueryClient, useQueryClient } from "react-query";
 
 async function fetchContractType(contractAddress?: string, sdk?: ThirdwebSDK) {
@@ -24,9 +24,9 @@ async function fetchContractPublishMetadata(
     return;
   }
   try {
-    return await sdk.publisher.fetchContractMetadataFromAddress(
-      contractAddress,
-    );
+    return await (
+      await sdk.getPublisher()
+    ).fetchContractMetadataFromAddress(contractAddress);
   } catch (err) {
     console.info("failed to load contract publish metadata", err);
     return null;
@@ -79,13 +79,10 @@ function getContractFromCombinedTypeAndPublishMetadata(
   }
 
   if (input.contractType !== "custom") {
-    return sdk.getContract(contractAddress, input.contractType);
+    return sdk.getBuiltInContract(contractAddress, input.contractType);
   }
   if (input.contractType === "custom" && input.pubishMetadata) {
-    return sdk.getCustomContractFromAbi(
-      contractAddress,
-      input.pubishMetadata.abi,
-    );
+    return sdk.getContractFromAbi(contractAddress, input.pubishMetadata.abi);
   }
   return null;
 }
@@ -170,7 +167,7 @@ function useContractTypeAndPublishMetadata(contractAddress?: string) {
  * @returns a response object that includes the contract once it is resolved
  * @beta
  */
-export function useCustomContract(contractAddress?: string) {
+export function useContract(contractAddress?: string) {
   const sdk = useSDK();
 
   const contractTypeAndPublishMetadata =
@@ -266,7 +263,7 @@ export function useContractFunctions(contractAddress?: string) {
         typeAndPublishMetadata,
         sdk,
       );
-      if (contract instanceof CustomContract) {
+      if (contract instanceof SmartContract) {
         return contract.publishedMetadata.extractFunctions();
       }
       return null;

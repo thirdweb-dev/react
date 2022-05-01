@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { NFTDrop } from "@thirdweb-dev/sdk";
 
 /**
@@ -25,5 +25,5 @@ import { NFTDrop } from "@thirdweb-dev/sdk";
  * @public
  */
 export function useNFTDrop(contractAddress?: string): NFTDrop | undefined {
-  return useContract("nft-drop", contractAddress);
+  return useBuiltinContract("nft-drop", contractAddress);
 }

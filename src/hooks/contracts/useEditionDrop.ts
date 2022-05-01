@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { EditionDrop } from "@thirdweb-dev/sdk";
 
 /**
@@ -27,5 +27,5 @@ import { EditionDrop } from "@thirdweb-dev/sdk";
 export function useEditionDrop(
   contractAddress?: string,
 ): EditionDrop | undefined {
-  return useContract("edition-drop", contractAddress);
+  return useBuiltinContract("edition-drop", contractAddress);
 }

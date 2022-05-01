@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { TokenDrop } from "@thirdweb-dev/sdk";
 
 /**
@@ -7,5 +7,5 @@ import { TokenDrop } from "@thirdweb-dev/sdk";
  * @internal
  */
 export function useTokenDrop(contractAddress?: string): TokenDrop | undefined {
-  return useContract("token-drop", contractAddress);
+  return useBuiltinContract("token-drop", contractAddress);
 }

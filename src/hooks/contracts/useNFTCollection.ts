@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { NFTCollection } from "@thirdweb-dev/sdk";
 
 /**
@@ -28,5 +28,5 @@ import { NFTCollection } from "@thirdweb-dev/sdk";
 export function useNFTCollection(
   contractAddress?: string,
 ): NFTCollection | undefined {
-  return useContract("nft-collection", contractAddress);
+  return useBuiltinContract("nft-collection", contractAddress);
 }

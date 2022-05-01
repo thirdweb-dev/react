@@ -4,9 +4,9 @@ import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useAddress } from "../useAddress";
 import { BigNumber } from "@ethersproject/bignumber";
 import {
-  CustomContract,
   Erc721,
   QueryAllParams,
+  SmartContract,
   ValidContractInstance,
 } from "@thirdweb-dev/sdk";
 import { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
@@ -17,7 +17,7 @@ import invariant from "tiny-invariant";
  @internal
  */
 export function detectErc721Instance(
-  contract?: ValidContractInstance | CustomContract | null,
+  contract?: ValidContractInstance | SmartContract | null,
 ) {
   if (!contract) {
     return undefined;

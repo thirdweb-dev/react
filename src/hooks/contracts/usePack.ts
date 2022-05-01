@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { Pack } from "@thirdweb-dev/sdk";
 
 /**
@@ -26,5 +26,5 @@ import { Pack } from "@thirdweb-dev/sdk";
  * @public
  */
 export function usePack(contractAddress?: string): Pack | undefined {
-  return useContract("pack", contractAddress);
+  return useBuiltinContract("pack", contractAddress);
 }

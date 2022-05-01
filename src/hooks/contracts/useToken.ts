@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { Token } from "@thirdweb-dev/sdk";
 
 /**
@@ -26,5 +26,5 @@ import { Token } from "@thirdweb-dev/sdk";
  * @public
  */
 export function useToken(contractAddress?: string): Token | undefined {
-  return useContract("token", contractAddress);
+  return useBuiltinContract("token", contractAddress);
 }

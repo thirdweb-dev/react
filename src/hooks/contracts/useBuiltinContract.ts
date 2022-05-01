@@ -7,7 +7,7 @@ import { ContractForContractType, ContractType } from "@thirdweb-dev/sdk";
  * @param contractAddress - the contract address
  * @returns the instance of the contract for the given type and address
  */
-export function useContract<TContractType extends ContractType>(
+export function useBuiltinContract<TContractType extends ContractType>(
   contractType?: TContractType,
   contractAddress?: string,
 ): ContractForContractType<TContractType> | undefined {
@@ -15,5 +15,5 @@ export function useContract<TContractType extends ContractType>(
   if (!sdk || !contractAddress || !contractType) {
     return undefined;
   }
-  return sdk.getContract(contractAddress, contractType);
+  return sdk.getBuiltInContract(contractAddress, contractType);
 }

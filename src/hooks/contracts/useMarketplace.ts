@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { Marketplace } from "@thirdweb-dev/sdk";
 
 /**
@@ -28,5 +28,5 @@ import { Marketplace } from "@thirdweb-dev/sdk";
 export function useMarketplace(
   contractAddress?: string,
 ): Marketplace | undefined {
-  return useContract("marketplace", contractAddress);
+  return useBuiltinContract("marketplace", contractAddress);
 }

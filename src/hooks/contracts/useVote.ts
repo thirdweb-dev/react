@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { Vote } from "@thirdweb-dev/sdk";
 
 /**
@@ -26,5 +26,5 @@ import { Vote } from "@thirdweb-dev/sdk";
  * @public
  */
 export function useVote(contractAddress?: string): Vote | undefined {
-  return useContract("vote", contractAddress);
+  return useBuiltinContract("vote", contractAddress);
 }

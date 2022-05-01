@@ -21,7 +21,6 @@ import { ConnectorData } from './connectors';
 import { ConnectorEvents } from './connectors';
 import { ContractForContractType } from '@thirdweb-dev/sdk';
 import { ContractType } from '@thirdweb-dev/sdk';
-import { CustomContract } from '@thirdweb-dev/sdk';
 import { defaultChains } from './constants';
 import { defaultL2Chains } from './constants';
 import { developmentChains } from './constants';
@@ -51,6 +50,7 @@ import * as React_3 from 'react';
 import * as react_query from 'react-query';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { Signer as Signer_2 } from 'ethers';
+import { SmartContract } from '@thirdweb-dev/sdk';
 import { Split } from '@thirdweb-dev/sdk';
 import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
 import * as _thirdweb_dev_sdk from '@thirdweb-dev/sdk';
@@ -149,7 +149,7 @@ export { defaultL2Chains }
 // Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function detectErc721Instance(contract?: ValidContractInstance | CustomContract | null): Erc721<any> | undefined;
+export function detectErc721Instance(contract?: ValidContractInstance | SmartContract | null): Erc721<any> | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -289,6 +289,11 @@ export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 // @public
 export function useAddress(): string | undefined;
 
+// Warning: (ae-internal-missing-underscore) The name "useBuiltinContract" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function useBuiltinContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
+
 // @public
 export function useChainId(): number | undefined;
 
@@ -318,37 +323,9 @@ export function useConnect(): readonly [{
 // @public (undocumented)
 const useContext: () => ContextValue;
 
-// Warning: (ae-internal-missing-underscore) The name "useContract" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export function useContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
-
-// Warning: (ae-forgotten-export) The symbol "AbiFunction" needs to be exported by the entry point index.d.ts
-// Warning: (ae-internal-missing-underscore) The name "useContractFunctions" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export function useContractFunctions(contractAddress?: string): react_query.UseQueryResult<AbiFunction[] | null, unknown>;
-
 // @beta
-export function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<{
-    [x: string]: _thirdweb_dev_sdk.Json;
-    description?: string | undefined;
-    image?: string | undefined;
-    external_link?: string | undefined;
-    name: string;
-} | undefined, unknown>;
-
-// Warning: (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
-//
-// @beta
-export function useContractPublishMetadata(contractAddress?: string): react_query.UseQueryResult<PublishedMetadata | null | undefined, unknown>;
-
-// @beta
-export function useContractType(contractAddress?: string): react_query.UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
-
-// @beta
-export function useCustomContract(contractAddress?: string): {
-    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | CustomContract<any> | null;
+export function useContract(contractAddress?: string): {
+    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | SmartContract<any> | null;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
         pubishMetadata: null;
@@ -384,7 +361,7 @@ export function useCustomContract(contractAddress?: string): {
     remove: () => void;
     fetchStatus: react_query.FetchStatus;
 } | {
-    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | CustomContract<any> | null;
+    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | SmartContract<any> | null;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
         pubishMetadata: null;
@@ -420,6 +397,27 @@ export function useCustomContract(contractAddress?: string): {
     remove: () => void;
     fetchStatus: react_query.FetchStatus;
 } | null;
+
+// Warning: (ae-forgotten-export) The symbol "AbiFunction" needs to be exported by the entry point index.d.ts
+// Warning: (ae-internal-missing-underscore) The name "useContractFunctions" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function useContractFunctions(contractAddress?: string): react_query.UseQueryResult<AbiFunction[] | null, unknown>;
+
+// @beta
+export function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<{
+    [x: string]: _thirdweb_dev_sdk.Json;
+    description?: string | undefined;
+    image?: string | undefined;
+    external_link?: string | undefined;
+    name: string;
+} | undefined, unknown>;
+
+// @beta
+export function useContractPublishMetadata(contractAddress?: string): react_query.UseQueryResult<PublishedMetadata | null | undefined, unknown>;
+
+// @beta
+export function useContractType(contractAddress?: string): react_query.UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useDesiredChainId" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -608,6 +606,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/index.d.ts:396:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/index.d.ts:403:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/index.d.ts:977:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:2134:9 - (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

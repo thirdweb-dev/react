@@ -975,9 +975,9 @@
   integrity sha512-6G7eMTU2cAbeRsGHQ84ZWkRL1hOM7xeUoNh8PEY+PZQyTaeVxImFWXb8sS1QakhT9nE8LBesOb5iXfwBaOCEQw==
 
 "@thirdweb-dev/sdk@^2.1.0":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.1.2.tgz#1633bf512ad2c1eb0e316032cac318e1ecd5e64d"
-  integrity sha512-ebfi+0hNKp2ZjfUDwtucn1V/Ln9d6nHBq6sR5JzndCH8L9Cm5lQtG0ymwmXRXrusnbP8pXHpq/Cy+L4E1Ishjw==
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.1.3.tgz#c36bfa05e30cb78939d13a61509580c05ebb05f2"
+  integrity sha512-9xVCsRBg37asyDxwG16wRSiXLWl80mRvT0VTO/l8hWfWgUmMqR+LMN3E6GQBDfyopC9hBApuClYO3RUeOijv7g==
   dependencies:
     "@ethersproject/bignumber" "^5.6.0"
     "@ethersproject/bytes" "^5.6.1"
@@ -1059,9 +1059,9 @@
   integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
 
 "@types/node@*":
-  version "17.0.30"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.30.tgz#2c6e8512acac70815e8176aa30c38025067880ef"
-  integrity sha512-oNBIZjIqyHYP8VCNAV9uEytXVeXG2oR0w9lgAXro20eugRQfY002qr3CUl6BAe+Yf/z3CRjPdz27Pu6WWtuSRw==
+  version "17.0.31"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.31.tgz#a5bb84ecfa27eec5e1c802c6bbf8139bdb163a5d"
+  integrity sha512-AR0x5HbXGqkEx9CadRH3EBYx/VkiUgZIhP4wvPn/+5KIsgpNoyFaRlVe0Zlx9gRtg8fA06a9tskE2MSN7TcG4Q==
 
 "@types/node@12.20.24":
   version "12.20.24"

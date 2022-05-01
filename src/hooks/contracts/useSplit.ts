@@ -1,4 +1,4 @@
-import { useContract } from "./useContract";
+import { useBuiltinContract } from "./useBuiltinContract";
 import { Split } from "@thirdweb-dev/sdk";
 
 /**
@@ -26,5 +26,5 @@ import { Split } from "@thirdweb-dev/sdk";
  * @public
  */
 export function useSplit(contractAddress?: string): Split | undefined {
-  return useContract("split", contractAddress);
+  return useBuiltinContract("split", contractAddress);
 }
