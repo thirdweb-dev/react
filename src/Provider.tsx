@@ -1,3 +1,7 @@
+import {
+  GnosisConnectorArguments,
+  GnosisSafeConnector,
+} from "./connectors/gnosis-safe";
 import { MagicConnector, MagicConnectorArguments } from "./connectors/magic";
 import {
   Chain,
@@ -64,11 +68,22 @@ export type MagicConnectorType =
 /**
  * @internal
  */
+export type GnosisConnectorType =
+  | "gnosis"
+  | {
+      name: "gnosis";
+      options: GnosisConnectorArguments;
+    };
+
+/**
+ * @internal
+ */
 export type WalletConnector =
   | InjectedConnectorType
   | WalletConnectConnectorType
   | WalletLinkConnectorType
-  | MagicConnectorType;
+  | MagicConnectorType
+  | GnosisConnectorType;
 
 /**
  * @internal
@@ -331,6 +346,14 @@ export const ThirdwebProvider = <
                   network: { rpcUrl: jsonRpcUrl, chainId: desiredChainId || 1 },
                   rpcUrls: _rpcUrlMap,
                 },
+              });
+            }
+            if (
+              (typeof connector === "string" && connector === "gnosis") ||
+              (typeof connector === "object" && connector.name === "gnosis")
+            ) {
+              return new GnosisSafeConnector({
+                chains: _supporrtedChains,
               });
             }
             return null;

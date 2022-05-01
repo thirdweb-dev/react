@@ -151,6 +151,14 @@ export { defaultL2Chains }
 // @internal (undocumented)
 export function detectErc721Instance(contract?: ValidContractInstance | CustomContract | null): Erc721<any> | undefined;
 
+// Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export type GnosisConnectorType = "gnosis" | {
+    name: "gnosis";
+    options: GnosisConnectorArguments;
+};
+
 // Warning: (ae-internal-missing-underscore) The name "InjectedConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -419,13 +427,24 @@ export function useCustomContract(contractAddress?: string): {
 export function useDesiredChainId(): number;
 
 // @public
-export function useDisconnect(): () => void;
+export function useDisconnect(options?: {
+    reconnectAfterGnosis?: boolean;
+}): () => Promise<void | {
+    data?: wagmi.ConnectorData<any> | undefined;
+    error?: Error | undefined;
+}>;
 
 // @public
 export function useEdition(contractAddress?: string): Edition | undefined;
 
 // @public
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
+
+// @public
+export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
+    data?: wagmi_core.ConnectorData<any> | undefined;
+    error?: Error | undefined;
+}>;
 
 // @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
@@ -574,7 +593,7 @@ export type WalletConnectConnectorType = "walletConnect" | {
 // Warning: (ae-internal-missing-underscore) The name "WalletConnector" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType | WalletLinkConnectorType | MagicConnectorType;
+export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType | WalletLinkConnectorType | MagicConnectorType | GnosisConnectorType;
 
 // Warning: (ae-internal-missing-underscore) The name "WalletLinkConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -586,8 +605,9 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/index.d.ts:391:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:960:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:396:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:403:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:977:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

@@ -27,13 +27,18 @@ import { useCoinbaseWallet } from "@thirdweb-dev/react"
 |  [useContractPublishMetadata(contractAddress)](./react.usecontractpublishmetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
 |  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
 |  [useCustomContract(contractAddress)](./react.usecustomcontract.md) | <b><i>(BETA)</i></b> Use this resolve a contract address to a thirdweb (built-in / custom) contract instance. |
-|  [useDisconnect()](./react.usedisconnect.md) | Hook for disconnecting the currently connected wallet
+|  [useDisconnect(options)](./react.usedisconnect.md) | Hook for disconnecting the currently connected wallet
 ```javascript
 import { useDisconnect } from "@thirdweb-dev/react"
 ```
  |
 |  [useEdition(contractAddress)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
+|  [useGnosis()](./react.usegnosis.md) | Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.
+```javascript
+import { useGnosis } from "@thirdweb-dev/react"
+```
+ |
 |  [useMagic()](./react.usemagic.md) | Hook for connecting to an email wallet using magic link. This enables users without their own wallets to connect to your application and sign transactions securely using their email.
 ```javascript
 import { useMagic } from "@thirdweb-dev/react"

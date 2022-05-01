@@ -1,4 +1,9 @@
+import {
+  GnosisConnectorArguments,
+  GnosisSafeConnector,
+} from "../../connectors/gnosis-safe";
 import { useConnect } from "../useConnect";
+import { isAddress } from "ethers/lib/utils";
 import invariant from "tiny-invariant";
 
 /**
@@ -17,7 +22,7 @@ import invariant from "tiny-invariant";
  *   const connectWithGnosis = useGnosis()
  *
  *   return (
- *     <button onClick={connectWithGnosis}>
+ *     <button onClick={() => connectWithGnosis({ safeAddress: "0x...", safeChainId: 1 })}>
  *       Connect Gnosis Safe
  *     </button>
  *   )
@@ -37,5 +42,25 @@ export function useGnosis() {
     "Gnosis connector not found, please make sure it is provided to your <ThirdwebProvider />",
   );
 
-  return () => connect(connector);
+  return async (config: GnosisConnectorArguments) => {
+    const previousConnector = connectors.data.connector;
+    const previousConnectorChain = await previousConnector?.getChainId();
+    invariant(
+      !!previousConnector,
+      "Cannot connect to Gnosis Safe without first being connected to a personal wallet.",
+    );
+    invariant(
+      previousConnectorChain === config.safeChainId,
+      "Gnosis safe chain id must match personal wallet chain id.",
+    );
+    invariant(
+      isAddress(config.safeAddress),
+      "Gnosis safe address must be a valid address.",
+    );
+    (connector as GnosisSafeConnector).setConfiguration(
+      previousConnector,
+      config,
+    );
+    return connect(connector);
+  };
 }
