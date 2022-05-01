@@ -1,17 +1,11 @@
-import Safe from "@gnosis.pm/safe-core-sdk";
-import { SafeEthersSigner, SafeService } from "@gnosis.pm/safe-ethers-adapters";
-import EthersAdapter from "@gnosis.pm/safe-ethers-lib";
+// import Safe from "@gnosis.pm/safe-core-sdk";
+// import { SafeEthersSigner, SafeService } from "@gnosis.pm/safe-ethers-adapters";
+// import EthersAdapter from "@gnosis.pm/safe-ethers-lib";
 import { ChainId } from "@thirdweb-dev/sdk";
 import { Signer, ethers } from "ethers";
 import { getAddress } from "ethers/lib/utils";
 import invariant from "tiny-invariant";
 import { Chain, Connector, ConnectorData, normalizeChainId } from "wagmi";
-
-// TODO handle all the browserfy
-// if (!globalThis.fs) {
-//   // eslint-disable-next-line @typescript-eslint/no-var-requires
-//   globalThis.fs = require("browserify-fs");
-// }
 
 const CHAIN_ID_TO_GNOSIS_SERVER_URL = {
   [ChainId.Mainnet]: "https://safe-transaction.mainnet.gnosis.io",
@@ -26,9 +20,11 @@ export interface GnosisConnectorArguments {
   safeChainId: number;
 }
 
+const __IS_SERVER__ = typeof window === "undefined";
+
 export class GnosisSafeConnector extends Connector {
   id = "gnosis";
-  ready = true;
+  ready = __IS_SERVER__;
   name = "Gnosis Safe";
   // config
   public previousConnector?: Connector<any>;
@@ -36,7 +32,15 @@ export class GnosisSafeConnector extends Connector {
   private safeSigner?: Signer;
 
   constructor(config: { chains?: Chain[] }) {
+    // filter out any chains that gnosis doesnt support before passing to connector
+    config.chains = config.chains?.filter(
+      (c) => c.id in CHAIN_ID_TO_GNOSIS_SERVER_URL,
+    );
     super({ ...config, options: undefined });
+
+    if (!__IS_SERVER__) {
+      this.ready = true;
+    }
   }
 
   async connect(): Promise<ConnectorData<any>> {
@@ -56,24 +60,43 @@ export class GnosisSafeConnector extends Connector {
     const safeAddress = this.config?.safeAddress;
     const safeChainId = this.config
       ?.safeChainId as keyof typeof CHAIN_ID_TO_GNOSIS_SERVER_URL;
-    invariant(signer, "Signer not set");
+    invariant(
+      signer,
+      "cannot create Gnosis Safe signer without a personal signer",
+    );
     const signerChainId = await signer.getChainId();
     invariant(
       signerChainId === safeChainId,
-      "Signer chainId does not match safeChainId",
+      "chainId of personal signer has to match safe chainId",
     );
-    invariant(safeAddress, "Safe address not set");
-    invariant(safeChainId, "ChainId not set");
+    invariant(
+      safeAddress,
+      "safeConfig.safeAddress is required, did you forget to call setSafeConfig?",
+    );
+    invariant(
+      safeChainId,
+      "safeConfig.safeChainId is required, did you forget to call setSafeConfig?",
+    );
     const serverUrl = CHAIN_ID_TO_GNOSIS_SERVER_URL[safeChainId];
     invariant(serverUrl, "Chain not supported");
-    const service = new SafeService(serverUrl);
-    const ethAdapter = new EthersAdapter({ ethers, signer });
-    const safe = await Safe.create({
+
+    const [safeEthersAdapters, safeCoreSdk, safeEthersLib] = await Promise.all([
+      import("@gnosis.pm/safe-ethers-adapters"),
+      import("@gnosis.pm/safe-core-sdk"),
+      import("@gnosis.pm/safe-ethers-lib"),
+    ]);
+
+    const ethAdapter = new safeEthersLib.default({ ethers, signer });
+    const safe = await safeCoreSdk.default.create({
       ethAdapter,
       safeAddress,
     });
-    const provider = signer.provider;
-    return new SafeEthersSigner(safe, service, provider);
+    const service = new safeEthersAdapters.SafeService(serverUrl);
+    return new safeEthersAdapters.SafeEthersSigner(
+      safe,
+      service,
+      signer.provider,
+    );
   }
 
   async disconnect(): Promise<void> {
@@ -121,7 +144,6 @@ export class GnosisSafeConnector extends Connector {
   }
 
   protected override isChainUnsupported(chainId: number) {
-    console.info("isChainUnsupported", chainId);
     return this.config?.safeChainId
       ? chainId === this.config.safeChainId
       : false;
