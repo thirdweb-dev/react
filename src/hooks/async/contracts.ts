@@ -23,14 +23,10 @@ async function fetchContractPublishMetadata(
   if (!contractAddress || !sdk) {
     return;
   }
-  try {
-    return await (
-      await sdk.getPublisher()
-    ).fetchContractMetadataFromAddress(contractAddress);
-  } catch (err) {
-    console.info("failed to load contract publish metadata", err);
-    return null;
-  }
+
+  return await (
+    await sdk.getPublisher()
+  ).fetchContractMetadataFromAddress(contractAddress);
 }
 async function fetchContractTypeAndPublishMetadata(
   queryClient: QueryClient,

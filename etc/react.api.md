@@ -331,7 +331,7 @@ export function useContract(contractAddress?: string): {
         pubishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: PublishedMetadata | null | undefined;
+        pubishMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -356,7 +356,7 @@ export function useContract(contractAddress?: string): {
         pubishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: PublishedMetadata | null | undefined;
+        pubishMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: react_query.FetchStatus;
@@ -367,7 +367,7 @@ export function useContract(contractAddress?: string): {
         pubishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: PublishedMetadata | null | undefined;
+        pubishMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -392,7 +392,7 @@ export function useContract(contractAddress?: string): {
         pubishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: PublishedMetadata | null | undefined;
+        pubishMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: react_query.FetchStatus;
@@ -414,7 +414,7 @@ export function useContractMetadata(contractAddress?: string): react_query.UseQu
 } | undefined, unknown>;
 
 // @beta
-export function useContractPublishMetadata(contractAddress?: string): react_query.UseQueryResult<PublishedMetadata | null | undefined, unknown>;
+export function useContractPublishMetadata(contractAddress?: string): react_query.UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
 export function useContractType(contractAddress?: string): react_query.UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
