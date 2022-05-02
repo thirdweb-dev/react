@@ -4,8 +4,6 @@
 
 ```ts
 
-/// <reference types="node" />
-
 import { allChains } from './constants';
 import { Balance } from './types';
 import { balanceAction } from './actions';
@@ -603,10 +601,10 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/index.d.ts:396:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:403:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:977:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:2134:9 - (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:395:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:402:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:976:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:2118:9 - (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
