@@ -12,14 +12,14 @@ Use this to get the contract metadata for a (built-in or custom) contract.
 <b>Signature:</b>
 
 ```typescript
-declare function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<any, unknown>;
+declare function useContractMetadata(contractAddress: RequiredParam<string>): react_query.UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the deployed contract |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the deployed contract |
 
 <b>Returns:</b>
 

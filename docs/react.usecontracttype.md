@@ -12,14 +12,14 @@ Use this to get the contract type for a (built-in or custom) contract.
 <b>Signature:</b>
 
 ```typescript
-declare function useContractType(contractAddress?: string): react_query.UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
+declare function useContractType(contractAddress: RequiredParam<string>): react_query.UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the deployed contract |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the deployed contract |
 
 <b>Returns:</b>
 

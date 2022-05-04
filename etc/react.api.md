@@ -147,7 +147,7 @@ export { defaultL2Chains }
 // Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function detectErc721Instance(contract?: ValidContractInstance | SmartContract | null): Erc721<any> | undefined;
+export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract>): Erc721<any> | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -214,6 +214,9 @@ type Props = {
 
 // @public (undocumented)
 const Provider_2: ({ autoConnect, children, connectors: connectors_, connectorStorageKey, provider: provider_, webSocketProvider: webSocketProvider_, }: React_3.PropsWithChildren<Props>) => React_3.FunctionComponentElement<React_3.ProviderProps<ContextValue | null>>;
+
+// @beta
+export type RequiredParam<T> = T | undefined;
 
 // @public (undocumented)
 export interface SharedMediaProps {
@@ -322,8 +325,68 @@ export function useConnect(): readonly [{
 const useContext: () => ContextValue;
 
 // @beta
-export function useContract(contractAddress?: string): {
-    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | SmartContract<any> | null;
+export function useContract(contractAddress: RequiredParam<string>): {
+    contract: undefined;
+    data: undefined;
+    error: unknown;
+    isError: true;
+    isLoading: false;
+    isLoadingError: true;
+    isRefetchError: false;
+    isSuccess: false;
+    status: "error";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (react_query.RefetchOptions & react_query.RefetchQueryFilters<TPageData>) | undefined) => Promise<react_query.QueryObserverResult<{
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        pubishMetadata: null;
+    } | {
+        contractType: "custom";
+        pubishMetadata: PublishedMetadata | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: react_query.FetchStatus;
+} | {
+    contract: undefined;
+    data: undefined;
+    error: null;
+    isError: false;
+    isLoading: true;
+    isLoadingError: false;
+    isRefetchError: false;
+    isSuccess: false;
+    status: "loading";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (react_query.RefetchOptions & react_query.RefetchQueryFilters<TPageData>) | undefined) => Promise<react_query.QueryObserverResult<{
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        pubishMetadata: null;
+    } | {
+        contractType: "custom";
+        pubishMetadata: PublishedMetadata | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: react_query.FetchStatus;
+} | {
+    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | SmartContract<any> | undefined;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
         pubishMetadata: null;
@@ -359,7 +422,7 @@ export function useContract(contractAddress?: string): {
     remove: () => void;
     fetchStatus: react_query.FetchStatus;
 } | {
-    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | SmartContract<any> | null;
+    contract: _thirdweb_dev_sdk.Split | _thirdweb_dev_sdk.NFTDrop | _thirdweb_dev_sdk.NFTCollection | _thirdweb_dev_sdk.EditionDrop | _thirdweb_dev_sdk.Edition | _thirdweb_dev_sdk.TokenDrop | _thirdweb_dev_sdk.Token | _thirdweb_dev_sdk.Vote | _thirdweb_dev_sdk.Marketplace | _thirdweb_dev_sdk.Pack | SmartContract<any> | undefined;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
         pubishMetadata: null;
@@ -394,22 +457,22 @@ export function useContract(contractAddress?: string): {
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: react_query.FetchStatus;
-} | null;
+};
 
 // Warning: (ae-forgotten-export) The symbol "AbiFunction" needs to be exported by the entry point index.d.ts
 // Warning: (ae-internal-missing-underscore) The name "useContractFunctions" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useContractFunctions(contractAddress?: string): react_query.UseQueryResult<AbiFunction[] | null, unknown>;
+export function useContractFunctions(contractAddress: RequiredParam<string>): react_query.UseQueryResult<AbiFunction[] | null, unknown>;
 
 // @beta
-export function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<any, unknown>;
+export function useContractMetadata(contractAddress: RequiredParam<string>): react_query.UseQueryResult<any, unknown>;
 
 // @beta
-export function useContractPublishMetadata(contractAddress?: string): react_query.UseQueryResult<PublishedMetadata | undefined, unknown>;
+export function useContractPublishMetadata(contractAddress: RequiredParam<string>): react_query.UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
-export function useContractType(contractAddress?: string): react_query.UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
+export function useContractType(contractAddress: RequiredParam<string>): react_query.UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useDesiredChainId" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -492,10 +555,10 @@ export function useNFTCollection(contractAddress?: string): NFTCollection | unde
 export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 
 // @beta
-export function useNFTList(contract?: Erc721<any>, queryParams?: QueryAllParams): react_query.UseQueryResult<_thirdweb_dev_sdk.NFTMetadataOwner[], unknown>;
+export function useNFTList(contract: RequiredParam<Erc721<any>>, queryParams?: QueryAllParams): react_query.UseQueryResult<_thirdweb_dev_sdk.NFTMetadataOwner[], unknown>;
 
 // @beta
-export function useNFTMint(contract?: Erc721<any>, to?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
+export function useNFTMint(contract: RequiredParam<Erc721<any>>, to?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
     [x: string]: _thirdweb_dev_sdk.Json;
     name?: string | undefined;
     description?: string | undefined;
@@ -510,7 +573,7 @@ export function useNFTMint(contract?: Erc721<any>, to?: string): react_query.Use
 // Warning: (ae-forgotten-export) The symbol "BigNumber" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useNFTSupply(contract?: Erc721<any>): react_query.UseQueryResult<BigNumber, unknown>;
+export function useNFTSupply(contract: RequiredParam<Erc721<any>>): react_query.UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
@@ -598,7 +661,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/index.d.ts:395:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/index.d.ts:402:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/index.d.ts:976:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:2118:9 - (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:2144:9 - (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
