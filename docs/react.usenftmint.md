@@ -12,7 +12,7 @@ Use this to mint a new NFT on your ERC721 contract
 <b>Signature:</b>
 
 ```typescript
-declare function useNFTMint(contract?: Erc721<any>, to?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
+declare function useNFTMint(contract: RequiredParam<Erc721<any>>, to?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
     [x: string]: _thirdweb_dev_sdk.Json;
     name?: string | undefined;
     description?: string | undefined;
@@ -29,7 +29,7 @@ declare function useNFTMint(contract?: Erc721<any>, to?: string): react_query.Us
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | Erc721&lt;any&gt; | <i>(Optional)</i> an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
+|  contract | RequiredParam&lt;Erc721&lt;any&gt;&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
 |  to | string | <i>(Optional)</i> an address to mint the NFT to (defaults to the connected wallet) |
 
 <b>Returns:</b>
