@@ -403,13 +403,7 @@ export function useContract(contractAddress?: string): {
 export function useContractFunctions(contractAddress?: string): react_query.UseQueryResult<AbiFunction[] | null, unknown>;
 
 // @beta
-export function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<{
-    [x: string]: _thirdweb_dev_sdk.Json;
-    description?: string | undefined;
-    image?: string | undefined;
-    external_link?: string | undefined;
-    name: string;
-} | undefined, unknown>;
+export function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<any, unknown>;
 
 // @beta
 export function useContractPublishMetadata(contractAddress?: string): react_query.UseQueryResult<PublishedMetadata | undefined, unknown>;
@@ -503,6 +497,7 @@ export function useNFTList(contract?: Erc721<any>, queryParams?: QueryAllParams)
 // @beta
 export function useNFTMint(contract?: Erc721<any>, to?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
     [x: string]: _thirdweb_dev_sdk.Json;
+    name?: string | undefined;
     description?: string | undefined;
     image?: any;
     external_url?: any;
@@ -510,7 +505,6 @@ export function useNFTMint(contract?: Erc721<any>, to?: string): react_query.Use
     background_color?: string | undefined;
     properties?: Record<string, _thirdweb_dev_sdk.Json> | Record<string, _thirdweb_dev_sdk.Json>[] | undefined;
     attributes?: Record<string, _thirdweb_dev_sdk.Json> | Record<string, _thirdweb_dev_sdk.Json>[] | undefined;
-    name: string;
 }, unknown>;
 
 // Warning: (ae-forgotten-export) The symbol "BigNumber" needs to be exported by the entry point index.d.ts

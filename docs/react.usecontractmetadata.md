@@ -12,13 +12,7 @@ Use this to get the contract metadata for a (built-in or custom) contract.
 <b>Signature:</b>
 
 ```typescript
-declare function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<{
-    [x: string]: _thirdweb_dev_sdk.Json;
-    description?: string | undefined;
-    image?: string | undefined;
-    external_link?: string | undefined;
-    name: string;
-} | undefined, unknown>;
+declare function useContractMetadata(contractAddress?: string): react_query.UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -29,7 +23,7 @@ declare function useContractMetadata(contractAddress?: string): react_query.UseQ
 
 <b>Returns:</b>
 
-react\_query.UseQueryResult&lt;{ \[x: string\]: \_thirdweb\_dev\_sdk.Json; description?: string \| undefined; image?: string \| undefined; external\_link?: string \| undefined; name: string; } \| undefined, unknown&gt;
+react\_query.UseQueryResult&lt;any, unknown&gt;
 
 a response object that includes the contract metadata of the deployed contract
 

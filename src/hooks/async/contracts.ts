@@ -222,7 +222,7 @@ export function useContractMetadata(contractAddress?: string) {
         contractAddress,
         typeAndPublishMetadata,
         sdk,
-      )?.metadata.get();
+      )?.metadata?.get();
     },
     {
       enabled: !!contractAddress || !!sdk,
