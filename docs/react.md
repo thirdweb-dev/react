@@ -45,6 +45,10 @@ import { useMagic } from "@thirdweb-dev/react"
 ```
  |
 |  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Hook for getting an instance of a <code>Marketplace</code> contract. This contract is used to support marketplace for purchase and sale of on-chain assets. |
+|  [useMarketplaceActiveListings(contract, filter)](./react.usemarketplaceactivelistings.md) | <b><i>(BETA)</i></b> Use this to get a list active listings from your marketplace contract. |
+|  [useMarketplaceListAuction(contract)](./react.usemarketplacelistauction.md) | <b><i>(BETA)</i></b> Use this to create a new Auction Listing on your marketplace contract. |
+|  [useMarketplaceListDirect(contract)](./react.usemarketplacelistdirect.md) | <b><i>(BETA)</i></b> Use this to create a new Direct Listing on your marketplace contract. |
+|  [useMarketplaceListings(contract, filter)](./react.usemarketplacelistings.md) | <b><i>(BETA)</i></b> Use this to get a list all listings from your marketplace contract. |
 |  [useMetamask()](./react.usemetamask.md) | Hook for connecting to a Metamask wallet.
 ```javascript
 import { useMetamask } from "@thirdweb-dev/react"
@@ -69,6 +73,8 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
+|  [useTokenBalace(contract, address)](./react.usetokenbalace.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |
+|  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your Token contract. |
 |  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
 |  [useWalletConnect()](./react.usewalletconnect.md) | Hook for connecting to a mobile wallet with Wallet Connect
 ```javascript

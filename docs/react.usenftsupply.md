@@ -12,14 +12,14 @@ Use this to get a the total (minted) supply of your ERC721 contract.
 <b>Signature:</b>
 
 ```typescript
-declare function useNFTSupply(contract?: Erc721<any>): react_query.UseQueryResult<BigNumber, unknown>;
+declare function useNFTSupply(contract: Erc721<any> | undefined): react_query.UseQueryResult<BigNumber, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | Erc721&lt;any&gt; | <i>(Optional)</i> an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
+|  contract | Erc721&lt;any&gt; \| undefined | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
 
 <b>Returns:</b>
 

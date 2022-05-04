@@ -1,5 +1,9 @@
 import { AddressZero } from "@ethersproject/constants";
-import { QueryAllParams, SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
+import {
+  MarketplaceFilter,
+  QueryAllParams,
+  SUPPORTED_CHAIN_ID,
+} from "@thirdweb-dev/sdk";
 import { QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
@@ -52,6 +56,28 @@ export const cacheKeys = {
       ),
     totalSupply: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["totalSupply"]),
+    getAllListings: (
+      contractAddress?: string,
+      queryParams?: MarketplaceFilter,
+    ) =>
+      createContractCacheKey(
+        contractAddress,
+        queryParams ? ["getAllListings", queryParams] : ["getAllListings"],
+      ),
+    getActiveListings: (
+      contractAddress?: string,
+      queryParams?: MarketplaceFilter,
+    ) =>
+      createContractCacheKey(
+        contractAddress,
+        queryParams
+          ? ["getActiveListings", queryParams]
+          : ["getActiveListings"],
+      ),
+    tokenSupply: (contractAddress?: string) =>
+      createContractCacheKey(contractAddress, ["tokenSupply"]),
+    tokenBalance: (contractAddress?: string) =>
+      createContractCacheKey(contractAddress, ["tokenBalance"]),
     extractFunctions: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["extractFunctions"]),
   },

@@ -17,7 +17,7 @@ import invariant from "tiny-invariant";
  @internal
  */
 export function detectErc721Instance(
-  contract?: ValidContractInstance | SmartContract | null,
+  contract: ValidContractInstance | SmartContract | null | undefined,
 ) {
   if (!contract) {
     return undefined;
@@ -49,7 +49,7 @@ export function detectErc721Instance(
  * @beta
  */
 export function useNFTList(
-  contract?: Erc721<any>,
+  contract: Erc721<any> | undefined,
   queryParams?: QueryAllParams,
 ) {
   const contractAddress = contract?.getAddress();
@@ -80,7 +80,7 @@ export function useNFTList(
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useNFTSupply(contract?: Erc721<any>) {
+export function useNFTSupply(contract: Erc721<any> | undefined) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.totalSupply(contractAddress),
@@ -132,7 +132,7 @@ export function useNFTSupply(contract?: Erc721<any>) {
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useNFTMint(contract?: Erc721<any>, to?: string) {
+export function useNFTMint(contract: Erc721<any> | undefined, to?: string) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();

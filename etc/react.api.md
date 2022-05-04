@@ -35,7 +35,10 @@ import { IStorage } from '@thirdweb-dev/sdk';
 import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
+import { MarketplaceFilter } from '@thirdweb-dev/sdk';
 import { NetworkOrSignerOrProvider } from '@thirdweb-dev/sdk';
+import { NewAuctionListing } from '@thirdweb-dev/sdk';
+import { NewDirectListing } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
@@ -147,7 +150,7 @@ export { defaultL2Chains }
 // Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function detectErc721Instance(contract?: ValidContractInstance | SmartContract | null): Erc721<any> | undefined;
+export function detectErc721Instance(contract: ValidContractInstance | SmartContract | null | undefined): Erc721<any> | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -451,6 +454,18 @@ export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => 
 // @public
 export function useMarketplace(contractAddress?: string): Marketplace | undefined;
 
+// @beta
+export function useMarketplaceActiveListings(contract: Marketplace | undefined, filter?: MarketplaceFilter): react_query.UseQueryResult<(_thirdweb_dev_sdk.AuctionListing | _thirdweb_dev_sdk.DirectListing)[], unknown>;
+
+// @beta
+export function useMarketplaceListAuction(contract: Marketplace | undefined): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<never>, unknown, NewAuctionListing, unknown>;
+
+// @beta
+export function useMarketplaceListDirect(contract: Marketplace | undefined): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<never>, unknown, NewDirectListing, unknown>;
+
+// @beta
+export function useMarketplaceListings(contract: Marketplace | undefined, filter?: MarketplaceFilter): react_query.UseQueryResult<(_thirdweb_dev_sdk.AuctionListing | _thirdweb_dev_sdk.DirectListing)[], unknown>;
+
 // @public
 export function useMetamask(): () => Promise<{
     data?: wagmi_core.ConnectorData<any> | undefined;
@@ -498,10 +513,10 @@ export function useNFTCollection(contractAddress?: string): NFTCollection | unde
 export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 
 // @beta
-export function useNFTList(contract?: Erc721<any>, queryParams?: QueryAllParams): react_query.UseQueryResult<_thirdweb_dev_sdk.NFTMetadataOwner[], unknown>;
+export function useNFTList(contract: Erc721<any> | undefined, queryParams?: QueryAllParams): react_query.UseQueryResult<_thirdweb_dev_sdk.NFTMetadataOwner[], unknown>;
 
 // @beta
-export function useNFTMint(contract?: Erc721<any>, to?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
+export function useNFTMint(contract: Erc721<any> | undefined, to?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
     [x: string]: _thirdweb_dev_sdk.Json;
     description?: string | undefined;
     image?: any;
@@ -516,7 +531,7 @@ export function useNFTMint(contract?: Erc721<any>, to?: string): react_query.Use
 // Warning: (ae-forgotten-export) The symbol "BigNumber" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useNFTSupply(contract?: Erc721<any>): react_query.UseQueryResult<BigNumber, unknown>;
+export function useNFTSupply(contract: Erc721<any> | undefined): react_query.UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
@@ -556,10 +571,28 @@ export function useSplit(contractAddress?: string): Split | undefined;
 // @public
 export function useToken(contractAddress?: string): Token | undefined;
 
+// @beta
+export function useTokenBalace(contract: Token | undefined, address: string | undefined): react_query.UseQueryResult<BigNumber | {
+    symbol: string;
+    value: BigNumber;
+    name: string;
+    decimals: number;
+    displayValue: string;
+}, unknown>;
+
 // Warning: (ae-internal-missing-underscore) The name "useTokenDrop" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
 export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
+
+// @beta
+export function useTokenSupply(contract: Token | undefined): react_query.UseQueryResult<BigNumber | {
+    symbol: string;
+    value: BigNumber;
+    name: string;
+    decimals: number;
+    displayValue: string;
+}, unknown>;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
