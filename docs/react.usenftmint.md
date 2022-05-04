@@ -14,6 +14,7 @@ Use this to mint a new NFT on your ERC721 contract
 ```typescript
 declare function useNFTMint(contract?: Erc721<any>, to?: string): react_query.UseMutationResult<_thirdweb_dev_sdk.TransactionResultWithId<_thirdweb_dev_sdk.NFTMetadataOwner>, unknown, string | {
     [x: string]: _thirdweb_dev_sdk.Json;
+    name?: string | undefined;
     description?: string | undefined;
     image?: any;
     external_url?: any;
@@ -21,7 +22,6 @@ declare function useNFTMint(contract?: Erc721<any>, to?: string): react_query.Us
     background_color?: string | undefined;
     properties?: Record<string, _thirdweb_dev_sdk.Json> | Record<string, _thirdweb_dev_sdk.Json>[] | undefined;
     attributes?: Record<string, _thirdweb_dev_sdk.Json> | Record<string, _thirdweb_dev_sdk.Json>[] | undefined;
-    name: string;
 }, unknown>;
 ```
 
@@ -34,7 +34,7 @@ declare function useNFTMint(contract?: Erc721<any>, to?: string): react_query.Us
 
 <b>Returns:</b>
 
-react\_query.UseMutationResult&lt;\_thirdweb\_dev\_sdk.TransactionResultWithId&lt;\_thirdweb\_dev\_sdk.NFTMetadataOwner&gt;, unknown, string \| { \[x: string\]: \_thirdweb\_dev\_sdk.Json; description?: string \| undefined; image?: any; external\_url?: any; animation\_url?: any; background\_color?: string \| undefined; properties?: Record&lt;string, \_thirdweb\_dev\_sdk.Json&gt; \| Record&lt;string, \_thirdweb\_dev\_sdk.Json&gt;\[\] \| undefined; attributes?: Record&lt;string, \_thirdweb\_dev\_sdk.Json&gt; \| Record&lt;string, \_thirdweb\_dev\_sdk.Json&gt;\[\] \| undefined; name: string; }, unknown&gt;
+react\_query.UseMutationResult&lt;\_thirdweb\_dev\_sdk.TransactionResultWithId&lt;\_thirdweb\_dev\_sdk.NFTMetadataOwner&gt;, unknown, string \| { \[x: string\]: \_thirdweb\_dev\_sdk.Json; name?: string \| undefined; description?: string \| undefined; image?: any; external\_url?: any; animation\_url?: any; background\_color?: string \| undefined; properties?: Record&lt;string, \_thirdweb\_dev\_sdk.Json&gt; \| Record&lt;string, \_thirdweb\_dev\_sdk.Json&gt;\[\] \| undefined; attributes?: Record&lt;string, \_thirdweb\_dev\_sdk.Json&gt; \| Record&lt;string, \_thirdweb\_dev\_sdk.Json&gt;\[\] \| undefined; }, unknown&gt;
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 
