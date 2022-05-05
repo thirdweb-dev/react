@@ -4,6 +4,7 @@ import {
   QueryAllParams,
   SUPPORTED_CHAIN_ID,
 } from "@thirdweb-dev/sdk";
+import { BigNumberish } from "ethers";
 import { QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
@@ -56,6 +57,34 @@ export const cacheKeys = {
       ),
     totalSupply: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["totalSupply"]),
+    queryAllEdition: (contractAddress?: string, queryParams?: QueryAllParams) =>
+      createContractCacheKey(
+        contractAddress,
+        queryParams ? ["queryAllEdition", queryParams] : ["queryAllEdition"],
+      ),
+    totalSupplyEdition: (
+      contractAddress: string | undefined,
+      tokenId: BigNumberish,
+    ) =>
+      createContractCacheKey(contractAddress, ["totalSupplyEdition", tokenId]),
+    queryAllEditionDrop: (
+      contractAddress?: string,
+      queryParams?: QueryAllParams,
+    ) =>
+      createContractCacheKey(
+        contractAddress,
+        queryParams
+          ? ["queryAllEditionDrop", queryParams]
+          : ["queryAllEditionDrop"],
+      ),
+    totalSupplyEditionDrop: (
+      contractAddress: string | undefined,
+      tokenId: BigNumberish,
+    ) =>
+      createContractCacheKey(contractAddress, [
+        "totalSupplyEditionDrop",
+        tokenId,
+      ]),
     getAllListings: (
       contractAddress?: string,
       queryParams?: MarketplaceFilter,
@@ -76,8 +105,11 @@ export const cacheKeys = {
       ),
     tokenSupply: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["tokenSupply"]),
-    tokenBalance: (contractAddress?: string) =>
-      createContractCacheKey(contractAddress, ["tokenBalance"]),
+    tokenBalance: (
+      contractAddress: string | undefined,
+      walletAddress: string | undefined,
+    ) =>
+      createContractCacheKey(contractAddress, ["tokenBalance", walletAddress]),
     extractFunctions: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["extractFunctions"]),
   },

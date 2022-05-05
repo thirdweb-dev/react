@@ -34,6 +34,10 @@ import { useDisconnect } from "@thirdweb-dev/react"
  |
 |  [useEdition(contractAddress)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
+|  [useEditionDropList(contract, queryParams)](./react.useeditiondroplist.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your ERC721 contract. |
+|  [useEditionDropSupply(contract, tokenId)](./react.useeditiondropsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your ERC721 contract. |
+|  [useEditionList(contract, queryParams)](./react.useeditionlist.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your ERC721 contract. |
+|  [useEditionSupply(contract, tokenId)](./react.useeditionsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your ERC721 contract. |
 |  [useGnosis()](./react.usegnosis.md) | Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.
 ```javascript
 import { useGnosis } from "@thirdweb-dev/react"

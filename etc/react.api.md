@@ -24,10 +24,12 @@ import { defaultL2Chains } from './constants';
 import { developmentChains } from './constants';
 import { Edition } from '@thirdweb-dev/sdk';
 import { EditionDrop } from '@thirdweb-dev/sdk';
+import { Erc1155 } from '@thirdweb-dev/sdk';
 import { erc1155ABI } from './constants';
 import { erc20ABI } from './constants';
 import { Erc721 } from '@thirdweb-dev/sdk';
 import { erc721ABI } from './constants';
+import * as ethers from 'ethers';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { InjectedConnector as InjectedConnector_2 } from './connectors';
 import { IpfsStorage } from '@thirdweb-dev/sdk';
@@ -439,6 +441,44 @@ export function useEdition(contractAddress?: string): Edition | undefined;
 // @public
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 
+// @beta
+export function useEditionDropList(contract: Erc1155<any> | undefined, queryParams?: QueryAllParams): react_query.UseQueryResult<{
+    metadata: {
+        [x: string]: _thirdweb_dev_sdk.Json;
+        description?: string | undefined;
+        image?: string | undefined;
+        external_url?: string | undefined;
+        animation_url?: string | undefined;
+        name: string;
+        id: BigNumber;
+        uri: string;
+    };
+    supply: BigNumber;
+}[], unknown>;
+
+// Warning: (ae-forgotten-export) The symbol "BigNumberish" needs to be exported by the entry point index.d.ts
+//
+// @beta
+export function useEditionDropSupply(contract: Erc1155<any> | undefined, tokenId: BigNumberish): react_query.UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export function useEditionList(contract: Erc1155<any> | undefined, queryParams?: QueryAllParams): react_query.UseQueryResult<{
+    metadata: {
+        [x: string]: _thirdweb_dev_sdk.Json;
+        description?: string | undefined;
+        image?: string | undefined;
+        external_url?: string | undefined;
+        animation_url?: string | undefined;
+        name: string;
+        id: BigNumber;
+        uri: string;
+    };
+    supply: BigNumber;
+}[] | undefined, unknown>;
+
+// @beta
+export function useEditionSupply(contract: Erc1155<any> | undefined, tokenId: BigNumberish): react_query.UseQueryResult<BigNumber, unknown>;
+
 // @public
 export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
     data?: wagmi_core.ConnectorData<any> | undefined;
@@ -528,8 +568,6 @@ export function useNFTMint(contract: Erc721<any> | undefined, to?: string): reac
     name: string;
 }, unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "BigNumber" needs to be exported by the entry point index.d.ts
-//
 // @beta
 export function useNFTSupply(contract: Erc721<any> | undefined): react_query.UseQueryResult<BigNumber, unknown>;
 
@@ -572,13 +610,13 @@ export function useSplit(contractAddress?: string): Split | undefined;
 export function useToken(contractAddress?: string): Token | undefined;
 
 // @beta
-export function useTokenBalace(contract: Token | undefined, address: string | undefined): react_query.UseQueryResult<BigNumber | {
+export function useTokenBalace(contract: Token | undefined, address: string | undefined): react_query.UseQueryResult<{
     symbol: string;
-    value: BigNumber;
+    value: ethers.BigNumber;
     name: string;
     decimals: number;
     displayValue: string;
-}, unknown>;
+} | undefined, unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useTokenDrop" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -586,13 +624,13 @@ export function useTokenBalace(contract: Token | undefined, address: string | un
 export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 
 // @beta
-export function useTokenSupply(contract: Token | undefined): react_query.UseQueryResult<BigNumber | {
+export function useTokenSupply(contract: Token | undefined): react_query.UseQueryResult<{
     symbol: string;
-    value: BigNumber;
+    value: ethers.BigNumber;
     name: string;
     decimals: number;
     displayValue: string;
-}, unknown>;
+} | undefined, unknown>;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
@@ -634,10 +672,11 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/index.d.ts:395:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:402:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:976:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
-// dist/index.d.ts:2118:9 - (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:396:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:403:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:977:5 - (ae-forgotten-export) The symbol "wagmi_core" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:2119:9 - (ae-forgotten-export) The symbol "PublishedMetadata" needs to be exported by the entry point index.d.ts
+// dist/index.d.ts:2276:9 - (ae-forgotten-export) The symbol "BigNumber" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

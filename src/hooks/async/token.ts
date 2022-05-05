@@ -1,6 +1,5 @@
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { BigNumber } from "@ethersproject/bignumber";
 import { Token } from "@thirdweb-dev/sdk";
 
 /** **********************/
@@ -24,10 +23,10 @@ export function useTokenSupply(contract: Token | undefined) {
   return useQueryWithNetwork(
     cacheKeys.contract.tokenSupply(contractAddress),
     async () => {
-      if (!contract) {
-        return BigNumber.from(0);
+      if (contract) {
+        return await contract?.totalSupply();
       }
-      return await contract?.totalSupply();
+      return undefined;
     },
     {
       enabled: !!contract || !contractAddress,
@@ -53,12 +52,12 @@ export function useTokenBalace(
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.tokenBalance(contractAddress),
+    cacheKeys.contract.tokenBalance(contractAddress, address),
     async () => {
       if (contract && address) {
         return await contract.balanceOf(address);
       }
-      return BigNumber.from(0);
+      return undefined;
     },
     {
       enabled: !!address && (!!contract || !contractAddress),

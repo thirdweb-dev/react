@@ -12,13 +12,13 @@ Use this to get a the total supply of your Token contract.
 <b>Signature:</b>
 
 ```typescript
-declare function useTokenSupply(contract: Token | undefined): react_query.UseQueryResult<BigNumber | {
+declare function useTokenSupply(contract: Token | undefined): react_query.UseQueryResult<{
     symbol: string;
-    value: BigNumber;
+    value: ethers.BigNumber;
     name: string;
     decimals: number;
     displayValue: string;
-}, unknown>;
+} | undefined, unknown>;
 ```
 
 ## Parameters
@@ -29,7 +29,7 @@ declare function useTokenSupply(contract: Token | undefined): react_query.UseQue
 
 <b>Returns:</b>
 
-react\_query.UseQueryResult&lt;BigNumber \| { symbol: string; value: BigNumber; name: string; decimals: number; displayValue: string; }, unknown&gt;
+react\_query.UseQueryResult&lt;{ symbol: string; value: ethers.BigNumber; name: string; decimals: number; displayValue: string; } \| undefined, unknown&gt;
 
 a response object that incudes the total minted supply
 
