@@ -4,6 +4,7 @@ import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import {
   Erc721,
+  NFTDrop,
   QueryAllParams,
   SmartContract,
   ValidContractInstance,
@@ -97,6 +98,103 @@ export function useNFTSupply(contract: RequiredParam<Erc721<any>>) {
     },
     {
       enabled: !!contract,
+    },
+  );
+}
+
+/** **********************/
+/**  READ HOOKS (drop)  **/
+/** **********************/
+
+/**
+ * Use this to get a list of *unclaimed* NFT tokens of your ERC721 Drop contract.
+ *
+ * @example
+ * ```javascript
+ * const { data: unclaimedNfts, isLoading, error } = useUnclaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
+ * @param queryParams - query params to pass to the query for the sake of pagination
+ * @returns a response object that includes an array of NFTs that are unclaimed
+ * @beta
+ */
+export function useUnclaimedNFTs(
+  contract: RequiredParam<NFTDrop>,
+  queryParams?: QueryAllParams,
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.nft.drop.getAllUnclaimed(contractAddress, queryParams),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.getAllUnclaimed,
+        "Contract instance does not support getAllUnclaimed",
+      );
+      return contract.getAllUnclaimed(queryParams);
+    },
+  );
+}
+
+/**
+ * Use this to get a list of *claimed* (minted) NFT tokens of your ERC721 Drop contract.
+ *
+ * @remarks Equivalent to using {@link useNFTs}.
+ *
+ * @example
+ * ```javascript
+ * const { data: claimedNFTs, isLoading, error } = useClaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
+ * @param queryParams - query params to pass to the query for the sake of pagination
+ * @returns a response object that includes an array of NFTs that are claimed
+ * @beta
+ */
+export function useClaimedNFTs(
+  contract: RequiredParam<NFTDrop>,
+  queryParams?: QueryAllParams,
+) {
+  return useNFTs(contract, queryParams);
+}
+
+/**
+ *
+ * @param contract - an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
+ * @returns a response object that includes the number of NFTs that are unclaimed
+ */
+export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.nft.drop.totalUnclaimedSupply(contractAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.totalUnclaimedSupply,
+        "Contract instance does not support totalUnclaimedSupply",
+      );
+      return contract.totalUnclaimedSupply();
+    },
+  );
+}
+
+/**
+ *
+ * @param contract - an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
+ * @returns a response object that includes the number of NFTs that are claimed
+ */
+export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.nft.drop.totalClaimedSupply(contractAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.totalClaimedSupply,
+        "Contract instance does not support totalClaimedSupply",
+      );
+      return contract.totalClaimedSupply();
     },
   );
 }

@@ -218,6 +218,14 @@ export function useBuiltinContract<TContractType extends ContractType>(contractT
 // @public
 export function useChainId(): number | undefined;
 
+// @beta
+export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
+
+// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
+// @public (undocumented)
+export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber_2, unknown>;
+
 // @public
 export function useCoinbaseWallet(): () => Promise<{
     data?: ConnectorData<any> | undefined;
@@ -598,6 +606,23 @@ name: string;
 decimals: number;
 displayValue: string;
 }, unknown>;
+
+// @beta
+export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {
+[x: string]: Json;
+name?: string | undefined;
+description?: string | undefined;
+image?: string | undefined;
+external_url?: string | undefined;
+animation_url?: string | undefined;
+id: BigNumber_2;
+uri: string;
+}[], unknown>;
+
+// Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
+// @public (undocumented)
+export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber_2, unknown>;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
