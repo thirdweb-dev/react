@@ -19,7 +19,7 @@ export declare function useEditionTotalCount(contract: RequiredParam<Erc1155<any
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the Erc1155 spec (edition, edition drop, custom contract that follows the Erc1155 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the ERC1155 spec (edition, edition drop, custom contract that follows the ERC1155 spec) |
 |  tokenId | BigNumberish |  |
 
 <b>Returns:</b>
@@ -32,6 +32,6 @@ a response object that incudes the total minted supply
 
 
 ```javascript
-const { data: totalSupply, isLoading, error } = useNFTSupply(<YourErc1155Instance>);
+const { data: totalCount, isLoading, error } = useEditionTotalCount(<YourERC1155Instance>);
 ```
 

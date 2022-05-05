@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to mint a new NFT on your ERC721 contract
+Use this to mint a new NFT on your ERC1155 contract
 
 <b>Signature:</b>
 
@@ -44,14 +44,14 @@ export declare function useMintEdition(contract: RequiredParam<Erc1155<any>>, to
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
-|  to | string | an address to mint the NFT to |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the ERC1155 spec (nft collection, nft drop, custom contract that follows the ERC1155 spec) |
+|  to | string | an address to mint the Edition to |
 
 <b>Returns:</b>
 
 import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; id: import("@ethersproject/bignumber").BigNumber; uri: string; }; supply: import("@ethersproject/bignumber").BigNumber; }&gt;, unknown, { metadata: string \| { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: any; external\_url?: any; animation\_url?: any; background\_color?: string \| undefined; properties?: Record&lt;string, import("@thirdweb-dev/sdk").Json&gt; \| Record&lt;string, import("@thirdweb-dev/sdk").Json&gt;\[\] \| undefined; attributes?: Record&lt;string, import("@thirdweb-dev/sdk").Json&gt; \| Record&lt;string, import("@thirdweb-dev/sdk").Json&gt;\[\] \| undefined; }; supply: string \| number \| bigint \| import("@ethersproject/bignumber").BigNumber; }, unknown&gt;
 
-a mutation object that can be used to mint a new NFT token to the connected wallet
+a mutation object that can be used to mint a new Edition token to the connected wallet
 
 ## Example
 
@@ -59,10 +59,10 @@ a mutation object that can be used to mint a new NFT token to the connected wall
 ```jsx
 const Component = () => {
   const {
-    mutate: mintNft,
+    mutate: mintEdition,
     isLoading,
     error,
-  } = useMintNFT(">>YourERC721ContractInstance<<");
+  } = useMintEdition(">>YourERC1155ContractInstance<<");
 
   if (error) {
     console.error("failed to mint nft", error);
@@ -71,7 +71,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => mintNft({ name: "My awesome NFT!" })}
+      onClick={() => mintEdition({ name: "My awesome NFT!" })}
     >
       Mint!
     </button>

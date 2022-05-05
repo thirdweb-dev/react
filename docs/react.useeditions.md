@@ -31,7 +31,7 @@ export declare function useEditions(contract: RequiredParam<Erc1155<any>>, query
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the Erc1155 spec (edition, edition drop, custom contract that follows the Erc1155 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the ERC1155 spec (edition, edition drop, custom contract that follows the ERC1155 spec) |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
 
 <b>Returns:</b>
@@ -44,6 +44,6 @@ a response object that includes an array of NFTs
 
 
 ```javascript
-const { data: editions, isLoading, error } = useEditions(<YourErc1155Instance>, { start: 0, count: 100 });
+const { data: editions, isLoading, error } = useEditions(<YourERC1155Instance>, { start: 0, count: 100 });
 ```
 

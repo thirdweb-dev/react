@@ -9,16 +9,15 @@ import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from '@ethersproject/bignumber';
 import { BigNumber as BigNumber_2 } from 'ethers';
 import type { BigNumberish } from '@ethersproject/bignumber';
-import { Chain as Chain_2 } from 'wagmi';
+import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { Connector } from 'wagmi';
-import { ConnectorData } from 'wagmi';
-import { ConnectorData as ConnectorData_2 } from 'wagmi-core';
+import { Connector } from './connectors';
+import { ConnectorData } from './connectors';
 import { ContractForContractType } from '@thirdweb-dev/sdk';
 import { ContractType } from '@thirdweb-dev/sdk';
-import { defaultChains } from 'wagmi';
-import { defaultL2Chains } from 'wagmi';
+import { defaultChains } from './constants';
+import { defaultL2Chains } from './constants';
 import { DirectListing } from '@thirdweb-dev/sdk';
 import { Edition } from '@thirdweb-dev/sdk';
 import { EditionDrop } from '@thirdweb-dev/sdk';
@@ -55,13 +54,12 @@ import { Signer as Signer_2 } from 'ethers';
 import { SmartContract } from '@thirdweb-dev/sdk';
 import { Split } from '@thirdweb-dev/sdk';
 import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
-import { SwitchChainError } from 'wagmi';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
 import { TokenDrop } from '@thirdweb-dev/sdk';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { TransactionResultWithId } from '@thirdweb-dev/sdk';
-import { useAccount } from 'wagmi';
+import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
 import { UseQueryResult } from 'react-query';
 import { ValidContractInstance } from '@thirdweb-dev/sdk';
@@ -222,7 +220,7 @@ export function useChainId(): number | undefined;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -436,13 +434,13 @@ export function useEditionTotalCount(contract: RequiredParam<Erc1155<any>>, toke
 
 // @public
 export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
 // @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -451,7 +449,7 @@ export function useMarketplace(contractAddress?: string): Marketplace | undefine
 
 // @public
 export function useMetamask(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -606,7 +604,7 @@ export function useVote(contractAddress?: string): Vote | undefined;
 
 // @public
 export function useWalletConnect(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -614,7 +612,7 @@ export function useWalletConnect(): () => Promise<{
 //
 // @internal
 export function useWalletLink(): () => Promise<{
-    data?: ConnectorData_2<any> | undefined;
+    data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
 
@@ -643,6 +641,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 //
 // dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/hooks/useNetwork.d.ts:75:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
