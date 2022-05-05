@@ -40,5 +40,22 @@ export function useMetamask() {
     "Metamask connector not found, please make sure it is provided to your <ThirdwebProvider />",
   );
 
-  return () => connect(connector);
+  return () => {
+    if (typeof window !== "undefined") {
+      // browser context
+      if (!window.ethereum) {
+        // no injected connector available
+        window.open(
+          `https://metamask.app.link/dapp/${
+            window.location.host +
+            window.location.pathname +
+            window.location.search
+          }`,
+          "_blank",
+        );
+        invariant("Metamask not found");
+      }
+    }
+    return connect(connector);
+  };
 }

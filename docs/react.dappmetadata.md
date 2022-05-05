@@ -9,7 +9,7 @@ the metadata to pass to wallet connection dialog (may show up during the wallet-
 <b>Signature:</b>
 
 ```typescript
-interface DAppMetaData 
+export interface DAppMetaData 
 ```
 
 ## Remarks

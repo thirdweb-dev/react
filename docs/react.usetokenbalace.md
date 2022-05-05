@@ -12,25 +12,25 @@ Use this to get the balance of your Token contract for a given address.
 <b>Signature:</b>
 
 ```typescript
-declare function useTokenBalace(contract: Token | undefined, address: string | undefined): react_query.UseQueryResult<{
+export declare function useTokenBalace(contract: RequiredParam<Erc20<any>>, address: RequiredParam<string>): import("react-query").UseQueryResult<{
     symbol: string;
-    value: ethers.BigNumber;
+    value: import("ethers").BigNumber;
     name: string;
     decimals: number;
     displayValue: string;
-} | undefined, unknown>;
+}, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | Token \| undefined | an instace of a Token contract. |
-|  address | string \| undefined |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&lt;any&gt;&gt; | an instace of a Token contract. |
+|  address | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;string&gt; |  |
 
 <b>Returns:</b>
 
-react\_query.UseQueryResult&lt;{ symbol: string; value: ethers.BigNumber; name: string; decimals: number; displayValue: string; } \| undefined, unknown&gt;
+import("react-query").UseQueryResult&lt;{ symbol: string; value: import("ethers").BigNumber; name: string; decimals: number; displayValue: string; }, unknown&gt;
 
 a response object that includes the balance of the address
 

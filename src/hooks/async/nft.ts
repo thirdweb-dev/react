@@ -1,8 +1,7 @@
 import { useActiveChainId } from "../../Provider";
+import { RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { useAddress } from "../useAddress";
-import { BigNumber } from "@ethersproject/bignumber";
 import {
   Erc721,
   QueryAllParams,
@@ -17,7 +16,7 @@ import invariant from "tiny-invariant";
  @internal
  */
 export function detectErc721Instance(
-  contract: ValidContractInstance | SmartContract | null | undefined,
+  contract: RequiredParam<ValidContractInstance | SmartContract>,
 ) {
   if (!contract) {
     return undefined;
@@ -40,7 +39,7 @@ export function detectErc721Instance(
  *
  * @example
  * ```javascript
- * const { data: nfts, isLoading, error } = useNFTList(<YourERC721ContractInstance>, { start: 0, count: 100 });
+ * const { data: nfts, isLoading, error } = useNFTs(<YourERC721ContractInstance>, { start: 0, count: 100 });
  * ```
  *
  * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
@@ -48,18 +47,21 @@ export function detectErc721Instance(
  * @returns a response object that includes an array of NFTs
  * @beta
  */
-export function useNFTList(
-  contract: Erc721<any> | undefined,
+export function useNFTs(
+  contract: RequiredParam<Erc721<any>>,
   queryParams?: QueryAllParams,
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.queryAll(contractAddress, queryParams),
-    async () => {
-      if (contract && contract.query?.all) {
-        return await contract.query.all(queryParams);
-      }
-      return [];
+    cacheKeys.contract.nft.query.all(contractAddress, queryParams),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.query?.all,
+        "Contract instance does not support query.all",
+      );
+
+      return contract.query.all(queryParams);
     },
     {
       enabled: !!contract || !contractAddress,
@@ -80,15 +82,18 @@ export function useNFTList(
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useNFTSupply(contract: Erc721<any> | undefined) {
+export function useNFTSupply(contract: RequiredParam<Erc721<any>>) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.totalSupply(contractAddress),
-    async () => {
-      if (!contract?.query?.totalSupply) {
-        return BigNumber.from(0);
-      }
-      return await contract.query.totalSupply();
+    cacheKeys.contract.nft.query.totalSupply(contractAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.query?.totalSupply,
+        "Contract instance does not support query.totalSupply",
+      );
+
+      return contract.query.totalSupply();
     },
     {
       enabled: !!contract,
@@ -110,7 +115,7 @@ export function useNFTSupply(contract: Erc721<any> | undefined) {
  *     mutate: mintNft,
  *     isLoading,
  *     error,
- *   } = useNFTMint(">>YourERC721ContractInstance<<");
+ *   } = useMintNFT(">>YourERC721ContractInstance<<");
  *
  *   if (error) {
  *     console.error("failed to mint nft", error);
@@ -128,33 +133,32 @@ export function useNFTSupply(contract: Erc721<any> | undefined) {
  * ```
  *
  * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
- * @param to - an address to mint the NFT to (defaults to the connected wallet)
+ * @param to - an address to mint the NFT to
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useNFTMint(contract: Erc721<any> | undefined, to?: string) {
+export function useMintNFT(contract: RequiredParam<Erc721<any>>, to: string) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
-  const walletAddress = useAddress();
+
   return useMutation(
     async (data: NFTMetadataOrUri) => {
-      invariant(walletAddress, "no wallet connected, cannot mint.toAddress");
-      invariant(contract?.mint?.to, "contract does not support mint.toAddress");
-      return await contract.mint.to(to || walletAddress, data);
+      invariant(contract?.mint?.to, "contract does not support mint.to");
+      return await contract.mint.to(to, data);
     },
     {
       onSuccess: () => {
         return Promise.all([
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
-              cacheKeys.contract.queryAll(contractAddress),
+              cacheKeys.contract.nft.query.all(contractAddress),
               activeChainId,
             ),
           ),
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
-              cacheKeys.contract.totalSupply(contractAddress),
+              cacheKeys.contract.nft.query.totalSupply(contractAddress),
               activeChainId,
             ),
           ),

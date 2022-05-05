@@ -4,7 +4,6 @@ import {
   QueryAllParams,
   SUPPORTED_CHAIN_ID,
 } from "@thirdweb-dev/sdk";
-import { BigNumberish } from "ethers";
 import { QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
@@ -50,67 +49,55 @@ export const cacheKeys = {
       createContractCacheKey(contractAddress, ["contract-type-and-metadata"]),
     metadata: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["metadata"]),
-    queryAll: (contractAddress?: string, queryParams?: QueryAllParams) =>
-      createContractCacheKey(
-        contractAddress,
-        queryParams ? ["queryAll", queryParams] : ["queryAll"],
-      ),
-    totalSupply: (contractAddress?: string) =>
-      createContractCacheKey(contractAddress, ["totalSupply"]),
-    queryAllEdition: (contractAddress?: string, queryParams?: QueryAllParams) =>
-      createContractCacheKey(
-        contractAddress,
-        queryParams ? ["queryAllEdition", queryParams] : ["queryAllEdition"],
-      ),
-    totalSupplyEdition: (
-      contractAddress: string | undefined,
-      tokenId: BigNumberish,
-    ) =>
-      createContractCacheKey(contractAddress, ["totalSupplyEdition", tokenId]),
-    queryAllEditionDrop: (
-      contractAddress?: string,
-      queryParams?: QueryAllParams,
-    ) =>
-      createContractCacheKey(
-        contractAddress,
-        queryParams
-          ? ["queryAllEditionDrop", queryParams]
-          : ["queryAllEditionDrop"],
-      ),
-    totalSupplyEditionDrop: (
-      contractAddress: string | undefined,
-      tokenId: BigNumberish,
-    ) =>
-      createContractCacheKey(contractAddress, [
-        "totalSupplyEditionDrop",
-        tokenId,
-      ]),
-    getAllListings: (
-      contractAddress?: string,
-      queryParams?: MarketplaceFilter,
-    ) =>
-      createContractCacheKey(
-        contractAddress,
-        queryParams ? ["getAllListings", queryParams] : ["getAllListings"],
-      ),
-    getActiveListings: (
-      contractAddress?: string,
-      queryParams?: MarketplaceFilter,
-    ) =>
-      createContractCacheKey(
-        contractAddress,
-        queryParams
-          ? ["getActiveListings", queryParams]
-          : ["getActiveListings"],
-      ),
-    tokenSupply: (contractAddress?: string) =>
-      createContractCacheKey(contractAddress, ["tokenSupply"]),
-    tokenBalance: (
-      contractAddress: string | undefined,
-      walletAddress: string | undefined,
-    ) =>
-      createContractCacheKey(contractAddress, ["tokenBalance", walletAddress]),
     extractFunctions: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["extractFunctions"]),
+
+    // specific contract types
+    nft: {
+      query: {
+        all: (contractAddress?: string, params?: QueryAllParams) =>
+          createContractCacheKey(
+            contractAddress,
+            params ? ["query", "all", params] : ["query", "all"],
+          ),
+        totalSupply: (contractAddress?: string) =>
+          createContractCacheKey(contractAddress, ["query", "totalSupply"]),
+      },
+    },
+    edition: {
+      query: {
+        all: (contractAddress?: string, params?: QueryAllParams) =>
+          createContractCacheKey(
+            contractAddress,
+            params ? ["query", "all", params] : ["query", "all"],
+          ),
+        getTotalCount: (contractAddress: string | undefined) =>
+          createContractCacheKey(contractAddress, ["query", "getTotalCount"]),
+      },
+    },
+    token: {
+      totalSupply: (contractAddress?: string) =>
+        createContractCacheKey(contractAddress, ["totalSupply"]),
+      balanceOf: (
+        contractAddress: string | undefined,
+        walletAddress: string | undefined,
+      ) =>
+        createContractCacheKey(contractAddress, ["balanceOf", walletAddress]),
+    },
+    marketplace: {
+      getAllListings: (contractAddress?: string, params?: MarketplaceFilter) =>
+        createContractCacheKey(
+          contractAddress,
+          params ? ["getAllListings", params] : ["getAllListings"],
+        ),
+      getActiveListings: (
+        contractAddress?: string,
+        params?: MarketplaceFilter,
+      ) =>
+        createContractCacheKey(
+          contractAddress,
+          params ? ["getActiveListings", params] : ["getActiveListings"],
+        ),
+    },
   },
-};
+} as const;

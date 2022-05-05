@@ -1,6 +1,10 @@
-import { cacheKeys } from "../../utils/cache-keys";
+import { useActiveChainId } from "../../Provider";
+import { RequiredParam } from "../../types";
+import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { Token } from "@thirdweb-dev/sdk";
+import type { Erc20 } from "@thirdweb-dev/sdk";
+import { useMutation, useQueryClient } from "react-query";
+import invariant from "tiny-invariant";
 
 /** **********************/
 /**     READ  HOOKS     **/
@@ -18,18 +22,16 @@ import { Token } from "@thirdweb-dev/sdk";
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useTokenSupply(contract: Token | undefined) {
+export function useTokenSupply(contract: RequiredParam<Erc20<any>>) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.tokenSupply(contractAddress),
-    async () => {
-      if (contract) {
-        return await contract?.totalSupply();
-      }
-      return undefined;
+    cacheKeys.contract.token.totalSupply(contractAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      return contract.totalSupply();
     },
     {
-      enabled: !!contract || !contractAddress,
+      enabled: !!contract || !!contractAddress,
     },
   );
 }
@@ -47,20 +49,19 @@ export function useTokenSupply(contract: Token | undefined) {
  * @beta
  */
 export function useTokenBalace(
-  contract: Token | undefined,
-  address: string | undefined,
+  contract: RequiredParam<Erc20<any>>,
+  address: RequiredParam<string>,
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.tokenBalance(contractAddress, address),
+    cacheKeys.contract.token.balanceOf(contractAddress, address),
     async () => {
-      if (contract && address) {
-        return await contract.balanceOf(address);
-      }
-      return undefined;
+      invariant(contract, "No Contract instance provided");
+      invariant(address, "No address provided");
+      return await contract.balanceOf(address);
     },
     {
-      enabled: !!address && (!!contract || !contractAddress),
+      enabled: !!address && !!contract,
     },
   );
 }
@@ -68,3 +69,66 @@ export function useTokenBalace(
 /** **********************/
 /**     WRITE HOOKS     **/
 /** **********************/
+
+/**
+ * Use this to mint a new NFT on your ERC721 contract
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: mintNft,
+ *     isLoading,
+ *     error,
+ *   } = useMintNFT(">>YourERC721ContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to mint nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *     >
+ *       Mint!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
+ * @param to - an address to mint the NFT to
+ * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @beta
+ */
+export function useMintTokens(contract: RequiredParam<Erc20<any>>, to: string) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: string | number) => {
+      invariant(contract?.mint?.to, "contract does not support mint.to");
+      return contract.mint.to(to, data);
+    },
+    {
+      onSuccess: () => {
+        return Promise.all([
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.token.totalSupply(contractAddress),
+              activeChainId,
+            ),
+          ),
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.token.balanceOf(contractAddress, to),
+              activeChainId,
+            ),
+          ),
+        ]);
+      },
+    },
+  );
+}

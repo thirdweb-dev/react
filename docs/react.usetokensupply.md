@@ -12,24 +12,24 @@ Use this to get a the total supply of your Token contract.
 <b>Signature:</b>
 
 ```typescript
-declare function useTokenSupply(contract: Token | undefined): react_query.UseQueryResult<{
+export declare function useTokenSupply(contract: RequiredParam<Erc20<any>>): import("react-query").UseQueryResult<{
     symbol: string;
-    value: ethers.BigNumber;
+    value: import("ethers").BigNumber;
     name: string;
     decimals: number;
     displayValue: string;
-} | undefined, unknown>;
+}, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | Token \| undefined | an instace of a Token contract. |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&lt;any&gt;&gt; | an instace of a Token contract. |
 
 <b>Returns:</b>
 
-react\_query.UseQueryResult&lt;{ symbol: string; value: ethers.BigNumber; name: string; decimals: number; displayValue: string; } \| undefined, unknown&gt;
+import("react-query").UseQueryResult&lt;{ symbol: string; value: import("ethers").BigNumber; name: string; decimals: number; displayValue: string; }, unknown&gt;
 
 a response object that incudes the total minted supply
 

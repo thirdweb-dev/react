@@ -13,7 +13,7 @@ import { useAddress } from "@thirdweb-dev/react"
 <b>Signature:</b>
 
 ```typescript
-declare function useAddress(): string | undefined;
+export declare function useAddress(): string | undefined;
 ```
 <b>Returns:</b>
 

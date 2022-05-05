@@ -1,8 +1,9 @@
 import { useActiveChainId } from "../../Provider";
+import { RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useAddress } from "../useAddress";
-import {
+import type {
   Marketplace,
   MarketplaceFilter,
   NewAuctionListing,
@@ -24,22 +25,20 @@ import invariant from "tiny-invariant";
  * ```
  *
  * @param contract - an instace of a marketplace contract
- * @param queryParams - query params to pass to the query for the sake of pagination
+ * @param filter - filter to pass to the query for the sake of pagination & filtering
  * @returns a response object that includes an array of listings
  * @beta
  */
-export function useMarketplaceListings(
-  contract: Marketplace | undefined,
+export function useAllListings(
+  contract: RequiredParam<Marketplace>,
   filter?: MarketplaceFilter,
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.getAllListings(contractAddress, filter),
-    async () => {
-      if (contract) {
-        return contract.getAllListings(filter);
-      }
-      return [];
+    cacheKeys.contract.marketplace.getAllListings(contractAddress, filter),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      return contract.getAllListings(filter);
     },
     {
       enabled: !!contract || !contractAddress,
@@ -57,22 +56,21 @@ export function useMarketplaceListings(
  * ```
  *
  * @param contract - an instace of a marketplace contract
- * @param queryParams - query params to pass to the query for the sake of pagination
+ * @param filter - filter to pass to the query for the sake of pagination & filtering
  * @returns a response object that includes an array of listings
  * @beta
  */
-export function useMarketplaceActiveListings(
-  contract: Marketplace | undefined,
+export function useActiveListings(
+  contract: RequiredParam<Marketplace>,
   filter?: MarketplaceFilter,
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.getActiveListings(contractAddress, filter),
-    async () => {
-      if (contract) {
-        return contract.getActiveListings(filter);
-      }
-      return [];
+    cacheKeys.contract.marketplace.getActiveListings(contractAddress, filter),
+    () => {
+      invariant(contract, "No Contract instance provided");
+
+      return contract.getActiveListings(filter);
     },
     {
       enabled: !!contract || !contractAddress,
@@ -95,7 +93,7 @@ export function useMarketplaceActiveListings(
  *     mutate: createDirectListing,
  *     isLoading,
  *     error,
- *   } = useMarketplaceListDirect(">>YourMarketplaceContractInstance<<");
+ *   } = useCreateDirectListing(">>YourMarketplaceContractInstance<<");
  *
  *   if (error) {
  *     console.error("failed to create direct listing", error);
@@ -112,12 +110,11 @@ export function useMarketplaceActiveListings(
  * };
  * ```
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
- * @param to - an address to mint the NFT to (defaults to the connected wallet)
- * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @param contract - an instace of a Marketplace contract
+ * @returns
  * @beta
  */
-export function useMarketplaceListDirect(contract: Marketplace | undefined) {
+export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
@@ -136,13 +133,13 @@ export function useMarketplaceListDirect(contract: Marketplace | undefined) {
         return Promise.all([
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
-              cacheKeys.contract.getAllListings(contractAddress),
+              cacheKeys.contract.marketplace.getAllListings(contractAddress),
               activeChainId,
             ),
           ),
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
-              cacheKeys.contract.getActiveListings(contractAddress),
+              cacheKeys.contract.marketplace.getActiveListings(contractAddress),
               activeChainId,
             ),
           ),
@@ -162,7 +159,7 @@ export function useMarketplaceListDirect(contract: Marketplace | undefined) {
  *     mutate: createAuctionListing,
  *     isLoading,
  *     error,
- *   } = useMarketplaceListAuction(">>YourMarketplaceContractInstance<<");
+ *   } = useCreateAuctionListing(">>YourMarketplaceContractInstance<<");
  *
  *   if (error) {
  *     console.error("failed to create auction listing", error);
@@ -179,12 +176,11 @@ export function useMarketplaceListDirect(contract: Marketplace | undefined) {
  * };
  * ```
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
- * @param to - an address to mint the NFT to (defaults to the connected wallet)
- * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @param contract - an instace of a Marketplace contract
+ * @returns
  * @beta
  */
-export function useMarketplaceListAuction(contract: Marketplace | undefined) {
+export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
@@ -203,13 +199,13 @@ export function useMarketplaceListAuction(contract: Marketplace | undefined) {
         return Promise.all([
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
-              cacheKeys.contract.getAllListings(contractAddress),
+              cacheKeys.contract.marketplace.getAllListings(contractAddress),
               activeChainId,
             ),
           ),
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
-              cacheKeys.contract.getActiveListings(contractAddress),
+              cacheKeys.contract.marketplace.getActiveListings(contractAddress),
               activeChainId,
             ),
           ),

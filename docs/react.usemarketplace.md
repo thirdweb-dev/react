@@ -9,7 +9,7 @@ Hook for getting an instance of a `Marketplace` contract. This contract is used 
 <b>Signature:</b>
 
 ```typescript
-declare function useMarketplace(contractAddress?: string): Marketplace | undefined;
+export declare function useMarketplace(contractAddress?: string): Marketplace | undefined;
 ```
 
 ## Parameters

@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-interface SharedMediaProps 
+export interface SharedMediaProps 
 ```
 
 ## Properties
