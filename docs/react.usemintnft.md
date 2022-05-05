@@ -12,17 +12,7 @@ Use this to mint a new NFT on your ERC721 contract
 <b>Signature:</b>
 
 ```typescript
-export declare function useMintNFT(contract: RequiredParam<Erc721<any>>, to: string): import("react-query").UseMutationResult<import("@thirdweb-dev/sdk").TransactionResultWithId<import("@thirdweb-dev/sdk").NFTMetadataOwner>, unknown, string | {
-    [x: string]: import("@thirdweb-dev/sdk").Json;
-    name?: string | undefined;
-    description?: string | undefined;
-    image?: any;
-    external_url?: any;
-    animation_url?: any;
-    background_color?: string | undefined;
-    properties?: Record<string, import("@thirdweb-dev/sdk").Json> | Record<string, import("@thirdweb-dev/sdk").Json>[] | undefined;
-    attributes?: Record<string, import("@thirdweb-dev/sdk").Json> | Record<string, import("@thirdweb-dev/sdk").Json>[] | undefined;
-}, unknown>;
+export declare function useMintNFT(contract: RequiredParam<Erc721<any>>): import("react-query").UseMutationResult<import("@thirdweb-dev/sdk").TransactionResultWithId<import("@thirdweb-dev/sdk").NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
 ```
 
 ## Parameters
@@ -30,11 +20,10 @@ export declare function useMintNFT(contract: RequiredParam<Erc721<any>>, to: str
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&lt;any&gt;&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
-|  to | string | an address to mint the NFT to |
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;import("@thirdweb-dev/sdk").NFTMetadataOwner&gt;, unknown, string \| { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: any; external\_url?: any; animation\_url?: any; background\_color?: string \| undefined; properties?: Record&lt;string, import("@thirdweb-dev/sdk").Json&gt; \| Record&lt;string, import("@thirdweb-dev/sdk").Json&gt;\[\] \| undefined; attributes?: Record&lt;string, import("@thirdweb-dev/sdk").Json&gt; \| Record&lt;string, import("@thirdweb-dev/sdk").Json&gt;\[\] \| undefined; }, unknown&gt;
+import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;import("@thirdweb-dev/sdk").NFTMetadataOwner&gt;, unknown, [NFTMintParams](./react.nftmintparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 

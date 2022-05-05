@@ -12,10 +12,10 @@ Use this to mint a new NFT on your ERC721 contract
 <b>Signature:</b>
 
 ```typescript
-export declare function useMintTokens(contract: RequiredParam<Erc20<any>>, to: string): import("react-query").UseMutationResult<Omit<{
+export declare function useMintTokens(contract: RequiredParam<Erc20<any>>): import("react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
-}, "data">, unknown, string | number, unknown>;
+}, "data">, unknown, TokenMintParams, unknown>;
 ```
 
 ## Parameters
@@ -23,11 +23,10 @@ export declare function useMintTokens(contract: RequiredParam<Erc20<any>>, to: s
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&lt;any&gt;&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
-|  to | string | an address to mint the NFT to |
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, string \| number, unknown&gt;
+import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [TokenMintParams](./react.tokenmintparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 

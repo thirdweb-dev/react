@@ -21,6 +21,7 @@ import { defaultL2Chains } from './constants';
 import { DirectListing } from '@thirdweb-dev/sdk';
 import { Edition } from '@thirdweb-dev/sdk';
 import { EditionDrop } from '@thirdweb-dev/sdk';
+import { EditionMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import type { Erc1155 } from '@thirdweb-dev/sdk';
 import type { Erc20 } from '@thirdweb-dev/sdk';
 import { Erc721 } from '@thirdweb-dev/sdk';
@@ -39,6 +40,7 @@ import type { NewDirectListing } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
+import { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { NFTMetadataOwner } from '@thirdweb-dev/sdk';
 import { Pack } from '@thirdweb-dev/sdk';
 import { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
@@ -93,6 +95,11 @@ export { defaultL2Chains }
 // @internal (undocumented)
 export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract>): Erc721<any> | undefined;
 
+// @beta
+export type EditionMintParams = {
+    to: WalletAddress;
+} & EditionMetadataOrUri;
+
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -138,6 +145,12 @@ export interface MediaType {
     // (undocumented)
     url?: string;
 }
+
+// @beta
+export type NFTMintParams = {
+    to: WalletAddress;
+    metadata: NFTMetadataOrUri;
+};
 
 // @beta
 export type RequiredParam<T> = T | undefined;
@@ -193,6 +206,12 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
     // (undocumented)
     signer?: Signer;
 }
+
+// @beta
+export type TokenMintParams = {
+    to: WalletAddress;
+    amount: string | number;
+};
 
 export { useAccount }
 
@@ -462,7 +481,7 @@ export function useMetamask(): () => Promise<{
 }>;
 
 // @beta
-export function useMintEdition(contract: RequiredParam<Erc1155<any>>, to: string): UseMutationResult<TransactionResultWithId<    {
+export function useMintEdition(contract: RequiredParam<Erc1155<any>>): UseMutationResult<TransactionResultWithId<    {
 metadata: {
 [x: string]: Json;
 name?: string | undefined;
@@ -474,39 +493,16 @@ id: BigNumber;
 uri: string;
 };
 supply: BigNumber;
-}>, unknown, {
-metadata: string | {
-[x: string]: Json;
-name?: string | undefined;
-description?: string | undefined;
-image?: any;
-external_url?: any;
-animation_url?: any;
-background_color?: string | undefined;
-properties?: Record<string, Json> | Record<string, Json>[] | undefined;
-attributes?: Record<string, Json> | Record<string, Json>[] | undefined;
-};
-supply: string | number | bigint | BigNumber;
-}, unknown>;
+}>, unknown, EditionMintParams, unknown>;
 
 // @beta
-export function useMintNFT(contract: RequiredParam<Erc721<any>>, to: string): UseMutationResult<TransactionResultWithId<NFTMetadataOwner>, unknown, string | {
-[x: string]: Json;
-name?: string | undefined;
-description?: string | undefined;
-image?: any;
-external_url?: any;
-animation_url?: any;
-background_color?: string | undefined;
-properties?: Record<string, Json> | Record<string, Json>[] | undefined;
-attributes?: Record<string, Json> | Record<string, Json>[] | undefined;
-}, unknown>;
+export function useMintNFT(contract: RequiredParam<Erc721<any>>): UseMutationResult<TransactionResultWithId<NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
 
 // @beta
-export function useMintTokens(contract: RequiredParam<Erc20<any>>, to: string): UseMutationResult<Omit<{
+export function useMintTokens(contract: RequiredParam<Erc20<any>>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
-}, "data">, unknown, string | number, unknown>;
+}, "data">, unknown, TokenMintParams, unknown>;
 
 // @public
 export function useNetwork(): readonly [{
@@ -640,6 +636,9 @@ export function useWalletLink(): () => Promise<{
     data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
+
+// @beta
+export type WalletAddress = string;
 
 // Warning: (ae-internal-missing-underscore) The name "WalletConnectConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //

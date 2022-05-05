@@ -1,5 +1,5 @@
 import { useActiveChainId } from "../../Provider";
-import { RequiredParam } from "../../types";
+import { NFTMintParams, RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import {
@@ -9,7 +9,6 @@ import {
   SmartContract,
   ValidContractInstance,
 } from "@thirdweb-dev/sdk";
-import { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -231,19 +230,20 @@ export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>) {
  * ```
  *
  * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
- * @param to - an address to mint the NFT to
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useMintNFT(contract: RequiredParam<Erc721<any>>, to: string) {
+export function useMintNFT(contract: RequiredParam<Erc721<any>>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (data: NFTMetadataOrUri) => {
+    async (data: NFTMintParams) => {
+      const { to, metadata } = data;
+      invariant(to, 'No "to" address provided');
       invariant(contract?.mint?.to, "contract does not support mint.to");
-      return await contract.mint.to(to, data);
+      return await contract.mint.to(to, metadata);
     },
     {
       onSuccess: () => {

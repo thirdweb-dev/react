@@ -1,13 +1,9 @@
 import { useActiveChainId } from "../../Provider";
-import { RequiredParam } from "../../types";
+import { EditionMintParams, RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { BigNumberish } from "@ethersproject/bignumber";
-import type {
-  EditionMetadataOrUri,
-  Erc1155,
-  QueryAllParams,
-} from "@thirdweb-dev/sdk";
+import type { Erc1155, QueryAllParams } from "@thirdweb-dev/sdk";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -123,22 +119,20 @@ export function useEditionTotalCount(
  * ```
  *
  * @param contract - an instace of a contract that extends the ERC1155 spec (nft collection, nft drop, custom contract that follows the ERC1155 spec)
- * @param to - an address to mint the Edition to
  * @returns a mutation object that can be used to mint a new Edition token to the connected wallet
  * @beta
  */
-export function useMintEdition(
-  contract: RequiredParam<Erc1155<any>>,
-  to: string,
-) {
+export function useMintEdition(contract: RequiredParam<Erc1155<any>>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (data: EditionMetadataOrUri) => {
+    async (data: EditionMintParams) => {
+      const { to, ...metadata } = data;
+      invariant(to, 'No "to" address provided');
       invariant(contract?.mint?.to, "contract does not support mint.to");
-      return await contract.mint.to(to, data);
+      return await contract.mint.to(to, metadata);
     },
     {
       onSuccess: () => {

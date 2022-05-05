@@ -1,5 +1,5 @@
 import { useActiveChainId } from "../../Provider";
-import { RequiredParam } from "../../types";
+import { RequiredParam, TokenMintParams } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { Erc20 } from "@thirdweb-dev/sdk";
@@ -98,22 +98,22 @@ export function useTokenBalace(
  * ```
  *
  * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
- * @param to - an address to mint the NFT to
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useMintTokens(contract: RequiredParam<Erc20<any>>, to: string) {
+export function useMintTokens(contract: RequiredParam<Erc20<any>>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data: string | number) => {
+    (data: TokenMintParams) => {
+      const { to, amount } = data;
       invariant(contract?.mint?.to, "contract does not support mint.to");
-      return contract.mint.to(to, data);
+      return contract.mint.to(to, amount);
     },
     {
-      onSuccess: () => {
+      onSuccess: (_txResult, variables) => {
         return Promise.all([
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
@@ -123,7 +123,7 @@ export function useMintTokens(contract: RequiredParam<Erc20<any>>, to: string) {
           ),
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
-              cacheKeys.contract.token.balanceOf(contractAddress, to),
+              cacheKeys.contract.token.balanceOf(contractAddress, variables.to),
               activeChainId,
             ),
           ),

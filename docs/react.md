@@ -58,9 +58,9 @@ import { useMagic } from "@thirdweb-dev/react"
 import { useMetamask } from "@thirdweb-dev/react"
 ```
  |
-|  [useMintEdition(contract, to)](./react.usemintedition.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC1155 contract |
-|  [useMintNFT(contract, to)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract |
-|  [useMintTokens(contract, to)](./react.useminttokens.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract |
+|  [useMintEdition(contract)](./react.usemintedition.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC1155 contract |
+|  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract |
+|  [useMintTokens(contract)](./react.useminttokens.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract |
 |  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks
 ```javascript
 import { useNetwork } from "@thirdweb-dev/react"
@@ -115,5 +115,9 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [EditionMintParams](./react.editionmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the edition mint function. |
+|  [NFTMintParams](./react.nftmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the nft mint function. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |
+|  [TokenMintParams](./react.tokenmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the nft mint function. |
+|  [WalletAddress](./react.walletaddress.md) | <b><i>(BETA)</i></b> A wallet address. |
 
