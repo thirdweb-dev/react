@@ -9,7 +9,7 @@ import {
 } from "./Icons";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import useDimensions from "react-cool-dimensions";
-import useSWRImmutable from "swr/immutable";
+import { useQuery } from "react-query";
 
 export interface SharedMediaProps {
   className?: string;
@@ -556,11 +556,11 @@ export interface MediaType {
  */
 export function useResolvedMediaType(uri?: string) {
   const resolvedUrl = useMemo(() => resolveIpfsUri(uri), [uri]);
-  const resolvedMimType = useSWRImmutable(
-    resolvedUrl,
+  const resolvedMimType = useQuery(
+    ["mime-type", resolvedUrl],
     () => resolveMimeType(resolvedUrl),
     {
-      isPaused: () => !resolvedUrl,
+      enabled: !!resolvedUrl,
     },
   );
 

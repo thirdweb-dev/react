@@ -86,20 +86,22 @@ The Thirdweb React SDK also enables you to interact directly with contracts thro
 Let's setup a simple component to interact with an NFT Collection contract and get the data of all the NFTs on the contract.
 
 ```jsx title="NFTList.jsx"
-import { useNFTCollection } from "@thirdweb-dev/react";
+import { useMintNFT, useNFTCollection, useNFTs } from "@thirdweb-dev/react";
 
 const NFTListComponent = () => {
   const address = useAddress();
   const nftCollection = useNFTCollection("<NFT-COLLECTION-CONTRACT-ADDRESS>");
-  const { data: nfts } = useNFTList(nftCollection);
+  const { data: nfts } = useNFTs(nftCollection);
+  const { mutate: mintNFT } = useMintNFT(nftCollection);
 
-  const mint = async () => {
-    if (nftCollection && address) {
-      nftCollection.mintTo(address, {
+  const mint = () => {
+    mintNFT({
+      to: address,
+      metadata: {
         name: "Cool NFT",
         description: "Minted from react",
-      });
-    }
+      },
+    });
   };
 
   return (

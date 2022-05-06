@@ -7,9 +7,9 @@
 <b>Signature:</b>
 
 ```typescript
-interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> 
+export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> 
 ```
-<b>Extends:</b> Pick&lt;ThirdwebProviderProps
+<b>Extends:</b> Pick&lt;[ThirdwebProviderProps](./react.thirdwebproviderprops.md)
 
 ## Properties
 

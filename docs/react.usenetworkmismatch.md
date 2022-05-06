@@ -13,7 +13,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 <b>Signature:</b>
 
 ```typescript
-declare function useNetworkMismatch(): boolean;
+export declare function useNetworkMismatch(): boolean;
 ```
 <b>Returns:</b>
 

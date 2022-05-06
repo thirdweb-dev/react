@@ -1,5 +1,9 @@
 import { AddressZero } from "@ethersproject/constants";
-import { QueryAllParams, SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
+import {
+  MarketplaceFilter,
+  QueryAllParams,
+  SUPPORTED_CHAIN_ID,
+} from "@thirdweb-dev/sdk";
 import { QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
@@ -45,14 +49,66 @@ export const cacheKeys = {
       createContractCacheKey(contractAddress, ["contract-type-and-metadata"]),
     metadata: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["metadata"]),
-    queryAll: (contractAddress?: string, queryParams?: QueryAllParams) =>
-      createContractCacheKey(
-        contractAddress,
-        queryParams ? ["queryAll", queryParams] : ["queryAll"],
-      ),
-    totalSupply: (contractAddress?: string) =>
-      createContractCacheKey(contractAddress, ["totalSupply"]),
     extractFunctions: (contractAddress?: string) =>
       createContractCacheKey(contractAddress, ["extractFunctions"]),
+
+    // specific contract types
+    nft: {
+      query: {
+        all: (contractAddress?: string, params?: QueryAllParams) =>
+          createContractCacheKey(
+            contractAddress,
+            params ? ["query", "all", params] : ["query", "all"],
+          ),
+        totalSupply: (contractAddress?: string) =>
+          createContractCacheKey(contractAddress, ["query", "totalSupply"]),
+      },
+      drop: {
+        getAllUnclaimed: (contractAddress?: string, params?: QueryAllParams) =>
+          createContractCacheKey(
+            contractAddress,
+            params ? ["getAllUnclaimed", params] : ["getAllUnclaimed"],
+          ),
+        totalUnclaimedSupply: (contractAddress?: string) =>
+          createContractCacheKey(contractAddress, ["totalUnclaimedSupply"]),
+        totalClaimedSupply: (contractAddress?: string) =>
+          createContractCacheKey(contractAddress, ["totalClaimedSupply"]),
+      },
+    },
+    edition: {
+      query: {
+        all: (contractAddress?: string, params?: QueryAllParams) =>
+          createContractCacheKey(
+            contractAddress,
+            params ? ["query", "all", params] : ["query", "all"],
+          ),
+        getTotalCount: (contractAddress: string | undefined) =>
+          createContractCacheKey(contractAddress, ["query", "getTotalCount"]),
+      },
+    },
+    token: {
+      totalSupply: (contractAddress?: string) =>
+        createContractCacheKey(contractAddress, ["totalSupply"]),
+      balanceOf: (
+        contractAddress: string | undefined,
+        walletAddress: string | undefined,
+      ) =>
+        createContractCacheKey(contractAddress, ["balanceOf", walletAddress]),
+    },
+    marketplace: {
+      getAllListings: (contractAddress?: string, params?: MarketplaceFilter) =>
+        createContractCacheKey(
+          contractAddress,
+          params ? ["getAllListings", params] : ["getAllListings"],
+        ),
+      getActiveListings: (
+        contractAddress?: string,
+        params?: MarketplaceFilter,
+      ) =>
+        createContractCacheKey(
+          contractAddress,
+          params ? ["getActiveListings", params] : ["getActiveListings"],
+        ),
+    },
   },
-};
+} as const;
