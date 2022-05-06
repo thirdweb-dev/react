@@ -21,9 +21,9 @@ export declare function useEditions(contract: RequiredParam<Erc1155>, queryParam
         external_url?: string | undefined;
         animation_url?: string | undefined;
         uri: string;
-        id: import("@ethersproject/bignumber").BigNumber;
+        id: import("ethers").BigNumber;
     };
-    supply: import("@ethersproject/bignumber").BigNumber;
+    supply: import("ethers").BigNumber;
 }[], unknown>;
 ```
 
@@ -36,7 +36,7 @@ export declare function useEditions(contract: RequiredParam<Erc1155>, queryParam
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; uri: string; id: import("@ethersproject/bignumber").BigNumber; }; supply: import("@ethersproject/bignumber").BigNumber; }\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; uri: string; id: import("ethers").BigNumber; }; supply: import("ethers").BigNumber; }\[\], unknown&gt;
 
 a response object that includes an array of NFTs
 

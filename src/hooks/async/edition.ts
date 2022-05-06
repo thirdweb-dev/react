@@ -2,8 +2,8 @@ import { useActiveChainId } from "../../Provider";
 import { EditionMintParams, RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type { BigNumberish } from "@ethersproject/bignumber";
 import type { Erc1155, QueryAllParams } from "@thirdweb-dev/sdk";
+import type { BigNumberish } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 

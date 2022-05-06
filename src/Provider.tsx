@@ -9,7 +9,6 @@ import {
   defaultSupportedChains,
 } from "./constants/chain";
 import { useSigner } from "./hooks/useSigner";
-import { Signer } from "@ethersproject/abstract-signer";
 import {
   IStorage,
   NetworkOrSignerOrProvider,
@@ -17,6 +16,7 @@ import {
   SUPPORTED_CHAIN_ID,
   ThirdwebSDK,
 } from "@thirdweb-dev/sdk";
+import { Signer } from "ethers";
 import React, { createContext, useEffect, useMemo } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import invariant from "tiny-invariant";

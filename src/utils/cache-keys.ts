@@ -1,9 +1,9 @@
-import { AddressZero } from "@ethersproject/constants";
 import {
   MarketplaceFilter,
   QueryAllParams,
   SUPPORTED_CHAIN_ID,
 } from "@thirdweb-dev/sdk";
+import { constants } from "ethers";
 import { QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
@@ -16,7 +16,7 @@ function createCachekey(input: QueryKey): QueryKey {
 }
 
 function createContractCacheKey(
-  contractAddress: string = AddressZero,
+  contractAddress: string = constants.AddressZero,
   input: QueryKey,
 ): QueryKey {
   return createCachekey(["contract", contractAddress, ...input]);
