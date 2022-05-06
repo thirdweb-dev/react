@@ -1,5 +1,4 @@
-import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
-import { getAddress } from "ethers/lib/utils";
+import { providers, utils } from "ethers";
 import {
   LoginWithMagicLinkConfiguration,
   Magic as MagicInstance,
@@ -131,8 +130,8 @@ export class MagicConnector extends Connector {
   }
   getProvider() {
     invariant(this.magic, "connector is not initialized");
-    return new Web3Provider(
-      this.magic.rpcProvider as unknown as ExternalProvider,
+    return new providers.Web3Provider(
+      this.magic.rpcProvider as unknown as providers.ExternalProvider,
     );
   }
   async getSigner() {
@@ -154,7 +153,7 @@ export class MagicConnector extends Connector {
     if (accounts.length === 0) {
       this.emit("disconnect");
     } else {
-      this.emit("change", { account: getAddress(accounts[0]) });
+      this.emit("change", { account: utils.getAddress(accounts[0]) });
     }
   }
 

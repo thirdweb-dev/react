@@ -21,9 +21,9 @@ export declare function useMintEdition(contract: RequiredParam<Erc1155>): import
         external_url?: string | undefined;
         animation_url?: string | undefined;
         uri: string;
-        id: import("@ethersproject/bignumber").BigNumber;
+        id: import("ethers").BigNumber;
     };
-    supply: import("@ethersproject/bignumber").BigNumber;
+    supply: import("ethers").BigNumber;
 }>, unknown, EditionMintParams, unknown>;
 ```
 
@@ -35,7 +35,7 @@ export declare function useMintEdition(contract: RequiredParam<Erc1155>): import
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; uri: string; id: import("@ethersproject/bignumber").BigNumber; }; supply: import("@ethersproject/bignumber").BigNumber; }&gt;, unknown, [EditionMintParams](./react.editionmintparams.md)<!-- -->, unknown&gt;
+import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; uri: string; id: import("ethers").BigNumber; }; supply: import("ethers").BigNumber; }&gt;, unknown, [EditionMintParams](./react.editionmintparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to mint a new Edition token to the connected wallet
 

@@ -6,9 +6,8 @@
 
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import { AuctionListing } from '@thirdweb-dev/sdk';
-import { BigNumber } from '@ethersproject/bignumber';
-import { BigNumber as BigNumber_2 } from 'ethers';
-import type { BigNumberish } from '@ethersproject/bignumber';
+import { BigNumber } from 'ethers';
+import type { BigNumberish } from 'ethers';
 import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
@@ -51,8 +50,7 @@ import { default as React_2 } from 'react';
 import { RefetchOptions } from 'react-query';
 import { RefetchQueryFilters } from 'react-query';
 import { SDKOptions } from '@thirdweb-dev/sdk';
-import { Signer } from '@ethersproject/abstract-signer';
-import { Signer as Signer_2 } from 'ethers';
+import { Signer } from 'ethers';
 import { SmartContract } from '@thirdweb-dev/sdk';
 import { Split } from '@thirdweb-dev/sdk';
 import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
@@ -243,7 +241,7 @@ export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: Q
 // Warning: (ae-incompatible-release-tags) The symbol "useClaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber_2, unknown>;
+export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{
@@ -550,7 +548,7 @@ export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 export function useNFTs(contract: RequiredParam<Erc721>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
 
 // @beta
-export function useNFTSupply(contract: RequiredParam<Erc721>): UseQueryResult<BigNumber_2, unknown>;
+export function useNFTSupply(contract: RequiredParam<Erc721>): UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
@@ -574,7 +572,7 @@ export function useSDK(): ThirdwebSDK | undefined;
 // Warning: (ae-internal-missing-underscore) The name "useSigner" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useSigner(): Signer_2 | undefined;
+export function useSigner(): Signer | undefined;
 
 // @public
 export function useSplit(contractAddress?: string): Split | undefined;
@@ -586,7 +584,7 @@ export function useToken(contractAddress?: string): Token | undefined;
 export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<string>): UseQueryResult<    {
 symbol: string;
 name: string;
-value: BigNumber_2;
+value: BigNumber;
 decimals: number;
 displayValue: string;
 }, unknown>;
@@ -600,7 +598,7 @@ export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 export function useTokenSupply(contract: RequiredParam<Erc20>): UseQueryResult<    {
 symbol: string;
 name: string;
-value: BigNumber_2;
+value: BigNumber;
 decimals: number;
 displayValue: string;
 }, unknown>;
@@ -614,13 +612,13 @@ image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
 uri: string;
-id: BigNumber_2;
+id: BigNumber;
 }[], unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber_2, unknown>;
+export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
