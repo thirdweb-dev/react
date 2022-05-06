@@ -16,11 +16,13 @@ import { useMetamask } from "@thirdweb-dev/react"
 export declare function useMetamask(): () => Promise<{
     data?: import("wagmi-core").ConnectorData<any> | undefined;
     error?: Error | undefined;
+} | {
+    error: Error;
 }>;
 ```
 <b>Returns:</b>
 
-() =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+() =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; } \| { error: Error; }&gt;
 
 ## Example
 

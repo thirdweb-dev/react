@@ -478,6 +478,8 @@ export function useMarketplace(contractAddress?: string): Marketplace | undefine
 export function useMetamask(): () => Promise<{
     data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
+} | {
+    error: Error;
 }>;
 
 // @beta

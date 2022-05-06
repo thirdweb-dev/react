@@ -74,8 +74,12 @@ export function useMetamask() {
           // if android we can use the uri straight
           uri = isAndroid()
             ? uri
-            : // otherwise we have to use the app link version
-              `https://metamask.app.link?wc=${encodeURIComponent(uri)}`;
+            : // otherwise we have to use /dapp link for now
+              `https://metamask.app.link/dapp/${
+                window.location.host +
+                window.location.pathname +
+                window.location.search
+              }`;
         } catch (err) {
           console.warn("failed to get provider.connector.uri", err);
         }
@@ -83,8 +87,9 @@ export function useMetamask() {
       // open whatever uri we end up with in a new tab
       window.open(uri, "_blank");
 
-      // then just throw (will get caught)
-      invariant("Metamask not found");
+      return Promise.resolve({
+        error: new Error("metamask not injected"),
+      });
     }
 
     // otherwise we have MM avaiable, so we can just use it
