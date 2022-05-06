@@ -2,8 +2,7 @@
 // import { SafeEthersSigner, SafeService } from "@gnosis.pm/safe-ethers-adapters";
 // import EthersAdapter from "@gnosis.pm/safe-ethers-lib";
 import { ChainId } from "@thirdweb-dev/sdk";
-import { Signer, ethers } from "ethers";
-import { getAddress } from "ethers/lib/utils";
+import { Signer, ethers, utils } from "ethers";
 import invariant from "tiny-invariant";
 import { Chain, Connector, ConnectorData, normalizeChainId } from "wagmi";
 
@@ -139,7 +138,7 @@ export class GnosisSafeConnector extends Connector {
     if (accounts.length === 0) {
       this.emit("disconnect");
     } else {
-      this.emit("change", { account: getAddress(accounts[0]) });
+      this.emit("change", { account: utils.getAddress(accounts[0]) });
     }
   }
 

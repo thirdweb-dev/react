@@ -3,7 +3,7 @@ import {
   GnosisSafeConnector,
 } from "../../connectors/gnosis-safe";
 import { useConnect } from "../useConnect";
-import { isAddress } from "ethers/lib/utils";
+import { utils } from "ethers";
 import invariant from "tiny-invariant";
 
 /**
@@ -54,7 +54,7 @@ export function useGnosis() {
       "Gnosis safe chain id must match personal wallet chain id.",
     );
     invariant(
-      isAddress(config.safeAddress),
+      utils.isAddress(config.safeAddress),
       "Gnosis safe address must be a valid address.",
     );
     (connector as GnosisSafeConnector).setConfiguration(
