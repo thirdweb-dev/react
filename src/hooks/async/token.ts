@@ -71,7 +71,7 @@ export function useTokenBalance(
 /** **********************/
 
 /**
- * Use this to mint a new NFT on your ERC721 contract
+ * Use this to mint a new NFT on your ERC20 contract
  *
  * @example
  * ```jsx
@@ -80,7 +80,7 @@ export function useTokenBalance(
  *     mutate: mintNft,
  *     isLoading,
  *     error,
- *   } = useMintNFT(">>YourERC721ContractInstance<<");
+ *   } = useMintToken(">>YourERC20ContractInstance<<");
  *
  *   if (error) {
  *     console.error("failed to mint nft", error);
@@ -97,11 +97,11 @@ export function useTokenBalance(
  * };
  * ```
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
+ * @param contract - an instace of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useMintTokens(contract: RequiredParam<Erc20>) {
+export function useMintToken(contract: RequiredParam<Erc20>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();

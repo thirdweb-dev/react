@@ -60,7 +60,7 @@ import { useMetamask } from "@thirdweb-dev/react"
  |
 |  [useMintEdition(contract)](./react.usemintedition.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC1155 contract |
 |  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract |
-|  [useMintTokens(contract)](./react.useminttokens.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract |
+|  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC20 contract |
 |  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks
 ```javascript
 import { useNetwork } from "@thirdweb-dev/react"

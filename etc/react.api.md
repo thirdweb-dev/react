@@ -499,7 +499,7 @@ supply: BigNumber;
 export function useMintNFT(contract: RequiredParam<Erc721>): UseMutationResult<TransactionResultWithId<NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
 
 // @beta
-export function useMintTokens(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
+export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
 }, "data">, unknown, TokenMintParams, unknown>;
