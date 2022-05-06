@@ -12,14 +12,14 @@ Use this to get a the total (minted) supply of your ERC1155 contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useEditionTotalCount(contract: RequiredParam<Erc1155<any>>, tokenId: BigNumberish): import("react-query").UseQueryResult<import("@ethersproject/bignumber").BigNumber, unknown>;
+export declare function useEditionTotalCount(contract: RequiredParam<Erc1155>, tokenId: BigNumberish): import("react-query").UseQueryResult<import("@ethersproject/bignumber").BigNumber, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the ERC1155 spec (edition, edition drop, custom contract that follows the ERC1155 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&gt; | an instace of a contract that extends the ERC1155 spec (edition, edition drop, custom contract that follows the ERC1155 spec) |
 |  tokenId | BigNumberish |  |
 
 <b>Returns:</b>

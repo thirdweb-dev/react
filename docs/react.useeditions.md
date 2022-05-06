@@ -12,7 +12,7 @@ Use this to get a list of NFT tokens of your ERC1155 contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useEditions(contract: RequiredParam<Erc1155<any>>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<{
+export declare function useEditions(contract: RequiredParam<Erc1155>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<{
     metadata: {
         [x: string]: import("@thirdweb-dev/sdk").Json;
         name?: string | undefined;
@@ -20,8 +20,8 @@ export declare function useEditions(contract: RequiredParam<Erc1155<any>>, query
         image?: string | undefined;
         external_url?: string | undefined;
         animation_url?: string | undefined;
-        id: import("@ethersproject/bignumber").BigNumber;
         uri: string;
+        id: import("@ethersproject/bignumber").BigNumber;
     };
     supply: import("@ethersproject/bignumber").BigNumber;
 }[], unknown>;
@@ -31,12 +31,12 @@ export declare function useEditions(contract: RequiredParam<Erc1155<any>>, query
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the ERC1155 spec (edition, edition drop, custom contract that follows the ERC1155 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&gt; | an instace of a contract that extends the ERC1155 spec (edition, edition drop, custom contract that follows the ERC1155 spec) |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; id: import("@ethersproject/bignumber").BigNumber; uri: string; }; supply: import("@ethersproject/bignumber").BigNumber; }\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; uri: string; id: import("@ethersproject/bignumber").BigNumber; }; supply: import("@ethersproject/bignumber").BigNumber; }\[\], unknown&gt;
 
 a response object that includes an array of NFTs
 

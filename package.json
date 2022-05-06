@@ -56,6 +56,7 @@
     "@gnosis.pm/safe-core-sdk": "^2.1.0",
     "@gnosis.pm/safe-ethers-adapters": "^0.1.0-alpha.9",
     "@gnosis.pm/safe-ethers-lib": "^1.1.0",
+    "detect-browser": "^5.3.0",
     "magic-sdk": "^8.1.1",
     "mime": "^3.0.0",
     "react-cool-dimensions": "^2.0.7",

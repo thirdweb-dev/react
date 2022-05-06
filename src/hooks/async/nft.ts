@@ -48,7 +48,7 @@ export function detectErc721Instance(
  * @beta
  */
 export function useNFTs(
-  contract: RequiredParam<Erc721<any>>,
+  contract: RequiredParam<Erc721>,
   queryParams?: QueryAllParams,
 ) {
   const contractAddress = contract?.getAddress();
@@ -82,7 +82,7 @@ export function useNFTs(
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useNFTSupply(contract: RequiredParam<Erc721<any>>) {
+export function useNFTSupply(contract: RequiredParam<Erc721>) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.query.totalSupply(contractAddress),
@@ -233,7 +233,7 @@ export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>) {
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useMintNFT(contract: RequiredParam<Erc721<any>>) {
+export function useMintNFT(contract: RequiredParam<Erc721>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();

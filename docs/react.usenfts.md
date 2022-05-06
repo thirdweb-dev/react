@@ -12,14 +12,14 @@ Use this to get a list of NFT tokens of your ERC721 contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTs(contract: RequiredParam<Erc721<any>>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk").NFTMetadataOwner[], unknown>;
+export declare function useNFTs(contract: RequiredParam<Erc721>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk").NFTMetadataOwner[], unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&lt;any&gt;&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
 
 <b>Returns:</b>

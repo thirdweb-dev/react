@@ -442,7 +442,7 @@ export function useEdition(contractAddress?: string): Edition | undefined;
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 
 // @beta
-export function useEditions(contract: RequiredParam<Erc1155<any>>, queryParams?: QueryAllParams): UseQueryResult<    {
+export function useEditions(contract: RequiredParam<Erc1155>, queryParams?: QueryAllParams): UseQueryResult<    {
 metadata: {
 [x: string]: Json;
 name?: string | undefined;
@@ -450,14 +450,14 @@ description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-id: BigNumber;
 uri: string;
+id: BigNumber;
 };
 supply: BigNumber;
 }[], unknown>;
 
 // @beta
-export function useEditionTotalCount(contract: RequiredParam<Erc1155<any>>, tokenId: BigNumberish): UseQueryResult<BigNumber, unknown>;
+export function useEditionTotalCount(contract: RequiredParam<Erc1155>, tokenId: BigNumberish): UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
@@ -481,7 +481,7 @@ export function useMetamask(): () => Promise<{
 }>;
 
 // @beta
-export function useMintEdition(contract: RequiredParam<Erc1155<any>>): UseMutationResult<TransactionResultWithId<    {
+export function useMintEdition(contract: RequiredParam<Erc1155>): UseMutationResult<TransactionResultWithId<    {
 metadata: {
 [x: string]: Json;
 name?: string | undefined;
@@ -489,17 +489,17 @@ description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-id: BigNumber;
 uri: string;
+id: BigNumber;
 };
 supply: BigNumber;
 }>, unknown, EditionMintParams, unknown>;
 
 // @beta
-export function useMintNFT(contract: RequiredParam<Erc721<any>>): UseMutationResult<TransactionResultWithId<NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
+export function useMintNFT(contract: RequiredParam<Erc721>): UseMutationResult<TransactionResultWithId<NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
 
 // @beta
-export function useMintTokens(contract: RequiredParam<Erc20<any>>): UseMutationResult<Omit<{
+export function useMintTokens(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
 }, "data">, unknown, TokenMintParams, unknown>;
@@ -545,10 +545,10 @@ export function useNFTCollection(contractAddress?: string): NFTCollection | unde
 export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 
 // @beta
-export function useNFTs(contract: RequiredParam<Erc721<any>>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
+export function useNFTs(contract: RequiredParam<Erc721>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
 
 // @beta
-export function useNFTSupply(contract: RequiredParam<Erc721<any>>): UseQueryResult<BigNumber_2, unknown>;
+export function useNFTSupply(contract: RequiredParam<Erc721>): UseQueryResult<BigNumber_2, unknown>;
 
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
@@ -581,10 +581,10 @@ export function useSplit(contractAddress?: string): Split | undefined;
 export function useToken(contractAddress?: string): Token | undefined;
 
 // @beta
-export function useTokenBalace(contract: RequiredParam<Erc20<any>>, address: RequiredParam<string>): UseQueryResult<    {
+export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<string>): UseQueryResult<    {
 symbol: string;
-value: BigNumber_2;
 name: string;
+value: BigNumber_2;
 decimals: number;
 displayValue: string;
 }, unknown>;
@@ -595,10 +595,10 @@ displayValue: string;
 export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 
 // @beta
-export function useTokenSupply(contract: RequiredParam<Erc20<any>>): UseQueryResult<    {
+export function useTokenSupply(contract: RequiredParam<Erc20>): UseQueryResult<    {
 symbol: string;
-value: BigNumber_2;
 name: string;
+value: BigNumber_2;
 decimals: number;
 displayValue: string;
 }, unknown>;
@@ -611,8 +611,8 @@ description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-id: BigNumber_2;
 uri: string;
+id: BigNumber_2;
 }[], unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta

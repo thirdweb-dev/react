@@ -25,7 +25,7 @@ import invariant from "tiny-invariant";
  * @beta
  */
 export function useEditions(
-  contract: RequiredParam<Erc1155<any>>,
+  contract: RequiredParam<Erc1155>,
   queryParams?: QueryAllParams,
 ) {
   const contractAddress = contract?.getAddress();
@@ -60,7 +60,7 @@ export function useEditions(
  * @beta
  */
 export function useEditionTotalCount(
-  contract: RequiredParam<Erc1155<any>>,
+  contract: RequiredParam<Erc1155>,
   tokenId: BigNumberish,
 ) {
   const contractAddress = contract?.getAddress();
@@ -122,7 +122,7 @@ export function useEditionTotalCount(
  * @returns a mutation object that can be used to mint a new Edition token to the connected wallet
  * @beta
  */
-export function useMintEdition(contract: RequiredParam<Erc1155<any>>) {
+export function useMintEdition(contract: RequiredParam<Erc1155>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();

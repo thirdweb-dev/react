@@ -12,14 +12,14 @@ Use this to mint a new NFT on your ERC721 contract
 <b>Signature:</b>
 
 ```typescript
-export declare function useMintNFT(contract: RequiredParam<Erc721<any>>): import("react-query").UseMutationResult<import("@thirdweb-dev/sdk").TransactionResultWithId<import("@thirdweb-dev/sdk").NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
+export declare function useMintNFT(contract: RequiredParam<Erc721>): import("react-query").UseMutationResult<import("@thirdweb-dev/sdk").TransactionResultWithId<import("@thirdweb-dev/sdk").NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&lt;any&gt;&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
 
 <b>Returns:</b>
 

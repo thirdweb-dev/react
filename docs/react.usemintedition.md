@@ -12,7 +12,7 @@ Use this to mint a new NFT on your ERC1155 contract
 <b>Signature:</b>
 
 ```typescript
-export declare function useMintEdition(contract: RequiredParam<Erc1155<any>>): import("react-query").UseMutationResult<import("@thirdweb-dev/sdk").TransactionResultWithId<{
+export declare function useMintEdition(contract: RequiredParam<Erc1155>): import("react-query").UseMutationResult<import("@thirdweb-dev/sdk").TransactionResultWithId<{
     metadata: {
         [x: string]: import("@thirdweb-dev/sdk").Json;
         name?: string | undefined;
@@ -20,8 +20,8 @@ export declare function useMintEdition(contract: RequiredParam<Erc1155<any>>): i
         image?: string | undefined;
         external_url?: string | undefined;
         animation_url?: string | undefined;
-        id: import("@ethersproject/bignumber").BigNumber;
         uri: string;
+        id: import("@ethersproject/bignumber").BigNumber;
     };
     supply: import("@ethersproject/bignumber").BigNumber;
 }>, unknown, EditionMintParams, unknown>;
@@ -31,11 +31,11 @@ export declare function useMintEdition(contract: RequiredParam<Erc1155<any>>): i
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&lt;any&gt;&gt; | an instace of a contract that extends the ERC1155 spec (nft collection, nft drop, custom contract that follows the ERC1155 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc1155&gt; | an instace of a contract that extends the ERC1155 spec (nft collection, nft drop, custom contract that follows the ERC1155 spec) |
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; id: import("@ethersproject/bignumber").BigNumber; uri: string; }; supply: import("@ethersproject/bignumber").BigNumber; }&gt;, unknown, [EditionMintParams](./react.editionmintparams.md)<!-- -->, unknown&gt;
+import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; uri: string; id: import("@ethersproject/bignumber").BigNumber; }; supply: import("@ethersproject/bignumber").BigNumber; }&gt;, unknown, [EditionMintParams](./react.editionmintparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to mint a new Edition token to the connected wallet
 

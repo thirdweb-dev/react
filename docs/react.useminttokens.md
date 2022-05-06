@@ -12,7 +12,7 @@ Use this to mint a new NFT on your ERC721 contract
 <b>Signature:</b>
 
 ```typescript
-export declare function useMintTokens(contract: RequiredParam<Erc20<any>>): import("react-query").UseMutationResult<Omit<{
+export declare function useMintTokens(contract: RequiredParam<Erc20>): import("react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
 }, "data">, unknown, TokenMintParams, unknown>;
@@ -22,7 +22,7 @@ export declare function useMintTokens(contract: RequiredParam<Erc20<any>>): impo
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&lt;any&gt;&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
 
 <b>Returns:</b>
 

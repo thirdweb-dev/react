@@ -22,7 +22,7 @@ import invariant from "tiny-invariant";
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useTokenSupply(contract: RequiredParam<Erc20<any>>) {
+export function useTokenSupply(contract: RequiredParam<Erc20>) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.token.totalSupply(contractAddress),
@@ -48,8 +48,8 @@ export function useTokenSupply(contract: RequiredParam<Erc20<any>>) {
  * @returns a response object that includes the balance of the address
  * @beta
  */
-export function useTokenBalace(
-  contract: RequiredParam<Erc20<any>>,
+export function useTokenBalance(
+  contract: RequiredParam<Erc20>,
   address: RequiredParam<string>,
 ) {
   const contractAddress = contract?.getAddress();
@@ -101,7 +101,7 @@ export function useTokenBalace(
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useMintTokens(contract: RequiredParam<Erc20<any>>) {
+export function useMintTokens(contract: RequiredParam<Erc20>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
