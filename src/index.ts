@@ -31,3 +31,6 @@ export * from "./hooks/async/token";
 
 // types
 export * from "./types";
+
+// providers
+export * from "./contexts/thirdweb-sdk-context";

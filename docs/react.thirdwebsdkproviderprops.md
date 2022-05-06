@@ -7,14 +7,16 @@
 <b>Signature:</b>
 
 ```typescript
-export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> 
+export interface ThirdwebSDKProviderProps 
 ```
-<b>Extends:</b> Pick&lt;[ThirdwebProviderProps](./react.thirdwebproviderprops.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [desiredChainId](./react.thirdwebsdkproviderprops.desiredchainid.md) | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;ChainId&gt; |  |
 |  [provider](./react.thirdwebsdkproviderprops.provider.md) | NetworkOrSignerOrProvider |  |
+|  [sdkOptions?](./react.thirdwebsdkproviderprops.sdkoptions.md) | SDKOptions | <i>(Optional)</i> |
 |  [signer?](./react.thirdwebsdkproviderprops.signer.md) | Signer | <i>(Optional)</i> |
+|  [storageInterface?](./react.thirdwebsdkproviderprops.storageinterface.md) | IStorage | <i>(Optional)</i> |
 

@@ -1,4 +1,4 @@
-import { useActiveChainId, useSDK } from "../../Provider";
+import { useActiveChainId, useSDK } from "../../contexts/thirdweb-sdk-context";
 import { RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";

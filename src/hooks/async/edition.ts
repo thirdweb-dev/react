@@ -1,4 +1,4 @@
-import { useActiveChainId } from "../../Provider";
+import { useActiveChainId } from "../../contexts/thirdweb-sdk-context";
 import { EditionMintParams, RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";

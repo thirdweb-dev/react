@@ -1,4 +1,4 @@
-import { useSDK } from "../../Provider";
+import { useSDK } from "../../contexts/thirdweb-sdk-context";
 import { ContractForContractType, ContractType } from "@thirdweb-dev/sdk";
 
 /**

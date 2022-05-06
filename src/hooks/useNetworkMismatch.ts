@@ -1,4 +1,4 @@
-import { useDesiredChainId } from "../Provider";
+import { useDesiredChainId } from "../contexts/thirdweb-sdk-context";
 import { useChainId } from "./useChainId";
 
 /**

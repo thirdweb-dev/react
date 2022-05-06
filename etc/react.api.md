@@ -4,6 +4,8 @@
 
 ```ts
 
+/// <reference types="react" />
+
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
@@ -195,14 +197,22 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
 }
 
 // @beta
-export const ThirdwebSDKProvider: React_2.FC<React_2.PropsWithChildren<ThirdwebSDKProviderProps>>;
+export const ThirdwebSDKProvider: React.FC<React.PropsWithChildren<ThirdwebSDKProviderProps>>;
 
 // @public (undocumented)
-export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> {
+export interface ThirdwebSDKProviderProps {
+    // Warning: (ae-incompatible-release-tags) The symbol "desiredChainId" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+    //
+    // (undocumented)
+    desiredChainId: RequiredParam<ChainId>;
     // (undocumented)
     provider: NetworkOrSignerOrProvider;
     // (undocumented)
+    sdkOptions?: SDKOptions;
+    // (undocumented)
     signer?: Signer;
+    // (undocumented)
+    storageInterface?: IStorage;
 }
 
 // @beta
@@ -663,8 +673,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/Provider.d.ts:36:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/Provider.d.ts:43:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/hooks/useNetwork.d.ts:75:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
