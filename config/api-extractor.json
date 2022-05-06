@@ -89,7 +89,7 @@
      * DEFAULT VALUE: no overrideTsconfig section
      */
     "overrideTsconfig": {
-      "skipLibCheck": true
+      "skipLibCheck": false
     }
     /**
      * This option causes the compiler to be invoked with the --skipLibCheck option. This option is not recommended
