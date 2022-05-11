@@ -35,10 +35,10 @@ export declare function useContract(contractAddress: RequiredParam<string>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (import("react-query").RefetchOptions & import("react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("react-query").QueryObserverResult<{
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-        pubishMetadata: null;
+        publishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
+        publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: import("react-query").FetchStatus;
@@ -65,21 +65,21 @@ export declare function useContract(contractAddress: RequiredParam<string>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (import("react-query").RefetchOptions & import("react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("react-query").QueryObserverResult<{
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-        pubishMetadata: null;
+        publishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
+        publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: import("react-query").FetchStatus;
 } | {
-    contract: import("@thirdweb-dev/sdk").Split | import("@thirdweb-dev/sdk").NFTDrop | import("@thirdweb-dev/sdk").NFTCollection | import("@thirdweb-dev/sdk").EditionDrop | import("@thirdweb-dev/sdk").Edition | import("@thirdweb-dev/sdk").TokenDrop | import("@thirdweb-dev/sdk").Token | import("@thirdweb-dev/sdk").Vote | import("@thirdweb-dev/sdk").Marketplace | import("@thirdweb-dev/sdk").Pack | SmartContract<any> | undefined;
+    contract: SmartContract<any> | undefined;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-        pubishMetadata: null;
+        publishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
+        publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -101,21 +101,21 @@ export declare function useContract(contractAddress: RequiredParam<string>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (import("react-query").RefetchOptions & import("react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("react-query").QueryObserverResult<{
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-        pubishMetadata: null;
+        publishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
+        publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: import("react-query").FetchStatus;
 } | {
-    contract: import("@thirdweb-dev/sdk").Split | import("@thirdweb-dev/sdk").NFTDrop | import("@thirdweb-dev/sdk").NFTCollection | import("@thirdweb-dev/sdk").EditionDrop | import("@thirdweb-dev/sdk").Edition | import("@thirdweb-dev/sdk").TokenDrop | import("@thirdweb-dev/sdk").Token | import("@thirdweb-dev/sdk").Vote | import("@thirdweb-dev/sdk").Marketplace | import("@thirdweb-dev/sdk").Pack | SmartContract<any> | undefined;
+    contract: SmartContract<any> | undefined;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-        pubishMetadata: null;
+        publishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
+        publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -137,10 +137,10 @@ export declare function useContract(contractAddress: RequiredParam<string>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (import("react-query").RefetchOptions & import("react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("react-query").QueryObserverResult<{
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-        pubishMetadata: null;
+        publishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
+        publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: import("react-query").FetchStatus;
@@ -155,7 +155,7 @@ export declare function useContract(contractAddress: RequiredParam<string>): {
 
 <b>Returns:</b>
 
-{ contract: undefined; data: undefined; error: unknown; isError: true; isLoading: false; isLoadingError: true; isRefetchError: false; isSuccess: false; status: "error"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; pubishMetadata: null; } \| { contractType: "custom"; pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: undefined; data: undefined; error: null; isError: false; isLoading: true; isLoadingError: false; isRefetchError: false; isSuccess: false; status: "loading"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; pubishMetadata: null; } \| { contractType: "custom"; pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: import("@thirdweb-dev/sdk").Split \| import("@thirdweb-dev/sdk").NFTDrop \| import("@thirdweb-dev/sdk").NFTCollection \| import("@thirdweb-dev/sdk").EditionDrop \| import("@thirdweb-dev/sdk").Edition \| import("@thirdweb-dev/sdk").TokenDrop \| import("@thirdweb-dev/sdk").Token \| import("@thirdweb-dev/sdk").Vote \| import("@thirdweb-dev/sdk").Marketplace \| import("@thirdweb-dev/sdk").Pack \| SmartContract&lt;any&gt; \| undefined; data: { contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; pubishMetadata: null; } \| { contractType: "custom"; pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined; error: unknown; isError: true; isLoading: false; isLoadingError: false; isRefetchError: true; isSuccess: false; status: "error"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; pubishMetadata: null; } \| { contractType: "custom"; pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: import("@thirdweb-dev/sdk").Split \| import("@thirdweb-dev/sdk").NFTDrop \| import("@thirdweb-dev/sdk").NFTCollection \| import("@thirdweb-dev/sdk").EditionDrop \| import("@thirdweb-dev/sdk").Edition \| import("@thirdweb-dev/sdk").TokenDrop \| import("@thirdweb-dev/sdk").Token \| import("@thirdweb-dev/sdk").Vote \| import("@thirdweb-dev/sdk").Marketplace \| import("@thirdweb-dev/sdk").Pack \| SmartContract&lt;any&gt; \| undefined; data: { contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; pubishMetadata: null; } \| { contractType: "custom"; pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined; error: null; isError: false; isLoading: false; isLoadingError: false; isRefetchError: false; isSuccess: true; status: "success"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; pubishMetadata: null; } \| { contractType: "custom"; pubishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; }
+{ contract: undefined; data: undefined; error: unknown; isError: true; isLoading: false; isLoadingError: true; isRefetchError: false; isSuccess: false; status: "error"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: undefined; data: undefined; error: null; isError: false; isLoading: true; isLoadingError: false; isRefetchError: false; isSuccess: false; status: "loading"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: SmartContract&lt;any&gt; \| undefined; data: { contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined; error: unknown; isError: true; isLoading: false; isLoadingError: false; isRefetchError: true; isSuccess: false; status: "error"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: SmartContract&lt;any&gt; \| undefined; data: { contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined; error: null; isError: false; isLoading: false; isLoadingError: false; isRefetchError: false; isSuccess: true; status: "success"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; }
 
 a response object that includes the contract once it is resolved
 
