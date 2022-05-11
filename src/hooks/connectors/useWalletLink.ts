@@ -31,19 +31,15 @@ import invariant from "tiny-invariant";
  * @public
  */
 export function useCoinbaseWallet() {
-  const [connectors, connect] = useConnect();
-  if (connectors.loading) {
-    return () => Promise.reject("Coinbase connector not ready to be used, yet");
-  }
-  const connector = connectors.data.connectors.find(
-    (c) => c.id === "coinbasewallet",
-  );
+  const { connectors, connectAsync } = useConnect();
+
+  const connector = connectors.find((c) => c.id === "coinbasewallet");
   invariant(
     connector,
     "Coinbase connector not found, please make sure it is provided to your <ThirdwebProvider />",
   );
 
-  return () => connect(connector);
+  return () => connectAsync(connector);
 }
 
 /**

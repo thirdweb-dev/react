@@ -4,21 +4,19 @@
 
 ```ts
 
-/// <reference types="react" />
-
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import { AuctionListing } from '@thirdweb-dev/sdk';
+import { BaseProvider } from '@ethersproject/providers';
 import { BigNumber } from 'ethers';
 import type { BigNumberish } from 'ethers';
-import { Chain as Chain_2 } from './types';
+import { Chain } from '@wagmi/core';
 import { ChainId } from '@thirdweb-dev/sdk';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { Connector } from './connectors';
-import { ConnectorData } from './connectors';
+import { Connector } from '@wagmi/core';
+import { ConnectResult } from '@wagmi/core';
 import { ContractForContractType } from '@thirdweb-dev/sdk';
 import { ContractType } from '@thirdweb-dev/sdk';
-import { defaultChains } from './constants';
-import { defaultL2Chains } from './constants';
+import { defaultChains } from '@wagmi/core';
+import { defaultL2Chains } from '@wagmi/core';
 import { DirectListing } from '@thirdweb-dev/sdk';
 import { Edition } from '@thirdweb-dev/sdk';
 import { EditionDrop } from '@thirdweb-dev/sdk';
@@ -27,12 +25,9 @@ import type { Erc1155 } from '@thirdweb-dev/sdk';
 import type { Erc20 } from '@thirdweb-dev/sdk';
 import { Erc721 } from '@thirdweb-dev/sdk';
 import { FetchStatus } from 'react-query';
-import { InjectedConnector } from 'wagmi/connectors/injected';
 import { IpfsStorage } from '@thirdweb-dev/sdk';
 import { IStorage } from '@thirdweb-dev/sdk';
 import { Json } from '@thirdweb-dev/sdk';
-import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
-import { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import type { MarketplaceFilter } from '@thirdweb-dev/sdk';
 import { NetworkOrSignerOrProvider } from '@thirdweb-dev/sdk';
@@ -44,6 +39,7 @@ import { NFTMetadata } from '@thirdweb-dev/sdk';
 import { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { NFTMetadataOwner } from '@thirdweb-dev/sdk';
 import { Pack } from '@thirdweb-dev/sdk';
+import { PropsWithChildren } from 'react';
 import { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import { QueryAllParams } from '@thirdweb-dev/sdk';
 import { QueryClient } from 'react-query';
@@ -56,6 +52,7 @@ import { Signer } from 'ethers';
 import { SmartContract } from '@thirdweb-dev/sdk';
 import { Split } from '@thirdweb-dev/sdk';
 import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
+import { SwitchNetworkArgs } from '@wagmi/core';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { Token } from '@thirdweb-dev/sdk';
 import { TokenDrop } from '@thirdweb-dev/sdk';
@@ -64,27 +61,11 @@ import { TransactionResultWithId } from '@thirdweb-dev/sdk';
 import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
 import { UseQueryResult } from 'react-query';
+import { useSigner } from './hooks';
 import { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 export { ChainId }
-
-// Warning: (ae-forgotten-export) The symbol "SupportedChain" needs to be exported by the entry point index.d.ts
-// Warning: (ae-forgotten-export) The symbol "Chain" needs to be exported by the entry point index.d.ts
-// Warning: (ae-internal-missing-underscore) The name "ChainRpc" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain, string>;
-
-// @public
-export interface DAppMetaData {
-    description?: string;
-    isDarkMode?: boolean;
-    logoUrl?: string;
-    name: string;
-    url?: string;
-}
 
 export { defaultChains }
 
@@ -100,31 +81,7 @@ export type EditionMintParams = {
     to: WalletAddress;
 } & EditionMetadataOrUri;
 
-// Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export type GnosisConnectorType = "gnosis" | {
-    name: "gnosis";
-    options: GnosisConnectorArguments;
-};
-
-// Warning: (ae-internal-missing-underscore) The name "InjectedConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export type InjectedConnectorType = "injected" | "metamask" | {
-    name: "injected" | "metamask";
-    options?: InjectedConnector["options"];
-};
-
 export { IpfsStorage }
-
-// Warning: (ae-internal-missing-underscore) The name "MagicConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export type MagicConnectorType = "magic" | {
-    name: "magic";
-    options: Omit<MagicConnectorArguments, "network">;
-};
 
 // @public
 export const MediaRenderer: React_2.ForwardRefExoticComponent<MediaRendererProps & {
@@ -177,27 +134,13 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps {
     metadata: NFTMetadata;
 }
 
-// @public
-export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
-
-// @public
-export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
-    autoConnect?: boolean;
-    // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
-    chainRpc?: Partial<ChainRpc<TSupportedChain>>;
-    dAppMeta?: DAppMetaData;
-    desiredChainId: TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain | undefined;
-    // @beta
-    queryClient?: QueryClient;
-    sdkOptions?: SDKOptions;
-    storageInterface?: IStorage;
-    supportedChains?: TSupportedChain[];
-    // Warning: (ae-incompatible-release-tags) The symbol "walletConnectors" is marked as @public, but its signature references "WalletConnector" which is marked as @internal
-    walletConnectors?: WalletConnector[];
-}
+// Warning: (ae-forgotten-export) The symbol "ThirdwebProviderProps" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+export const ThirdwebProvider: React_2.FC<PropsWithChildren<ThirdwebProviderProps>>;
 
 // @beta
-export const ThirdwebSDKProvider: React.FC<React.PropsWithChildren<ThirdwebSDKProviderProps>>;
+export const ThirdwebSDKProvider: React_2.FC<React_2.PropsWithChildren<ThirdwebSDKProviderProps>>;
 
 // @public (undocumented)
 export interface ThirdwebSDKProviderProps {
@@ -254,26 +197,28 @@ export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: Q
 export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @public
-export function useCoinbaseWallet(): () => Promise<{
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
+export function useCoinbaseWallet(): () => Promise<ConnectResult<BaseProvider>>;
 
 // Warning: (ae-internal-missing-underscore) The name "useConnect" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
-export function useConnect(): readonly [{
-    readonly data: {
-        readonly connected: boolean;
-        readonly connector: Connector<any, any> | undefined;
-        readonly connectors: Connector<any, any>[];
-    };
-    readonly error: Error | undefined;
-    readonly loading: boolean | undefined;
-}, (connector: Connector<any, any>) => Promise<{
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>];
+export function useConnect(): {
+    readonly activeConnector: Connector<any, any> | undefined;
+    readonly connect: (connector_?: Connector<any, any> | undefined) => void;
+    readonly connectAsync: (connector_?: Connector<any, any> | undefined) => Promise<ConnectResult<BaseProvider>>;
+    readonly connectors: Connector<any, any>[];
+    readonly data: ConnectResult<BaseProvider> | undefined;
+    readonly error: Error | null;
+    readonly isConnected: boolean;
+    readonly isConnecting: boolean;
+    readonly isDisconnected: boolean;
+    readonly isError: boolean;
+    readonly isIdle: boolean;
+    readonly isReconnecting: boolean;
+    readonly pendingConnector: Connector<any, any> | undefined;
+    readonly reset: () => void;
+    readonly status: "connecting" | "connected" | "reconnecting" | "disconnected" | "error" | "idle";
+};
 
 // @beta
 export function useContract(contractAddress: RequiredParam<string>): {
@@ -337,7 +282,7 @@ export function useContract(contractAddress: RequiredParam<string>): {
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: Split | NFTDrop | NFTCollection | EditionDrop | Edition | TokenDrop | Token | Vote | Marketplace | Pack | SmartContract<any> | undefined;
+    contract: undefined;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
         pubishMetadata: null;
@@ -373,7 +318,79 @@ export function useContract(contractAddress: RequiredParam<string>): {
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: Split | NFTDrop | NFTCollection | EditionDrop | Edition | TokenDrop | Token | Vote | Marketplace | Pack | SmartContract<any> | undefined;
+    contract: undefined;
+    data: {
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        pubishMetadata: null;
+    } | {
+        contractType: "custom";
+        pubishMetadata: PublishedMetadata | undefined;
+    } | undefined;
+    error: null;
+    isError: false;
+    isLoading: false;
+    isLoadingError: false;
+    isRefetchError: false;
+    isSuccess: true;
+    status: "success";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
+    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    pubishMetadata: null;
+    } | {
+    contractType: "custom";
+    pubishMetadata: PublishedMetadata | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: FetchStatus;
+} | {
+    contract: Split | NFTDrop | NFTCollection | EditionDrop | Edition | TokenDrop | Token | Vote | Marketplace | Pack | SmartContract<any> | null;
+    data: {
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        pubishMetadata: null;
+    } | {
+        contractType: "custom";
+        pubishMetadata: PublishedMetadata | undefined;
+    } | undefined;
+    error: unknown;
+    isError: true;
+    isLoading: false;
+    isLoadingError: false;
+    isRefetchError: true;
+    isSuccess: false;
+    status: "error";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
+    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    pubishMetadata: null;
+    } | {
+    contractType: "custom";
+    pubishMetadata: PublishedMetadata | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: FetchStatus;
+} | {
+    contract: Split | NFTDrop | NFTCollection | EditionDrop | Edition | TokenDrop | Token | Vote | Marketplace | Pack | SmartContract<any> | null;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
         pubishMetadata: null;
@@ -416,7 +433,7 @@ export function useContract(contractAddress: RequiredParam<string>): {
 export function useContractFunctions(contractAddress: RequiredParam<string>): UseQueryResult<AbiFunction[] | null, unknown>;
 
 // @beta
-export function useContractMetadata(contractAddress: RequiredParam<string>): UseQueryResult<any, unknown>;
+export function useContractMetadata(contractAddress: RequiredParam<string>): UseQueryResult<unknown, unknown>;
 
 // @beta
 export function useContractPublishMetadata(contractAddress: RequiredParam<string>): UseQueryResult<PublishedMetadata | undefined, unknown>;
@@ -438,10 +455,7 @@ export function useDesiredChainId(): number;
 // @public
 export function useDisconnect(options?: {
     reconnectAfterGnosis?: boolean;
-}): () => Promise<void | {
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
+}): () => Promise<void | ConnectResult<BaseProvider>>;
 
 // @public
 export function useEdition(contractAddress?: string): Edition | undefined;
@@ -451,58 +465,43 @@ export function useEditionDrop(contractAddress?: string): EditionDrop | undefine
 
 // @beta
 export function useEditions(contract: RequiredParam<Erc1155>, queryParams?: QueryAllParams): UseQueryResult<    {
+supply: BigNumber;
 metadata: {
 [x: string]: Json;
 name?: string | undefined;
+uri: string;
+id: BigNumber;
 description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
 };
-supply: BigNumber;
 }[], unknown>;
 
 // @beta
 export function useEditionTotalCount(contract: RequiredParam<Erc1155>, tokenId: BigNumberish): UseQueryResult<BigNumber, unknown>;
 
 // @public
-export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
-
-// @public
-export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
-
-// @public
 export function useMarketplace(contractAddress?: string): Marketplace | undefined;
 
 // @public
-export function useMetamask(): () => Promise<{
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-} | {
+export function useMetamask(): () => Promise<ConnectResult<BaseProvider> | {
     error: Error;
 }>;
 
 // @beta
 export function useMintEdition(contract: RequiredParam<Erc1155>): UseMutationResult<TransactionResultWithId<    {
+supply: BigNumber;
 metadata: {
 [x: string]: Json;
 name?: string | undefined;
+uri: string;
+id: BigNumber;
 description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
 };
-supply: BigNumber;
 }>, unknown, EditionMintParams, unknown>;
 
 // @beta
@@ -515,35 +514,25 @@ data: () => Promise<unknown>;
 }, "data">, unknown, TokenMintParams, unknown>;
 
 // @public
-export function useNetwork(): readonly [{
-    readonly data: {
-        readonly chain: {
-            id: number;
-            unsupported: boolean | undefined;
-            name?: string | undefined;
-            nativeCurrency?: {
-                name: string;
-                symbol: string;
-                decimals: 18;
-            } | undefined;
-            rpcUrls?: string[] | undefined;
-            blockExplorers?: {
-                name: string;
-                url: string;
-            }[] | undefined;
-            testnet?: boolean | undefined;
-        } | undefined;
-        readonly chains: Chain_2[];
-    };
-    readonly error: Error | undefined;
-    readonly loading: boolean | undefined;
-}, ((chainId: number) => Promise<{
-    data: undefined;
-    error: SwitchChainError;
-} | {
-    data: Chain_2 | undefined;
-    error: undefined;
-}>) | undefined];
+export function useNetwork(): {
+    readonly activeChain: (Chain & {
+        id: number;
+        unsupported?: boolean | undefined;
+    }) | undefined;
+    readonly chains: Chain[];
+    readonly data: Chain | undefined;
+    readonly error: Error | null;
+    readonly isError: boolean;
+    readonly isIdle: boolean;
+    readonly isLoading: boolean;
+    readonly isSuccess: boolean;
+    readonly pendingChainId: number | undefined;
+    readonly reset: () => void;
+    readonly status: "error" | "idle" | "loading" | "success";
+    readonly switchNetwork: ((chainId_?: number | undefined) => void) | undefined;
+    readonly switchNetworkAsync: ((chainId_?: number | undefined) => Promise<Chain>) | undefined;
+    readonly variables: SwitchNetworkArgs | undefined;
+};
 
 // @public
 export function useNetworkMismatch(): boolean;
@@ -579,10 +568,7 @@ export function useResolvedMediaType(uri?: string): {
 // @internal (undocumented)
 export function useSDK(): ThirdwebSDK | undefined;
 
-// Warning: (ae-internal-missing-underscore) The name "useSigner" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export function useSigner(): Signer | undefined;
+export { useSigner }
 
 // @public
 export function useSplit(contractAddress?: string): Split | undefined;
@@ -594,8 +580,8 @@ export function useToken(contractAddress?: string): Token | undefined;
 export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<string>): UseQueryResult<    {
 symbol: string;
 name: string;
-value: BigNumber;
 decimals: number;
+value: BigNumber;
 displayValue: string;
 }, unknown>;
 
@@ -608,8 +594,8 @@ export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 export function useTokenSupply(contract: RequiredParam<Erc20>): UseQueryResult<    {
 symbol: string;
 name: string;
-value: BigNumber;
 decimals: number;
+value: BigNumber;
 displayValue: string;
 }, unknown>;
 
@@ -617,12 +603,12 @@ displayValue: string;
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {
 [x: string]: Json;
 name?: string | undefined;
+uri: string;
+id: BigNumber;
 description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
 }[], unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
@@ -634,48 +620,15 @@ export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQuer
 export function useVote(contractAddress?: string): Vote | undefined;
 
 // @public
-export function useWalletConnect(): () => Promise<{
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
+export function useWalletConnect(): () => Promise<ConnectResult<BaseProvider>>;
 
 // Warning: (ae-internal-missing-underscore) The name "useWalletLink" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
-export function useWalletLink(): () => Promise<{
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
+export function useWalletLink(): () => Promise<ConnectResult<BaseProvider>>;
 
 // @beta
 export type WalletAddress = string;
-
-// Warning: (ae-internal-missing-underscore) The name "WalletConnectConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export type WalletConnectConnectorType = "walletConnect" | {
-    name: "walletConnect";
-    options: WalletConnectConnector["options"];
-};
-
-// Warning: (ae-internal-missing-underscore) The name "WalletConnector" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export type WalletConnector = InjectedConnectorType | WalletConnectConnectorType | WalletLinkConnectorType | MagicConnectorType | GnosisConnectorType;
-
-// Warning: (ae-internal-missing-underscore) The name "WalletLinkConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
-    name: "walletLink" | "coinbase";
-    options: CoinbaseWalletConnector["options"];
-};
-
-// Warnings were encountered during analysis:
-//
-// dist/Provider.d.ts:36:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/Provider.d.ts:43:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/hooks/useNetwork.d.ts:75:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

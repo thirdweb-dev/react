@@ -26,6 +26,5 @@ import { useAccount } from "wagmi";
  * @public
  */
 export function useAddress(): string | undefined {
-  const [account] = useAccount();
-  return account.data?.address;
+  return useAccount().data?.address;
 }

@@ -8,7 +8,7 @@ import {
   ThirdwebSDK,
 } from "@thirdweb-dev/sdk";
 import { Signer } from "ethers";
-import { createContext, useContext, useEffect, useMemo } from "react";
+import React, { createContext, useContext, useEffect, useMemo } from "react";
 import invariant from "tiny-invariant";
 
 interface SDKContext {
@@ -50,6 +50,7 @@ export const ThirdwebSDKProvider: React.FC<
     if (!desiredChainId || typeof window === "undefined") {
       return undefined;
     }
+
     const _sdk = new ThirdwebSDK(provider, sdkOptions, storageInterface);
     (_sdk as any)._chainId = desiredChainId;
     return _sdk;

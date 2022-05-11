@@ -4,6 +4,7 @@ import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { SmartContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { QueryClient, useQueryClient } from "react-query";
+import invariant from "tiny-invariant";
 
 async function fetchContractType(
   contractAddress: RequiredParam<string>,
@@ -77,7 +78,7 @@ function getContractFromCombinedTypeAndPublishMetadata(
   sdk: RequiredParam<ThirdwebSDK>,
 ) {
   if (!input || !sdk || !contractAddress || !input.contractType) {
-    return undefined;
+    return null;
   }
 
   if (input.contractType !== "custom") {
@@ -86,7 +87,7 @@ function getContractFromCombinedTypeAndPublishMetadata(
   if (input.contractType === "custom" && input.pubishMetadata) {
     return sdk.getContractFromAbi(contractAddress, input.pubishMetadata.abi);
   }
-  return undefined;
+  return null;
 }
 
 /**
@@ -231,11 +232,18 @@ export function useContractMetadata(contractAddress: RequiredParam<string>) {
         // is immutable, so infinite stale time
         { staleTime: Infinity },
       );
-      return getContractFromCombinedTypeAndPublishMetadata(
+
+      const contract = getContractFromCombinedTypeAndPublishMetadata(
         contractAddress,
         typeAndPublishMetadata,
         sdk,
-      )?.metadata?.get();
+      );
+
+      invariant(
+        contract?.metadata?.get,
+        "contract does not support contract metadata",
+      );
+      return (await contract.metadata.get()) as unknown;
     },
     {
       enabled: !!contractAddress || !!sdk,

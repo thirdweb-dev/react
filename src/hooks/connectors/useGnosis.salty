@@ -32,21 +32,18 @@ import invariant from "tiny-invariant";
  * @public
  */
 export function useGnosis() {
-  const [connectors, connect] = useConnect();
-  if (connectors.loading) {
-    return () => Promise.reject("Gnosis connector not ready to be used, yet");
-  }
-  const connector = connectors.data.connectors.find((c) => c.id === "gnosis");
+  const { connectors, activeConnector, connect } = useConnect();
+
+  const connector = connectors.find((c) => c.id === "gnosis");
   invariant(
     connector,
     "Gnosis connector not found, please make sure it is provided to your <ThirdwebProvider />",
   );
 
   return async (config: GnosisConnectorArguments) => {
-    const previousConnector = connectors.data.connector;
-    const previousConnectorChain = await previousConnector?.getChainId();
+    const previousConnectorChain = await activeConnector?.getChainId();
     invariant(
-      !!previousConnector,
+      !!activeConnector,
       "Cannot connect to Gnosis Safe without first being connected to a personal wallet.",
     );
     invariant(
@@ -58,7 +55,7 @@ export function useGnosis() {
       "Gnosis safe address must be a valid address.",
     );
     (connector as GnosisSafeConnector).setConfiguration(
-      previousConnector,
+      activeConnector,
       config,
     );
     return connect(connector);

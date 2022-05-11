@@ -15,10 +15,7 @@ import { useDisconnect } from "@thirdweb-dev/react"
 ```typescript
 export declare function useDisconnect(options?: {
     reconnectAfterGnosis?: boolean;
-}): () => Promise<void | {
-    data?: import("wagmi").ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
+}): () => Promise<void | import("@wagmi/core").ConnectResult<import("@ethersproject/providers").BaseProvider>>;
 ```
 
 ## Parameters
@@ -29,7 +26,7 @@ export declare function useDisconnect(options?: {
 
 <b>Returns:</b>
 
-() =&gt; Promise&lt;void \| { data?: import("wagmi").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
+() =&gt; Promise&lt;void \| import("@wagmi/core").ConnectResult&lt;import("@ethersproject/providers").BaseProvider&gt;&gt;
 
 ## Example
 

@@ -21,5 +21,5 @@ import { useNetwork } from "wagmi";
  * @public
  */
 export function useChainId(): number | undefined {
-  return useNetwork()["0"].data.chain?.id;
+  return useNetwork().data?.id;
 }

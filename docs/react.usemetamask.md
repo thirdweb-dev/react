@@ -13,16 +13,13 @@ import { useMetamask } from "@thirdweb-dev/react"
 <b>Signature:</b>
 
 ```typescript
-export declare function useMetamask(): () => Promise<{
-    data?: import("wagmi-core").ConnectorData<any> | undefined;
-    error?: Error | undefined;
-} | {
+export declare function useMetamask(): () => Promise<import("@wagmi/core").ConnectResult<import("@ethersproject/providers").BaseProvider> | {
     error: Error;
 }>;
 ```
 <b>Returns:</b>
 
-() =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; } \| { error: Error; }&gt;
+() =&gt; Promise&lt;import("@wagmi/core").ConnectResult&lt;import("@ethersproject/providers").BaseProvider&gt; \| { error: Error; }&gt;
 
 ## Example
 

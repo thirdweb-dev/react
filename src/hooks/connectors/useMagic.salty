@@ -66,12 +66,9 @@ import invariant from "tiny-invariant";
  * @public
  */
 export function useMagic() {
-  const [connectors, connect] = useConnect();
-  if (connectors.loading) {
-    return () => Promise.reject("Magic connector not ready to be used, yet");
-  }
+  const { connectors, connectAsync } = useConnect();
 
-  const connector = connectors.data.connectors.find((c) => c.id === "magic");
+  const connector = connectors.find((c) => c.id === "magic");
 
   invariant(
     connector,
@@ -79,7 +76,7 @@ export function useMagic() {
   );
 
   return (configuration: LoginWithMagicLinkConfiguration) => {
-    (connector as MagicConnector).setConfiguration(configuration);
-    return connect(connector);
+    (connector as unknown as MagicConnector).setConfiguration(configuration);
+    return connectAsync(connector);
   };
 }

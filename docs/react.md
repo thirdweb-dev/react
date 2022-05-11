@@ -42,16 +42,6 @@ import { useDisconnect } from "@thirdweb-dev/react"
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
 |  [useEditions(contract, queryParams)](./react.useeditions.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your ERC1155 contract. |
 |  [useEditionTotalCount(contract, tokenId)](./react.useeditiontotalcount.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your ERC1155 contract. |
-|  [useGnosis()](./react.usegnosis.md) | Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.
-```javascript
-import { useGnosis } from "@thirdweb-dev/react"
-```
- |
-|  [useMagic()](./react.usemagic.md) | Hook for connecting to an email wallet using magic link. This enables users without their own wallets to connect to your application and sign transactions securely using their email.
-```javascript
-import { useMagic } from "@thirdweb-dev/react"
-```
- |
 |  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Hook for getting an instance of a <code>Marketplace</code> contract. This contract is used to support marketplace for purchase and sale of on-chain assets. |
 |  [useMetamask()](./react.usemetamask.md) | Hook for connecting to a Metamask wallet.
 ```javascript
@@ -94,12 +84,10 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 
 |  Interface | Description |
 |  --- | --- |
-|  [DAppMetaData](./react.dappmetadata.md) | the metadata to pass to wallet connection dialog (may show up during the wallet-connection process) |
 |  [MediaRendererProps](./react.mediarendererprops.md) | The props for the [MediaRenderer](./react.mediarenderer.md) component. |
 |  [MediaType](./react.mediatype.md) |  |
 |  [SharedMediaProps](./react.sharedmediaprops.md) |  |
 |  [ThirdwebNftMediaProps](./react.thirdwebnftmediaprops.md) | The props for the [ThirdwebNftMedia](./react.thirdwebnftmedia.md) component. |
-|  [ThirdwebProviderProps](./react.thirdwebproviderprops.md) | The possible props for the ThirdwebProvider. |
 |  [ThirdwebSDKProviderProps](./react.thirdwebsdkproviderprops.md) |  |
 
 ## Variables
@@ -108,7 +96,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  --- | --- |
 |  [MediaRenderer](./react.mediarenderer.md) | This component can be used to render any media type, including image, audio, video, and html files. Its convenient for rendering NFT media files, as these can be a variety of different types. The component falls back to a external link if the media type is not supported.<!-- -->Props: [MediaRendererProps](./react.mediarendererprops.md) |
 |  [ThirdwebNftMedia](./react.thirdwebnftmedia.md) | Render a nft based on the common metadata returned by the thirdweb sdk. |
-|  [ThirdwebProvider](./react.thirdwebprovider.md) | The <code>&lt;ThirdwebProvider /&gt;</code> component lets you control what networks you want users to connect to, what types of wallets can connect to your app, and the settings for the \[Typescript SDK\](https://docs.thirdweb.com/typescript). |
+|  [ThirdwebProvider](./react.thirdwebprovider.md) |  |
 |  [ThirdwebSDKProvider](./react.thirdwebsdkprovider.md) | <b><i>(BETA)</i></b> A barebones wrapper around the Thirdweb SDK.<!-- -->You can use this in order to be able to pass a provider &amp; signer directly to the SDK. |
 
 ## Type Aliases

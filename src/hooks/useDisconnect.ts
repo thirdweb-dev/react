@@ -1,6 +1,6 @@
-import { GnosisSafeConnector } from "../connectors/gnosis-safe";
+// import { GnosisSafeConnector } from "../connectors/gnosis-safe";
 import { useConnect } from "./useConnect";
-import { useAccount } from "wagmi";
+import { useDisconnect as useWagmiDisconnect } from "wagmi";
 
 /**
  * Hook for disconnecting the currently connected wallet
@@ -32,25 +32,24 @@ import { useAccount } from "wagmi";
  */
 export function useDisconnect(options?: { reconnectAfterGnosis?: boolean }) {
   const optsWithDefaults = { ...{ reconnectAfterGnosis: true }, ...options };
-  const [, connect] = useConnect();
-  const [data, disconnect] = useAccount();
+  const { connectAsync } = useConnect();
+  // const { data } = useAccount();
+  const { disconnectAsync } = useWagmiDisconnect();
 
   return async () => {
-    const previousConnector =
-      (data.data?.connector instanceof GnosisSafeConnector &&
-        data.data.connector.previousConnector) ||
-      undefined;
+    const previousConnector = undefined;
+
     // if it's gnosis, just connect the previous connector
     if (optsWithDefaults.reconnectAfterGnosis && previousConnector) {
       try {
-        return await connect(previousConnector);
+        return await connectAsync(previousConnector);
       } catch (err) {
         console.error("failed to re-connect to previous connector", err);
         // if it fails for whatever reason just disconnect
-        return disconnect();
+        return await disconnectAsync();
       }
     }
 
-    return disconnect();
+    return await disconnectAsync();
   };
 }

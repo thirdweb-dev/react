@@ -31,10 +31,7 @@ import invariant from "tiny-invariant";
  * @public
  */
 export function useMetamask() {
-  const [connectors, connect] = useConnect();
-  if (connectors.loading) {
-    return () => Promise.reject("Metamask connector not ready to be used, yet");
-  }
+  const { connectors, connectAsync } = useConnect();
 
   const isMetaMaskInjected =
     typeof window !== "undefined" && window.ethereum?.isMetaMask;
@@ -42,11 +39,9 @@ export function useMetamask() {
   const shouldUseWalletConnect = isMobile() && !isMetaMaskInjected;
 
   // injected connector
-  const injectedConnector = connectors.data.connectors.find(
-    (c) => c.id === "injected",
-  );
+  const injectedConnector = connectors.find((c) => c.id === "injected");
   // walletConnect connector
-  const walletConnectConnector = connectors.data.connectors.find(
+  const walletConnectConnector = connectors.find(
     (c) => c.id === "walletConnect",
   );
 
@@ -93,6 +88,6 @@ export function useMetamask() {
     }
 
     // otherwise we have MM avaiable, so we can just use it
-    return await connect(connector);
+    return await connectAsync(connector);
   };
 }
