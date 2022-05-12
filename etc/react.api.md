@@ -289,10 +289,10 @@ export function useContract(contractAddress: RequiredParam<string>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-    pubishMetadata: null;
+    publishMetadata: null;
     } | {
     contractType: "custom";
-    pubishMetadata: PublishedMetadata | undefined;
+    publishMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -319,21 +319,21 @@ export function useContract(contractAddress: RequiredParam<string>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-    pubishMetadata: null;
+    publishMetadata: null;
     } | {
     contractType: "custom";
-    pubishMetadata: PublishedMetadata | undefined;
+    publishMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: Split | NFTDrop | NFTCollection | EditionDrop | Edition | TokenDrop | Token | Vote | Marketplace | Pack | SmartContract<any> | undefined;
+    contract: SmartContract<any> | undefined;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-        pubishMetadata: null;
+        publishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: PublishedMetadata | undefined;
+        publishMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -355,21 +355,21 @@ export function useContract(contractAddress: RequiredParam<string>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-    pubishMetadata: null;
+    publishMetadata: null;
     } | {
     contractType: "custom";
-    pubishMetadata: PublishedMetadata | undefined;
+    publishMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: Split | NFTDrop | NFTCollection | EditionDrop | Edition | TokenDrop | Token | Vote | Marketplace | Pack | SmartContract<any> | undefined;
+    contract: SmartContract<any> | undefined;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-        pubishMetadata: null;
+        publishMetadata: null;
     } | {
         contractType: "custom";
-        pubishMetadata: PublishedMetadata | undefined;
+        publishMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -391,10 +391,10 @@ export function useContract(contractAddress: RequiredParam<string>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
-    pubishMetadata: null;
+    publishMetadata: null;
     } | {
     contractType: "custom";
-    pubishMetadata: PublishedMetadata | undefined;
+    publishMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -406,7 +406,13 @@ export function useContract(contractAddress: RequiredParam<string>): {
 export function useContractFunctions(contractAddress: RequiredParam<string>): UseQueryResult<AbiFunction[] | null, unknown>;
 
 // @beta
-export function useContractMetadata(contractAddress: RequiredParam<string>): UseQueryResult<any, unknown>;
+export function useContractMetadata(contractAddress: RequiredParam<string>): UseQueryResult<    {
+[x: string]: Json;
+name: string;
+description?: string | undefined;
+image?: any;
+external_link?: string | undefined;
+} | null, unknown>;
 
 // @beta
 export function useContractPublishMetadata(contractAddress: RequiredParam<string>): UseQueryResult<PublishedMetadata | undefined, unknown>;
@@ -441,17 +447,17 @@ export function useEditionDrop(contractAddress?: string): EditionDrop | undefine
 
 // @beta
 export function useEditions(contract: RequiredParam<Erc1155>, queryParams?: QueryAllParams): UseQueryResult<    {
+supply: BigNumber;
 metadata: {
 [x: string]: Json;
 name?: string | undefined;
+uri: string;
+id: BigNumber;
 description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
 };
-supply: BigNumber;
 }[], unknown>;
 
 // @beta
@@ -482,17 +488,17 @@ export function useMetamask(): () => Promise<{
 
 // @beta
 export function useMintEdition(contract: RequiredParam<Erc1155>): UseMutationResult<TransactionResultWithId<    {
+supply: BigNumber;
 metadata: {
 [x: string]: Json;
 name?: string | undefined;
+uri: string;
+id: BigNumber;
 description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
 };
-supply: BigNumber;
 }>, unknown, EditionMintParams, unknown>;
 
 // @beta
@@ -584,8 +590,8 @@ export function useToken(contractAddress?: string): Token | undefined;
 export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<string>): UseQueryResult<    {
 symbol: string;
 name: string;
-value: BigNumber;
 decimals: number;
+value: BigNumber;
 displayValue: string;
 }, unknown>;
 
@@ -598,8 +604,8 @@ export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 export function useTokenSupply(contract: RequiredParam<Erc20>): UseQueryResult<    {
 symbol: string;
 name: string;
-value: BigNumber;
 decimals: number;
+value: BigNumber;
 displayValue: string;
 }, unknown>;
 
@@ -607,12 +613,12 @@ displayValue: string;
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {
 [x: string]: Json;
 name?: string | undefined;
+uri: string;
+id: BigNumber;
 description?: string | undefined;
 image?: string | undefined;
 external_url?: string | undefined;
 animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
 }[], unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta

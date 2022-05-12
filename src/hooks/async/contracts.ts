@@ -2,8 +2,10 @@ import { useActiveChainId, useSDK } from "../../Provider";
 import { RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { SmartContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { CONTRACTS_MAP, SmartContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { CustomContractMetadata } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
 import { QueryClient, useQueryClient } from "react-query";
+import invariant from "tiny-invariant";
 
 async function fetchContractType(
   contractAddress: RequiredParam<string>,
@@ -52,10 +54,10 @@ async function fetchContractTypeAndPublishMetadata(
   if (contractType !== "custom") {
     return {
       contractType,
-      pubishMetadata: null,
+      publishMetadata: null,
     };
   }
-  const pubishMetadata = await queryClient.fetchQuery(
+  const publishMetadata = await queryClient.fetchQuery(
     createCacheKeyWithNetwork(
       cacheKeys.contract.publishMetadata(contractAddress),
       (sdk as any)._chainId,
@@ -66,7 +68,7 @@ async function fetchContractTypeAndPublishMetadata(
   );
   return {
     contractType,
-    pubishMetadata,
+    publishMetadata,
   };
 }
 function getContractFromCombinedTypeAndPublishMetadata(
@@ -80,13 +82,18 @@ function getContractFromCombinedTypeAndPublishMetadata(
     return undefined;
   }
 
+  let contractAbi: any;
   if (input.contractType !== "custom") {
-    return sdk.getBuiltInContract(contractAddress, input.contractType);
+    contractAbi = CONTRACTS_MAP[input.contractType].contractAbi;
   }
-  if (input.contractType === "custom" && input.pubishMetadata) {
-    return sdk.getContractFromAbi(contractAddress, input.pubishMetadata.abi);
+  if (input.contractType === "custom" && input.publishMetadata) {
+    contractAbi = input.publishMetadata?.abi;
   }
-  return undefined;
+  invariant(
+    contractAbi,
+    `could not resolve any ABI for contract${contractAddress}`,
+  );
+  return sdk.getContractFromAbi(contractAddress, contractAbi);
 }
 
 /**
@@ -231,11 +238,15 @@ export function useContractMetadata(contractAddress: RequiredParam<string>) {
         // is immutable, so infinite stale time
         { staleTime: Infinity },
       );
-      return getContractFromCombinedTypeAndPublishMetadata(
+      const contract = getContractFromCombinedTypeAndPublishMetadata(
         contractAddress,
         typeAndPublishMetadata,
         sdk,
-      )?.metadata?.get();
+      );
+      if (!contract?.metadata?.get) {
+        return null;
+      }
+      return (await contract.metadata.get()) as CustomContractMetadata;
     },
     {
       enabled: !!contractAddress || !!sdk,
