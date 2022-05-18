@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get the active claim conditon for either ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
+Use this to get the active claim conditon for ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
 
 <b>Signature:</b>
 
@@ -52,10 +52,17 @@ a response object with the currently active claim condition
 
 
 ```javascript
-const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC721ContractInstance>);
+const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC20ContractInstance>);
 ```
 
 ## Example 2
+
+
+```javascript
+const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC721ContractInstance>);
+```
+
+## Example 3
 
 
 ```javascript

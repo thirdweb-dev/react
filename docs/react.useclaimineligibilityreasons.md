@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to check for reasons that prevent claiming for either ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
+Use this to check for reasons that prevent claiming for either ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
 
 <b>Signature:</b>
 
@@ -33,10 +33,17 @@ a response object with the resons for the claim ineligibility
 
 
 ```javascript
-const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC721ContractInstance>, {quantity: <quantity>});
+const { data: activeClaimCondition, isLoading, error } = useClaimIneligibilityReasons(<YourERC20ContractInstance>);
 ```
 
 ## Example 2
+
+
+```javascript
+const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC721ContractInstance>, {quantity: <quantity>});
+```
+
+## Example 3
 
 
 ```javascript

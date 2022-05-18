@@ -8,7 +8,7 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [useActiveClaimCondition(\[contract, tokenId\])](./react.useactiveclaimcondition.md) | <b><i>(BETA)</i></b> Use this to get the active claim conditon for either ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
+|  [useActiveClaimCondition(\[contract, tokenId\])](./react.useactiveclaimcondition.md) | <b><i>(BETA)</i></b> Use this to get the active claim conditon for ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useActiveListings(contract, filter)](./react.useactivelistings.md) | <b><i>(BETA)</i></b> Use this to get a list active listings from your marketplace contract. |
 |  [useAddress()](./react.useaddress.md) | Hook for accessing the address of the connected wallet
 ```javascript
@@ -23,7 +23,7 @@ import { useChainId } from "@thirdweb-dev/react"
  |
 |  [useClaimedNFTs(contract, queryParams)](./react.useclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*claimed\* (minted) NFT tokens of your ERC721 Drop contract. |
 |  [useClaimedNFTSupply(contract)](./react.useclaimednftsupply.md) |  |
-|  [useClaimIneligibilityReasons(\[contract, params, tokenId\])](./react.useclaimineligibilityreasons.md) | <b><i>(BETA)</i></b> Use this to check for reasons that prevent claiming for either ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
+|  [useClaimIneligibilityReasons(\[contract, params, tokenId\])](./react.useclaimineligibilityreasons.md) | <b><i>(BETA)</i></b> Use this to check for reasons that prevent claiming for either ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | Hook for connecting to a Coinbase wallet.
 ```javascript
 import { useCoinbaseWallet } from "@thirdweb-dev/react"

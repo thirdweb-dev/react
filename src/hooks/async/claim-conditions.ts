@@ -17,8 +17,12 @@ type ClaimConditionParams<
 /** **********************/
 
 /**
- * Use this to get the active claim conditon for either ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
+ * Use this to get the active claim conditon for ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
  *
+ * @example
+ * ```javascript
+ * const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC20ContractInstance>);
+ * ```
  * @example
  * ```javascript
  * const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC721ContractInstance>);
@@ -75,8 +79,11 @@ export type ClaimIneligibilityParameters = {
 };
 
 /**
- * Use this to check for reasons that prevent claiming for either ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
- *
+ * Use this to check for reasons that prevent claiming for either  ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
+ * @example
+ * ```javascript
+ * const { data: activeClaimCondition, isLoading, error } = useClaimIneligibilityReasons(<YourERC20ContractInstance>);
+ * ```
  * @example
  * ```javascript
  * const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC721ContractInstance>, {quantity: <quantity>});
@@ -86,7 +93,7 @@ export type ClaimIneligibilityParameters = {
  * const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);
  * ```
  *
- * @param contract - an instace of a contract that extends the ERC721 or ERC1155 spec and implements the `claimConditions` extension.
+ * @param contract - an instace of a contract that extends the  ERC20, ERC721 or ERC1155 spec and implements the `claimConditions` extension.
  * @param eligibilityParams - the parameters for the eligibility check, see: {@link ClaimIneligibilityParameters}
  * @param tokenId - the id of the token to fetch the claim conditions for (if the contract is an ERC1155 contract)
  * @returns a response object with the resons for the claim ineligibility
