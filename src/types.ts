@@ -17,6 +17,12 @@ export type RequiredParam<T> = T | undefined;
 export type WalletAddress = string;
 
 /**
+ * A contract address.
+ * @beta
+ */
+export type ContractAddress = string;
+
+/**
  * The parameters to pass to the nft mint function.
  *
  * @beta

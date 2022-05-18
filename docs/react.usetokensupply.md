@@ -15,8 +15,8 @@ Use this to get a the total supply of your Token contract.
 export declare function useTokenSupply(contract: RequiredParam<Erc20>): import("react-query").UseQueryResult<{
     symbol: string;
     name: string;
-    decimals: number;
     value: import("ethers").BigNumber;
+    decimals: number;
     displayValue: string;
 }, unknown>;
 ```
@@ -29,7 +29,7 @@ export declare function useTokenSupply(contract: RequiredParam<Erc20>): import("
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ symbol: string; name: string; decimals: number; value: import("ethers").BigNumber; displayValue: string; }, unknown&gt;
+import("react-query").UseQueryResult&lt;{ symbol: string; name: string; value: import("ethers").BigNumber; decimals: number; displayValue: string; }, unknown&gt;
 
 a response object that incudes the total minted supply
 

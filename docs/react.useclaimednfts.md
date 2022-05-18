@@ -19,7 +19,7 @@ export declare function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryPa
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;NFTDrop&gt; | an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 &amp; drop spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;NFTDrop&gt; | an instace of a contract that extends the ERC721 spec (nft drop, custom contract that follows the ERC721 &amp; drop spec) |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
 
 <b>Returns:</b>

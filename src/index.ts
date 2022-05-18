@@ -28,6 +28,7 @@ export * from "./hooks/async/edition";
 export * from "./hooks/async/nft";
 export * from "./hooks/async/marketplace";
 export * from "./hooks/async/token";
+export * from "./hooks/async/claim-conditions";
 
 // types
 export * from "./types";

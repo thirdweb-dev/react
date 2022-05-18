@@ -1,5 +1,5 @@
 import { useActiveChainId } from "../../Provider";
-import { NFTMintParams, RequiredParam } from "../../types";
+import { NFTMintParams, RequiredParam, WalletAddress } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import {
@@ -9,6 +9,7 @@ import {
   SmartContract,
   ValidContractInstance,
 } from "@thirdweb-dev/sdk";
+import { BigNumber, BigNumberish } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -35,6 +36,38 @@ export function detectErc721Instance(
 /** **********************/
 
 /**
+ * Use this to get an individual NFT token of your ERC721 contract.
+ *
+ * @example
+ * ```javascript
+ * const { data: nft, isLoading, error } = useNFT(<YourERC721ContractInstance>, <tokenId>);
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec)
+ * @param tokenId - the tokenId to look up
+ * @returns a response object that includes the metadata for the given tokenId
+ * @beta
+ */
+export function useNFT(
+  contract: RequiredParam<Erc721>,
+  tokenId: RequiredParam<BigNumberish>,
+) {
+  const contractAddress = contract?.getAddress();
+
+  return useQueryWithNetwork(
+    cacheKeys.contract.nft.get(contractAddress, tokenId),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(contract.get, "Contract instance does not support get");
+      return contract.get(BigNumber.from(tokenId || 0));
+    },
+    {
+      enabled: !!contract && tokenId !== undefined,
+    },
+  );
+}
+
+/**
  * Use this to get a list of NFT tokens of your ERC721 contract.
  *
  * @example
@@ -42,7 +75,7 @@ export function detectErc721Instance(
  * const { data: nfts, isLoading, error } = useNFTs(<YourERC721ContractInstance>, { start: 0, count: 100 });
  * ```
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec)
  * @param queryParams - query params to pass to the query for the sake of pagination
  * @returns a response object that includes an array of NFTs
  * @beta
@@ -78,25 +111,95 @@ export function useNFTs(
  * const { data: totalSupply, isLoading, error } = useNFTSupply(<YourERC721ContractInstance>);
  * ```
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec)
  * @returns a response object that incudes the total minted supply
  * @beta
  */
 export function useNFTSupply(contract: RequiredParam<Erc721>) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.nft.query.totalSupply(contractAddress),
+    cacheKeys.contract.nft.query.totalCirculatingSupply(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
-        contract.query?.totalSupply,
+        contract.query?.totalCirculatingSupply,
         "Contract instance does not support query.totalSupply",
       );
 
-      return contract.query.totalSupply();
+      return contract.query.totalCirculatingSupply();
     },
     {
       enabled: !!contract,
+    },
+  );
+}
+
+/**
+ * Use this to get a the owned NFTs for a specific ERC721 contract and wallet address.
+ *
+ * @example
+ * ```javascript
+ * const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(<YourERC721ContractInstance>, <OwnerWalletAddress>);
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec)
+ * @param ownerWalletAddress - the wallet adress to get owned tokens for
+ * @returns a response object that includes the list of owned tokens
+ * @beta
+ */
+export function useOwnedNFTs(
+  contract: RequiredParam<Erc721>,
+  ownerWalletAddress: RequiredParam<WalletAddress>,
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.nft.query.owned.all(contractAddress, ownerWalletAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.query?.owned?.all,
+        "Contract instance does not support query.owned.all",
+      );
+      return contract.query.owned.all(ownerWalletAddress);
+    },
+    {
+      enabled: !!contract && !!ownerWalletAddress,
+    },
+  );
+}
+
+/**
+ * Use this to get a the total balance of a specific ERC721 contract and wallet address.
+ *
+ *
+ * @example
+ * ```javascript
+ * const { data: ownerBalance, isLoading, error } = useNFTBalance(<YourERC721ContractInstance>, <OwnerWalletAddress>);
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec)
+ * @param ownerWalletAddress - the wallet adress to check the balance of
+ * @returns a response object that includes the total balance of the owner
+ * @beta
+ */
+export function useNFTBalance(
+  contract: RequiredParam<Erc721>,
+  ownerWalletAddress: RequiredParam<WalletAddress>,
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.nft.balanceOf(contractAddress, ownerWalletAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.balanceOf,
+        "Contract instance does not support balanceOf",
+      );
+      invariant(ownerWalletAddress, "No owner wallet address provided");
+      return contract.balanceOf(ownerWalletAddress);
+    },
+    {
+      enabled: !!contract && !!ownerWalletAddress,
     },
   );
 }
@@ -146,7 +249,7 @@ export function useUnclaimedNFTs(
  * const { data: claimedNFTs, isLoading, error } = useClaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });
  * ```
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft drop, custom contract that follows the ERC721 & drop spec)
  * @param queryParams - query params to pass to the query for the sake of pagination
  * @returns a response object that includes an array of NFTs that are claimed
  * @beta
@@ -157,10 +260,9 @@ export function useClaimedNFTs(
 ) {
   return useNFTs(contract, queryParams);
 }
-
 /**
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft drop, custom contract that follows the ERC721 & drop spec)
  * @returns a response object that includes the number of NFTs that are unclaimed
  */
 export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>) {
@@ -180,7 +282,7 @@ export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>) {
 
 /**
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft drop, custom contract that follows the ERC721 & drop spec)
  * @returns a response object that includes the number of NFTs that are claimed
  */
 export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>) {
@@ -229,7 +331,7 @@ export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>) {
  * };
  * ```
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec)
+ * @param contract - an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec)
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
@@ -256,7 +358,9 @@ export function useMintNFT(contract: RequiredParam<Erc721>) {
           ),
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
-              cacheKeys.contract.nft.query.totalSupply(contractAddress),
+              cacheKeys.contract.nft.query.totalCirculatingSupply(
+                contractAddress,
+              ),
               activeChainId,
             ),
           ),

@@ -1,15 +1,47 @@
 import { useActiveChainId } from "../../Provider";
-import { EditionMintParams, RequiredParam } from "../../types";
+import { EditionMintParams, RequiredParam, WalletAddress } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { Erc1155, QueryAllParams } from "@thirdweb-dev/sdk";
-import type { BigNumberish } from "ethers";
+import { BigNumber, BigNumberish } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
 /**     READ  HOOKS     **/
 /** **********************/
+
+/**
+ * Use this to get an individual NFT token of your ERC1155 contract.
+ *
+ * @example
+ * ```javascript
+ * const { data: edition, isLoading, error } = usEdition(<YourERC1155ContractInstance>, <tokenId>);
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the ERC1155 spec (edition, edition drop, custom contract that follows the ERC1155 spec)
+ * @param tokenId - the tokenId to look up
+ * @returns a response object that includes the metadata for the given tokenId
+ * @beta
+ */
+export function usEdition(
+  contract: RequiredParam<Erc1155>,
+  tokenId: RequiredParam<BigNumberish>,
+) {
+  const contractAddress = contract?.getAddress();
+
+  return useQueryWithNetwork(
+    cacheKeys.contract.edition.get(contractAddress, tokenId),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(contract.get, "Contract instance does not support get");
+      return contract.get(BigNumber.from(tokenId || 0));
+    },
+    {
+      enabled: !!contract && tokenId !== undefined,
+    },
+  );
+}
 
 /**
  * Use this to get a list of NFT tokens of your ERC1155 contract.
@@ -77,6 +109,50 @@ export function useEditionTotalCount(
     },
     {
       enabled: !!contract || !tokenId,
+    },
+  );
+}
+
+/**
+ * Use this to get a the total balance of a specific ERC1155 contract and wallet address.
+ *
+ *
+ * @example
+ * ```javascript
+ * const { data: ownerBalance, isLoading, error } = useNFTBalance(<YourERC1155ContractInstance>, <OwnerWalletAddress>);
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the ERC1155 spec)
+ * @param ownerWalletAddress - the wallet adress to check the balance of
+ * @returns a response object that includes the total balance of the owner
+ * @beta
+ */
+export function useEditionBalance(
+  contract: RequiredParam<Erc1155>,
+  tokenId: RequiredParam<BigNumberish>,
+  ownerWalletAddress: RequiredParam<WalletAddress>,
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.edition.balanceOf(
+      contractAddress,
+      tokenId,
+      ownerWalletAddress,
+    ),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.balanceOf,
+        "Contract instance does not support balanceOf",
+      );
+      invariant(ownerWalletAddress, "No owner wallet address provided");
+      return contract.balanceOf(
+        ownerWalletAddress,
+        BigNumber.from(tokenId || 0),
+      );
+    },
+    {
+      enabled: !!contract && !!ownerWalletAddress && tokenId !== undefined,
     },
   );
 }

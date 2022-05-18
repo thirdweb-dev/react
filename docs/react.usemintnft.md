@@ -19,7 +19,7 @@ export declare function useMintNFT(contract: RequiredParam<Erc721>): import("rea
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&gt; | an instace of a contract that extends the Erc721 spec (nft collection, nft drop, custom contract that follows the Erc721 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&gt; | an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec) |
 
 <b>Returns:</b>
 
