@@ -6,8 +6,8 @@ import { BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 
 type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
-  ? [RequiredParam<TContract>, RequiredParam<BigNumberish>]
-  : [RequiredParam<TContract>];
+  ? [contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>]
+  : [contract: RequiredParam<TContract>];
 
 /** **********************/
 /**     READ  HOOKS     **/
@@ -77,11 +77,14 @@ export type ClaimIneligibilityParameters = {
 
 type ClaimIneligibilityInputParams<TContract> = TContract extends Erc1155
   ? [
-      RequiredParam<TContract>,
-      ClaimIneligibilityParameters,
-      RequiredParam<BigNumberish>,
+      contract: RequiredParam<TContract>,
+      eligibilityParams: ClaimIneligibilityParameters,
+      tokenId: RequiredParam<BigNumberish>,
     ]
-  : [RequiredParam<TContract>, ClaimIneligibilityParameters];
+  : [
+      contract: RequiredParam<TContract>,
+      eligibilityParams: ClaimIneligibilityParameters,
+    ];
 
 /**
  * Use this to check for reasons that prevent claiming for either  ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
