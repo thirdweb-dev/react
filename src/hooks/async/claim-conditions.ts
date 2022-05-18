@@ -5,12 +5,9 @@ import { EditionDrop, Erc1155, NFTDrop, TokenDrop } from "@thirdweb-dev/sdk";
 import { BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 
-type ClaimConditionParams<
-  TContract,
-  AdditionalParams extends unknown[] = [],
-> = TContract extends Erc1155
-  ? [RequiredParam<TContract>, ...AdditionalParams, RequiredParam<BigNumberish>]
-  : [RequiredParam<TContract>, ...AdditionalParams];
+type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
+  ? [RequiredParam<TContract>, RequiredParam<BigNumberish>]
+  : [RequiredParam<TContract>];
 
 /** **********************/
 /**     READ  HOOKS     **/
@@ -40,7 +37,7 @@ type ClaimConditionParams<
  */
 export function useActiveClaimCondition<
   TContract extends NFTDrop | EditionDrop | TokenDrop,
->([contract, tokenId]: ClaimConditionParams<TContract>) {
+>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
   return useQueryWithNetwork(
@@ -78,6 +75,14 @@ export type ClaimIneligibilityParameters = {
   quantity: string | number;
 };
 
+type ClaimIneligibilityInputParams<TContract> = TContract extends Erc1155
+  ? [
+      RequiredParam<TContract>,
+      ClaimIneligibilityParameters,
+      RequiredParam<BigNumberish>,
+    ]
+  : [RequiredParam<TContract>, ClaimIneligibilityParameters];
+
 /**
  * Use this to check for reasons that prevent claiming for either  ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
  * @example
@@ -102,10 +107,7 @@ export type ClaimIneligibilityParameters = {
  */
 export function useClaimIneligibilityReasons<
   TContract extends NFTDrop | EditionDrop | TokenDrop,
->([contract, params, tokenId]: ClaimConditionParams<
-  TContract,
-  [ClaimIneligibilityParameters]
->) {
+>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
   return useQueryWithNetwork(
@@ -147,3 +149,35 @@ export function useClaimIneligibilityReasons<
     },
   );
 }
+
+// //////////////////////////////////////////////////////////////////////////////
+// TEST CASES
+// //////////////////////////////////////////////////////////////////////////////
+
+// fake some types for testing
+// const TestNFTDrop = "NFTDrop" as unknown as NFTDrop;
+// const TestEditionDrop = "EditionDrop" as unknown as EditionDrop;
+
+// // test it with erc721
+// // ✅
+// useActiveClaimCondition(TestNFTDrop);
+// // ❌
+// useActiveClaimCondition(TestNFTDrop, 1);
+
+// // tes it with erc1155
+// // ✅
+// useActiveClaimCondition(TestEditionDrop, 1);
+// // ❌
+// useActiveClaimCondition(TestEditionDrop);
+
+// // test it with erc721
+// // ✅
+// useClaimIneligibilityReasons(TestNFTDrop, { quantity: 1 });
+// // ❌
+// useClaimIneligibilityReasons(TestNFTDrop, 1);
+
+// // tes it with erc1155
+// // ✅
+// useClaimIneligibilityReasons(TestEditionDrop, { quantity: 1 }, 1);
+// // ❌
+// useClaimIneligibilityReasons(TestEditionDrop, { quantity: 1 });

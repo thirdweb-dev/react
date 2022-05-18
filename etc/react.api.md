@@ -228,10 +228,10 @@ export { useAccount }
 // @internal (undocumented)
 export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "ClaimConditionParams" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop>([contract, tokenId]: ClaimConditionParams<TContract>): UseQueryResult<    {
+export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -279,10 +279,10 @@ export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: Q
 // @public (undocumented)
 export function useClaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
 
+// Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point index.d.ts
+//
 // @beta
-export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>([contract, params, tokenId]: ClaimConditionParams<TContract, [
-ClaimIneligibilityParameters
-]>): UseQueryResult<ClaimEligibility[], unknown>;
+export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{

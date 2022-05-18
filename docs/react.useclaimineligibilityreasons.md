@@ -12,16 +12,14 @@ Use this to check for reasons that prevent claiming for either ERC20, ERC721 or 
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>([contract, params, tokenId]: ClaimConditionParams<TContract, [
-    ClaimIneligibilityParameters
-]>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk").ClaimEligibility[], unknown>;
+export declare function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk").ClaimEligibility[], unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  \[contract, params, tokenId\] | ClaimConditionParams&lt;TContract, \[ [ClaimIneligibilityParameters](./react.claimineligibilityparameters.md) \]&gt; |  |
+|  \[contract, params, tokenId\] | ClaimIneligibilityInputParams&lt;TContract&gt; |  |
 
 <b>Returns:</b>
 
