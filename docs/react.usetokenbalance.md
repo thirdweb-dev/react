@@ -15,8 +15,8 @@ Use this to get the balance of your Token contract for a given address.
 export declare function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<string>): import("react-query").UseQueryResult<{
     symbol: string;
     name: string;
-    decimals: number;
     value: import("ethers").BigNumber;
+    decimals: number;
     displayValue: string;
 }, unknown>;
 ```
@@ -30,7 +30,7 @@ export declare function useTokenBalance(contract: RequiredParam<Erc20>, address:
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ symbol: string; name: string; decimals: number; value: import("ethers").BigNumber; displayValue: string; }, unknown&gt;
+import("react-query").UseQueryResult&lt;{ symbol: string; name: string; value: import("ethers").BigNumber; decimals: number; displayValue: string; }, unknown&gt;
 
 a response object that includes the balance of the address
 

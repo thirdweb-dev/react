@@ -13,17 +13,17 @@ Use this to get a list of NFT tokens of your ERC1155 contract.
 
 ```typescript
 export declare function useEditions(contract: RequiredParam<Erc1155>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<{
-    supply: import("ethers").BigNumber;
     metadata: {
         [x: string]: import("@thirdweb-dev/sdk").Json;
         name?: string | undefined;
-        uri: string;
-        id: import("ethers").BigNumber;
         description?: string | undefined;
         image?: string | undefined;
         external_url?: string | undefined;
         animation_url?: string | undefined;
+        uri: string;
+        id: import("ethers").BigNumber;
     };
+    supply: import("ethers").BigNumber;
 }[], unknown>;
 ```
 
@@ -36,7 +36,7 @@ export declare function useEditions(contract: RequiredParam<Erc1155>, queryParam
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ supply: import("ethers").BigNumber; metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; uri: string; id: import("ethers").BigNumber; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; }; }\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| undefined; image?: string \| undefined; external\_url?: string \| undefined; animation\_url?: string \| undefined; uri: string; id: import("ethers").BigNumber; }; supply: import("ethers").BigNumber; }\[\], unknown&gt;
 
 a response object that includes an array of NFTs
 
