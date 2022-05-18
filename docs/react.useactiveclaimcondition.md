@@ -12,7 +12,7 @@ Use this to get the active claim conditon for either ERC721 or ERC1155 based con
 <b>Signature:</b>
 
 ```typescript
-export declare function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop>([contract, tokenId]: ClaimConditionParams<TContract>): import("react-query").UseQueryResult<{
+export declare function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop>([contract, tokenId]: ClaimConditionParams<TContract>): import("react-query").UseQueryResult<{
     snapshot?: {
         address: string;
         maxClaimable: string;

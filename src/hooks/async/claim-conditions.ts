@@ -1,7 +1,7 @@
 import { RequiredParam, WalletAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { EditionDrop, Erc1155, NFTDrop } from "@thirdweb-dev/sdk";
+import { EditionDrop, Erc1155, NFTDrop, TokenDrop } from "@thirdweb-dev/sdk";
 import { BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 
@@ -35,7 +35,7 @@ type ClaimConditionParams<
  * @beta
  */
 export function useActiveClaimCondition<
-  TContract extends NFTDrop | EditionDrop,
+  TContract extends NFTDrop | EditionDrop | TokenDrop,
 >([contract, tokenId]: ClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
@@ -94,7 +94,7 @@ export type ClaimIneligibilityParameters = {
  * @beta
  */
 export function useClaimIneligibilityReasons<
-  TContract extends NFTDrop | EditionDrop,
+  TContract extends NFTDrop | EditionDrop | TokenDrop,
 >([contract, params, tokenId]: ClaimConditionParams<
   TContract,
   [ClaimIneligibilityParameters]

@@ -231,7 +231,7 @@ export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 // Warning: (ae-forgotten-export) The symbol "ClaimConditionParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop>([contract, tokenId]: ClaimConditionParams<TContract>): UseQueryResult<    {
+export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop>([contract, tokenId]: ClaimConditionParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -280,7 +280,7 @@ export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: Q
 export function useClaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @beta
-export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop>([contract, params, tokenId]: ClaimConditionParams<TContract, [
+export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>([contract, params, tokenId]: ClaimConditionParams<TContract, [
 ClaimIneligibilityParameters
 ]>): UseQueryResult<ClaimEligibility[], unknown>;
 
