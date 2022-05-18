@@ -645,21 +645,6 @@ export function useDisconnect(options?: {
     error?: Error | undefined;
 }>;
 
-// @beta
-export function usEdition(contract: RequiredParam<Erc1155>, tokenId: RequiredParam<BigNumberish>): UseQueryResult<    {
-metadata: {
-[x: string]: Json;
-name?: string | undefined;
-description?: string | undefined;
-image?: string | undefined;
-external_url?: string | undefined;
-animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
-};
-supply: BigNumber;
-}, unknown>;
-
 // @public
 export function useEdition(contractAddress?: string): Edition | undefined;
 
@@ -683,6 +668,21 @@ id: BigNumber;
 };
 supply: BigNumber;
 }[], unknown>;
+
+// @beta
+export function useEditionToken(contract: RequiredParam<Erc1155>, tokenId: RequiredParam<BigNumberish>): UseQueryResult<    {
+metadata: {
+[x: string]: Json;
+name?: string | undefined;
+description?: string | undefined;
+image?: string | undefined;
+external_url?: string | undefined;
+animation_url?: string | undefined;
+uri: string;
+id: BigNumber;
+};
+supply: BigNumber;
+}, unknown>;
 
 // @beta
 export function useEditionTotalCount(contract: RequiredParam<Erc1155>, tokenId: BigNumberish): UseQueryResult<BigNumber, unknown>;

@@ -40,11 +40,11 @@ import { useCoinbaseWallet } from "@thirdweb-dev/react"
 import { useDisconnect } from "@thirdweb-dev/react"
 ```
  |
-|  [usEdition(contract, tokenId)](./react.usedition.md) | <b><i>(BETA)</i></b> Use this to get an individual NFT token of your ERC1155 contract. |
 |  [useEdition(contractAddress)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |
 |  [useEditionBalance(contract, tokenId, ownerWalletAddress)](./react.useeditionbalance.md) | <b><i>(BETA)</i></b> Use this to get a the total balance of a specific ERC1155 contract and wallet address. |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
 |  [useEditions(contract, queryParams)](./react.useeditions.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your ERC1155 contract. |
+|  [useEditionToken(contract, tokenId)](./react.useeditiontoken.md) | <b><i>(BETA)</i></b> Use this to get an individual NFT token of your ERC1155 contract. |
 |  [useEditionTotalCount(contract, tokenId)](./react.useeditiontotalcount.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your ERC1155 contract. |
 |  [useGnosis()](./react.usegnosis.md) | Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.
 ```javascript

@@ -24,7 +24,7 @@ import invariant from "tiny-invariant";
  * @returns a response object that includes the metadata for the given tokenId
  * @beta
  */
-export function usEdition(
+export function useEditionToken(
   contract: RequiredParam<Erc1155>,
   tokenId: RequiredParam<BigNumberish>,
 ) {
