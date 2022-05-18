@@ -1,3 +1,4 @@
+import alias from "esbuild-plugin-alias";
 import { defineConfig } from "tsup";
 
 export default defineConfig({
@@ -7,4 +8,9 @@ export default defineConfig({
   minify: true,
   platform: "browser",
   format: ["cjs", "esm"],
+  esbuildPlugins: [
+    alias({
+      stream: `${__dirname}/node_modules/stream-browserify/index.js`,
+    }),
+  ],
 });

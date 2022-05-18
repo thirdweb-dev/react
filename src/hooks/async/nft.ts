@@ -89,11 +89,11 @@ export function useNFTSupply(contract: RequiredParam<Erc721>) {
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
-        contract.query?.totalSupply,
+        contract.query?.totalCirculatingSupply,
         "Contract instance does not support query.totalSupply",
       );
 
-      return contract.query.totalSupply();
+      return contract.query.totalCirculatingSupply();
     },
     {
       enabled: !!contract,

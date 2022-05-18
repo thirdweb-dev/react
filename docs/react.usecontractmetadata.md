@@ -14,10 +14,10 @@ Use this to get the contract metadata for a (built-in or custom) contract.
 ```typescript
 export declare function useContractMetadata(contractAddress: RequiredParam<string>): import("react-query").UseQueryResult<{
     [x: string]: import("@thirdweb-dev/sdk").Json;
-    name: string;
     description?: string | undefined;
     image?: any;
     external_link?: string | undefined;
+    name: string;
 } | null, unknown>;
 ```
 
@@ -29,7 +29,7 @@ export declare function useContractMetadata(contractAddress: RequiredParam<strin
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk").Json; name: string; description?: string \| undefined; image?: any; external\_link?: string \| undefined; } \| null, unknown&gt;
+import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; } \| null, unknown&gt;
 
 a response object that includes the contract metadata of the deployed contract
 
