@@ -22,7 +22,7 @@ import { useChainId } from "@thirdweb-dev/react"
 ```
  |
 |  [useClaimedNFTs(contract, queryParams)](./react.useclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*claimed\* (minted) NFT tokens of your ERC721 Drop contract. |
-|  [useClaimedNftSupply(contract)](./react.useclaimednftsupply.md) |  |
+|  [useClaimedNFTSupply(contract)](./react.useclaimednftsupply.md) |  |
 |  [useClaimIneligibilityReasons(\[contract, params, tokenId\])](./react.useclaimineligibilityreasons.md) | <b><i>(BETA)</i></b> Use this to check for reasons that prevent claiming for either ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | Hook for connecting to a Coinbase wallet.
 ```javascript
@@ -89,7 +89,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useTokenBalance(contract, address)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |
 |  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your Token contract. |
 |  [useUnclaimedNFTs(contract, queryParams)](./react.useunclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*unclaimed\* NFT tokens of your ERC721 Drop contract. |
-|  [useUnclaimedNftSupply(contract)](./react.useunclaimednftsupply.md) |  |
+|  [useUnclaimedNFTSupply(contract)](./react.useunclaimednftsupply.md) |  |
 |  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
 |  [useWalletConnect()](./react.usewalletconnect.md) | Hook for connecting to a mobile wallet with Wallet Connect
 ```javascript

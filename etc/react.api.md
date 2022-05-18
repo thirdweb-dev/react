@@ -274,10 +274,10 @@ export function useChainId(): number | undefined;
 // @beta
 export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+export function useClaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @beta
 export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop>([contract, params, tokenId]: ClaimConditionParams<TContract, [
@@ -854,10 +854,10 @@ uri: string;
 id: BigNumber;
 }[], unknown>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;

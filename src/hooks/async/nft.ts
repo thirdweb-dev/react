@@ -236,6 +236,7 @@ export function useUnclaimedNFTs(
       );
       return contract.getAllUnclaimed(queryParams);
     },
+    { enabled: !!contract },
   );
 }
 
@@ -265,7 +266,7 @@ export function useClaimedNFTs(
  * @param contract - an instace of a contract that extends the ERC721 spec (nft drop, custom contract that follows the ERC721 & drop spec)
  * @returns a response object that includes the number of NFTs that are unclaimed
  */
-export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>) {
+export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.drop.totalUnclaimedSupply(contractAddress),
@@ -277,6 +278,7 @@ export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>) {
       );
       return contract.totalUnclaimedSupply();
     },
+    { enabled: !!contract },
   );
 }
 
@@ -285,7 +287,7 @@ export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>) {
  * @param contract - an instace of a contract that extends the ERC721 spec (nft drop, custom contract that follows the ERC721 & drop spec)
  * @returns a response object that includes the number of NFTs that are claimed
  */
-export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>) {
+export function useClaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.drop.totalClaimedSupply(contractAddress),
@@ -297,6 +299,7 @@ export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>) {
       );
       return contract.totalClaimedSupply();
     },
+    { enabled: !!contract },
   );
 }
 
