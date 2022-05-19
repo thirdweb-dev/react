@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-provider: NetworkOrSignerOrProvider;
+provider: ChainOrRpc | SignerOrProvider;
 ```
