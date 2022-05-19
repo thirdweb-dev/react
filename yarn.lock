@@ -989,9 +989,9 @@
   integrity sha512-TUWo1vV6kEDZGfLRv9wJFxAkncc2lLCfPUN2YJp/4Ggqlm4ZdeELW2Y4cV+H8DMeiMO4ROLKNa2PUUHTQH2SJg==
 
 "@thirdweb-dev/sdk@^2.2.10":
-  version "2.2.10"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.2.10.tgz#d7f4a99263e12bc44bf4bf52be28e62f6eade7cd"
-  integrity sha512-w5NMWtmlWuzWMcUZUMwQy1MWAmkbBD7oEqCYC07a/uipUcZnS5NQ0+6XZPuRp1/2FNjxeInyeS9ZGwJISfaJxg==
+  version "2.2.11"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.2.11.tgz#eeb2ea88e3a16a8cea634094e06a7f6478d279d4"
+  integrity sha512-oFRgmSXysG64ZT+9DpDCwVUSg09HjvTgyi6u6yYjXmir8CgVmwQHVhBxOUGXmG3oHgFDenUtdxmma3Vvdoi8mg==
   dependencies:
     "@thirdweb-dev/contracts" "2.3.6"
     "@web-std/file" "^3.0.0"

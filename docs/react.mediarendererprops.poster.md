@@ -9,5 +9,5 @@ The media poster image uri. (if applicable)
 <b>Signature:</b>
 
 ```typescript
-poster?: string;
+poster?: string | null;
 ```

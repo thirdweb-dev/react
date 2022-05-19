@@ -35,7 +35,7 @@ export interface MediaRendererProps extends SharedMediaProps {
   /**
    * The media source uri.
    */
-  src?: string;
+  src?: string | null;
   /**
    * The alt text for the media.
    */
@@ -43,7 +43,7 @@ export interface MediaRendererProps extends SharedMediaProps {
   /**
    * The media poster image uri. (if applicable)
    */
-  poster?: string;
+  poster?: string | null;
 }
 
 interface PlayButtonProps {
@@ -136,8 +136,8 @@ const VideoPlayer = React.forwardRef<
       <div style={{ position: "relative", ...style }} {...restProps}>
         <video
           ref={mergeRefs([videoRef, ref])}
-          src={src}
-          poster={poster}
+          src={src ?? undefined}
+          poster={poster ?? undefined}
           loop
           playsInline
           muted={muted}
@@ -263,7 +263,7 @@ const AudioPlayer = React.forwardRef<
         />
         <audio
           ref={mergeRefs([audioRef, ref])}
-          src={src}
+          src={src ?? undefined}
           loop
           playsInline
           muted={muted}
@@ -317,7 +317,7 @@ const IframePlayer = React.forwardRef<
         ref={observe}
       >
         <iframe
-          src={playing ? src : undefined}
+          src={playing ? src ?? undefined : undefined}
           ref={ref}
           style={{
             objectFit: "contain",
@@ -411,7 +411,7 @@ const LinkPlayer = React.forwardRef<
                 textDecoration: "underline",
                 color: "rgb(138, 147, 155)",
               }}
-              href={src}
+              href={src ?? undefined}
               target="_blank"
               ref={ref as unknown as React.LegacyRef<HTMLAnchorElement>}
             >
@@ -461,8 +461,8 @@ export const MediaRenderer = React.forwardRef<
     ref,
   ) => {
     const mergedStyle: React.CSSProperties = { objectFit: "contain", ...style };
-    const videoOrImageSrc = useResolvedMediaType(src);
-    const possiblePosterSrc = useResolvedMediaType(poster);
+    const videoOrImageSrc = useResolvedMediaType(src ?? undefined);
+    const possiblePosterSrc = useResolvedMediaType(poster ?? undefined);
     if (!videoOrImageSrc.mimeType) {
       return (
         <img

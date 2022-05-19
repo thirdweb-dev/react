@@ -142,8 +142,8 @@ export const MediaRenderer: React_2.ForwardRefExoticComponent<MediaRendererProps
 // @public
 export interface MediaRendererProps extends SharedMediaProps {
     alt?: string;
-    poster?: string;
-    src?: string;
+    poster?: string | null;
+    src?: string | null;
 }
 
 // @public (undocumented)
@@ -848,10 +848,10 @@ export function useTotalCirculatingSupply(contract: RequiredParam<NFTContract>):
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {
 [x: string]: Json;
 name?: string | undefined;
-description?: string | undefined;
-image?: string | undefined;
-external_url?: string | undefined;
-animation_url?: string | undefined;
+description?: string | null | undefined;
+image?: string | null | undefined;
+external_url?: string | null | undefined;
+animation_url?: string | null | undefined;
 uri: string;
 id: BigNumber;
 }[], unknown>;
