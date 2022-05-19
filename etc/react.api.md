@@ -101,12 +101,12 @@ export { defaultL2Chains }
 // Warning: (ae-incompatible-release-tags) The symbol "detectErc1155Instance" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract>): EditionDrop | Edition | undefined;
+export function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): EditionDrop | Edition | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract>): Erc721<any> | undefined;
+export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): Erc721<any> | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -161,7 +161,6 @@ export type MintNFTParams<TContract extends NFTContract> = TContract extends Erc
     to: WalletAddress;
 } : {
     metadata: NFTMetadataOrUri;
-    supply: BigNumberish;
     to: WalletAddress;
 };
 

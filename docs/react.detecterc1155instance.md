@@ -7,14 +7,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract>): import("@thirdweb-dev/sdk").EditionDrop | import("@thirdweb-dev/sdk").Edition | undefined;
+export declare function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): import("@thirdweb-dev/sdk").EditionDrop | import("@thirdweb-dev/sdk").Edition | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;ValidContractInstance \| SmartContract&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;ValidContractInstance \| SmartContract \| null&gt; |  |
 
 <b>Returns:</b>
 

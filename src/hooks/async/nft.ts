@@ -26,7 +26,7 @@ import invariant from "tiny-invariant";
  @internal
  */
 export function detectErc721Instance(
-  contract: RequiredParam<ValidContractInstance | SmartContract>,
+  contract: RequiredParam<ValidContractInstance | SmartContract | null>,
 ) {
   if (!contract) {
     return undefined;
@@ -41,7 +41,7 @@ export function detectErc721Instance(
 }
 
 export function detectErc1155Instance(
-  contract: RequiredParam<ValidContractInstance | SmartContract>,
+  contract: RequiredParam<ValidContractInstance | SmartContract | null>,
 ) {
   if (!contract) {
     return undefined;
@@ -432,18 +432,19 @@ export function useMintNFT<TContract extends NFTContract>(
 
   return useMutation(
     async (data: MintNFTParams<TContract>) => {
-      const { to, metadata, supply } = data;
-      invariant(to, 'No "to" address provided');
+      invariant(data.to, 'No "to" address provided');
       invariant(contract?.mint?.to, "contract does not support mint.to");
       if (contract instanceof Erc1155) {
+        invariant("supply" in data, "supply not provided");
+        const { to, metadata, supply } = data;
         return (await contract.mint.to(to, {
           metadata,
           supply: BigNumber.from(supply || 1),
         })) as MintNFTReturnType<TContract>;
       }
       return (await contract.mint.to(
-        to,
-        metadata,
+        data.to,
+        data.metadata,
       )) as MintNFTReturnType<TContract>;
     },
     {

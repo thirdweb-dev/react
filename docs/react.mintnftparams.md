@@ -18,7 +18,6 @@ export declare type MintNFTParams<TContract extends NFTContract> = TContract ext
     to: WalletAddress;
 } : {
     metadata: NFTMetadataOrUri;
-    supply: BigNumberish;
     to: WalletAddress;
 };
 ```

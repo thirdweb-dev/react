@@ -93,7 +93,7 @@ export type useNFTBalanceParams<TContract> = TContract extends Erc1155
 export type MintNFTParams<TContract extends NFTContract> =
   TContract extends Erc1155
     ? { metadata: NFTMetadataOrUri; supply: BigNumberish; to: WalletAddress }
-    : { metadata: NFTMetadataOrUri; supply: BigNumberish; to: WalletAddress };
+    : { metadata: NFTMetadataOrUri; to: WalletAddress };
 
 /**
  * The return type of the {@link useMintNFT} hook.
