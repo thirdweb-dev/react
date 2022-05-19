@@ -64,6 +64,56 @@ export function useActiveClaimCondition<
 }
 
 /**
+ * Use this to get all claim conditons for ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
+ *
+ * @example
+ * ```javascript
+ * const { data: claimConditions, isLoading, error } = useClaimConditions(<YourERC20ContractInstance>);
+ * ```
+ * @example
+ * ```javascript
+ * const { data: claimConditions, isLoading, error } = useClaimConditions(<YourERC721ContractInstance>);
+ * ```
+ * @example
+ * ```javascript
+ * const { data: claimConditions, isLoading, error } = useClaimConditions(<YourERC1155ContractInstance>, <tokenId>);
+ * ```
+ *
+ * @param contract - an instace of a contract that extends the ERC721 or ERC1155 spec and implements the `claimConditions` extension.
+ * @param tokenId - the id of the token to fetch the claim conditions for (if the contract is an ERC1155 contract)
+ * @returns a response object with the list of claim conditions
+ *
+ * @beta
+ */
+export function useClaimConditions<
+  TContract extends NFTDrop | EditionDrop | TokenDrop,
+>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
+  const contractAddress = contract?.getAddress();
+
+  return useQueryWithNetwork(
+    cacheKeys.extensions.claimConditions.getAll(contractAddress, tokenId),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.claimConditions.getAll,
+        "Contract instance does not support claimConditions.getAll",
+      );
+      if (contract instanceof Erc1155) {
+        invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
+        return contract.claimConditions.getAll(tokenId);
+      }
+      return contract.claimConditions.getAll();
+    },
+    {
+      // Checks that happen here:
+      // 1. if the contract is based on  ERC1155 contract => tokenId cannot be `undefined`
+      // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
+      enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
+    },
+  );
+}
+
+/**
  * The options to be passed as the second parameter to the `useClaimIneligibilityReasons` hook.
  *
  * @beta

@@ -2,8 +2,10 @@ import { useActiveChainId, useSDK } from "../../Provider";
 import { ContractAddress, RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { CONTRACTS_MAP, SmartContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
-import {
+import type { ThirdwebSDK } from "@thirdweb-dev/sdk";
+// eslint-disable-next-line no-duplicate-imports
+import { CONTRACTS_MAP, SmartContract } from "@thirdweb-dev/sdk";
+import type {
   CustomContractMetadata,
   PublishedMetadata,
 } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";

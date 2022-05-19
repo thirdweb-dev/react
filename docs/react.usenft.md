@@ -7,24 +7,24 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get an individual NFT token of your ERC721 contract.
+Use this to get an individual NFT token of your [NFTContract](./react.nftcontract.md)<!-- -->.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFT(contract: RequiredParam<Erc721>, tokenId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk").NFTMetadataOwner, unknown>;
+export declare function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<NFT<TContract>, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&gt; | an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instace of a [NFTContract](./react.nftcontract.md) |
 |  tokenId | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;BigNumberish&gt; | the tokenId to look up |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk").NFTMetadataOwner, unknown&gt;
+import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;, unknown&gt;
 
 a response object that includes the metadata for the given tokenId
 
@@ -32,6 +32,6 @@ a response object that includes the metadata for the given tokenId
 
 
 ```javascript
-const { data: nft, isLoading, error } = useNFT(<YourERC721ContractInstance>, <tokenId>);
+const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);
 ```
 

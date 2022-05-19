@@ -1,5 +1,5 @@
 import { ContractAddress, RequiredParam, WalletAddress } from "../types";
-import {
+import type {
   MarketplaceFilter,
   QueryAllParams,
   SUPPORTED_CHAIN_ID,
@@ -58,11 +58,16 @@ export const cacheKeys = {
       get: (
         contractAddress: RequiredParam<ContractAddress>,
         tokenId: RequiredParam<BigNumberish>,
-      ) => createContractCacheKey(contractAddress, ["nft", "get", tokenId]),
+      ) => createContractCacheKey(contractAddress, ["get", { tokenId }]),
       balanceOf: (
         contractAddress: RequiredParam<ContractAddress>,
         owner: RequiredParam<WalletAddress>,
-      ) => createContractCacheKey(contractAddress, ["nft", "balanceOf", owner]),
+        tokenId: RequiredParam<BigNumberish>,
+      ) =>
+        createContractCacheKey(contractAddress, [
+          "balanceOf",
+          { owner, tokenId },
+        ]),
       query: {
         all: (
           contractAddress: RequiredParam<ContractAddress>,
@@ -108,34 +113,7 @@ export const cacheKeys = {
           createContractCacheKey(contractAddress, ["totalClaimedSupply"]),
       },
     },
-    edition: {
-      get: (
-        contractAddress: RequiredParam<ContractAddress>,
-        tokenId: RequiredParam<BigNumberish>,
-      ) => createContractCacheKey(contractAddress, ["edition", "get", tokenId]),
-      balanceOf: (
-        contractAddress: RequiredParam<ContractAddress>,
-        tokenId: RequiredParam<BigNumberish>,
-        owner: RequiredParam<WalletAddress>,
-      ) =>
-        createContractCacheKey(contractAddress, [
-          "edition",
-          "balanceOf",
-          { tokenId, owner },
-        ]),
-      query: {
-        all: (
-          contractAddress: RequiredParam<ContractAddress>,
-          params?: QueryAllParams,
-        ) =>
-          createContractCacheKey(
-            contractAddress,
-            params ? ["query", "all", params] : ["query", "all"],
-          ),
-        getTotalCount: (contractAddress: RequiredParam<ContractAddress>) =>
-          createContractCacheKey(contractAddress, ["query", "getTotalCount"]),
-      },
-    },
+
     token: {
       totalSupply: (contractAddress: RequiredParam<ContractAddress>) =>
         createContractCacheKey(contractAddress, ["totalSupply"]),
@@ -143,7 +121,10 @@ export const cacheKeys = {
         contractAddress: RequiredParam<ContractAddress>,
         walletAddress: RequiredParam<ContractAddress>,
       ) =>
-        createContractCacheKey(contractAddress, ["balanceOf", walletAddress]),
+        createContractCacheKey(contractAddress, [
+          "balanceOf",
+          { walletAddress },
+        ]),
     },
     marketplace: {
       getAllListings: (
@@ -174,8 +155,18 @@ export const cacheKeys = {
         createContractCacheKey(
           contractAddress,
           tokenId
-            ? ["claimConditions", "getActive", contractAddress, tokenId]
-            : ["claimConditions", "getActive", contractAddress],
+            ? ["claimConditions", "getActive", { tokenId }]
+            : ["claimConditions", "getActive"],
+        ),
+      getAll: (
+        contractAddress: RequiredParam<ContractAddress>,
+        tokenId?: BigNumberish,
+      ) =>
+        createContractCacheKey(
+          contractAddress,
+          tokenId
+            ? ["claimConditions", "getActive", { tokenId }]
+            : ["claimConditions", "getActive"],
         ),
       getClaimIneligibilityReasons: (
         contractAddress: RequiredParam<ContractAddress>,
@@ -185,8 +176,8 @@ export const cacheKeys = {
         createContractCacheKey(
           contractAddress,
           tokenId
-            ? ["claimConditions", "getActive", contractAddress, tokenId, params]
-            : ["claimConditions", "getActive", contractAddress, params],
+            ? ["claimConditions", "getActive", { tokenId }, params]
+            : ["claimConditions", "getActive", params],
         ),
     },
   },

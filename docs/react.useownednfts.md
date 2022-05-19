@@ -7,24 +7,24 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get a the owned NFTs for a specific ERC721 contract and wallet address.
+Use this to get a the owned NFTs for a specific [NFTContract](./react.nftcontract.md) and wallet address.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useOwnedNFTs(contract: RequiredParam<Erc721>, ownerWalletAddress: RequiredParam<WalletAddress>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk").NFTMetadataOwner[], unknown>;
+export declare function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&gt; | an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instace of a [NFTContract](./react.nftcontract.md) |
 |  ownerWalletAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; | the wallet adress to get owned tokens for |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk").NFTMetadataOwner\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;\[\], unknown&gt;
 
 a response object that includes the list of owned tokens
 
@@ -32,6 +32,6 @@ a response object that includes the list of owned tokens
 
 
 ```javascript
-const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(<YourERC721ContractInstance>, <OwnerWalletAddress>);
+const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);
 ```
 

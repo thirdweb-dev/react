@@ -21,10 +21,11 @@ import { defaultL2Chains } from './constants';
 import { DirectListing } from '@thirdweb-dev/sdk';
 import { Edition } from '@thirdweb-dev/sdk';
 import { EditionDrop } from '@thirdweb-dev/sdk';
-import { EditionMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Erc1155 } from '@thirdweb-dev/sdk';
+import type { Erc1155Mintable } from '@thirdweb-dev/sdk';
 import type { Erc20 } from '@thirdweb-dev/sdk';
 import { Erc721 } from '@thirdweb-dev/sdk';
+import type { Erc721Mintable } from '@thirdweb-dev/sdk';
 import { FetchStatus } from 'react-query';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { IpfsStorage } from '@thirdweb-dev/sdk';
@@ -40,11 +41,10 @@ import type { NewDirectListing } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
-import { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
-import { NFTMetadataOwner } from '@thirdweb-dev/sdk';
+import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Pack } from '@thirdweb-dev/sdk';
-import { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
-import { QueryAllParams } from '@thirdweb-dev/sdk';
+import type { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
+import type { QueryAllParams } from '@thirdweb-dev/sdk';
 import { QueryClient } from 'react-query';
 import { QueryObserverResult } from 'react-query';
 import { default as React_2 } from 'react';
@@ -63,7 +63,7 @@ import { TransactionResultWithId } from '@thirdweb-dev/sdk';
 import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
 import { UseQueryResult } from 'react-query';
-import { ValidContractInstance } from '@thirdweb-dev/sdk';
+import type { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
@@ -98,15 +98,15 @@ export { defaultChains }
 
 export { defaultL2Chains }
 
+// Warning: (ae-incompatible-release-tags) The symbol "detectErc1155Instance" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
+// @public (undocumented)
+export function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract>): EditionDrop | Edition | undefined;
+
 // Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract>): Erc721<any> | undefined;
-
-// @beta
-export type EditionMintParams = {
-    to: WalletAddress;
-} & EditionMetadataOrUri;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -155,10 +155,30 @@ export interface MediaType {
 }
 
 // @beta
-export type NFTMintParams = {
-    to: WalletAddress;
+export type MintNFTParams<TContract extends NFTContract> = TContract extends Erc1155 ? {
     metadata: NFTMetadataOrUri;
+    supply: BigNumberish;
+    to: WalletAddress;
+} : {
+    metadata: NFTMetadataOrUri;
+    supply: BigNumberish;
+    to: WalletAddress;
 };
+
+// @beta
+export type MintNFTReturnType<TContract> = TContract extends Erc721 ? Awaited<ReturnType<Erc721Mintable["to"]>> : TContract extends Erc1155 ? Awaited<ReturnType<Erc1155Mintable["to"]>> : never;
+
+// @beta
+export type NFT<TContract extends NFTContract> = {
+    metadata: NFTMetadata;
+    owner: string;
+    type: TContract extends Erc721 ? "ERC721" : "ERC1155";
+    supply: TContract extends Erc721 ? 1 : number;
+    [key: string]: unknown;
+};
+
+// @beta
+export type NFTContract = Erc721 | Erc1155;
 
 // @beta
 export type RequiredParam<T> = T | undefined;
@@ -272,7 +292,31 @@ export function useBuiltinContract<TContractType extends ContractType>(contractT
 export function useChainId(): number | undefined;
 
 // @beta
-export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
+export function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+snapshot?: {
+address: string;
+maxClaimable: string;
+}[] | undefined;
+quantityLimitPerTransaction: string;
+startTime: Date;
+price: BigNumber;
+currencyAddress: string;
+maxQuantity: string;
+waitInSeconds: BigNumber;
+merkleRootHash: string | number[];
+availableSupply: string;
+currentMintSupply: string;
+currencyMetadata: {
+symbol: string;
+name: string;
+value: BigNumber;
+decimals: number;
+displayValue: string;
+};
+}[], unknown>;
+
+// @beta
+export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<NFT<NFTDrop>[], unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useClaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
@@ -648,44 +692,8 @@ export function useDisconnect(options?: {
 // @public
 export function useEdition(contractAddress?: string): Edition | undefined;
 
-// @beta
-export function useEditionBalance(contract: RequiredParam<Erc1155>, tokenId: RequiredParam<BigNumberish>, ownerWalletAddress: RequiredParam<WalletAddress>): UseQueryResult<BigNumber, unknown>;
-
 // @public
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
-
-// @beta
-export function useEditions(contract: RequiredParam<Erc1155>, queryParams?: QueryAllParams): UseQueryResult<    {
-metadata: {
-[x: string]: Json;
-name?: string | undefined;
-description?: string | undefined;
-image?: string | undefined;
-external_url?: string | undefined;
-animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
-};
-supply: BigNumber;
-}[], unknown>;
-
-// @beta
-export function useEditionToken(contract: RequiredParam<Erc1155>, tokenId: RequiredParam<BigNumberish>): UseQueryResult<    {
-metadata: {
-[x: string]: Json;
-name?: string | undefined;
-description?: string | undefined;
-image?: string | undefined;
-external_url?: string | undefined;
-animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
-};
-supply: BigNumber;
-}, unknown>;
-
-// @beta
-export function useEditionTotalCount(contract: RequiredParam<Erc1155>, tokenId: BigNumberish): UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
@@ -711,22 +719,7 @@ export function useMetamask(): () => Promise<{
 }>;
 
 // @beta
-export function useMintEdition(contract: RequiredParam<Erc1155>): UseMutationResult<TransactionResultWithId<    {
-metadata: {
-[x: string]: Json;
-name?: string | undefined;
-description?: string | undefined;
-image?: string | undefined;
-external_url?: string | undefined;
-animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
-};
-supply: BigNumber;
-}>, unknown, EditionMintParams, unknown>;
-
-// @beta
-export function useMintNFT(contract: RequiredParam<Erc721>): UseMutationResult<TransactionResultWithId<NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
+export function useMintNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<MintNFTReturnType<TContract>, unknown, MintNFTParams<TContract>, unknown>;
 
 // @beta
 export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
@@ -769,10 +762,20 @@ export function useNetwork(): readonly [{
 export function useNetworkMismatch(): boolean;
 
 // @beta
-export function useNFT(contract: RequiredParam<Erc721>, tokenId: RequiredParam<BigNumberish>): UseQueryResult<NFTMetadataOwner, unknown>;
+export function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>): UseQueryResult<NFT<TContract>, unknown>;
 
 // @beta
-export function useNFTBalance(contract: RequiredParam<Erc721>, ownerWalletAddress: RequiredParam<WalletAddress>): UseQueryResult<BigNumber, unknown>;
+export function useNFTBalance<TContract extends NFTContract>(...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export type useNFTBalanceParams<TContract> = TContract extends Erc1155 ? [
+contract: RequiredParam<TContract>,
+ownerWalletAddress: RequiredParam<WalletAddress>,
+tokenId: RequiredParam<BigNumberish>
+] : [
+contract: RequiredParam<TContract>,
+ownerWalletAddress: RequiredParam<WalletAddress>
+];
 
 // @public
 export function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
@@ -781,13 +784,10 @@ export function useNFTCollection(contractAddress?: string): NFTCollection | unde
 export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 
 // @beta
-export function useNFTs(contract: RequiredParam<Erc721>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
+export function useNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, queryParams?: QueryAllParams): UseQueryResult<NFT<TContract>[], unknown>;
 
 // @beta
-export function useNFTSupply(contract: RequiredParam<Erc721>): UseQueryResult<BigNumber, unknown>;
-
-// @beta
-export function useOwnedNFTs(contract: RequiredParam<Erc721>, ownerWalletAddress: RequiredParam<WalletAddress>): UseQueryResult<NFTMetadataOwner[], unknown>;
+export function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>): UseQueryResult<NFT<TContract>[], unknown>;
 
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
@@ -820,7 +820,7 @@ export function useSplit(contractAddress?: string): Split | undefined;
 export function useToken(contractAddress?: string): Token | undefined;
 
 // @beta
-export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<string>): UseQueryResult<    {
+export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<WalletAddress>): UseQueryResult<    {
 symbol: string;
 name: string;
 value: BigNumber;
@@ -841,6 +841,9 @@ value: BigNumber;
 decimals: number;
 displayValue: string;
 }, unknown>;
+
+// @beta
+export function useTotalCirculatingSupply(contract: RequiredParam<NFTContract>): UseQueryResult<BigNumber, unknown>;
 
 // @beta
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {

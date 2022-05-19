@@ -32,7 +32,7 @@ export function useQueryWithNetwork<
     enabled: !!(activeChainId && options?.enabled),
   };
 
-  return useQuery(
+  return useQuery<TQueryFnData, TError, TData, TQueryKey>(
     createCacheKeyWithNetwork(queryKey, activeChainId) as TQueryKey,
     queryFn,
     mergedOptions,

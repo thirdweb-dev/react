@@ -7,20 +7,19 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get a the total balance of a specific ERC721 contract and wallet address.
+Use this to get a the total balance of a [NFTContract](./react.nftcontract.md) and wallet address.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTBalance(contract: RequiredParam<Erc721>, ownerWalletAddress: RequiredParam<WalletAddress>): import("react-query").UseQueryResult<BigNumber, unknown>;
+export declare function useNFTBalance<TContract extends NFTContract>(...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>): import("react-query").UseQueryResult<BigNumber, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc721&gt; | an instace of a contract that extends the ERC721 spec (nft collection, nft drop, custom contract that follows the ERC721 spec) |
-|  ownerWalletAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; | the wallet adress to check the balance of |
+|  \[contract, ownerWalletAddress, tokenId\] | [useNFTBalanceParams](./react.usenftbalanceparams.md)<!-- -->&lt;TContract&gt; |  |
 
 <b>Returns:</b>
 
@@ -32,6 +31,6 @@ a response object that includes the total balance of the owner
 
 
 ```javascript
-const { data: ownerBalance, isLoading, error } = useNFTBalance(<YourERC721ContractInstance>, <OwnerWalletAddress>);
+const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);
 ```
 

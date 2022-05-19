@@ -8,6 +8,7 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [detectErc1155Instance(contract)](./react.detecterc1155instance.md) |  |
 |  [useActiveClaimCondition(\[contract, tokenId\])](./react.useactiveclaimcondition.md) | <b><i>(BETA)</i></b> Use this to get the active claim conditon for ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useActiveListings(contract, filter)](./react.useactivelistings.md) | <b><i>(BETA)</i></b> Use this to get a list active listings from your marketplace contract. |
 |  [useAddress()](./react.useaddress.md) | Hook for accessing the address of the connected wallet
@@ -21,6 +22,7 @@ import { useAddress } from "@thirdweb-dev/react"
 import { useChainId } from "@thirdweb-dev/react"
 ```
  |
+|  [useClaimConditions(\[contract, tokenId\])](./react.useclaimconditions.md) | <b><i>(BETA)</i></b> Use this to get all claim conditons for ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useClaimedNFTs(contract, queryParams)](./react.useclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*claimed\* (minted) NFT tokens of your ERC721 Drop contract. |
 |  [useClaimedNFTSupply(contract)](./react.useclaimednftsupply.md) |  |
 |  [useClaimIneligibilityReasons(\[contract, params, tokenId\])](./react.useclaimineligibilityreasons.md) | <b><i>(BETA)</i></b> Use this to check for reasons that prevent claiming for either ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
@@ -41,11 +43,7 @@ import { useDisconnect } from "@thirdweb-dev/react"
 ```
  |
 |  [useEdition(contractAddress)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |
-|  [useEditionBalance(contract, tokenId, ownerWalletAddress)](./react.useeditionbalance.md) | <b><i>(BETA)</i></b> Use this to get a the total balance of a specific ERC1155 contract and wallet address. |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
-|  [useEditions(contract, queryParams)](./react.useeditions.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your ERC1155 contract. |
-|  [useEditionToken(contract, tokenId)](./react.useeditiontoken.md) | <b><i>(BETA)</i></b> Use this to get an individual NFT token of your ERC1155 contract. |
-|  [useEditionTotalCount(contract, tokenId)](./react.useeditiontotalcount.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your ERC1155 contract. |
 |  [useGnosis()](./react.usegnosis.md) | Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.
 ```javascript
 import { useGnosis } from "@thirdweb-dev/react"
@@ -62,8 +60,7 @@ import { useMagic } from "@thirdweb-dev/react"
 import { useMetamask } from "@thirdweb-dev/react"
 ```
  |
-|  [useMintEdition(contract)](./react.usemintedition.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC1155 contract |
-|  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC721 contract |
+|  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md) |
 |  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC20 contract |
 |  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks
 ```javascript
@@ -75,19 +72,19 @@ import { useNetwork } from "@thirdweb-dev/react"
 import { useNetworkMistmatch } from "@thirdweb-dev/react"
 ```
  |
-|  [useNFT(contract, tokenId)](./react.usenft.md) | <b><i>(BETA)</i></b> Use this to get an individual NFT token of your ERC721 contract. |
-|  [useNFTBalance(contract, ownerWalletAddress)](./react.usenftbalance.md) | <b><i>(BETA)</i></b> Use this to get a the total balance of a specific ERC721 contract and wallet address. |
+|  [useNFT(contract, tokenId)](./react.usenft.md) | <b><i>(BETA)</i></b> Use this to get an individual NFT token of your [NFTContract](./react.nftcontract.md)<!-- -->. |
+|  [useNFTBalance(\[contract, ownerWalletAddress, tokenId\])](./react.usenftbalance.md) | <b><i>(BETA)</i></b> Use this to get a the total balance of a [NFTContract](./react.nftcontract.md) and wallet address. |
 |  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Hook for getting an instance of an <code>NFTCollection</code> contract. This contract is meant to interface with ERC721 compliant NFTs. |
 |  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Hook for getting an instance of an <code>NFTDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
-|  [useNFTs(contract, queryParams)](./react.usenfts.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your ERC721 contract. |
-|  [useNFTSupply(contract)](./react.usenftsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your ERC721 contract. |
-|  [useOwnedNFTs(contract, ownerWalletAddress)](./react.useownednfts.md) | <b><i>(BETA)</i></b> Use this to get a the owned NFTs for a specific ERC721 contract and wallet address. |
+|  [useNFTs(contract, queryParams)](./react.usenfts.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your [NFTContract](./react.nftcontract.md)<!-- -->. |
+|  [useOwnedNFTs(contract, ownerWalletAddress)](./react.useownednfts.md) | <b><i>(BETA)</i></b> Use this to get a the owned NFTs for a specific [NFTContract](./react.nftcontract.md) and wallet address. |
 |  [usePack(contractAddress)](./react.usepack.md) | Hook for getting an instance of a <code>Pack</code> contract. This contract supports the creation of on-chain luck-based lootboxes. |
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
 |  [useTokenBalance(contract, address)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |
 |  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your Token contract. |
+|  [useTotalCirculatingSupply(contract)](./react.usetotalcirculatingsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your [NFTContract](./react.nftcontract.md)<!-- -->. |
 |  [useUnclaimedNFTs(contract, queryParams)](./react.useunclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*unclaimed\* NFT tokens of your ERC721 Drop contract. |
 |  [useUnclaimedNFTSupply(contract)](./react.useunclaimednftsupply.md) |  |
 |  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
@@ -124,9 +121,12 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  --- | --- |
 |  [ClaimIneligibilityParameters](./react.claimineligibilityparameters.md) | <b><i>(BETA)</i></b> The options to be passed as the second parameter to the <code>useClaimIneligibilityReasons</code> hook. |
 |  [ContractAddress](./react.contractaddress.md) | <b><i>(BETA)</i></b> A contract address. |
-|  [EditionMintParams](./react.editionmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the edition mint function. |
-|  [NFTMintParams](./react.nftmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the nft mint function. |
+|  [MintNFTParams](./react.mintnftparams.md) | <b><i>(BETA)</i></b> The params for the [useMintNFT()](./react.usemintnft.md) hook mutation. |
+|  [MintNFTReturnType](./react.mintnftreturntype.md) | <b><i>(BETA)</i></b> The return type of the [useMintNFT()](./react.usemintnft.md) hook. |
+|  [NFT](./react.nft.md) | <b><i>(BETA)</i></b> A single NFT token |
+|  [NFTContract](./react.nftcontract.md) | <b><i>(BETA)</i></b> The possible NFT contract types. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |
 |  [TokenMintParams](./react.tokenmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the nft mint function. |
+|  [useNFTBalanceParams](./react.usenftbalanceparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useNftBalance</code>. |
 |  [WalletAddress](./react.walletaddress.md) | <b><i>(BETA)</i></b> A wallet address. |
 
