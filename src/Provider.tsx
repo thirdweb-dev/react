@@ -10,10 +10,11 @@ import {
 } from "./constants/chain";
 import { useSigner } from "./hooks/useSigner";
 import {
+  ChainOrRpc,
   IStorage,
-  NetworkOrSignerOrProvider,
   SDKOptions,
   SUPPORTED_CHAIN_ID,
+  SignerOrProvider,
   ThirdwebSDK,
 } from "@thirdweb-dev/sdk";
 import { Signer } from "ethers";
@@ -404,7 +405,7 @@ export interface ThirdwebSDKProviderProps
     "desiredChainId" | "sdkOptions" | "storageInterface"
   > {
   signer?: Signer;
-  provider: NetworkOrSignerOrProvider;
+  provider: ChainOrRpc | SignerOrProvider;
 }
 
 const ThirdwebSDKProviderWagmiWrapper: React.FC<

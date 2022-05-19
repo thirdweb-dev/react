@@ -10,6 +10,7 @@ import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
+import { ChainOrRpc } from '@thirdweb-dev/sdk';
 import { ClaimEligibility } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from './connectors';
@@ -35,7 +36,6 @@ import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import type { MarketplaceFilter } from '@thirdweb-dev/sdk';
-import { NetworkOrSignerOrProvider } from '@thirdweb-dev/sdk';
 import type { NewAuctionListing } from '@thirdweb-dev/sdk';
 import type { NewDirectListing } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
@@ -52,6 +52,7 @@ import { RefetchOptions } from 'react-query';
 import { RefetchQueryFilters } from 'react-query';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
+import { SignerOrProvider } from '@thirdweb-dev/sdk';
 import { SmartContract } from '@thirdweb-dev/sdk';
 import { Split } from '@thirdweb-dev/sdk';
 import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
@@ -229,7 +230,7 @@ export const ThirdwebSDKProvider: React_2.FC<React_2.PropsWithChildren<ThirdwebS
 // @public (undocumented)
 export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> {
     // (undocumented)
-    provider: NetworkOrSignerOrProvider;
+    provider: ChainOrRpc | SignerOrProvider;
     // (undocumented)
     signer?: Signer;
 }
