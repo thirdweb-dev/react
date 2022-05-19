@@ -12,18 +12,18 @@ Use this to get the publish metadata for a deployed contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractPublishMetadata(contractAddress: RequiredParam<string>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata | undefined, unknown>;
+export declare function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>): import("react-query").UseQueryResult<PublishedMetadata | undefined, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;string&gt; | the address of the deployed contract |
+|  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[ContractAddress](./react.contractaddress.md)<!-- -->&gt; | the address of the deployed contract |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk/dist/src/schema/contracts/custom").PublishedMetadata \| undefined, unknown&gt;
+import("react-query").UseQueryResult&lt;PublishedMetadata \| undefined, unknown&gt;
 
 a response object that includes the published metadata (name, abi, bytecode) of the contract
 

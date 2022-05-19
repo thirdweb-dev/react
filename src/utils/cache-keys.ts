@@ -1,9 +1,10 @@
-import {
+import { ContractAddress, RequiredParam, WalletAddress } from "../types";
+import type {
   MarketplaceFilter,
   QueryAllParams,
   SUPPORTED_CHAIN_ID,
 } from "@thirdweb-dev/sdk";
-import { constants } from "ethers";
+import { BigNumberish, constants } from "ethers";
 import { QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
@@ -41,73 +42,142 @@ export const cacheKeys = {
       createCachekey(["chainId", chainId]),
   },
   contract: {
-    type: (contractAddress?: string) =>
+    type: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["contract-type"]),
-    publishMetadata: (contractAddress?: string) =>
+    publishMetadata: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["publish-metadata"]),
-    typeAndPublishMetadata: (contractAddress?: string) =>
+    typeAndPublishMetadata: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["contract-type-and-metadata"]),
-    metadata: (contractAddress?: string) =>
+    metadata: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["metadata"]),
-    extractFunctions: (contractAddress?: string) =>
+    extractFunctions: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["extractFunctions"]),
 
     // specific contract types
     nft: {
+      get: (
+        contractAddress: RequiredParam<ContractAddress>,
+        tokenId: RequiredParam<BigNumberish>,
+      ) => createContractCacheKey(contractAddress, ["get", { tokenId }]),
+      balanceOf: (
+        contractAddress: RequiredParam<ContractAddress>,
+        owner: RequiredParam<WalletAddress>,
+        tokenId: RequiredParam<BigNumberish>,
+      ) =>
+        createContractCacheKey(contractAddress, [
+          "balanceOf",
+          { owner, tokenId },
+        ]),
       query: {
-        all: (contractAddress?: string, params?: QueryAllParams) =>
+        all: (
+          contractAddress: RequiredParam<ContractAddress>,
+          params?: QueryAllParams,
+        ) =>
           createContractCacheKey(
             contractAddress,
             params ? ["query", "all", params] : ["query", "all"],
           ),
-        totalSupply: (contractAddress?: string) =>
-          createContractCacheKey(contractAddress, ["query", "totalSupply"]),
+        totalCirculatingSupply: (
+          contractAddress: RequiredParam<ContractAddress>,
+        ) =>
+          createContractCacheKey(contractAddress, [
+            "query",
+            "totalCirculatingSupply",
+          ]),
+        owned: {
+          all: (
+            contractAddress: RequiredParam<ContractAddress>,
+            owner: RequiredParam<WalletAddress>,
+          ) =>
+            createContractCacheKey(contractAddress, [
+              "query",
+              "owned",
+              "all",
+              owner,
+            ]),
+        },
       },
       drop: {
-        getAllUnclaimed: (contractAddress?: string, params?: QueryAllParams) =>
+        getAllUnclaimed: (
+          contractAddress: RequiredParam<ContractAddress>,
+          params?: QueryAllParams,
+        ) =>
           createContractCacheKey(
             contractAddress,
             params ? ["getAllUnclaimed", params] : ["getAllUnclaimed"],
           ),
-        totalUnclaimedSupply: (contractAddress?: string) =>
-          createContractCacheKey(contractAddress, ["totalUnclaimedSupply"]),
-        totalClaimedSupply: (contractAddress?: string) =>
+        totalUnclaimedSupply: (
+          contractAddress: RequiredParam<ContractAddress>,
+        ) => createContractCacheKey(contractAddress, ["totalUnclaimedSupply"]),
+        totalClaimedSupply: (contractAddress: RequiredParam<ContractAddress>) =>
           createContractCacheKey(contractAddress, ["totalClaimedSupply"]),
       },
     },
-    edition: {
-      query: {
-        all: (contractAddress?: string, params?: QueryAllParams) =>
-          createContractCacheKey(
-            contractAddress,
-            params ? ["query", "all", params] : ["query", "all"],
-          ),
-        getTotalCount: (contractAddress: string | undefined) =>
-          createContractCacheKey(contractAddress, ["query", "getTotalCount"]),
-      },
-    },
+
     token: {
-      totalSupply: (contractAddress?: string) =>
+      totalSupply: (contractAddress: RequiredParam<ContractAddress>) =>
         createContractCacheKey(contractAddress, ["totalSupply"]),
       balanceOf: (
-        contractAddress: string | undefined,
-        walletAddress: string | undefined,
+        contractAddress: RequiredParam<ContractAddress>,
+        walletAddress: RequiredParam<ContractAddress>,
       ) =>
-        createContractCacheKey(contractAddress, ["balanceOf", walletAddress]),
+        createContractCacheKey(contractAddress, [
+          "balanceOf",
+          { walletAddress },
+        ]),
     },
     marketplace: {
-      getAllListings: (contractAddress?: string, params?: MarketplaceFilter) =>
+      getAllListings: (
+        contractAddress: RequiredParam<ContractAddress>,
+        params?: MarketplaceFilter,
+      ) =>
         createContractCacheKey(
           contractAddress,
           params ? ["getAllListings", params] : ["getAllListings"],
         ),
       getActiveListings: (
-        contractAddress?: string,
+        contractAddress: RequiredParam<ContractAddress>,
         params?: MarketplaceFilter,
       ) =>
         createContractCacheKey(
           contractAddress,
           params ? ["getActiveListings", params] : ["getActiveListings"],
+        ),
+    },
+  },
+  // extensions
+  extensions: {
+    claimConditions: {
+      getActive: (
+        contractAddress: RequiredParam<ContractAddress>,
+        tokenId?: BigNumberish,
+      ) =>
+        createContractCacheKey(
+          contractAddress,
+          tokenId
+            ? ["claimConditions", "getActive", { tokenId }]
+            : ["claimConditions", "getActive"],
+        ),
+      getAll: (
+        contractAddress: RequiredParam<ContractAddress>,
+        tokenId?: BigNumberish,
+      ) =>
+        createContractCacheKey(
+          contractAddress,
+          tokenId
+            ? ["claimConditions", "getActive", { tokenId }]
+            : ["claimConditions", "getActive"],
+        ),
+      getClaimIneligibilityReasons: (
+        contractAddress: RequiredParam<ContractAddress>,
+        params: { walletAddress?: WalletAddress; quantity: string | number },
+        tokenId?: BigNumberish,
+      ) =>
+        createContractCacheKey(
+          contractAddress,
+          tokenId
+            ? ["claimConditions", "getActive", { tokenId }, params]
+            : ["claimConditions", "getActive", params],
         ),
     },
   },

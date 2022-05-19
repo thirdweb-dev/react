@@ -12,7 +12,7 @@ Use this to get the balance of your Token contract for a given address.
 <b>Signature:</b>
 
 ```typescript
-export declare function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<string>): import("react-query").UseQueryResult<{
+export declare function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<WalletAddress>): import("react-query").UseQueryResult<{
     symbol: string;
     name: string;
     value: import("ethers").BigNumber;
@@ -26,7 +26,7 @@ export declare function useTokenBalance(contract: RequiredParam<Erc20>, address:
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&gt; | an instace of a Token contract. |
-|  address | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;string&gt; |  |
+|  address | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; |  |
 
 <b>Returns:</b>
 

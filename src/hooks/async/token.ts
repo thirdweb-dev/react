@@ -1,5 +1,5 @@
 import { useActiveChainId } from "../../Provider";
-import { RequiredParam, TokenMintParams } from "../../types";
+import { RequiredParam, TokenMintParams, WalletAddress } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { Erc20 } from "@thirdweb-dev/sdk";
@@ -50,7 +50,7 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
  */
 export function useTokenBalance(
   contract: RequiredParam<Erc20>,
-  address: RequiredParam<string>,
+  address: RequiredParam<WalletAddress>,
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(

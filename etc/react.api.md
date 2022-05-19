@@ -7,9 +7,10 @@
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
-import type { BigNumberish } from 'ethers';
+import { BigNumberish } from 'ethers';
 import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
+import { ClaimEligibility } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from './connectors';
 import { ConnectorData } from './connectors';
@@ -20,10 +21,11 @@ import { defaultL2Chains } from './constants';
 import { DirectListing } from '@thirdweb-dev/sdk';
 import { Edition } from '@thirdweb-dev/sdk';
 import { EditionDrop } from '@thirdweb-dev/sdk';
-import { EditionMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
-import type { Erc1155 } from '@thirdweb-dev/sdk';
+import { Erc1155 } from '@thirdweb-dev/sdk';
+import type { Erc1155Mintable } from '@thirdweb-dev/sdk';
 import type { Erc20 } from '@thirdweb-dev/sdk';
 import { Erc721 } from '@thirdweb-dev/sdk';
+import type { Erc721Mintable } from '@thirdweb-dev/sdk';
 import { FetchStatus } from 'react-query';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { IpfsStorage } from '@thirdweb-dev/sdk';
@@ -39,11 +41,10 @@ import type { NewDirectListing } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
-import { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
-import { NFTMetadataOwner } from '@thirdweb-dev/sdk';
+import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Pack } from '@thirdweb-dev/sdk';
-import { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
-import { QueryAllParams } from '@thirdweb-dev/sdk';
+import type { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
+import type { QueryAllParams } from '@thirdweb-dev/sdk';
 import { QueryClient } from 'react-query';
 import { QueryObserverResult } from 'react-query';
 import { default as React_2 } from 'react';
@@ -62,7 +63,7 @@ import { TransactionResultWithId } from '@thirdweb-dev/sdk';
 import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
 import { UseQueryResult } from 'react-query';
-import { ValidContractInstance } from '@thirdweb-dev/sdk';
+import type { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
@@ -74,6 +75,15 @@ export { ChainId }
 //
 // @internal (undocumented)
 export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain, string>;
+
+// @beta
+export type ClaimIneligibilityParameters = {
+    walletAddress?: WalletAddress;
+    quantity: string | number;
+};
+
+// @beta
+export type ContractAddress = string;
 
 // @public
 export interface DAppMetaData {
@@ -88,15 +98,15 @@ export { defaultChains }
 
 export { defaultL2Chains }
 
+// Warning: (ae-incompatible-release-tags) The symbol "detectErc1155Instance" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
+// @public (undocumented)
+export function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): EditionDrop | Edition | undefined;
+
 // Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract>): Erc721<any> | undefined;
-
-// @beta
-export type EditionMintParams = {
-    to: WalletAddress;
-} & EditionMetadataOrUri;
+export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): Erc721<any> | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -145,10 +155,29 @@ export interface MediaType {
 }
 
 // @beta
-export type NFTMintParams = {
-    to: WalletAddress;
+export type MintNFTParams<TContract extends NFTContract> = TContract extends Erc1155 ? {
     metadata: NFTMetadataOrUri;
+    supply: BigNumberish;
+    to: WalletAddress;
+} : {
+    metadata: NFTMetadataOrUri;
+    to: WalletAddress;
 };
+
+// @beta
+export type MintNFTReturnType<TContract> = TContract extends Erc721 ? Awaited<ReturnType<Erc721Mintable["to"]>> : TContract extends Erc1155 ? Awaited<ReturnType<Erc1155Mintable["to"]>> : never;
+
+// @beta
+export type NFT<TContract extends NFTContract> = {
+    metadata: NFTMetadata;
+    owner: string;
+    type: TContract extends Erc721 ? "ERC721" : "ERC1155";
+    supply: TContract extends Erc721 ? 1 : number;
+    [key: string]: unknown;
+};
+
+// @beta
+export type NFTContract = Erc721 | Erc1155;
 
 // @beta
 export type RequiredParam<T> = T | undefined;
@@ -218,6 +247,32 @@ export { useAccount }
 // @internal (undocumented)
 export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 
+// Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point index.d.ts
+//
+// @beta
+export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+snapshot?: {
+address: string;
+maxClaimable: string;
+}[] | undefined;
+quantityLimitPerTransaction: string;
+startTime: Date;
+price: BigNumber;
+currencyAddress: string;
+maxQuantity: string;
+waitInSeconds: BigNumber;
+merkleRootHash: string | number[];
+availableSupply: string;
+currentMintSupply: string;
+currencyMetadata: {
+symbol: string;
+name: string;
+value: BigNumber;
+decimals: number;
+displayValue: string;
+};
+}, unknown>;
+
 // @beta
 export function useActiveListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
 
@@ -236,12 +291,41 @@ export function useBuiltinContract<TContractType extends ContractType>(contractT
 export function useChainId(): number | undefined;
 
 // @beta
-export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
+export function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+snapshot?: {
+address: string;
+maxClaimable: string;
+}[] | undefined;
+quantityLimitPerTransaction: string;
+startTime: Date;
+price: BigNumber;
+currencyAddress: string;
+maxQuantity: string;
+waitInSeconds: BigNumber;
+merkleRootHash: string | number[];
+availableSupply: string;
+currentMintSupply: string;
+currencyMetadata: {
+symbol: string;
+name: string;
+value: BigNumber;
+decimals: number;
+displayValue: string;
+};
+}[], unknown>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// @beta
+export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<NFT<NFTDrop>[], unknown>;
+
+// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function useClaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+export function useClaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+
+// Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point index.d.ts
+//
+// @beta
+export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{
@@ -266,8 +350,8 @@ export function useConnect(): readonly [{
 }>];
 
 // @beta
-export function useContract(contractAddress: RequiredParam<string>): {
-    contract: undefined;
+export function useContract(contractAddress: RequiredParam<ContractAddress>): {
+    contract: null;
     data: undefined;
     error: unknown;
     isError: true;
@@ -297,7 +381,7 @@ export function useContract(contractAddress: RequiredParam<string>): {
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: undefined;
+    contract: null;
     data: undefined;
     error: null;
     isError: false;
@@ -327,7 +411,7 @@ export function useContract(contractAddress: RequiredParam<string>): {
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: SmartContract<any> | undefined;
+    contract: SmartContract<any> | null;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
         publishMetadata: null;
@@ -363,7 +447,172 @@ export function useContract(contractAddress: RequiredParam<string>): {
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: SmartContract<any> | undefined;
+    contract: SmartContract<any> | null;
+    data: {
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        publishMetadata: null;
+    } | {
+        contractType: "custom";
+        publishMetadata: PublishedMetadata | undefined;
+    } | undefined;
+    error: null;
+    isError: false;
+    isLoading: false;
+    isLoadingError: false;
+    isRefetchError: false;
+    isSuccess: true;
+    status: "success";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
+    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    publishMetadata: null;
+    } | {
+    contractType: "custom";
+    publishMetadata: PublishedMetadata | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: FetchStatus;
+};
+
+// Warning: (ae-internal-missing-underscore) The name "useContractAbi" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function useContractAbi(contractAddress: RequiredParam<ContractAddress>): {
+    abi: null;
+    data: undefined;
+    error: unknown;
+    isError: true;
+    isLoading: false;
+    isLoadingError: true;
+    isRefetchError: false;
+    isSuccess: false;
+    status: "error";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
+    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    publishMetadata: null;
+    } | {
+    contractType: "custom";
+    publishMetadata: PublishedMetadata | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: FetchStatus;
+} | {
+    abi: null;
+    data: undefined;
+    error: null;
+    isError: false;
+    isLoading: true;
+    isLoadingError: false;
+    isRefetchError: false;
+    isSuccess: false;
+    status: "loading";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
+    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    publishMetadata: null;
+    } | {
+    contractType: "custom";
+    publishMetadata: PublishedMetadata | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: FetchStatus;
+} | {
+    abi: {
+        [x: string]: any;
+        name: string;
+        type: string;
+        outputs: {
+            [x: string]: any;
+            name: string;
+            type: string;
+        }[];
+        inputs: {
+            [x: string]: any;
+            name: string;
+            type: string;
+        }[];
+    }[] | null;
+    data: {
+        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        publishMetadata: null;
+    } | {
+        contractType: "custom";
+        publishMetadata: PublishedMetadata | undefined;
+    } | undefined;
+    error: unknown;
+    isError: true;
+    isLoading: false;
+    isLoadingError: false;
+    isRefetchError: true;
+    isSuccess: false;
+    status: "error";
+    dataUpdatedAt: number;
+    errorUpdatedAt: number;
+    failureCount: number;
+    isFetched: boolean;
+    isFetchedAfterMount: boolean;
+    isFetching: boolean;
+    isPaused: boolean;
+    isPlaceholderData: boolean;
+    isPreviousData: boolean;
+    isRefetching: boolean;
+    isStale: boolean;
+    refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
+    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    publishMetadata: null;
+    } | {
+    contractType: "custom";
+    publishMetadata: PublishedMetadata | undefined;
+    } | undefined, unknown>>;
+    remove: () => void;
+    fetchStatus: FetchStatus;
+} | {
+    abi: {
+        [x: string]: any;
+        name: string;
+        type: string;
+        outputs: {
+            [x: string]: any;
+            name: string;
+            type: string;
+        }[];
+        inputs: {
+            [x: string]: any;
+            name: string;
+            type: string;
+        }[];
+    }[] | null;
     data: {
         contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
         publishMetadata: null;
@@ -403,22 +652,22 @@ export function useContract(contractAddress: RequiredParam<string>): {
 // Warning: (ae-internal-missing-underscore) The name "useContractFunctions" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useContractFunctions(contractAddress: RequiredParam<string>): UseQueryResult<AbiFunction[] | null, unknown>;
+export function useContractFunctions(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<AbiFunction[] | null, unknown>;
 
 // @beta
-export function useContractMetadata(contractAddress: RequiredParam<string>): UseQueryResult<    {
+export function useContractMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<    {
 [x: string]: Json;
 description?: string | undefined;
 image?: any;
 external_link?: string | undefined;
 name: string;
-} | null, unknown>;
+}, unknown>;
 
 // @beta
-export function useContractPublishMetadata(contractAddress: RequiredParam<string>): UseQueryResult<PublishedMetadata | undefined, unknown>;
+export function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
-export function useContractType(contractAddress: RequiredParam<string>): UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
+export function useContractType(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
 
 // @beta
 export function useCreateAuctionListing(contract: RequiredParam<Marketplace>): UseMutationResult<TransactionResultWithId<never>, unknown, NewAuctionListing, unknown>;
@@ -445,24 +694,6 @@ export function useEdition(contractAddress?: string): Edition | undefined;
 // @public
 export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
 
-// @beta
-export function useEditions(contract: RequiredParam<Erc1155>, queryParams?: QueryAllParams): UseQueryResult<    {
-metadata: {
-[x: string]: Json;
-name?: string | undefined;
-description?: string | undefined;
-image?: string | undefined;
-external_url?: string | undefined;
-animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
-};
-supply: BigNumber;
-}[], unknown>;
-
-// @beta
-export function useEditionTotalCount(contract: RequiredParam<Erc1155>, tokenId: BigNumberish): UseQueryResult<BigNumber, unknown>;
-
 // @public
 export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
     data?: ConnectorData<any> | undefined;
@@ -487,22 +718,7 @@ export function useMetamask(): () => Promise<{
 }>;
 
 // @beta
-export function useMintEdition(contract: RequiredParam<Erc1155>): UseMutationResult<TransactionResultWithId<    {
-metadata: {
-[x: string]: Json;
-name?: string | undefined;
-description?: string | undefined;
-image?: string | undefined;
-external_url?: string | undefined;
-animation_url?: string | undefined;
-uri: string;
-id: BigNumber;
-};
-supply: BigNumber;
-}>, unknown, EditionMintParams, unknown>;
-
-// @beta
-export function useMintNFT(contract: RequiredParam<Erc721>): UseMutationResult<TransactionResultWithId<NFTMetadataOwner>, unknown, NFTMintParams, unknown>;
+export function useMintNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<MintNFTReturnType<TContract>, unknown, MintNFTParams<TContract>, unknown>;
 
 // @beta
 export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
@@ -544,6 +760,22 @@ export function useNetwork(): readonly [{
 // @public
 export function useNetworkMismatch(): boolean;
 
+// @beta
+export function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>): UseQueryResult<NFT<TContract>, unknown>;
+
+// @beta
+export function useNFTBalance<TContract extends NFTContract>(...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export type useNFTBalanceParams<TContract> = TContract extends Erc1155 ? [
+contract: RequiredParam<TContract>,
+ownerWalletAddress: RequiredParam<WalletAddress>,
+tokenId: RequiredParam<BigNumberish>
+] : [
+contract: RequiredParam<TContract>,
+ownerWalletAddress: RequiredParam<WalletAddress>
+];
+
 // @public
 export function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
 
@@ -551,10 +783,10 @@ export function useNFTCollection(contractAddress?: string): NFTCollection | unde
 export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
 
 // @beta
-export function useNFTs(contract: RequiredParam<Erc721>, queryParams?: QueryAllParams): UseQueryResult<NFTMetadataOwner[], unknown>;
+export function useNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, queryParams?: QueryAllParams): UseQueryResult<NFT<TContract>[], unknown>;
 
 // @beta
-export function useNFTSupply(contract: RequiredParam<Erc721>): UseQueryResult<BigNumber, unknown>;
+export function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>): UseQueryResult<NFT<TContract>[], unknown>;
 
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
@@ -587,7 +819,7 @@ export function useSplit(contractAddress?: string): Split | undefined;
 export function useToken(contractAddress?: string): Token | undefined;
 
 // @beta
-export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<string>): UseQueryResult<    {
+export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<WalletAddress>): UseQueryResult<    {
 symbol: string;
 name: string;
 value: BigNumber;
@@ -610,6 +842,9 @@ displayValue: string;
 }, unknown>;
 
 // @beta
+export function useTotalCirculatingSupply(contract: RequiredParam<NFTContract>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {
 [x: string]: Json;
 name?: string | undefined;
@@ -621,10 +856,10 @@ uri: string;
 id: BigNumber;
 }[], unknown>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNftSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function useUnclaimedNftSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;

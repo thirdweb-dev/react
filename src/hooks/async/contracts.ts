@@ -1,9 +1,14 @@
 import { useActiveChainId, useSDK } from "../../Provider";
-import { RequiredParam } from "../../types";
+import { ContractAddress, RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { CONTRACTS_MAP, SmartContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
-import { CustomContractMetadata } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
+import type { ThirdwebSDK } from "@thirdweb-dev/sdk";
+// eslint-disable-next-line no-duplicate-imports
+import { CONTRACTS_MAP, SmartContract } from "@thirdweb-dev/sdk";
+import type {
+  CustomContractMetadata,
+  PublishedMetadata,
+} from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
 import { QueryClient, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -71,29 +76,74 @@ async function fetchContractTypeAndPublishMetadata(
     publishMetadata,
   };
 }
-function getContractFromCombinedTypeAndPublishMetadata(
-  contractAddress: RequiredParam<string>,
+
+function getContractAbi(
   input: RequiredParam<
     Awaited<ReturnType<typeof fetchContractTypeAndPublishMetadata>>
   >,
-  sdk: RequiredParam<ThirdwebSDK>,
 ) {
-  if (!input || !sdk || !contractAddress || !input.contractType) {
-    return undefined;
+  if (!input || !input.contractType) {
+    return null;
   }
-
-  let contractAbi: any;
+  let contractAbi: PublishedMetadata["abi"] | null = null;
   if (input.contractType !== "custom") {
     contractAbi = CONTRACTS_MAP[input.contractType].contractAbi;
   }
   if (input.contractType === "custom" && input.publishMetadata) {
     contractAbi = input.publishMetadata?.abi;
   }
+
+  return contractAbi;
+}
+
+function getContractFromCombinedTypeAndPublishMetadata(
+  contractAddress: RequiredParam<ContractAddress>,
+  input: RequiredParam<
+    Awaited<ReturnType<typeof fetchContractTypeAndPublishMetadata>>
+  >,
+  sdk: RequiredParam<ThirdwebSDK>,
+) {
+  if (!input || !sdk || !contractAddress || !input.contractType) {
+    return null;
+  }
+
+  const contractAbi = getContractAbi(input);
+
   invariant(
     contractAbi,
     `could not resolve any ABI for contract${contractAddress}`,
   );
   return sdk.getContractFromAbi(contractAddress, contractAbi);
+}
+
+/**
+ *
+ * @internal
+ *
+ * @param contractAddress - contract address
+ * @returns the contract abi
+ */
+export function useContractAbi(
+  contractAddress: RequiredParam<ContractAddress>,
+) {
+  const sdk = useSDK();
+
+  const contractTypeAndPublishMetadata =
+    useContractTypeAndPublishMetadata(contractAddress);
+
+  if (
+    !contractAddress ||
+    !sdk ||
+    !contractTypeAndPublishMetadata.data?.contractType
+  ) {
+    return {
+      ...contractTypeAndPublishMetadata,
+      abi: null,
+    };
+  }
+
+  const abi = getContractAbi(contractTypeAndPublishMetadata.data);
+  return { ...contractTypeAndPublishMetadata, abi };
 }
 
 /**
@@ -108,7 +158,9 @@ function getContractFromCombinedTypeAndPublishMetadata(
  * @returns a response object that includes the contract type of the contract
  * @beta
  */
-export function useContractType(contractAddress: RequiredParam<string>) {
+export function useContractType(
+  contractAddress: RequiredParam<ContractAddress>,
+) {
   const sdk = useSDK();
   return useQueryWithNetwork(
     cacheKeys.contract.type(contractAddress),
@@ -134,7 +186,7 @@ export function useContractType(contractAddress: RequiredParam<string>) {
  * @beta
  */
 export function useContractPublishMetadata(
-  contractAddress: RequiredParam<string>,
+  contractAddress: RequiredParam<ContractAddress>,
 ) {
   const sdk = useSDK();
   return useQueryWithNetwork(
@@ -152,7 +204,7 @@ export function useContractPublishMetadata(
  * @internal
  */
 function useContractTypeAndPublishMetadata(
-  contractAddress: RequiredParam<string>,
+  contractAddress: RequiredParam<ContractAddress>,
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
@@ -180,7 +232,7 @@ function useContractTypeAndPublishMetadata(
  * @returns a response object that includes the contract once it is resolved
  * @beta
  */
-export function useContract(contractAddress: RequiredParam<string>) {
+export function useContract(contractAddress: RequiredParam<ContractAddress>) {
   const sdk = useSDK();
 
   const contractTypeAndPublishMetadata =
@@ -193,7 +245,7 @@ export function useContract(contractAddress: RequiredParam<string>) {
   ) {
     return {
       ...contractTypeAndPublishMetadata,
-      contract: undefined,
+      contract: null,
     };
   }
 
@@ -217,7 +269,9 @@ export function useContract(contractAddress: RequiredParam<string>) {
  * @returns a response object that includes the contract metadata of the deployed contract
  * @beta
  */
-export function useContractMetadata(contractAddress: RequiredParam<string>) {
+export function useContractMetadata(
+  contractAddress: RequiredParam<ContractAddress>,
+) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
   const activeChainId = useActiveChainId();
@@ -243,9 +297,7 @@ export function useContractMetadata(contractAddress: RequiredParam<string>) {
         typeAndPublishMetadata,
         sdk,
       );
-      if (!contract?.metadata?.get) {
-        return null;
-      }
+      invariant(contract?.metadata?.get, "contract metadata is not available");
       return (await contract.metadata.get()) as CustomContractMetadata;
     },
     {
@@ -257,7 +309,9 @@ export function useContractMetadata(contractAddress: RequiredParam<string>) {
 /**
  @internal
  */
-export function useContractFunctions(contractAddress: RequiredParam<string>) {
+export function useContractFunctions(
+  contractAddress: RequiredParam<ContractAddress>,
+) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
   const activeChainId = useActiveChainId();
