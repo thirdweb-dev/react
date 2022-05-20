@@ -159,7 +159,7 @@ export function useClaimNFT<TContract extends DropContract>(
   return useMutation(
     async (data: ClaimNFTParams<TContract>) => {
       invariant(data.to, 'No "to" address provided');
-      invariant(contract?.mint?.to, "contract does not support mint.to");
+      invariant(contract?.claimTo, "contract does not support claimTo");
       if (contract instanceof Erc1155) {
         invariant("supply" in data, "supply not provided");
         const { to, tokenId, quantity, proofs } = data;
