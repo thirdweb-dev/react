@@ -25,6 +25,7 @@ export declare function useCreateAuctionListing(contract: RequiredParam<Marketpl
 
 import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;never&gt;, unknown, NewAuctionListing, unknown&gt;
 
+a mutation object that can be used to create a new auction listing
 
 ## Example
 

@@ -25,6 +25,7 @@ export * from "./components/NftMedia";
 // async hooks
 export * from "./hooks/async/contracts";
 export * from "./hooks/async/nft";
+export * from "./hooks/async/drop";
 export * from "./hooks/async/marketplace";
 export * from "./hooks/async/token";
 export * from "./hooks/async/claim-conditions";

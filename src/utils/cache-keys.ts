@@ -127,6 +127,11 @@ export const cacheKeys = {
         ]),
     },
     marketplace: {
+      getListing: (
+        contractAddress: RequiredParam<ContractAddress>,
+        listingId: RequiredParam<BigNumberish>,
+      ) =>
+        createContractCacheKey(contractAddress, ["getListing", { listingId }]),
       getAllListings: (
         contractAddress: RequiredParam<ContractAddress>,
         params?: MarketplaceFilter,
@@ -143,6 +148,29 @@ export const cacheKeys = {
           contractAddress,
           params ? ["getActiveListings", params] : ["getActiveListings"],
         ),
+      getBidBufferBps: (contractAddress: RequiredParam<ContractAddress>) =>
+        createContractCacheKey(contractAddress, ["getBidBufferBps"]),
+
+      auction: {
+        getWinningBid: (
+          contractAddress: RequiredParam<ContractAddress>,
+          listingId: RequiredParam<BigNumberish>,
+        ) =>
+          createContractCacheKey(contractAddress, [
+            "auction",
+            "getWinningBid",
+            { listingId },
+          ]),
+        getWinner: (
+          contractAddress: RequiredParam<ContractAddress>,
+          listingId: RequiredParam<BigNumberish>,
+        ) =>
+          createContractCacheKey(contractAddress, [
+            "auction",
+            "getWinner",
+            { listingId },
+          ]),
+      },
     },
   },
   // extensions
