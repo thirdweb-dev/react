@@ -8,6 +8,7 @@ import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom'
 import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
+import type { BytesLike } from 'ethers';
 import { Chain as Chain_2 } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { ChainOrRpc } from '@thirdweb-dev/sdk';
@@ -42,9 +43,10 @@ import { NFTCollection } from '@thirdweb-dev/sdk';
 import { NFTDrop } from '@thirdweb-dev/sdk';
 import { NFTMetadata } from '@thirdweb-dev/sdk';
 import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
+import { Offer } from '@thirdweb-dev/sdk';
 import { Pack } from '@thirdweb-dev/sdk';
 import type { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
-import type { QueryAllParams } from '@thirdweb-dev/sdk';
+import { QueryAllParams } from '@thirdweb-dev/sdk';
 import { QueryClient } from 'react-query';
 import { QueryObserverResult } from 'react-query';
 import { default as React_2 } from 'react';
@@ -84,6 +86,21 @@ export type ClaimIneligibilityParameters = {
 };
 
 // @beta
+export type ClaimNFTParams<TContract extends DropContract> = TContract extends Erc1155 ? {
+    to: WalletAddress;
+    tokenId: BigNumberish;
+    quantity: BigNumberish;
+    proofs?: BytesLike[];
+} : {
+    to: WalletAddress;
+    quantity: BigNumberish;
+    proofs?: BytesLike[];
+};
+
+// @beta
+export type ClaimNFTReturnType<TContract extends DropContract> = TContract extends Erc721 ? Awaited<ReturnType<TContract["claimTo"]>> : TContract extends Erc1155 ? Awaited<ReturnType<TContract["claimTo"]>> : never;
+
+// @beta
 export type ContractAddress = string;
 
 // @public
@@ -109,6 +126,9 @@ export function detectErc1155Instance(contract: RequiredParam<ValidContractInsta
 // @internal (undocumented)
 export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): Erc721<any> | undefined;
 
+// @beta
+export type DropContract = NFTDrop | EditionDrop;
+
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -133,6 +153,12 @@ export { IpfsStorage }
 export type MagicConnectorType = "magic" | {
     name: "magic";
     options: Omit<MagicConnectorArguments, "network">;
+};
+
+// @public (undocumented)
+export type MakeBidParams = {
+    listingId: BigNumberish;
+    bid: BigNumberish;
 };
 
 // @public
@@ -281,12 +307,21 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 export function useAddress(): string | undefined;
 
 // @beta
-export function useAllListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
+export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string, unknown>;
+
+// @beta
+export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResult<BigNumber, unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useBuiltinContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export function useBuiltinContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
+
+// @beta
+export function useBuyoutListing(contract: RequiredParam<Marketplace>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, BigNumberish, unknown>;
 
 // @public
 export function useChainId(): number | undefined;
@@ -316,17 +351,21 @@ displayValue: string;
 }[], unknown>;
 
 // @beta
-export function useClaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<NFT<NFTDrop>[], unknown>;
+export function useClaimedNFTs(contract: RequiredParam<DropContract>, queryParams?: QueryAllParams): UseQueryResult<NFT<DropContract>[], unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useClaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNFTSupply" is marked as @public, but its signature references "DropContract" which is marked as @beta
 //
 // @public (undocumented)
-export function useClaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+export function useClaimedNFTSupply(contract: RequiredParam<DropContract>): UseQueryResult<BigNumber, unknown>;
 
 // Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
 export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
+
+// @beta
+export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{
@@ -701,11 +740,23 @@ export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
     error?: Error | undefined;
 }>;
 
+// @beta
+export function useListing(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<AuctionListing | DirectListing, unknown>;
+
+// @beta
+export function useListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
+
 // @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
     data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
+
+// @beta
+export function useMakeBid(contract: RequiredParam<Marketplace>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, MakeBidParams, unknown>;
 
 // @public
 export function useMarketplace(contractAddress?: string): Marketplace | undefined;
@@ -878,6 +929,9 @@ export function useWalletLink(): () => Promise<{
     data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
 }>;
+
+// @beta
+export function useWiningBid(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<Offer | undefined, unknown>;
 
 // @beta
 export type WalletAddress = string;

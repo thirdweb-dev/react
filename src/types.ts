@@ -1,12 +1,14 @@
 import type {
+  EditionDrop,
   Erc721,
   Erc721Mintable,
   Erc1155,
   Erc1155Mintable,
+  NFTDrop,
   NFTMetadata,
 } from "@thirdweb-dev/sdk";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
-import type { BigNumberish } from "ethers";
+import type { BigNumberish, BytesLike } from "ethers";
 
 /**
  * Makes a parameter required to be passed, but still allowes it to be undefined.
@@ -105,3 +107,46 @@ export type MintNFTReturnType<TContract> = TContract extends Erc721
   : TContract extends Erc1155
   ? Awaited<ReturnType<Erc1155Mintable["to"]>>
   : never;
+
+// DROPS //
+
+/**
+ * The possible DROP contract types.
+ * @beta
+ */
+export type DropContract = NFTDrop | EditionDrop;
+
+/**
+ * The params for the {@link useClaimNFT} hook mutation.
+ *
+ * @beta
+ */
+export type ClaimNFTParams<TContract extends DropContract> =
+  TContract extends Erc1155
+    ? {
+        to: WalletAddress;
+        tokenId: BigNumberish;
+        quantity: BigNumberish;
+        proofs?: BytesLike[];
+      }
+    : {
+        to: WalletAddress;
+        quantity: BigNumberish;
+        proofs?: BytesLike[];
+      };
+
+/**
+ * The return type of the {@link useClaimNFT} hook.
+ *
+ * @beta
+ */
+export type ClaimNFTReturnType<TContract extends DropContract> =
+  TContract extends Erc721
+    ? Awaited<ReturnType<TContract["claimTo"]>>
+    : TContract extends Erc1155
+    ? Awaited<ReturnType<TContract["claimTo"]>>
+    : never;
+
+// MARKETPLACE //
+
+export type MakeBidParams = { listingId: BigNumberish; bid: BigNumberish };

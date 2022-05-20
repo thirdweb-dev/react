@@ -20,7 +20,7 @@ export declare function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, query
     external_url?: string | null | undefined;
     animation_url?: string | null | undefined;
     uri: string;
-    id: BigNumber;
+    id: import("ethers").BigNumber;
 }[], unknown>;
 ```
 
@@ -33,7 +33,7 @@ export declare function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, query
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| null \| undefined; image?: string \| null \| undefined; external\_url?: string \| null \| undefined; animation\_url?: string \| null \| undefined; uri: string; id: BigNumber; }\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk").Json; name?: string \| undefined; description?: string \| null \| undefined; image?: string \| null \| undefined; external\_url?: string \| null \| undefined; animation\_url?: string \| null \| undefined; uri: string; id: import("ethers").BigNumber; }\[\], unknown&gt;
 
 a response object that includes an array of NFTs that are unclaimed
 

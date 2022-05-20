@@ -1,5 +1,5 @@
 import { useActiveChainId } from "../../Provider";
-import { RequiredParam } from "../../types";
+import { MakeBidParams, RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useAddress } from "../useAddress";
@@ -9,6 +9,7 @@ import type {
   NewAuctionListing,
   NewDirectListing,
 } from "@thirdweb-dev/sdk";
+import { BigNumber, BigNumberish } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -17,11 +18,42 @@ import invariant from "tiny-invariant";
 /** **********************/
 
 /**
+ * Use this to get a specific listing from the marketplace.
+ *
+ * @example
+ * ```javascript
+ * const { data: listing, isLoading, error } = useListing(<YourMarketplaceContractInstance>, <listingId>);
+ * ```
+ *
+ * @param contract - an instace of a marketplace contract
+ * @param listingId - the listing id to check
+ * @returns a response object that includes an array of listings
+ * @beta
+ */
+export function useListing(
+  contract: RequiredParam<Marketplace>,
+  listingId: RequiredParam<BigNumberish>,
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.marketplace.getListing(contractAddress, listingId),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      return contract.getListing(BigNumber.from(listingId || 0));
+    },
+    {
+      enabled: !!contract || !contractAddress,
+      keepPreviousData: true,
+    },
+  );
+}
+
+/**
  * Use this to get a list all listings from your marketplace contract.
  *
  * @example
  * ```javascript
- * const { data: listings, isLoading, error } = useMarketplaceListings(<YourMarketplaceContractInstance>, { start: 0, count: 100 });
+ * const { data: listings, isLoading, error } = useListings(<YourMarketplaceContractInstance>, { start: 0, count: 100 });
  * ```
  *
  * @param contract - an instace of a marketplace contract
@@ -29,7 +61,7 @@ import invariant from "tiny-invariant";
  * @returns a response object that includes an array of listings
  * @beta
  */
-export function useAllListings(
+export function useListings(
   contract: RequiredParam<Marketplace>,
   filter?: MarketplaceFilter,
 ) {
@@ -79,6 +111,100 @@ export function useActiveListings(
   );
 }
 
+/**
+ * Use this to get a the winning bid for an auction listing from your marketplace contract.
+ *
+ * @example
+ * ```javascript
+ * const { data: winningBid, isLoading, error } = useWiningBid(<YourMarketplaceContractInstance>, <listingId>);
+ * ```
+ *
+ * @param contract - an instace of a marketplace contract
+ * @param listingId - the listing id to check
+ * @returns a response object that includes the {@link Offer} that is winning the auction
+ * @beta
+ */
+export function useWiningBid(
+  contract: RequiredParam<Marketplace>,
+  listingId: RequiredParam<BigNumberish>,
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.marketplace.auction.getWinningBid(
+      contractAddress,
+      listingId,
+    ),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      return contract.auction.getWinningBid(BigNumber.from(listingId || 0));
+    },
+    {
+      enabled: !!contract && listingId !== undefined,
+    },
+  );
+}
+
+/**
+ * Use this to get the winner of an auction listing from your marketplace contract.
+ *
+ * @example
+ * ```javascript
+ * const { data: auctionWinner, isLoading, error } = useAuctionWinner(<YourMarketplaceContractInstance>, <listingId>);
+ * ```
+ *
+ * @param contract - an instace of a marketplace contract
+ * @param listingId - the listing id to check
+ * @returns a response object that includes an array of listings
+ * @throws an error if the auction is not finished
+ * @beta
+ */
+export function useAuctionWinner(
+  contract: RequiredParam<Marketplace>,
+  listingId: RequiredParam<BigNumberish>,
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.marketplace.auction.getWinner(
+      contractAddress,
+      listingId,
+    ),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      return contract.auction.getWinner(BigNumber.from(listingId || 0));
+    },
+    {
+      enabled: !!contract && listingId !== undefined,
+    },
+  );
+}
+
+/**
+ * Use this to get the buffer in basis points between offers from your marketplace contract.
+ *
+ * @example
+ * ```javascript
+ * const { data: auctionWinner, isLoading, error } = useAuctionWinner(<YourMarketplaceContractInstance>, <listingId>);
+ * ```
+ *
+ * @param contract - an instace of a marketplace contract
+
+ * @returns a response object that includes an array of listings
+ * @beta
+ */
+export function useBidBuffer(contract: RequiredParam<Marketplace>) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.marketplace.getBidBufferBps(contractAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      return contract.getBidBufferBps();
+    },
+    {
+      enabled: !!contract,
+    },
+  );
+}
+
 /** **********************/
 /**     WRITE HOOKS     **/
 /** **********************/
@@ -111,7 +237,7 @@ export function useActiveListings(
  * ```
  *
  * @param contract - an instace of a Marketplace contract
- * @returns
+ * @returns a mutation object that can be used to create a new direct listing
  * @beta
  */
 export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
@@ -177,7 +303,7 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
  * ```
  *
  * @param contract - an instace of a Marketplace contract
- * @returns
+ * @returns a mutation object that can be used to create a new auction listing
  * @beta
  */
 export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
@@ -206,6 +332,171 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
               cacheKeys.contract.marketplace.getActiveListings(contractAddress),
+              activeChainId,
+            ),
+          ),
+        ]);
+      },
+    },
+  );
+}
+
+/**
+ * Use this to place a bid on an auction listing from your marketplace contract.
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: makeBid,
+ *     isLoading,
+ *     error,
+ *   } = useMakeBid(">>YourMarketplaceContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to create auction listing", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => makeBid({ listingId: 1, amount: 2 })}
+ *     >
+ *       Create Auction Listing!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instace of a Marketplace contract
+ * @returns a mutation object that can be used to make a bid on an auction listing
+ * @beta
+ */
+export function useMakeBid(contract: RequiredParam<Marketplace>) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+  const walletAddress = useAddress();
+  return useMutation(
+    async (data: MakeBidParams) => {
+      invariant(walletAddress, "no wallet connected, cannot make bid");
+      invariant(
+        contract?.auction?.makeBid,
+        "contract does not support auction.makeBid",
+      );
+      return await contract.auction.makeBid(
+        data.listingId,
+        BigNumber.from(data.bid).toString(),
+      );
+    },
+    {
+      onSuccess: (_d, variables) => {
+        return Promise.all([
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.marketplace.getListing(
+                contractAddress,
+                variables.listingId,
+              ),
+              activeChainId,
+            ),
+          ),
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.marketplace.auction.getWinningBid(
+                contractAddress,
+                variables.listingId,
+              ),
+              activeChainId,
+            ),
+          ),
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.marketplace.auction.getWinner(
+                contractAddress,
+                variables.listingId,
+              ),
+              activeChainId,
+            ),
+          ),
+        ]);
+      },
+    },
+  );
+}
+
+/**
+ * Use this to buy out an auction listing from your marketplace contract.
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: makeBid,
+ *     isLoading,
+ *     error,
+ *   } = useBuyoutListing(">>YourMarketplaceContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to create auction listing", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => makeBid({ listingId: 1, amount: 2 })}
+ *     >
+ *       Create Auction Listing!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instace of a Marketplace contract
+ * @returns a mutation object that can be used to buy out an auction listing
+ * @beta
+ */
+export function useBuyoutListing(contract: RequiredParam<Marketplace>) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+  const walletAddress = useAddress();
+  return useMutation(
+    async (listingId: BigNumberish) => {
+      invariant(walletAddress, "no wallet connected, cannot make bid");
+      invariant(
+        contract?.auction?.makeBid,
+        "contract does not support auction.makeBid",
+      );
+      return await contract.auction.buyoutListing(listingId);
+    },
+    {
+      onSuccess: (_d, listingId) => {
+        return Promise.all([
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.marketplace.getListing(
+                contractAddress,
+                listingId,
+              ),
+              activeChainId,
+            ),
+          ),
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.marketplace.auction.getWinningBid(
+                contractAddress,
+                listingId,
+              ),
+              activeChainId,
+            ),
+          ),
+          queryClient.invalidateQueries(
+            createCacheKeyWithNetwork(
+              cacheKeys.contract.marketplace.auction.getWinner(
+                contractAddress,
+                listingId,
+              ),
               activeChainId,
             ),
           ),

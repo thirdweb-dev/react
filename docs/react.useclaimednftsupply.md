@@ -7,18 +7,18 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimedNFTSupply(contract: RequiredParam<NFTDrop>): import("react-query").UseQueryResult<BigNumber, unknown>;
+export declare function useClaimedNFTSupply(contract: RequiredParam<DropContract>): import("react-query").UseQueryResult<import("ethers").BigNumber, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;NFTDrop&gt; | an instace of a  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt; | an instace of a [DropContract](./react.dropcontract.md) |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;BigNumber, unknown&gt;
+import("react-query").UseQueryResult&lt;import("ethers").BigNumber, unknown&gt;
 
 a response object that includes the number of NFTs that are claimed
 
