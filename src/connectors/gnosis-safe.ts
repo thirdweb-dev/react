@@ -1,6 +1,3 @@
-// import Safe from "@gnosis.pm/safe-core-sdk";
-// import { SafeEthersSigner, SafeService } from "@gnosis.pm/safe-ethers-adapters";
-// import EthersAdapter from "@gnosis.pm/safe-ethers-lib";
 import { ChainId } from "@thirdweb-dev/sdk";
 import { Signer, ethers, utils } from "ethers";
 import invariant from "tiny-invariant";

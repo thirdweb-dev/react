@@ -35,7 +35,7 @@ import { IStorage } from '@thirdweb-dev/sdk';
 import { Json } from '@thirdweb-dev/sdk';
 import { ListingType } from '@thirdweb-dev/sdk';
 import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
-import { MagicSDKAdditionalConfiguration } from 'magic-sdk';
+import type { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import type { MarketplaceFilter } from '@thirdweb-dev/sdk';
 import type { NewAuctionListing } from '@thirdweb-dev/sdk';

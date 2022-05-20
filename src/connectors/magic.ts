@@ -1,5 +1,5 @@
 import { providers, utils } from "ethers";
-import {
+import type {
   LoginWithMagicLinkConfiguration,
   Magic as MagicInstance,
   MagicSDKAdditionalConfiguration,
