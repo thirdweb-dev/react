@@ -18,7 +18,7 @@ import { useAddress } from "@thirdweb-dev/react"
  |
 |  [useAuctionWinner(contract, listingId)](./react.useauctionwinner.md) | <b><i>(BETA)</i></b> Use this to get the winner of an auction listing from your marketplace contract. |
 |  [useBidBuffer(contract)](./react.usebidbuffer.md) | <b><i>(BETA)</i></b> Use this to get the buffer in basis points between offers from your marketplace contract. |
-|  [useBuyoutListing(contract)](./react.usebuyoutlisting.md) | <b><i>(BETA)</i></b> Use this to buy out an auction listing from your marketplace contract. |
+|  [useBuyNow(contract)](./react.usebuynow.md) | <b><i>(BETA)</i></b> Use this to buy out an auction listing from your marketplace contract. |
 |  [useChainId()](./react.usechainid.md) | Hook for accessing the chain ID of the network the current wallet is connected to
 ```javascript
 import { useChainId } from "@thirdweb-dev/react"
@@ -126,6 +126,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [BuyNowParams](./react.buynowparams.md) |  |
 |  [ClaimIneligibilityParameters](./react.claimineligibilityparameters.md) | <b><i>(BETA)</i></b> The options to be passed as the second parameter to the <code>useClaimIneligibilityReasons</code> hook. |
 |  [ClaimNFTParams](./react.claimnftparams.md) | <b><i>(BETA)</i></b> The params for the [useClaimNFT()](./react.useclaimnft.md) hook mutation. |
 |  [ClaimNFTReturnType](./react.claimnftreturntype.md) | <b><i>(BETA)</i></b> The return type of the [useClaimNFT()](./react.useclaimnft.md) hook. |

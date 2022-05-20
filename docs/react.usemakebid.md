@@ -48,7 +48,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => makeBid({ listingId: 1, amount: 2 })}
+      onClick={() => makeBid({ listingId: 1, bid: 2 })}
     >
       Bid!
     </button>

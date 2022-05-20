@@ -1,5 +1,5 @@
 import { useActiveChainId } from "../../Provider";
-import { MakeBidParams, RequiredParam } from "../../types";
+import { BuyNowParams, MakeBidParams, RequiredParam } from "../../types";
 import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useAddress } from "../useAddress";
@@ -9,6 +9,8 @@ import type {
   NewAuctionListing,
   NewDirectListing,
 } from "@thirdweb-dev/sdk";
+// eslint-disable-next-line no-duplicate-imports
+import { ListingType } from "@thirdweb-dev/sdk";
 import { BigNumber, BigNumberish } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
@@ -360,7 +362,7 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => makeBid({ listingId: 1, amount: 2 })}
+ *       onClick={() => makeBid({ listingId: 1, bid: 2 })}
  *     >
  *       Bid!
  *     </button>
@@ -432,10 +434,10 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
  * ```jsx
  * const Component = () => {
  *   const {
- *     mutate: buyoutListing,
+ *     mutate: buyNow,
  *     isLoading,
  *     error,
- *   } = useBuyoutListing(">>YourMarketplaceContractInstance<<");
+ *   } = useBuyNow(">>YourMarketplaceContractInstance<<");
  *
  *   if (error) {
  *     console.error("failed to buyout listing", error);
@@ -444,7 +446,7 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => buyoutListing(listingId)}
+ *       onClick={() => buyNow({listingId: 1, type: ListingType.Auction})}
  *     >
  *       Buy listing!
  *     </button>
@@ -456,28 +458,40 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
  * @returns a mutation object that can be used to buy out an auction listing
  * @beta
  */
-export function useBuyoutListing(contract: RequiredParam<Marketplace>) {
+export function useBuyNow(contract: RequiredParam<Marketplace>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
   const walletAddress = useAddress();
   return useMutation(
-    async (listingId: BigNumberish) => {
+    async (data: BuyNowParams) => {
       invariant(walletAddress, "no wallet connected, cannot make bid");
+      if (data.type === ListingType.Direct) {
+        invariant(
+          contract?.direct.buyoutListing,
+          "contract does not support direct.buyoutListing",
+        );
+
+        return await contract.direct.buyoutListing(
+          data.id,
+          data.buyAmount,
+          data.buyForWallet,
+        );
+      }
       invariant(
-        contract?.auction?.makeBid,
-        "contract does not support auction.makeBid",
+        contract?.auction?.buyoutListing,
+        "contract does not support auction.buyoutListing",
       );
-      return await contract.auction.buyoutListing(listingId);
+      return await contract.auction.buyoutListing(data.id);
     },
     {
-      onSuccess: (_d, listingId) => {
+      onSuccess: (_d, params) => {
         return Promise.all([
           queryClient.invalidateQueries(
             createCacheKeyWithNetwork(
               cacheKeys.contract.marketplace.getListing(
                 contractAddress,
-                listingId,
+                params.id,
               ),
               activeChainId,
             ),
@@ -486,7 +500,7 @@ export function useBuyoutListing(contract: RequiredParam<Marketplace>) {
             createCacheKeyWithNetwork(
               cacheKeys.contract.marketplace.auction.getWinningBid(
                 contractAddress,
-                listingId,
+                params.id,
               ),
               activeChainId,
             ),
@@ -495,7 +509,7 @@ export function useBuyoutListing(contract: RequiredParam<Marketplace>) {
             createCacheKeyWithNetwork(
               cacheKeys.contract.marketplace.auction.getWinner(
                 contractAddress,
-                listingId,
+                params.id,
               ),
               activeChainId,
             ),
