@@ -33,6 +33,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { IpfsStorage } from '@thirdweb-dev/sdk';
 import { IStorage } from '@thirdweb-dev/sdk';
 import { Json } from '@thirdweb-dev/sdk';
+import { ListingType } from '@thirdweb-dev/sdk';
 import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
@@ -69,6 +70,17 @@ import { UseQueryResult } from 'react-query';
 import type { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+
+// @public (undocumented)
+export type BuyNowParams<TListingType = ListingType> = TListingType extends ListingType.Direct ? {
+    id: BigNumberish;
+    type: ListingType.Direct;
+    buyAmount: BigNumberish;
+    buyForWallet?: WalletAddress;
+} : {
+    id: BigNumberish;
+    type: ListingType.Auction;
+};
 
 export { ChainId }
 
@@ -318,10 +330,18 @@ export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResu
 export function useBuiltinContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
 
 // @beta
-export function useBuyoutListing(contract: RequiredParam<Marketplace>): UseMutationResult<Omit<{
+export function useBuyNow(contract: RequiredParam<Marketplace>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
-}, "data">, unknown, BigNumberish, unknown>;
+}, "data">, unknown, {
+id: BigNumberish;
+type: ListingType.Direct;
+buyAmount: BigNumberish;
+buyForWallet?: string | undefined;
+} | {
+id: BigNumberish;
+type: ListingType.Auction;
+}, unknown>;
 
 // @public
 export function useChainId(): number | undefined;
@@ -962,6 +982,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/hooks/useNetwork.d.ts:75:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
+// dist/types.d.ts:122:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

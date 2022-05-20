@@ -4,6 +4,7 @@ import type {
   Erc721Mintable,
   Erc1155,
   Erc1155Mintable,
+  ListingType,
   NFTDrop,
   NFTMetadata,
 } from "@thirdweb-dev/sdk";
@@ -150,3 +151,16 @@ export type ClaimNFTReturnType<TContract extends DropContract> =
 // MARKETPLACE //
 
 export type MakeBidParams = { listingId: BigNumberish; bid: BigNumberish };
+
+export type BuyNowParams<TListingType = ListingType> =
+  TListingType extends ListingType.Direct
+    ? {
+        id: BigNumberish;
+        type: ListingType.Direct;
+        buyAmount: BigNumberish;
+        buyForWallet?: WalletAddress;
+      }
+    : {
+        id: BigNumberish;
+        type: ListingType.Auction;
+      };
