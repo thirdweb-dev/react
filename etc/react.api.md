@@ -931,7 +931,7 @@ export function useWalletLink(): () => Promise<{
 }>;
 
 // @beta
-export function useWiningBid(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<Offer | undefined, unknown>;
+export function useWinningBid(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<Offer | undefined, unknown>;
 
 // @beta
 export type WalletAddress = string;

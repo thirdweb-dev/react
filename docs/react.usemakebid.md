@@ -42,7 +42,7 @@ const Component = () => {
   } = useMakeBid(">>YourMarketplaceContractInstance<<");
 
   if (error) {
-    console.error("failed to create auction listing", error);
+    console.error("failed to make a bid", error);
   }
 
   return (
@@ -50,7 +50,7 @@ const Component = () => {
       disabled={isLoading}
       onClick={() => makeBid({ listingId: 1, amount: 2 })}
     >
-      Create Auction Listing!
+      Bid!
     </button>
   );
 };

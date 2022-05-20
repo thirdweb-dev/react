@@ -36,21 +36,21 @@ a mutation object that can be used to buy out an auction listing
 ```jsx
 const Component = () => {
   const {
-    mutate: makeBid,
+    mutate: buyoutListing,
     isLoading,
     error,
   } = useBuyoutListing(">>YourMarketplaceContractInstance<<");
 
   if (error) {
-    console.error("failed to create auction listing", error);
+    console.error("failed to buyout listing", error);
   }
 
   return (
     <button
       disabled={isLoading}
-      onClick={() => makeBid({ listingId: 1, amount: 2 })}
+      onClick={() => buyoutListing(listingId)}
     >
-      Create Auction Listing!
+      Buy listing!
     </button>
   );
 };

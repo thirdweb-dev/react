@@ -99,7 +99,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 import { useWalletConnect } from "@thirdweb-dev/react"
 ```
  |
-|  [useWiningBid(contract, listingId)](./react.usewiningbid.md) | <b><i>(BETA)</i></b> Use this to get a the winning bid for an auction listing from your marketplace contract. |
+|  [useWinningBid(contract, listingId)](./react.usewinningbid.md) | <b><i>(BETA)</i></b> Use this to get a the winning bid for an auction listing from your marketplace contract. |
 
 ## Interfaces
 

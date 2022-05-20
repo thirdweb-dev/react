@@ -116,7 +116,7 @@ export function useActiveListings(
  *
  * @example
  * ```javascript
- * const { data: winningBid, isLoading, error } = useWiningBid(<YourMarketplaceContractInstance>, <listingId>);
+ * const { data: winningBid, isLoading, error } = useWinningBid(<YourMarketplaceContractInstance>, <listingId>);
  * ```
  *
  * @param contract - an instace of a marketplace contract
@@ -124,7 +124,7 @@ export function useActiveListings(
  * @returns a response object that includes the {@link Offer} that is winning the auction
  * @beta
  */
-export function useWiningBid(
+export function useWinningBid(
   contract: RequiredParam<Marketplace>,
   listingId: RequiredParam<BigNumberish>,
 ) {
@@ -228,7 +228,7 @@ export function useBidBuffer(contract: RequiredParam<Marketplace>) {
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => createDirectListing(directListingdata)}
+ *       onClick={() => createDirectListing(directListingData)}
  *     >
  *       Create Direct Listing!
  *     </button>
@@ -354,7 +354,7 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
  *   } = useMakeBid(">>YourMarketplaceContractInstance<<");
  *
  *   if (error) {
- *     console.error("failed to create auction listing", error);
+ *     console.error("failed to make a bid", error);
  *   }
  *
  *   return (
@@ -362,7 +362,7 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
  *       disabled={isLoading}
  *       onClick={() => makeBid({ listingId: 1, amount: 2 })}
  *     >
- *       Create Auction Listing!
+ *       Bid!
  *     </button>
  *   );
  * };
@@ -432,21 +432,21 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
  * ```jsx
  * const Component = () => {
  *   const {
- *     mutate: makeBid,
+ *     mutate: buyoutListing,
  *     isLoading,
  *     error,
  *   } = useBuyoutListing(">>YourMarketplaceContractInstance<<");
  *
  *   if (error) {
- *     console.error("failed to create auction listing", error);
+ *     console.error("failed to buyout listing", error);
  *   }
  *
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => makeBid({ listingId: 1, amount: 2 })}
+ *       onClick={() => buyoutListing(listingId)}
  *     >
- *       Create Auction Listing!
+ *       Buy listing!
  *     </button>
  *   );
  * };

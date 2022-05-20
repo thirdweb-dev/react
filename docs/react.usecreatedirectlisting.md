@@ -45,7 +45,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => createDirectListing(directListingdata)}
+      onClick={() => createDirectListing(directListingData)}
     >
       Create Direct Listing!
     </button>
