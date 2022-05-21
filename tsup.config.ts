@@ -8,7 +8,12 @@ export default defineConfig({
   clean: true,
   minify: true,
   platform: "browser",
+  replaceNodeEnv: true,
   format: ["cjs", "esm"],
+  // inject globals onto window if required
+  banner: {
+    js: '!function(o){o&&(void 0===o.global&&(o.global=o),void 0===o.globalThis&&(o.globalThis=o),void 0===o.process&&(o.process={env:{NODE_ENV:"production"}}))}("undefined"!=typeof window?window:void 0);',
+  },
   esbuildPlugins: [
     alias({
       stream: path.resolve(
