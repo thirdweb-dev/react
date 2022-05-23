@@ -6,10 +6,12 @@ import { MagicConnector, MagicConnectorArguments } from "./connectors/magic";
 import {
   Chain,
   SupportedChain,
+  SupportedChainId,
   defaultSupportedChains,
 } from "./constants/chain";
 import { useSigner } from "./hooks/useSigner";
 import {
+  ChainId,
   ChainOrRpc,
   IStorage,
   SDKOptions,
@@ -179,10 +181,16 @@ export interface ThirdwebProviderProps<
   autoConnect?: boolean;
 }
 
-const defaultChainRpc: ChainRpc<SupportedChain> = defaultSupportedChains.reduce(
-  (prev, curr) => ({ ...prev, [curr.id]: curr.rpcUrls[0] }),
-  {},
-);
+// SDK handles this under the hood for us
+const defaultChainRpc: Record<SupportedChainId, string> = {
+  [ChainId.Mainnet]: "mainnet",
+  [ChainId.Rinkeby]: "rinkeby",
+  [ChainId.Goerli]: "goerli",
+  [ChainId.Polygon]: "polygon",
+  [ChainId.Mumbai]: "mumbai",
+  [ChainId.Fantom]: "fantom",
+  [ChainId.Avalanche]: "avalanche",
+};
 
 const defaultdAppMeta: DAppMetaData = {
   name: "thirdweb powered dApp",
