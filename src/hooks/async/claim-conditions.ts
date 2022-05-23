@@ -196,41 +196,11 @@ export function useClaimIneligibilityReasons<
       // 1. if the contract is based on  ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
       // 3. has a params object been passed?
+      // 4. does params have an address in it?
       enabled:
         (contract instanceof Erc1155 ? tokenId !== undefined : !!contract) &&
-        !!params,
+        !!params &&
+        !!params.walletAddress,
     },
   );
 }
-
-// //////////////////////////////////////////////////////////////////////////////
-// TEST CASES
-// //////////////////////////////////////////////////////////////////////////////
-
-// fake some types for testing
-// const TestNFTDrop = "NFTDrop" as unknown as NFTDrop;
-// const TestEditionDrop = "EditionDrop" as unknown as EditionDrop;
-
-// // test it with erc721
-// // ✅
-// useActiveClaimCondition(TestNFTDrop);
-// // ❌
-// useActiveClaimCondition(TestNFTDrop, 1);
-
-// // tes it with erc1155
-// // ✅
-// useActiveClaimCondition(TestEditionDrop, 1);
-// // ❌
-// useActiveClaimCondition(TestEditionDrop);
-
-// // test it with erc721
-// // ✅
-// useClaimIneligibilityReasons(TestNFTDrop, { quantity: 1 });
-// // ❌
-// useClaimIneligibilityReasons(TestNFTDrop, 1);
-
-// // tes it with erc1155
-// // ✅
-// useClaimIneligibilityReasons(TestEditionDrop, { quantity: 1 }, 1);
-// // ❌
-// useClaimIneligibilityReasons(TestEditionDrop, { quantity: 1 });
