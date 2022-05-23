@@ -161,7 +161,7 @@ export function useClaimNFT<TContract extends DropContract>(
       invariant(data.to, 'No "to" address provided');
       invariant(contract?.claimTo, "contract does not support claimTo");
       if (contract instanceof Erc1155) {
-        invariant("supply" in data, "supply not provided");
+        invariant("tokenId" in data, "tokenId not provided");
         const { to, tokenId, quantity, proofs } = data;
         return (await contract.claimTo(
           to,

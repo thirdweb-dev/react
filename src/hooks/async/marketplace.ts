@@ -386,10 +386,7 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
         contract?.auction?.makeBid,
         "contract does not support auction.makeBid",
       );
-      return await contract.auction.makeBid(
-        data.listingId,
-        BigNumber.from(data.bid).toString(),
-      );
+      return await contract.auction.makeBid(data.listingId, data.bid);
     },
     {
       onSuccess: (_d, variables) => {

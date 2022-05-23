@@ -7,6 +7,7 @@ import type {
   ListingType,
   NFTDrop,
   NFTMetadata,
+  Price,
 } from "@thirdweb-dev/sdk";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish, BytesLike } from "ethers";
@@ -150,7 +151,7 @@ export type ClaimNFTReturnType<TContract extends DropContract> =
 
 // MARKETPLACE //
 
-export type MakeBidParams = { listingId: BigNumberish; bid: BigNumberish };
+export type MakeBidParams = { listingId: BigNumberish; bid: Price };
 
 export type BuyNowParams<TListingType = ListingType> =
   TListingType extends ListingType.Direct
