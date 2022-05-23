@@ -990,15 +990,16 @@
   integrity sha512-cSVwIzPSYaS8gFlkq4r+G9UyVwr/62uE+p6SzrZFXYCbeCJwJTml3VnrVEptJ7g8RukL4Lh6uwQ6IPtgMTY4cQ==
 
 "@thirdweb-dev/sdk@^2.2.15":
-  version "2.2.15"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.2.15.tgz#fb6caa4b07b7c22a53cfaf913aa63b25982142b7"
-  integrity sha512-uhG3gXCTCpX/riF5kgCJNS28vaHSf4VSP5vh1w1zInwndjWQs0VdGA45m+N3AhA8IAvihLuMbeYwGEQOBBaGgQ==
+  version "2.2.16"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.2.16.tgz#96ce3c13bb3aabdaf45bbc080c6bcd13c3365ec1"
+  integrity sha512-imgAZFZZJK3pwthpjECdj1D+yuJChtupH1LxTgP4OCGUUoBPdtftX5r1Aml0CJhJ1KLm2+y7CbO4ZJSVp3+dKA==
   dependencies:
     "@thirdweb-dev/contracts" "2.3.8"
     "@web-std/file" "^3.0.0"
+    buffer "^6.0.3"
     cross-fetch "^3.1.5"
     deep-equal "^2.0.5"
-    eventemitter2 "^6.4.5"
+    eventemitter3 "^4.0.7"
     form-data "^4.0.0"
     keccak256 "^1.0.6"
     merkletreejs "^0.2.24"
@@ -2850,11 +2851,6 @@ ethjs-util@0.1.6, ethjs-util@^0.1.3:
   dependencies:
     is-hex-prefixed "1.0.0"
     strip-hex-prefix "1.0.0"
-
-eventemitter2@^6.4.5:
-  version "6.4.5"
-  resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-6.4.5.tgz#97380f758ae24ac15df8353e0cc27f8b95644655"
-  integrity sha512-bXE7Dyc1i6oQElDG0jMRZJrRAn9QR2xyyFGmBdZleNmyQX0FqGYmhZIrIrpPfm/w//LTo4tVQGOGQcGCb5q9uw==
 
 eventemitter3@4.0.4:
   version "4.0.4"
