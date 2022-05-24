@@ -27,7 +27,7 @@
     "test": "yarn build && yarn test-only",
     "test:watch": "vitest watch",
     "test-only": "vitest run",
-    "prepublishOnly": "yarn lint && yarn build"
+    "prepublishOnly": "yarn build"
   },
   "sideEffects:": false,
   "devDependencies": {
