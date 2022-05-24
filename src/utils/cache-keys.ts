@@ -16,9 +16,12 @@ function createCachekey(input: QueryKey): QueryKey {
   return [TW_CACHE_KEY_PREFIX, ...input];
 }
 
-function createContractCacheKey(
+/**
+ * @internal
+ */
+export function createContractCacheKey(
   contractAddress: string = constants.AddressZero,
-  input: QueryKey,
+  input: QueryKey = [],
 ): QueryKey {
   return createCachekey(["contract", contractAddress, ...input]);
 }
@@ -28,7 +31,7 @@ function createContractCacheKey(
  */
 export function createCacheKeyWithNetwork(
   input: QueryKey,
-  chainId?: SUPPORTED_CHAIN_ID,
+  chainId: RequiredParam<SUPPORTED_CHAIN_ID>,
 ): QueryKey {
   return cacheKeys.network.active(chainId).concat(input);
 }

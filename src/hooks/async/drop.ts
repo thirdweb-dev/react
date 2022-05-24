@@ -5,7 +5,11 @@ import {
   DropContract,
   RequiredParam,
 } from "../../types";
-import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
+import {
+  cacheKeys,
+  createCacheKeyWithNetwork,
+  createContractCacheKey,
+} from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useNFTs } from "./nft";
 import { Erc1155, NFTDrop, QueryAllParams } from "@thirdweb-dev/sdk";
@@ -177,34 +181,13 @@ export function useClaimNFT<TContract extends DropContract>(
       )) as ClaimNFTReturnType<TContract>;
     },
     {
-      onSuccess: () => {
-        return Promise.all([
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.nft.query.all(contractAddress),
-              activeChainId,
-            ),
+      onSuccess: () =>
+        queryClient.invalidateQueries(
+          createCacheKeyWithNetwork(
+            createContractCacheKey(contractAddress),
+            activeChainId,
           ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.nft.drop.totalClaimedSupply(contractAddress),
-              activeChainId,
-            ),
-          ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.nft.drop.totalUnclaimedSupply(contractAddress),
-              activeChainId,
-            ),
-          ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.nft.drop.getAllUnclaimed(contractAddress),
-              activeChainId,
-            ),
-          ),
-        ]);
-      },
+        ),
     },
   );
 }

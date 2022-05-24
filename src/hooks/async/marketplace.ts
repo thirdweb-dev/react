@@ -1,6 +1,10 @@
 import { useActiveChainId } from "../../Provider";
 import { BuyNowParams, MakeBidParams, RequiredParam } from "../../types";
-import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
+import {
+  cacheKeys,
+  createCacheKeyWithNetwork,
+  createContractCacheKey,
+} from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useAddress } from "../useAddress";
 import type {
@@ -266,22 +270,13 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
       return await contract.direct.createListing(data);
     },
     {
-      onSuccess: () => {
-        return Promise.all([
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.getAllListings(contractAddress),
-              activeChainId,
-            ),
+      onSuccess: () =>
+        queryClient.invalidateQueries(
+          createCacheKeyWithNetwork(
+            createContractCacheKey(contractAddress),
+            activeChainId,
           ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.getActiveListings(contractAddress),
-              activeChainId,
-            ),
-          ),
-        ]);
-      },
+        ),
     },
   );
 }
@@ -332,22 +327,13 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
       return await contract.auction.createListing(data);
     },
     {
-      onSuccess: () => {
-        return Promise.all([
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.getAllListings(contractAddress),
-              activeChainId,
-            ),
+      onSuccess: () =>
+        queryClient.invalidateQueries(
+          createCacheKeyWithNetwork(
+            createContractCacheKey(contractAddress),
+            activeChainId,
           ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.getActiveListings(contractAddress),
-              activeChainId,
-            ),
-          ),
-        ]);
-      },
+        ),
     },
   );
 }
@@ -398,37 +384,13 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
       return await contract.auction.makeBid(data.listingId, data.bid);
     },
     {
-      onSuccess: (_d, variables) => {
-        return Promise.all([
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.getListing(
-                contractAddress,
-                variables.listingId,
-              ),
-              activeChainId,
-            ),
+      onSuccess: () =>
+        queryClient.invalidateQueries(
+          createCacheKeyWithNetwork(
+            createContractCacheKey(contractAddress),
+            activeChainId,
           ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.auction.getWinningBid(
-                contractAddress,
-                variables.listingId,
-              ),
-              activeChainId,
-            ),
-          ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.auction.getWinner(
-                contractAddress,
-                variables.listingId,
-              ),
-              activeChainId,
-            ),
-          ),
-        ]);
-      },
+        ),
     },
   );
 }
@@ -491,37 +453,13 @@ export function useBuyNow(contract: RequiredParam<Marketplace>) {
       return await contract.auction.buyoutListing(data.id);
     },
     {
-      onSuccess: (_d, params) => {
-        return Promise.all([
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.getListing(
-                contractAddress,
-                params.id,
-              ),
-              activeChainId,
-            ),
+      onSuccess: () =>
+        queryClient.invalidateQueries(
+          createCacheKeyWithNetwork(
+            createContractCacheKey(contractAddress),
+            activeChainId,
           ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.auction.getWinningBid(
-                contractAddress,
-                params.id,
-              ),
-              activeChainId,
-            ),
-          ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.marketplace.auction.getWinner(
-                contractAddress,
-                params.id,
-              ),
-              activeChainId,
-            ),
-          ),
-        ]);
-      },
+        ),
     },
   );
 }

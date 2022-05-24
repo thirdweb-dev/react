@@ -1,6 +1,10 @@
 import { useActiveChainId } from "../../Provider";
 import { RequiredParam, TokenMintParams, WalletAddress } from "../../types";
-import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
+import {
+  cacheKeys,
+  createCacheKeyWithNetwork,
+  createContractCacheKey,
+} from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { Erc20 } from "@thirdweb-dev/sdk";
 import { useMutation, useQueryClient } from "react-query";
@@ -113,22 +117,13 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
       return contract.mint.to(to, amount);
     },
     {
-      onSuccess: (_txResult, variables) => {
-        return Promise.all([
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.token.totalSupply(contractAddress),
-              activeChainId,
-            ),
+      onSuccess: () =>
+        queryClient.invalidateQueries(
+          createCacheKeyWithNetwork(
+            createContractCacheKey(contractAddress),
+            activeChainId,
           ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.token.balanceOf(contractAddress, variables.to),
-              activeChainId,
-            ),
-          ),
-        ]);
-      },
+        ),
     },
   );
 }

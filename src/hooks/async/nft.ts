@@ -8,7 +8,11 @@ import {
   WalletAddress,
   useNFTBalanceParams,
 } from "../../types";
-import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
+import {
+  cacheKeys,
+  createCacheKeyWithNetwork,
+  createContractCacheKey,
+} from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type {
   QueryAllParams,
@@ -348,24 +352,13 @@ export function useMintNFT<TContract extends NFTContract>(
       )) as MintNFTReturnType<TContract>;
     },
     {
-      onSuccess: () => {
-        return Promise.all([
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.nft.query.all(contractAddress),
-              activeChainId,
-            ),
+      onSuccess: () =>
+        queryClient.invalidateQueries(
+          createCacheKeyWithNetwork(
+            createContractCacheKey(contractAddress),
+            activeChainId,
           ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.nft.query.totalCirculatingSupply(
-                contractAddress,
-              ),
-              activeChainId,
-            ),
-          ),
-        ]);
-      },
+        ),
     },
   );
 }
