@@ -29,6 +29,7 @@ export * from "./hooks/async/drop";
 export * from "./hooks/async/marketplace";
 export * from "./hooks/async/token";
 export * from "./hooks/async/claim-conditions";
+export * from "./hooks/async/wallet";
 
 // types
 export * from "./types";

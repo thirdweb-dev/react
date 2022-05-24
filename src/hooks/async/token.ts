@@ -1,6 +1,9 @@
 import { useActiveChainId } from "../../Provider";
 import { RequiredParam, TokenMintParams, WalletAddress } from "../../types";
-import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
+import {
+  cacheKeys,
+  invalidateContractAndBalances,
+} from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { Erc20 } from "@thirdweb-dev/sdk";
 import { useMutation, useQueryClient } from "react-query";
@@ -50,18 +53,18 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
  */
 export function useTokenBalance(
   contract: RequiredParam<Erc20>,
-  address: RequiredParam<WalletAddress>,
+  walletAddress: RequiredParam<WalletAddress>,
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.token.balanceOf(contractAddress, address),
+    cacheKeys.contract.token.balanceOf(contractAddress, walletAddress),
     async () => {
       invariant(contract, "No Contract instance provided");
-      invariant(address, "No address provided");
-      return await contract.balanceOf(address);
+      invariant(walletAddress, "No address provided");
+      return await contract.balanceOf(walletAddress);
     },
     {
-      enabled: !!address && !!contract,
+      enabled: !!walletAddress && !!contract,
     },
   );
 }
@@ -113,22 +116,12 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
       return contract.mint.to(to, amount);
     },
     {
-      onSuccess: (_txResult, variables) => {
-        return Promise.all([
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.token.totalSupply(contractAddress),
-              activeChainId,
-            ),
-          ),
-          queryClient.invalidateQueries(
-            createCacheKeyWithNetwork(
-              cacheKeys.contract.token.balanceOf(contractAddress, variables.to),
-              activeChainId,
-            ),
-          ),
-        ]);
-      },
+      onSuccess: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
     },
   );
 }

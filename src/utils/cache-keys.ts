@@ -5,7 +5,7 @@ import type {
   SUPPORTED_CHAIN_ID,
 } from "@thirdweb-dev/sdk";
 import { BigNumberish, constants } from "ethers";
-import { QueryKey } from "react-query";
+import { QueryClient, QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
 
@@ -16,9 +16,12 @@ function createCachekey(input: QueryKey): QueryKey {
   return [TW_CACHE_KEY_PREFIX, ...input];
 }
 
-function createContractCacheKey(
+/**
+ * @internal
+ */
+export function createContractCacheKey(
   contractAddress: string = constants.AddressZero,
-  input: QueryKey,
+  input: QueryKey = [],
 ): QueryKey {
   return createCachekey(["contract", contractAddress, ...input]);
 }
@@ -28,9 +31,30 @@ function createContractCacheKey(
  */
 export function createCacheKeyWithNetwork(
   input: QueryKey,
-  chainId?: SUPPORTED_CHAIN_ID,
+  chainId: RequiredParam<SUPPORTED_CHAIN_ID>,
 ): QueryKey {
   return cacheKeys.network.active(chainId).concat(input);
+}
+
+/**
+ * @internal
+ */
+export function invalidateContractAndBalances(
+  queryClient: QueryClient,
+  contractAddress: RequiredParam<ContractAddress>,
+  chainId: RequiredParam<SUPPORTED_CHAIN_ID>,
+): Promise<unknown> {
+  return Promise.all([
+    queryClient.invalidateQueries(
+      createCacheKeyWithNetwork(
+        createContractCacheKey(contractAddress),
+        chainId,
+      ),
+    ),
+    queryClient.invalidateQueries(
+      createCacheKeyWithNetwork(createCachekey(["balance"]), chainId),
+    ),
+  ]);
 }
 
 /**
@@ -38,8 +62,12 @@ export function createCacheKeyWithNetwork(
  */
 export const cacheKeys = {
   network: {
-    active: (chainId?: SUPPORTED_CHAIN_ID) =>
+    active: (chainId: RequiredParam<SUPPORTED_CHAIN_ID>) =>
       createCachekey(["chainId", chainId]),
+  },
+  wallet: {
+    balance: (tokenAddress?: ContractAddress) =>
+      createCachekey(["balance", { tokenAddress }]),
   },
   contract: {
     type: (contractAddress: RequiredParam<ContractAddress>) =>

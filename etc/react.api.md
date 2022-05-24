@@ -320,7 +320,18 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 export function useAddress(): string | undefined;
 
 // @beta
-export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string, unknown>;
+export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string | undefined, unknown>;
+
+// Warning: (ae-incompatible-release-tags) The symbol "useBalance" is marked as @public, but its signature references "ContractAddress" which is marked as @beta
+//
+// @public (undocumented)
+export function useBalance(tokenAddress?: ContractAddress): UseQueryResult<    {
+symbol: string;
+name: string;
+value: BigNumber;
+decimals: number;
+displayValue: string;
+}, unknown>;
 
 // @beta
 export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResult<BigNumber, unknown>;
@@ -892,7 +903,7 @@ export function useSplit(contractAddress?: string): Split | undefined;
 export function useToken(contractAddress?: string): Token | undefined;
 
 // @beta
-export function useTokenBalance(contract: RequiredParam<Erc20>, address: RequiredParam<WalletAddress>): UseQueryResult<    {
+export function useTokenBalance(contract: RequiredParam<Erc20>, walletAddress: RequiredParam<WalletAddress>): UseQueryResult<    {
 symbol: string;
 name: string;
 value: BigNumber;
