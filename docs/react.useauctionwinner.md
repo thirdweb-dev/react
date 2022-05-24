@@ -12,7 +12,7 @@ Use this to get the winner of an auction listing from your marketplace contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<string, unknown>;
+export declare function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<string | undefined, unknown>;
 ```
 
 ## Parameters
@@ -24,13 +24,9 @@ export declare function useAuctionWinner(contract: RequiredParam<Marketplace>, l
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;string, unknown&gt;
+import("react-query").UseQueryResult&lt;string \| undefined, unknown&gt;
 
-a response object that includes an array of listings
-
-## Exceptions
-
-an error if the auction is not finished
+a response object that includes the address of the winner of the auction or undefined if there is no winner yet
 
 ## Example
 

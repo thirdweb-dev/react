@@ -320,7 +320,7 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 export function useAddress(): string | undefined;
 
 // @beta
-export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string, unknown>;
+export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string | undefined, unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useBalance" is marked as @public, but its signature references "ContractAddress" which is marked as @beta
 //

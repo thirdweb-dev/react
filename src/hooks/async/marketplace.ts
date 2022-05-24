@@ -156,8 +156,7 @@ export function useWinningBid(
  *
  * @param contract - an instace of a marketplace contract
  * @param listingId - the listing id to check
- * @returns a response object that includes an array of listings
- * @throws an error if the auction is not finished
+ * @returns a response object that includes the address of the winner of the auction or undefined if there is no winner yet
  * @beta
  */
 export function useAuctionWinner(
@@ -170,9 +169,19 @@ export function useAuctionWinner(
       contractAddress,
       listingId,
     ),
-    () => {
+    async () => {
       invariant(contract, "No Contract instance provided");
-      return contract.auction.getWinner(BigNumber.from(listingId || 0));
+      let winner: string | undefined;
+      try {
+        winner = await contract.auction.getWinner(
+          BigNumber.from(listingId || 0),
+        );
+      } catch (err) {
+        if ((err as Error)?.message?.indexOf("Could not find auction") > -1) {
+          throw err;
+        }
+      }
+      return winner;
     },
     {
       enabled: !!contract && listingId !== undefined,
