@@ -5,7 +5,7 @@ import type {
   SUPPORTED_CHAIN_ID,
 } from "@thirdweb-dev/sdk";
 import { BigNumberish, constants } from "ethers";
-import { QueryKey } from "react-query";
+import { QueryClient, QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
 
@@ -34,6 +34,27 @@ export function createCacheKeyWithNetwork(
   chainId: RequiredParam<SUPPORTED_CHAIN_ID>,
 ): QueryKey {
   return cacheKeys.network.active(chainId).concat(input);
+}
+
+/**
+ * @internal
+ */
+export function invalidateContractAndBalances(
+  queryClient: QueryClient,
+  contractAddress: RequiredParam<ContractAddress>,
+  chainId: RequiredParam<SUPPORTED_CHAIN_ID>,
+): Promise<unknown> {
+  return Promise.all([
+    queryClient.invalidateQueries(
+      createCacheKeyWithNetwork(
+        createContractCacheKey(contractAddress),
+        chainId,
+      ),
+    ),
+    queryClient.invalidateQueries(
+      createCacheKeyWithNetwork(createCachekey(["balance"]), chainId),
+    ),
+  ]);
 }
 
 /**

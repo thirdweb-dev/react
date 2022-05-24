@@ -2,8 +2,7 @@ import { useActiveChainId } from "../../Provider";
 import { RequiredParam, TokenMintParams, WalletAddress } from "../../types";
 import {
   cacheKeys,
-  createCacheKeyWithNetwork,
-  createContractCacheKey,
+  invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { Erc20 } from "@thirdweb-dev/sdk";
@@ -118,11 +117,10 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
     },
     {
       onSuccess: () =>
-        queryClient.invalidateQueries(
-          createCacheKeyWithNetwork(
-            createContractCacheKey(contractAddress),
-            activeChainId,
-          ),
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
         ),
     },
   );

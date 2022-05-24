@@ -10,8 +10,7 @@ import {
 } from "../../types";
 import {
   cacheKeys,
-  createCacheKeyWithNetwork,
-  createContractCacheKey,
+  invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type {
@@ -353,11 +352,10 @@ export function useMintNFT<TContract extends NFTContract>(
     },
     {
       onSuccess: () =>
-        queryClient.invalidateQueries(
-          createCacheKeyWithNetwork(
-            createContractCacheKey(contractAddress),
-            activeChainId,
-          ),
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
         ),
     },
   );

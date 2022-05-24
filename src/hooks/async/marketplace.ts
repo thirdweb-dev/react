@@ -2,8 +2,7 @@ import { useActiveChainId } from "../../Provider";
 import { BuyNowParams, MakeBidParams, RequiredParam } from "../../types";
 import {
   cacheKeys,
-  createCacheKeyWithNetwork,
-  createContractCacheKey,
+  invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useAddress } from "../useAddress";
@@ -181,7 +180,7 @@ export function useAuctionWinner(
           BigNumber.from(listingId || 0),
         );
       } catch (err) {
-        if ((err as Error)?.message?.indexOf("Could not find auction") > -1) {
+        if (!(err as Error)?.message?.includes("Could not find auction")) {
           throw err;
         }
       }
@@ -271,11 +270,10 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
     },
     {
       onSuccess: () =>
-        queryClient.invalidateQueries(
-          createCacheKeyWithNetwork(
-            createContractCacheKey(contractAddress),
-            activeChainId,
-          ),
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
         ),
     },
   );
@@ -328,11 +326,10 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
     },
     {
       onSuccess: () =>
-        queryClient.invalidateQueries(
-          createCacheKeyWithNetwork(
-            createContractCacheKey(contractAddress),
-            activeChainId,
-          ),
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
         ),
     },
   );
@@ -385,11 +382,10 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
     },
     {
       onSuccess: () =>
-        queryClient.invalidateQueries(
-          createCacheKeyWithNetwork(
-            createContractCacheKey(contractAddress),
-            activeChainId,
-          ),
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
         ),
     },
   );
@@ -454,11 +450,10 @@ export function useBuyNow(contract: RequiredParam<Marketplace>) {
     },
     {
       onSuccess: () =>
-        queryClient.invalidateQueries(
-          createCacheKeyWithNetwork(
-            createContractCacheKey(contractAddress),
-            activeChainId,
-          ),
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
         ),
     },
   );
