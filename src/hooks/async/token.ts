@@ -50,18 +50,18 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
  */
 export function useTokenBalance(
   contract: RequiredParam<Erc20>,
-  address: RequiredParam<WalletAddress>,
+  walletAddress: RequiredParam<WalletAddress>,
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.token.balanceOf(contractAddress, address),
+    cacheKeys.contract.token.balanceOf(contractAddress, walletAddress),
     async () => {
       invariant(contract, "No Contract instance provided");
-      invariant(address, "No address provided");
-      return await contract.balanceOf(address);
+      invariant(walletAddress, "No address provided");
+      return await contract.balanceOf(walletAddress);
     },
     {
-      enabled: !!address && !!contract,
+      enabled: !!walletAddress && !!contract,
     },
   );
 }

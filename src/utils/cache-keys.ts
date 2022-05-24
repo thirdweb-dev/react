@@ -38,8 +38,12 @@ export function createCacheKeyWithNetwork(
  */
 export const cacheKeys = {
   network: {
-    active: (chainId?: SUPPORTED_CHAIN_ID) =>
+    active: (chainId: RequiredParam<SUPPORTED_CHAIN_ID>) =>
       createCachekey(["chainId", chainId]),
+  },
+  wallet: {
+    balance: (tokenAddress?: ContractAddress) =>
+      createCachekey(["balance", { tokenAddress }]),
   },
   contract: {
     type: (contractAddress: RequiredParam<ContractAddress>) =>
