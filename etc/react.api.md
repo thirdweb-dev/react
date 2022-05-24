@@ -46,6 +46,7 @@ import { NFTMetadata } from '@thirdweb-dev/sdk';
 import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Offer } from '@thirdweb-dev/sdk';
 import { Pack } from '@thirdweb-dev/sdk';
+import type { Price } from '@thirdweb-dev/sdk';
 import type { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import { QueryAllParams } from '@thirdweb-dev/sdk';
 import { QueryClient } from 'react-query';
@@ -170,7 +171,7 @@ export type MagicConnectorType = "magic" | {
 // @public (undocumented)
 export type MakeBidParams = {
     listingId: BigNumberish;
-    bid: BigNumberish;
+    bid: Price;
 };
 
 // @public

@@ -9,6 +9,6 @@
 ```typescript
 export declare type MakeBidParams = {
     listingId: BigNumberish;
-    bid: BigNumberish;
+    bid: Price;
 };
 ```

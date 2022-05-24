@@ -26,7 +26,8 @@
     "build": "yarn build:lib && yarn extract-api && yarn generate:md-docs && yarn generate-snippets",
     "test": "yarn build && yarn test-only",
     "test:watch": "vitest watch",
-    "test-only": "vitest run"
+    "test-only": "vitest run",
+    "prepublishOnly": "yarn lint && yarn build"
   },
   "sideEffects:": false,
   "devDependencies": {
