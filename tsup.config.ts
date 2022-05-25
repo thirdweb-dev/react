@@ -9,6 +9,8 @@ export default defineConfig({
   minify: true,
   platform: "browser",
   replaceNodeEnv: true,
+  shims: true,
+  treeshake: true,
   format: ["cjs", "esm"],
   // inject globals onto window if required
   banner: {
