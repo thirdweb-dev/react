@@ -42,6 +42,10 @@ export function detectErc721Instance(
   return undefined;
 }
 
+/**
+ *
+ * @internal
+ */
 export function detectErc1155Instance(
   contract: RequiredParam<ValidContractInstance | SmartContract | null>,
 ) {
@@ -51,8 +55,8 @@ export function detectErc1155Instance(
   if (contract instanceof Erc1155) {
     return contract;
   }
-  if ("nft" in contract && contract.nft instanceof Erc1155) {
-    return contract.nft;
+  if ("edition" in contract && contract.edition instanceof Erc1155) {
+    return contract.edition;
   }
   return undefined;
 }

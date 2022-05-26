@@ -8,7 +8,6 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [detectErc1155Instance(contract)](./react.detecterc1155instance.md) |  |
 |  [useActiveClaimCondition(\[contract, tokenId\])](./react.useactiveclaimcondition.md) | <b><i>(BETA)</i></b> Use this to get the active claim conditon for ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useActiveListings(contract, filter)](./react.useactivelistings.md) | <b><i>(BETA)</i></b> Use this to get a list active listings from your marketplace contract. |
 |  [useAddress()](./react.useaddress.md) | Hook for accessing the address of the connected wallet

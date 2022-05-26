@@ -129,10 +129,10 @@ export { defaultChains }
 
 export { defaultL2Chains }
 
-// Warning: (ae-incompatible-release-tags) The symbol "detectErc1155Instance" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-internal-missing-underscore) The name "detectErc1155Instance" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
-export function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): EditionDrop | Edition | undefined;
+// @internal (undocumented)
+export function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): Erc1155<any> | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -435,6 +435,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     dataUpdatedAt: number;
     errorUpdatedAt: number;
     failureCount: number;
+    errorUpdateCount: number;
     isFetched: boolean;
     isFetchedAfterMount: boolean;
     isFetching: boolean;
@@ -465,6 +466,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     dataUpdatedAt: number;
     errorUpdatedAt: number;
     failureCount: number;
+    errorUpdateCount: number;
     isFetched: boolean;
     isFetchedAfterMount: boolean;
     isFetching: boolean;
@@ -501,6 +503,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     dataUpdatedAt: number;
     errorUpdatedAt: number;
     failureCount: number;
+    errorUpdateCount: number;
     isFetched: boolean;
     isFetchedAfterMount: boolean;
     isFetching: boolean;
@@ -537,6 +540,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     dataUpdatedAt: number;
     errorUpdatedAt: number;
     failureCount: number;
+    errorUpdateCount: number;
     isFetched: boolean;
     isFetchedAfterMount: boolean;
     isFetching: boolean;
@@ -572,6 +576,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     dataUpdatedAt: number;
     errorUpdatedAt: number;
     failureCount: number;
+    errorUpdateCount: number;
     isFetched: boolean;
     isFetchedAfterMount: boolean;
     isFetching: boolean;
@@ -602,6 +607,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     dataUpdatedAt: number;
     errorUpdatedAt: number;
     failureCount: number;
+    errorUpdateCount: number;
     isFetched: boolean;
     isFetchedAfterMount: boolean;
     isFetching: boolean;
@@ -652,6 +658,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     dataUpdatedAt: number;
     errorUpdatedAt: number;
     failureCount: number;
+    errorUpdateCount: number;
     isFetched: boolean;
     isFetchedAfterMount: boolean;
     isFetching: boolean;
@@ -702,6 +709,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     dataUpdatedAt: number;
     errorUpdatedAt: number;
     failureCount: number;
+    errorUpdateCount: number;
     isFetched: boolean;
     isFetchedAfterMount: boolean;
     isFetching: boolean;
