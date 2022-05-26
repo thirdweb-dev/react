@@ -384,7 +384,7 @@ export const ThirdwebProvider = <
     if (!desiredChainId) {
       return undefined;
     }
-    let rpcUrl = _rpcUrlMap[(desiredChainId || -1) as keyof typeof _rpcUrlMap];
+    let rpcUrl = _rpcUrlMap[desiredChainId as keyof typeof _rpcUrlMap];
     try {
       rpcUrl = getProviderForNetwork(rpcUrl) as string;
     } catch (e) {
