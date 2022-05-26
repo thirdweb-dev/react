@@ -18,7 +18,9 @@ import {
   SUPPORTED_CHAIN_ID,
   SignerOrProvider,
   ThirdwebSDK,
+  getProviderForNetwork,
 } from "@thirdweb-dev/sdk";
+import { SDKOptionsOutput } from "@thirdweb-dev/sdk/dist/src/schema";
 import { Signer } from "ethers";
 import React, { createContext, useEffect, useMemo } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -372,21 +374,39 @@ export const ThirdwebProvider = <
     } as WagmiproviderProps;
   }, [walletConnectors, _supporrtedChains, dAppMeta]);
 
-  const defaultSdkReadUrl =
-    _rpcUrlMap[(desiredChainId || -1) as keyof typeof _rpcUrlMap];
+  const readonlySettings: SDKOptionsOutput["readonlySettings"] = useMemo(() => {
+    if (
+      sdkOptions?.readonlySettings?.rpcUrl &&
+      sdkOptions?.readonlySettings?.chainId
+    ) {
+      return sdkOptions.readonlySettings;
+    }
+    if (!desiredChainId) {
+      return undefined;
+    }
+    let rpcUrl = _rpcUrlMap[desiredChainId as keyof typeof _rpcUrlMap];
+    try {
+      rpcUrl = getProviderForNetwork(rpcUrl) as string;
+    } catch (e) {
+      console.error(
+        `failed to configure rpc url for chain: "${desiredChainId}". Did you forget to pass "desiredChainId" to the <ThirdwebProvider /> component?`,
+      );
+      // cannot set readonly without a valid rpc url
+      return undefined;
+    }
+    return {
+      chainId: desiredChainId,
+      rpcUrl,
+    };
+  }, [_rpcUrlMap, desiredChainId]);
 
   const sdkOptionsWithDefaults = useMemo(() => {
     const opts: SDKOptions = sdkOptions;
     return {
       ...opts,
-      readonlySettings: {
-        ...(opts?.readonlySettings || {}),
-        rpcUrl: opts?.readonlySettings?.rpcUrl
-          ? opts.readonlySettings.rpcUrl
-          : defaultSdkReadUrl,
-      },
+      readonlySettings,
     };
-  }, [sdkOptions, defaultSdkReadUrl]);
+  }, [sdkOptions, readonlySettings]);
 
   const queryClientWithDefault: QueryClient = useMemo(() => {
     return queryClient ? queryClient : new QueryClient();

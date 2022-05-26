@@ -13,11 +13,7 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type {
-  QueryAllParams,
-  SmartContract,
-  ValidContractInstance,
-} from "@thirdweb-dev/sdk";
+import type { QueryAllParams } from "@thirdweb-dev/sdk";
 // eslint-disable-next-line no-duplicate-imports
 import { Erc721, Erc1155 } from "@thirdweb-dev/sdk";
 import { BigNumber, BigNumberish } from "ethers";
@@ -25,42 +21,8 @@ import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /**
- @internal
- */
-export function detectErc721Instance(
-  contract: RequiredParam<ValidContractInstance | SmartContract | null>,
-) {
-  if (!contract) {
-    return undefined;
-  }
-  if (contract instanceof Erc721) {
-    return contract;
-  }
-  if ("nft" in contract && contract.nft instanceof Erc721) {
-    return contract.nft;
-  }
-  return undefined;
-}
-
-/**
- *
  * @internal
  */
-export function detectErc1155Instance(
-  contract: RequiredParam<ValidContractInstance | SmartContract | null>,
-) {
-  if (!contract) {
-    return undefined;
-  }
-  if (contract instanceof Erc1155) {
-    return contract;
-  }
-  if ("edition" in contract && contract.edition instanceof Erc1155) {
-    return contract.edition;
-  }
-  return undefined;
-}
-
 function convertResponseToNFTType(
   contract: NFTContract,
   metadata: Awaited<ReturnType<typeof contract["get"]>>,
@@ -81,6 +43,9 @@ function convertResponseToNFTType(
   } as NFT<Erc1155>;
 }
 
+/**
+ * @internal
+ */
 function convertResponseToNFTTypeArray(
   contract: NFTContract,
   metadata: Awaited<ReturnType<typeof contract["get"]>>[],

@@ -26,7 +26,7 @@ import { EditionDrop } from '@thirdweb-dev/sdk';
 import { Erc1155 } from '@thirdweb-dev/sdk';
 import type { Erc1155Mintable } from '@thirdweb-dev/sdk';
 import type { Erc20 } from '@thirdweb-dev/sdk';
-import { Erc721 } from '@thirdweb-dev/sdk';
+import type { Erc721 } from '@thirdweb-dev/sdk';
 import type { Erc721Mintable } from '@thirdweb-dev/sdk';
 import { FetchStatus } from 'react-query';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -68,7 +68,6 @@ import { TransactionResultWithId } from '@thirdweb-dev/sdk';
 import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
 import { UseQueryResult } from 'react-query';
-import type { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
@@ -128,16 +127,6 @@ export interface DAppMetaData {
 export { defaultChains }
 
 export { defaultL2Chains }
-
-// Warning: (ae-internal-missing-underscore) The name "detectErc1155Instance" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export function detectErc1155Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): Erc1155<any> | undefined;
-
-// Warning: (ae-internal-missing-underscore) The name "detectErc721Instance" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export function detectErc721Instance(contract: RequiredParam<ValidContractInstance | SmartContract | null>): Erc721<any> | undefined;
 
 // @beta
 export type DropContract = NFTDrop | EditionDrop;
