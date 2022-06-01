@@ -9,7 +9,7 @@ import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import type { BytesLike } from 'ethers';
-import { Chain as Chain_2 } from './types';
+import { Chain } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { ChainOrRpc } from '@thirdweb-dev/sdk';
 import { ClaimEligibility } from '@thirdweb-dev/sdk';
@@ -91,7 +91,7 @@ export { ChainId }
 // Warning: (ae-internal-missing-underscore) The name "ChainRpc" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain, string>;
+export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain_2 ? TSupportedChain["id"] : TSupportedChain, string>;
 
 // @beta
 export type ClaimIneligibilityParameters = {
@@ -244,7 +244,7 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
     // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
     dAppMeta?: DAppMetaData;
-    desiredChainId: TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain | undefined;
+    desiredChainId: TSupportedChain extends Chain_2 ? TSupportedChain["id"] : TSupportedChain | undefined;
     // @beta
     queryClient?: QueryClient;
     sdkOptions?: SDKOptions;
@@ -855,7 +855,7 @@ export function useNetwork(): readonly [{
             }[] | undefined;
             testnet?: boolean | undefined;
         } | undefined;
-        readonly chains: Chain_2[];
+        readonly chains: Chain[];
     };
     readonly error: Error | undefined;
     readonly loading: boolean | undefined;
@@ -863,7 +863,7 @@ export function useNetwork(): readonly [{
     data: undefined;
     error: SwitchChainError;
 } | {
-    data: Chain_2 | undefined;
+    data: Chain | undefined;
     error: undefined;
 }>) | undefined];
 
