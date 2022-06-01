@@ -16,7 +16,7 @@ export * from "./hooks/useNetworkMismatch";
 export * from "./hooks/useNetwork";
 
 // re-exports
-export { defaultChains, defaultL2Chains, useAccount } from "wagmi";
+export { defaultChains, defaultL2Chains, useAccount, useProvider } from "wagmi";
 export { ChainId, IpfsStorage } from "@thirdweb-dev/sdk";
 // ui components
 export * from "./components/MediaRenderer";
