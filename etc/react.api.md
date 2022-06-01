@@ -69,6 +69,7 @@ import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
 import { useProvider } from './hooks';
 import { UseQueryResult } from 'react-query';
+import type { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
@@ -312,16 +313,14 @@ export function useAddress(): string | undefined;
 // @beta
 export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string | undefined, unknown>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "useBalance" is marked as @public, but its signature references "ContractAddress" which is marked as @beta
-//
-// @public (undocumented)
+// @beta (undocumented)
 export function useBalance(tokenAddress?: ContractAddress): UseQueryResult<    {
 symbol: string;
 name: string;
 value: BigNumber;
 decimals: number;
 displayValue: string;
-}, unknown>;
+} | undefined, unknown>;
 
 // @beta
 export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResult<BigNumber, unknown>;
@@ -811,6 +810,15 @@ data: () => Promise<unknown>;
 // @public
 export function useMarketplace(contractAddress?: string): Marketplace | undefined;
 
+// @beta
+export function useMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
+[x: string]: Json;
+description?: string | undefined;
+image?: any;
+external_link?: string | undefined;
+name: string;
+}, unknown>;
+
 // @public
 export function useMetamask(): () => Promise<{
     data?: ConnectorData<any> | undefined;
@@ -893,6 +901,15 @@ export function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredPa
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
 
+// @beta
+export function usePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
+platform_fee_basis_points: number;
+platform_fee_recipient: string;
+}, unknown>;
+
+// @beta
+export function usePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<string, unknown>;
+
 export { useProvider }
 
 // Warning: (ae-internal-missing-underscore) The name "useReadonlySDK" should be prefixed with an underscore because the declaration is marked as @internal
@@ -905,6 +922,12 @@ export function useResolvedMediaType(uri?: string): {
     url: string | undefined;
     mimeType: string | undefined;
 };
+
+// @beta
+export function useRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
+seller_fee_basis_points: number;
+fee_recipient: string;
+}, unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useSDK" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -964,6 +987,45 @@ id: BigNumber;
 //
 // @public (undocumented)
 export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export function useUpdateMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<    {
+receipt: TransactionReceipt;
+data: () => Promise<any>;
+}, unknown, {
+[x: string]: Json;
+description?: string | undefined;
+image?: any;
+external_link?: string | undefined;
+name: string;
+}, unknown>;
+
+// @beta
+export function useUpdatePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, {
+platform_fee_basis_points: number;
+fee_recipient: WalletAddress;
+}, unknown>;
+
+// @beta
+export function useUpdatePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, string, unknown>;
+
+// @beta
+export function useUpdateRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<    {
+receipt: TransactionReceipt;
+data: () => Promise<{
+seller_fee_basis_points: number;
+fee_recipient: string;
+}>;
+}, unknown, {
+seller_fee_basis_points: number;
+fee_recipient: WalletAddress;
+}, unknown>;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;

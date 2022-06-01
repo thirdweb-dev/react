@@ -16,7 +16,7 @@ import { useAddress } from "@thirdweb-dev/react"
 ```
  |
 |  [useAuctionWinner(contract, listingId)](./react.useauctionwinner.md) | <b><i>(BETA)</i></b> Use this to get the winner of an auction listing from your marketplace contract. |
-|  [useBalance(tokenAddress)](./react.usebalance.md) |  |
+|  [useBalance(tokenAddress)](./react.usebalance.md) | <b><i>(BETA)</i></b> |
 |  [useBidBuffer(contract)](./react.usebidbuffer.md) | <b><i>(BETA)</i></b> Use this to get the buffer in basis points between offers from your marketplace contract. |
 |  [useBuyNow(contract)](./react.usebuynow.md) | <b><i>(BETA)</i></b> Use this to buy out an auction listing from your marketplace contract. |
 |  [useChainId()](./react.usechainid.md) | Hook for accessing the chain ID of the network the current wallet is connected to
@@ -61,6 +61,7 @@ import { useMagic } from "@thirdweb-dev/react"
  |
 |  [useMakeBid(contract)](./react.usemakebid.md) | <b><i>(BETA)</i></b> Use this to place a bid on an auction listing from your marketplace contract. |
 |  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Hook for getting an instance of a <code>Marketplace</code> contract. This contract is used to support marketplace for purchase and sale of on-chain assets. |
+|  [useMetadata(contract)](./react.usemetadata.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useMetamask()](./react.usemetamask.md) | Hook for connecting to a Metamask wallet.
 ```javascript
 import { useMetamask } from "@thirdweb-dev/react"
@@ -85,7 +86,10 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useNFTs(contract, queryParams)](./react.usenfts.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your [NFTContract](./react.nftcontract.md)<!-- -->. |
 |  [useOwnedNFTs(contract, ownerWalletAddress)](./react.useownednfts.md) | <b><i>(BETA)</i></b> Use this to get a the owned NFTs for a specific [NFTContract](./react.nftcontract.md) and wallet address. |
 |  [usePack(contractAddress)](./react.usepack.md) | Hook for getting an instance of a <code>Pack</code> contract. This contract supports the creation of on-chain luck-based lootboxes. |
+|  [usePlatformFees(contract)](./react.useplatformfees.md) | <b><i>(BETA)</i></b> TODO write docs |
+|  [usePrimarySaleRecipient(contract)](./react.useprimarysalerecipient.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
+|  [useRoyaltySettings(contract)](./react.useroyaltysettings.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
 |  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |
@@ -93,6 +97,10 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useTotalCirculatingSupply(contract)](./react.usetotalcirculatingsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your [NFTContract](./react.nftcontract.md)<!-- -->. |
 |  [useUnclaimedNFTs(contract, queryParams)](./react.useunclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*unclaimed\* NFT tokens of your ERC721 Drop contract. |
 |  [useUnclaimedNFTSupply(contract)](./react.useunclaimednftsupply.md) |  |
+|  [useUpdateMetadata(contract)](./react.useupdatemetadata.md) | <b><i>(BETA)</i></b> TODO write docs |
+|  [useUpdatePlatformFees(contract)](./react.useupdateplatformfees.md) | <b><i>(BETA)</i></b> TODO write docs |
+|  [useUpdatePrimarySaleRecipient(contract)](./react.useupdateprimarysalerecipient.md) | <b><i>(BETA)</i></b> TODO write docs |
+|  [useUpdateRoyaltySettings(contract)](./react.useupdateroyaltysettings.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
 |  [useWalletConnect()](./react.usewalletconnect.md) | Hook for connecting to a mobile wallet with Wallet Connect
 ```javascript

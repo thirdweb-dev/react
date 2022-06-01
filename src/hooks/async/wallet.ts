@@ -1,22 +1,46 @@
-import { useSDK } from "../../Provider";
+import { SupportedChainId } from "../../constants/chain";
 import { ContractAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { useAddress } from "../useAddress";
-import invariant from "tiny-invariant";
+import { useChainId } from "../useChainId";
+import { useSigner } from "../useSigner";
+import { ChainId, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { useMemo } from "react";
+import { useQuery } from "react-query";
 
+const defaultChainRpc: Record<SupportedChainId, string> = {
+  [ChainId.Mainnet]: "mainnet",
+  [ChainId.Rinkeby]: "rinkeby",
+  [ChainId.Goerli]: "goerli",
+  [ChainId.Polygon]: "polygon",
+  [ChainId.Mumbai]: "mumbai",
+  [ChainId.Fantom]: "fantom",
+  [ChainId.Avalanche]: "avalanche",
+};
+
+/**
+ *
+ * @param tokenAddress - the address of the token contract, if empty will use the chain's native token
+ * @beta
+ */
 export function useBalance(tokenAddress?: ContractAddress) {
-  const sdk = useSDK();
-  const address = useAddress();
-  return useQueryWithNetwork(
-    cacheKeys.wallet.balance(tokenAddress),
+  const chainId = useChainId() as SupportedChainId;
+  const signer = useSigner();
+
+  const walletSDK = useMemo(() => {
+    if (signer) {
+      return ThirdwebSDK.fromSigner(signer, defaultChainRpc[chainId]);
+    }
+    return undefined;
+  }, [signer, chainId]);
+
+  return useQuery(
+    cacheKeys.wallet.balance(chainId, tokenAddress),
     () => {
-      invariant(sdk, "No SDK instance provided");
-      return sdk.wallet.balance(tokenAddress);
+      return walletSDK?.wallet.balance(tokenAddress);
     },
     {
       // if user is not logged in no reason to try to fetch
-      enabled: !!address,
+      enabled: !!walletSDK,
     },
   );
 }
