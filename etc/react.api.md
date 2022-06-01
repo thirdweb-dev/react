@@ -1005,8 +1005,8 @@ export function useUpdatePlatformFees(contract: RequiredParam<SmartContract | Va
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
 }, "data">, unknown, {
-platform_fee_basis_points: number;
-fee_recipient: WalletAddress;
+platform_fee_basis_points?: number | undefined;
+fee_recipient?: string | undefined;
 }, unknown>;
 
 // @beta
@@ -1023,8 +1023,8 @@ seller_fee_basis_points: number;
 fee_recipient: string;
 }>;
 }, unknown, {
-seller_fee_basis_points: number;
-fee_recipient: WalletAddress;
+seller_fee_basis_points?: number | undefined;
+fee_recipient?: string | undefined;
 }, unknown>;
 
 // @public

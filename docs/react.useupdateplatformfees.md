@@ -16,8 +16,8 @@ export declare function useUpdatePlatformFees(contract: RequiredParam<SmartContr
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
 }, "data">, unknown, {
-    platform_fee_basis_points: number;
-    fee_recipient: WalletAddress;
+    platform_fee_basis_points?: number | undefined;
+    fee_recipient?: string | undefined;
 }, unknown>;
 ```
 
@@ -29,6 +29,6 @@ export declare function useUpdatePlatformFees(contract: RequiredParam<SmartContr
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, { platform\_fee\_basis\_points: number; fee\_recipient: [WalletAddress](./react.walletaddress.md)<!-- -->; }, unknown&gt;
+import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, { platform\_fee\_basis\_points?: number \| undefined; fee\_recipient?: string \| undefined; }, unknown&gt;
 
 

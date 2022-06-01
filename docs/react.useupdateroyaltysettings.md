@@ -19,8 +19,8 @@ export declare function useUpdateRoyaltySettings(contract: RequiredParam<SmartCo
         fee_recipient: string;
     }>;
 }, unknown, {
-    seller_fee_basis_points: number;
-    fee_recipient: WalletAddress;
+    seller_fee_basis_points?: number | undefined;
+    fee_recipient?: string | undefined;
 }, unknown>;
 ```
 
@@ -32,6 +32,6 @@ export declare function useUpdateRoyaltySettings(contract: RequiredParam<SmartCo
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;{ seller\_fee\_basis\_points: number; fee\_recipient: string; }&gt;; }, unknown, { seller\_fee\_basis\_points: number; fee\_recipient: [WalletAddress](./react.walletaddress.md)<!-- -->; }, unknown&gt;
+import("react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;{ seller\_fee\_basis\_points: number; fee\_recipient: string; }&gt;; }, unknown, { seller\_fee\_basis\_points?: number \| undefined; fee\_recipient?: string \| undefined; }, unknown&gt;
 
 
