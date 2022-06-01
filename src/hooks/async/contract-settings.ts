@@ -110,8 +110,8 @@ export function useUpdateRoyaltySettings(
   const activeChainId = useActiveChainId();
   return useMutation(
     (updatePayload: {
-      seller_fee_basis_points: number;
-      fee_recipient: WalletAddress;
+      seller_fee_basis_points?: number;
+      fee_recipient?: WalletAddress;
     }) => {
       invariant(contract, "No contract provided");
       invariant(
@@ -173,8 +173,8 @@ export function useUpdatePlatformFees(
   const activeChainId = useActiveChainId();
   return useMutation(
     (updatePayload: {
-      platform_fee_basis_points: number;
-      fee_recipient: WalletAddress;
+      platform_fee_basis_points?: number;
+      fee_recipient?: WalletAddress;
     }) => {
       invariant(contract, "No contract provided");
       invariant(
