@@ -67,6 +67,7 @@ import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { TransactionResultWithId } from '@thirdweb-dev/sdk';
 import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
+import { useProvider } from './hooks';
 import { UseQueryResult } from 'react-query';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -434,7 +435,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isRefetching: boolean;
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
-    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
     publishMetadata: null;
     } | {
     contractType: "custom";
@@ -465,7 +466,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isRefetching: boolean;
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
-    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
     publishMetadata: null;
     } | {
     contractType: "custom";
@@ -476,7 +477,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
 } | {
     contract: SmartContract<any> | null;
     data: {
-        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
         publishMetadata: null;
     } | {
         contractType: "custom";
@@ -502,7 +503,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isRefetching: boolean;
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
-    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
     publishMetadata: null;
     } | {
     contractType: "custom";
@@ -513,7 +514,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
 } | {
     contract: SmartContract<any> | null;
     data: {
-        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
         publishMetadata: null;
     } | {
         contractType: "custom";
@@ -539,7 +540,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isRefetching: boolean;
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
-    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
     publishMetadata: null;
     } | {
     contractType: "custom";
@@ -575,7 +576,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isRefetching: boolean;
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
-    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
     publishMetadata: null;
     } | {
     contractType: "custom";
@@ -606,7 +607,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isRefetching: boolean;
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
-    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
     publishMetadata: null;
     } | {
     contractType: "custom";
@@ -621,17 +622,27 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
         type: string;
         outputs: {
             [x: string]: any;
+            stateMutability?: string | undefined;
+            components?: {
+                name: string;
+                type: string;
+            }[] | undefined;
             name: string;
             type: string;
         }[];
         inputs: {
             [x: string]: any;
+            stateMutability?: string | undefined;
+            components?: {
+                name: string;
+                type: string;
+            }[] | undefined;
             name: string;
             type: string;
         }[];
     }[] | null;
     data: {
-        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
         publishMetadata: null;
     } | {
         contractType: "custom";
@@ -657,7 +668,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isRefetching: boolean;
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
-    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
     publishMetadata: null;
     } | {
     contractType: "custom";
@@ -672,17 +683,27 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
         type: string;
         outputs: {
             [x: string]: any;
+            stateMutability?: string | undefined;
+            components?: {
+                name: string;
+                type: string;
+            }[] | undefined;
             name: string;
             type: string;
         }[];
         inputs: {
             [x: string]: any;
+            stateMutability?: string | undefined;
+            components?: {
+                name: string;
+                type: string;
+            }[] | undefined;
             name: string;
             type: string;
         }[];
     }[] | null;
     data: {
-        contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+        contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
         publishMetadata: null;
     } | {
         contractType: "custom";
@@ -708,7 +729,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isRefetching: boolean;
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
-    contractType: "split" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined;
+    contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
     publishMetadata: null;
     } | {
     contractType: "custom";
@@ -736,7 +757,7 @@ name: string;
 export function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
-export function useContractType(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<"split" | "custom" | "nft-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | undefined, unknown>;
+export function useContractType(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<"split" | "custom" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined, unknown>;
 
 // @beta
 export function useCreateAuctionListing(contract: RequiredParam<Marketplace>): UseMutationResult<TransactionResultWithId<never>, unknown, NewAuctionListing, unknown>;
@@ -871,6 +892,8 @@ export function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredPa
 
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
+
+export { useProvider }
 
 // Warning: (ae-internal-missing-underscore) The name "useReadonlySDK" should be prefixed with an underscore because the declaration is marked as @internal
 //

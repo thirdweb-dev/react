@@ -1,5 +1,5 @@
 import { DEFAULT_IPFS_RESOLVER_OPTIONS } from "../constants/ipfs";
-import mime from "mime/lite";
+import mime from "mime/lite.js";
 
 export function resolveIpfsUri(
   uri?: string,
