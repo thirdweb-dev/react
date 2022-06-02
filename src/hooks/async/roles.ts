@@ -21,15 +21,24 @@ import invariant from "tiny-invariant";
 /**         UTILS       **/
 /** **********************/
 
-type ContractWithRoles =
+/**
+ * @internal
+ */
+export type ContractWithRoles =
   | Exclude<ValidContractInstance, Vote | Split | Multiwrap>
   | SmartContract;
 
-type RolesForContract<TContract extends ContractWithRoles> =
+/**
+ * @internal
+ */
+export type RolesForContract<TContract extends ContractWithRoles> =
   TContract extends SmartContract
     ? Role | (string & {})
     : NonNullable<TContract["roles"]>["roles"][number];
 
+/**
+ * @internal
+ */
 type GetAllReturnType<TContract extends ContractWithRoles> = Promise<
   Record<RolesForContract<TContract>, string[]>
 >;
@@ -160,6 +169,8 @@ export function useSetAllRoleMembers<TContract extends ContractWithRoles>(
     },
   );
 }
+
+// const { mutate } = useSetAllRoleMembers(undefined as unknown as NFTCollection);
 
 /**
  * TODO write docs
