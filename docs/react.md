@@ -73,6 +73,7 @@ import { useMetamask } from "@thirdweb-dev/react"
  |
 |  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md) |
 |  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC20 contract |
+|  [useMultiwrap(contractAddress)](./react.usemultiwrap.md) | Hook for getting an instance of an <code>Multiwrap</code> contract. This contract is an ERC721 in which you can wrap ERC721, ERC1155 and ERC20 tokens. |
 |  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks
 ```javascript
 import { useNetwork } from "@thirdweb-dev/react"
@@ -97,6 +98,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useRoleMembers(contract, role)](./react.userolemembers.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useRoyaltySettings(contract)](./react.useroyaltysettings.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useSetAllRoleMembers(contract)](./react.usesetallrolemembers.md) | <b><i>(BETA)</i></b> TODO write docs |
+|  [useSignatureDrop(contractAddress)](./react.usesignaturedrop.md) | Hook for getting an instance of an <code>SignatureDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
 |  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |

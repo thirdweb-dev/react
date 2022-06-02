@@ -39,7 +39,7 @@ import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import type { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import type { MarketplaceFilter } from '@thirdweb-dev/sdk';
-import type { Multiwrap } from '@thirdweb-dev/sdk';
+import { Multiwrap } from '@thirdweb-dev/sdk';
 import type { NewAuctionListing } from '@thirdweb-dev/sdk';
 import type { NewDirectListing } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
@@ -58,6 +58,7 @@ import { RefetchOptions } from 'react-query';
 import { RefetchQueryFilters } from 'react-query';
 import type { Role } from '@thirdweb-dev/sdk';
 import { SDKOptions } from '@thirdweb-dev/sdk';
+import { SignatureDrop } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
 import { SignerOrProvider } from '@thirdweb-dev/sdk';
 import { SmartContract } from '@thirdweb-dev/sdk';
@@ -868,6 +869,9 @@ data: () => Promise<unknown>;
 }, "data">, unknown, TokenMintParams, unknown>;
 
 // @public
+export function useMultiwrap(contractAddress?: string): Multiwrap | undefined;
+
+// @public
 export function useNetwork(): readonly [{
     readonly data: {
         readonly chain: {
@@ -976,6 +980,9 @@ export function useSDK(): ThirdwebSDK | undefined;
 
 // @beta
 export function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
+
+// @public
+export function useSignatureDrop(contractAddress?: string): SignatureDrop | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "useSigner" should be prefixed with an underscore because the declaration is marked as @internal
 //

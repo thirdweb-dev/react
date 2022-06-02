@@ -9,3 +9,5 @@ export * from "./useToken";
 export * from "./useTokenDrop";
 export * from "./useVote";
 export * from "./useSplit";
+export * from "./useMultiwrap";
+export * from "./useSignatureDrop";
