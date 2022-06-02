@@ -116,7 +116,7 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
       return contract.mint.to(to, amount);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,

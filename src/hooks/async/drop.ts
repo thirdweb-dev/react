@@ -180,7 +180,7 @@ export function useClaimNFT<TContract extends DropContract>(
       )) as ClaimNFTReturnType<TContract>;
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,

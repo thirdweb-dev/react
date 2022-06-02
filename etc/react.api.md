@@ -38,6 +38,7 @@ import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import type { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import type { MarketplaceFilter } from '@thirdweb-dev/sdk';
+import type { Multiwrap } from '@thirdweb-dev/sdk';
 import type { NewAuctionListing } from '@thirdweb-dev/sdk';
 import type { NewDirectListing } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
@@ -54,6 +55,7 @@ import { QueryObserverResult } from 'react-query';
 import { default as React_2 } from 'react';
 import { RefetchOptions } from 'react-query';
 import { RefetchQueryFilters } from 'react-query';
+import type { Role } from '@thirdweb-dev/sdk';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
 import { SignerOrProvider } from '@thirdweb-dev/sdk';
@@ -309,6 +311,12 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 
 // @public
 export function useAddress(): string | undefined;
+
+// Warning: (ae-forgotten-export) The symbol "ContractWithRoles" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "RolesForContract" needs to be exported by the entry point index.d.ts
+//
+// @beta
+export function useAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseQueryResult<Awaited<Record<RolesForContract<TContract>, string[]>>, unknown>;
 
 // @beta
 export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string | undefined, unknown>;
@@ -790,6 +798,15 @@ export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
 }>;
 
 // @beta
+export function useGrantRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, {
+role: RolesForContract<TContract>;
+address: WalletAddress;
+}, unknown>;
+
+// @beta
+export function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>): boolean;
+
+// @beta
 export function useListing(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<AuctionListing | DirectListing, unknown>;
 
 // @beta
@@ -924,6 +941,15 @@ export function useResolvedMediaType(uri?: string): {
 };
 
 // @beta
+export function useRevokeRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, {
+role: RolesForContract<TContract>;
+address: WalletAddress;
+}, unknown>;
+
+// @beta
+export function useRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>): UseQueryResult<string[], unknown>;
+
+// @beta
 export function useRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
 seller_fee_basis_points: number;
 fee_recipient: string;
@@ -933,6 +959,9 @@ fee_recipient: string;
 //
 // @internal (undocumented)
 export function useSDK(): ThirdwebSDK | undefined;
+
+// @beta
+export function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useSigner" should be prefixed with an underscore because the declaration is marked as @internal
 //

@@ -15,6 +15,7 @@
 import { useAddress } from "@thirdweb-dev/react"
 ```
  |
+|  [useAllRoleMembers(contract)](./react.useallrolemembers.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useAuctionWinner(contract, listingId)](./react.useauctionwinner.md) | <b><i>(BETA)</i></b> Use this to get the winner of an auction listing from your marketplace contract. |
 |  [useBalance(tokenAddress)](./react.usebalance.md) | <b><i>(BETA)</i></b> |
 |  [useBidBuffer(contract)](./react.usebidbuffer.md) | <b><i>(BETA)</i></b> Use this to get the buffer in basis points between offers from your marketplace contract. |
@@ -52,6 +53,8 @@ import { useDisconnect } from "@thirdweb-dev/react"
 import { useGnosis } from "@thirdweb-dev/react"
 ```
  |
+|  [useGrantRole(contract)](./react.usegrantrole.md) | <b><i>(BETA)</i></b> TODO write docs |
+|  [useIsAddressRole(contract, role, walletAddress)](./react.useisaddressrole.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useListing(contract, listingId)](./react.uselisting.md) | <b><i>(BETA)</i></b> Use this to get a specific listing from the marketplace. |
 |  [useListings(contract, filter)](./react.uselistings.md) | <b><i>(BETA)</i></b> Use this to get a list all listings from your marketplace contract. |
 |  [useMagic()](./react.usemagic.md) | Hook for connecting to an email wallet using magic link. This enables users without their own wallets to connect to your application and sign transactions securely using their email.
@@ -89,7 +92,10 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [usePlatformFees(contract)](./react.useplatformfees.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [usePrimarySaleRecipient(contract)](./react.useprimarysalerecipient.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
+|  [useRevokeRole(contract)](./react.userevokerole.md) | <b><i>(BETA)</i></b> TODO write docs |
+|  [useRoleMembers(contract, role)](./react.userolemembers.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useRoyaltySettings(contract)](./react.useroyaltysettings.md) | <b><i>(BETA)</i></b> TODO write docs |
+|  [useSetAllRoleMembers(contract)](./react.usesetallrolemembers.md) | <b><i>(BETA)</i></b> TODO write docs |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
 |  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |

@@ -264,5 +264,11 @@ export const cacheKeys = {
       get: (contractAddress: RequiredParam<ContractAddress>) =>
         createContractCacheKey(contractAddress, ["metadata"]),
     },
+    roles: {
+      getAll: (contractAddress: RequiredParam<ContractAddress>) =>
+        createContractCacheKey(contractAddress, ["roles"]),
+      get: (contractAddress: RequiredParam<ContractAddress>, role: string) =>
+        createContractCacheKey(contractAddress, ["roles", { role }]),
+    },
   },
 } as const;

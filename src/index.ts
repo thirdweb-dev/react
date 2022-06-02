@@ -31,6 +31,7 @@ export * from "./hooks/async/token";
 export * from "./hooks/async/claim-conditions";
 export * from "./hooks/async/wallet";
 export * from "./hooks/async/contract-settings";
+export * from "./hooks/async/roles";
 
 // types
 export * from "./types";

@@ -362,7 +362,7 @@ export function useMintNFT<TContract extends NFTContract>(
       )) as MintNFTReturnType<TContract>;
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,

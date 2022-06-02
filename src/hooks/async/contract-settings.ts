@@ -58,7 +58,7 @@ export function useUpdatePrimarySaleRecipient(
       return contract.sales.setRecipient(newRecipient);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,
@@ -121,7 +121,7 @@ export function useUpdateRoyaltySettings(
       return contract.royalties.setDefaultRoyaltyInfo(updatePayload);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,
@@ -184,7 +184,7 @@ export function useUpdatePlatformFees(
       return contract.platformFees.set(updatePayload);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,
@@ -244,7 +244,7 @@ export function useUpdateMetadata(
       return contract.metadata.update(updatePayload);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,
