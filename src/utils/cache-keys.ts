@@ -116,6 +116,8 @@ export const cacheKeys = {
             "query",
             "totalCirculatingSupply",
           ]),
+        totalCount: (contractAddress: RequiredParam<ContractAddress>) =>
+          createContractCacheKey(contractAddress, ["query", "totalCount"]),
         owned: {
           all: (
             contractAddress: RequiredParam<ContractAddress>,

@@ -7,6 +7,7 @@ import {
   RequiredParam,
   WalletAddress,
   useNFTBalanceParams,
+  useTotalCirculatingSupplyParams,
 } from "../../types";
 import {
   cacheKeys,
@@ -143,8 +144,8 @@ export function useNFTs<TContract extends NFTContract>(
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useTotalCirculatingSupply(
-  contract: RequiredParam<NFTContract>,
+export function useTotalCirculatingSupply<TContract extends NFTContract>(
+  ...[contract, tokenId]: useTotalCirculatingSupplyParams<TContract>
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -159,10 +160,51 @@ export function useTotalCirculatingSupply(
         return contract.query.totalCirculatingSupply();
       }
       invariant(
-        contract.query?.getTotalCount,
+        contract.query?.totalCirculatingSupply,
         "Contract instance does not support query.getTotalCount",
       );
-      return contract.query.getTotalCount();
+      invariant(tokenId, "No tokenId provided");
+      return contract.query.totalCirculatingSupply(tokenId);
+    },
+    {
+      enabled: !!contract,
+    },
+  );
+}
+
+/**
+ * Use this to get a the number of tokens in your {@link NFTContract}.
+ *
+ * @remarks The `total count` and `total supply` are the same for {@link ERC721} based contracts.
+ * For {@link ERC1155} the `total count` is the number of NFTs that exist on the contract, **not** the sum of all supply of each token. (Since ERC1155 can have multiple owners per token.)
+ *
+ * @example
+ * ```javascript
+ * const { data: totalSupply, isLoading, error } = useTotalCount(NFTContract);
+ * ```
+ *
+ * @param contract - an instace of a {@link NFTContract}
+ * @returns a response object that incudes the total number of tokens in the contract
+ * @beta
+ */
+export function useTotalCount(contract: RequiredParam<NFTContract>) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.nft.query.totalCount(contractAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      if (contract instanceof Erc721) {
+        invariant(
+          contract?.query?.totalCirculatingSupply,
+          "Contract instance does not support query.totalCirculatingSupply",
+        );
+        return contract.query.totalCirculatingSupply();
+      }
+      invariant(
+        contract.query?.totalCount,
+        "Contract instance does not support query.totalCount",
+      );
+      return contract.query.totalCount();
     },
     {
       enabled: !!contract,

@@ -12,14 +12,14 @@ Use this to get a the total (minted) supply of your [NFTContract](./react.nftcon
 <b>Signature:</b>
 
 ```typescript
-export declare function useTotalCirculatingSupply(contract: RequiredParam<NFTContract>): import("react-query").UseQueryResult<BigNumber, unknown>;
+export declare function useTotalCirculatingSupply<TContract extends NFTContract>(...[contract, tokenId]: useTotalCirculatingSupplyParams<TContract>): import("react-query").UseQueryResult<BigNumber, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[NFTContract](./react.nftcontract.md)<!-- -->&gt; | an instace of a [NFTContract](./react.nftcontract.md) |
+|  \[contract, tokenId\] | [useTotalCirculatingSupplyParams](./react.usetotalcirculatingsupplyparams.md)<!-- -->&lt;TContract&gt; |  |
 
 <b>Returns:</b>
 

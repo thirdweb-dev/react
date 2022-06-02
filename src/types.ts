@@ -75,6 +75,15 @@ export type NFT<TContract extends NFTContract> = {
 };
 
 /**
+ * The params to pass to `useTotalCirculatingSupply`.
+ * @beta
+ */
+export type useTotalCirculatingSupplyParams<TContract> =
+  TContract extends Erc1155
+    ? [contract: RequiredParam<TContract>, tokenId: BigNumberish]
+    : [contract: RequiredParam<TContract>];
+
+/**
  * The params to pass to `useNftBalance`.
  * @beta
  */
