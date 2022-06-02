@@ -38,6 +38,7 @@ import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import type { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk';
 import type { MarketplaceFilter } from '@thirdweb-dev/sdk';
+import { Multiwrap } from '@thirdweb-dev/sdk';
 import type { NewAuctionListing } from '@thirdweb-dev/sdk';
 import type { NewDirectListing } from '@thirdweb-dev/sdk';
 import { NFTCollection } from '@thirdweb-dev/sdk';
@@ -55,6 +56,7 @@ import { default as React_2 } from 'react';
 import { RefetchOptions } from 'react-query';
 import { RefetchQueryFilters } from 'react-query';
 import { SDKOptions } from '@thirdweb-dev/sdk';
+import { SignatureDrop } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
 import { SignerOrProvider } from '@thirdweb-dev/sdk';
 import { SmartContract } from '@thirdweb-dev/sdk';
@@ -829,6 +831,9 @@ data: () => Promise<unknown>;
 }, "data">, unknown, TokenMintParams, unknown>;
 
 // @public
+export function useMultiwrap(contractAddress?: string): Multiwrap | undefined;
+
+// @public
 export function useNetwork(): readonly [{
     readonly data: {
         readonly chain: {
@@ -910,6 +915,9 @@ export function useResolvedMediaType(uri?: string): {
 //
 // @internal (undocumented)
 export function useSDK(): ThirdwebSDK | undefined;
+
+// @public
+export function useSignatureDrop(contractAddress?: string): SignatureDrop | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "useSigner" should be prefixed with an underscore because the declaration is marked as @internal
 //
