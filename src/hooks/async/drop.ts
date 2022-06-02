@@ -122,7 +122,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
 /**     WRITE HOOKS     **/
 /** **********************/
 /**
- * Use this to mint a new NFT on your {@link DropContract}
+ * Use this to claim a NFT on your {@link DropContract}
  *
  * @example
  * ```jsx
@@ -134,7 +134,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
  *   } = useClaimNFT(DropContract);
  *
  *   if (error) {
- *     console.error("failed to mint nft", error);
+ *     console.error("failed to claim nft", error);
  *   }
  *
  *   return (
@@ -142,14 +142,14 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
  *       disabled={isLoading}
  *       onClick={() => claimNft({to: "0x...", quantity: 1})}
  *     >
- *       Mint!
+ *       Claim NFT!
  *     </button>
  *   );
  * };
  * ```
  *
  * @param contract - an instace of a {@link DropContract}
- * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @returns a mutation object that can be used to claim a NFT to the wallet specificed in the params
  * @beta
  */
 export function useClaimNFT<TContract extends DropContract>(

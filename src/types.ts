@@ -1,4 +1,5 @@
 import type {
+  Amount,
   EditionDrop,
   Erc721,
   Erc721Mintable,
@@ -174,3 +175,11 @@ export type BuyNowParams<TListingType = ListingType> =
         id: BigNumberish;
         type: ListingType.Auction;
       };
+
+// TOKEN DROP //
+
+export type ClaimTokenParams = {
+  to: WalletAddress;
+  amount: Amount;
+  proofs?: BytesLike[];
+};

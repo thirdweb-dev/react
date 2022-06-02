@@ -5,6 +5,7 @@
 ```ts
 
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
+import type { Amount } from '@thirdweb-dev/sdk';
 import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
@@ -115,6 +116,13 @@ export type ClaimNFTParams<TContract extends DropContract> = TContract extends E
 
 // @beta
 export type ClaimNFTReturnType<TContract extends DropContract> = TContract extends Erc721 ? Awaited<ReturnType<TContract["claimTo"]>> : TContract extends Erc1155 ? Awaited<ReturnType<TContract["claimTo"]>> : never;
+
+// @public (undocumented)
+export type ClaimTokenParams = {
+    to: WalletAddress;
+    amount: Amount;
+    proofs?: BytesLike[];
+};
 
 // @beta
 export type ContractAddress = string;
@@ -395,6 +403,12 @@ export function useClaimIneligibilityReasons<TContract extends NFTDrop | Edition
 
 // @beta
 export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
+
+// @beta
+export function useClaimToken<TContract extends TokenDrop>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, ClaimTokenParams, unknown>;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{
@@ -1112,6 +1126,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/hooks/useNetwork.d.ts:75:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
 // dist/types.d.ts:127:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:133:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 
