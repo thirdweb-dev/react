@@ -67,9 +67,13 @@ export const cacheKeys = {
       createCachekey(["chainId", chainId]),
   },
   wallet: {
-    balance: (chainId: SupportedChainId, tokenAddress?: ContractAddress) =>
+    balance: (
+      chainId: SupportedChainId,
+      walletAddress: RequiredParam<WalletAddress>,
+      tokenAddress?: ContractAddress,
+    ) =>
       createCacheKeyWithNetwork(
-        createCachekey(["balance", { tokenAddress }]),
+        createCachekey(["balance", { walletAddress, tokenAddress }]),
         chainId,
       ),
   },
