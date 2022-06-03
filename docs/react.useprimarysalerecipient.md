@@ -7,8 +7,6 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
-
 <b>Signature:</b>
 
 ```typescript
@@ -19,10 +17,19 @@ export declare function usePrimarySaleRecipient(contract: RequiredParam<SmartCon
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseQueryResult&lt;string, unknown&gt;
 
+the wallet address of the primary sales recipient
+
+## Example
+
+
+```jsx
+const { data: recipient, isLoading, error } = usePrimarySalesRecipient(SmartContract);
+```
+Use this to get the primary sales recipient of your 
 

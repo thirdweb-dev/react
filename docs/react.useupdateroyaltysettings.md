@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to update the royalty settings of your 
 
 <b>Signature:</b>
 
@@ -28,10 +28,37 @@ export declare function useUpdateRoyaltySettings(contract: RequiredParam<SmartCo
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;{ seller\_fee\_basis\_points: number; fee\_recipient: string; }&gt;; }, unknown, { seller\_fee\_basis\_points?: number \| undefined; fee\_recipient?: string \| undefined; }, unknown&gt;
 
+a mutation object that can be used to update the royalty settings
+
+## Example
+
+
+```jsx
+const Component = () => {
+  const {
+    mutate: updateRoyaltySettings,
+    isLoading,
+    error,
+  } = useUpdateRoyaltySettings(SmartContract);
+
+  if (error) {
+    console.error("failed to update royalty settings", error);
+  }
+
+  return (
+    <button
+      disabled={isLoading}
+      onClick={() => updateRoyaltySettings({ updatePayload: { fee_recipient: "0x123", seller_fee_basis_points: 5_00 } })}
+    >
+      Update Royalty Settings
+    </button>
+  );
+};
+```
 

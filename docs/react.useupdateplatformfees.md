@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to update the platform fees settings of your 
 
 <b>Signature:</b>
 
@@ -25,10 +25,37 @@ export declare function useUpdatePlatformFees(contract: RequiredParam<SmartContr
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, { platform\_fee\_basis\_points?: number \| undefined; fee\_recipient?: string \| undefined; }, unknown&gt;
 
+a mutation object that can be used to update the platform fees settings
+
+## Example
+
+
+```jsx
+const Component = () => {
+  const {
+    mutate: updatePlatformFees,
+    isLoading,
+    error,
+  } = useUpdatePlatformFees(SmartContract);
+
+  if (error) {
+    console.error("failed to update platform fees", error);
+  }
+
+  return (
+    <button
+      disabled={isLoading}
+      onClick={() => updatePlatformFees({ updatePayload: { fee_recipient: "0x123", platform_fee_basis_points: 5_00 } })}
+    >
+      Update Platform fees
+    </button>
+  );
+};
+```
 

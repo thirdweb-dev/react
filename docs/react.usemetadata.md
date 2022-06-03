@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to get the metadata of your 
 
 <b>Signature:</b>
 
@@ -25,10 +25,18 @@ export declare function useMetadata(contract: RequiredParam<SmartContract | Vali
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
 
+a  object containing the metadata
+
+## Example
+
+
+```jsx
+const { data: metadata, isLoading, error } = useMetadata(SmartContract);
+```
 

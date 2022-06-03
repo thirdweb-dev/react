@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to update the primary sales recipient of your 
 
 <b>Signature:</b>
 
@@ -22,10 +22,37 @@ export declare function useUpdatePrimarySaleRecipient(contract: RequiredParam<Sm
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, string, unknown&gt;
 
+a mutation object that can be used to update the primary sales recipient
+
+## Example
+
+
+```jsx
+const Component = () => {
+  const {
+    mutate: updatePrimarySalesRecipient,
+    isLoading,
+    error,
+  } = useUpdatePrimarySaleRecipient(SmartContract);
+
+  if (error) {
+    console.error("failed to update recipient", error);
+  }
+
+  return (
+    <button
+      disabled={isLoading}
+      onClick={() => updatePrimarySalesRecipient({ newRecipient: "0x123" })}
+    >
+      Update Recipient
+    </button>
+  );
+};
+```
 

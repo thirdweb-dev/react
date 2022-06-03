@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to get the platform fees settings of your 
 
 <b>Signature:</b>
 
@@ -22,10 +22,18 @@ export declare function usePlatformFees(contract: RequiredParam<SmartContract | 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseQueryResult&lt;{ platform\_fee\_basis\_points: number; platform\_fee\_recipient: string; }, unknown&gt;
 
+an object containing the platform fee basis points and the fee recipient address
+
+## Example
+
+
+```jsx
+const { data: platformFees, isLoading, error } = usePlatformFees(SmartContract);
+```
 

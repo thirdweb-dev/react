@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to check if a [WalletAddress](./react.walletaddress.md) is a member of a role on a 
 
 <b>Signature:</b>
 
@@ -19,12 +19,20 @@ export declare function useIsAddressRole<TContract extends ContractWithRoles>(co
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; |  |
-|  role | RolesForContract&lt;TContract&gt; |  |
-|  walletAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
+|  role | RolesForContract&lt;TContract&gt; | the role to check the member against, see  |
+|  walletAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; | the address to check |
 
 <b>Returns:</b>
 
 boolean
 
+true if the address is a member of the role, or false if not
+
+## Example
+
+
+```jsx
+const { data: isMember, isLoading, error } = useIsAddressRole(SmartContract, "admin", "0x123");
+```
 

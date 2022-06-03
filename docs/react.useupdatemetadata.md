@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to update the metadata of your 
 
 <b>Signature:</b>
 
@@ -28,10 +28,37 @@ export declare function useUpdateMetadata(contract: RequiredParam<SmartContract 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;any&gt;; }, unknown, { \[x: string\]: import("@thirdweb-dev/sdk").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
 
+a mutation object that can be used to update the metadata
+
+## Example
+
+
+```jsx
+const Component = () => {
+  const {
+    mutate: updateMetadata,
+    isLoading,
+    error,
+  } = useUpdateMetadata(SmartContract);
+
+  if (error) {
+    console.error("failed to update metadata", error);
+  }
+
+  return (
+    <button
+      disabled={isLoading}
+      onClick={() => updateMetadata({ updatePayload: { name: "My Contract", description: "This is my contract" } })}
+    >
+      Update Metadata
+    </button>
+  );
+};
+```
 

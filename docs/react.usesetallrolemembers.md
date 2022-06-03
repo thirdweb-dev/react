@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to OVERWRITE the list of addresses that are members of specific roles
 
 <b>Signature:</b>
 
@@ -19,10 +19,37 @@ export declare function useSetAllRoleMembers<TContract extends ContractWithRoles
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseMutationResult&lt;void, unknown, { \[role in RolesForContract&lt;TContract&gt;\]: string\[\]; }, unknown&gt;
 
+a mutation object that can be used to overwrite all roles on the contract
+
+## Example
+
+
+```jsx
+const Component = () => {
+  const {
+    mutate: overwriteRoles,
+    isLoading,
+    error,
+  } = useSetAllRoleMembers(SmartContract);
+
+  if (error) {
+    console.error("failed to overwrite roles", error);
+  }
+
+  return (
+    <button
+      disabled={isLoading}
+      onClick={() => overwriteRoles({  rolesWithAddresses: { minter: [] } })}
+    >
+      Overwrite Roles
+    </button>
+  );
+};
+```
 

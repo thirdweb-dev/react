@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-TODO write docs
+Use this to get the roles of a 
 
 <b>Signature:</b>
 
@@ -19,10 +19,18 @@ export declare function useAllRoleMembers<TContract extends ContractWithRoles>(c
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; |  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
 
 <b>Returns:</b>
 
 import("react-query").UseQueryResult&lt;Awaited&lt;Record&lt;RolesForContract&lt;TContract&gt;, string\[\]&gt;&gt;, unknown&gt;
 
+a list of addresses for all supported roles on the contract.
+
+## Example
+
+
+```jsx
+const { data: roles, isLoading, error } = useAllRoleMembers(SmartContract);
+```
 
