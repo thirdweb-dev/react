@@ -13,9 +13,15 @@ import invariant from "tiny-invariant";
 // primary sales
 
 /**
- * TODO write docs
- * @param contract -
- * @returns
+ *
+ * @example
+ * ```jsx
+ * const { data: recipient, isLoading, error } = usePrimarySalesRecipient(SmartContract);
+ * ```
+ *
+ * Use this to get the primary sales recipient of your {@link SmartContract}
+ * @param contract - an instance of a {@link SmartContract}
+ * @returns the wallet address of the primary sales recipient
  * @beta
  */
 export function usePrimarySaleRecipient(
@@ -37,9 +43,34 @@ export function usePrimarySaleRecipient(
 }
 
 /**
- * TODO write docs
- * @param contract -
- * @returns
+ * Use this to update the primary sales recipient of your {@link SmartContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: updatePrimarySalesRecipient,
+ *     isLoading,
+ *     error,
+ *   } = useUpdatePrimarySaleRecipient(SmartContract);
+ *
+ *   if (error) {
+ *     console.error("failed to update recipient", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => updatePrimarySalesRecipient({ newRecipient: "0x123" })}
+ *     >
+ *       Update Recipient
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link SmartContract}
+ * @returns a mutation object that can be used to update the primary sales recipient
  * @beta
  */
 export function useUpdatePrimarySaleRecipient(
@@ -73,9 +104,15 @@ export function useUpdatePrimarySaleRecipient(
 // royalties
 
 /**
- * TODO write docs
- * @param contract -
- * @returns
+ * Use this to get the royalty settings of your {@link SmartContract}
+ *
+ * @example
+ * ```jsx
+ * const { data: settings, isLoading, error } = useRoyaltySettings(SmartContract);
+ * ```
+ *
+ * @param contract - an instance of a {@link SmartContract}
+ * @returns an object containing recipient address and the royalty basis points
  * @beta
  */
 export function useRoyaltySettings(
@@ -97,9 +134,34 @@ export function useRoyaltySettings(
 }
 
 /**
- * TODO write docs
- * @param contract -
- * @returns
+ * Use this to update the royalty settings of your {@link SmartContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: updateRoyaltySettings,
+ *     isLoading,
+ *     error,
+ *   } = useUpdateRoyaltySettings(SmartContract);
+ *
+ *   if (error) {
+ *     console.error("failed to update royalty settings", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => updateRoyaltySettings({ updatePayload: { fee_recipient: "0x123", seller_fee_basis_points: 5_00 } })}
+ *     >
+ *       Update Royalty Settings
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link SmartContract}
+ * @returns a mutation object that can be used to update the royalty settings
  * @beta
  */
 export function useUpdateRoyaltySettings(
@@ -136,9 +198,15 @@ export function useUpdateRoyaltySettings(
 // platformFees
 
 /**
- * TODO write docs
- * @param contract -
- * @returns
+ * Use this to get the platform fees settings of your {@link SmartContract}
+ *
+ * @example
+ * ```jsx
+ * const { data: platformFees, isLoading, error } = usePlatformFees(SmartContract);
+ * ```
+ *
+ * @param contract - an instance of a {@link SmartContract}
+ * @returns an object containing the platform fee basis points and the fee recipient address
  * @beta
  */
 export function usePlatformFees(
@@ -160,9 +228,33 @@ export function usePlatformFees(
 }
 
 /**
- * TODO write docs
- * @param contract -
- * @returns
+ * Use this to update the platform fees settings of your {@link SmartContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: updatePlatformFees,
+ *     isLoading,
+ *     error,
+ *   } = useUpdatePlatformFees(SmartContract);
+ *
+ *   if (error) {
+ *     console.error("failed to update platform fees", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => updatePlatformFees({ updatePayload: { fee_recipient: "0x123", platform_fee_basis_points: 5_00 } })}
+ *     >
+ *       Update Platform fees
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @param contract - an instance of a {@link SmartContract}
+ * @returns a mutation object that can be used to update the platform fees settings
  * @beta
  */
 export function useUpdatePlatformFees(
@@ -199,9 +291,15 @@ export function useUpdatePlatformFees(
 // metadata
 
 /**
- * TODO write docs
- * @param contract -
- * @returns
+ * Use this to get the metadata of your {@link SmartContract}
+ *
+ * @example
+ * ```jsx
+ * const { data: metadata, isLoading, error } = useMetadata(SmartContract);
+ * ```
+ *
+ * @param contract - an instance of a {@link SmartContract}
+ * @returns a {@link CustomContractMetadata} object containing the metadata
  * @beta
  */
 export function useMetadata(
@@ -223,9 +321,32 @@ export function useMetadata(
 }
 
 /**
- * TODO write docs
- * @param contract -
- * @returns
+ * Use this to update the metadata of your {@link SmartContract}
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: updateMetadata,
+ *     isLoading,
+ *     error,
+ *   } = useUpdateMetadata(SmartContract);
+ *
+ *   if (error) {
+ *     console.error("failed to update metadata", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => updateMetadata({ updatePayload: { name: "My Contract", description: "This is my contract" } })}
+ *     >
+ *       Update Metadata
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @param contract - an instance of a {@link SmartContract}
+ * @returns a mutation object that can be used to update the metadata
  * @beta
  */
 export function useUpdateMetadata(
