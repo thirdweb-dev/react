@@ -169,6 +169,7 @@ const moduleMap = hooks.reduce((acc, m) => {
     return {
       name: subhookContent.name,
       example: subhookExamples?.javascript || "",
+      reference: `https://portal.thirdweb.com/react/react.${subhookContent.name.toLowerCase()}`,
     };
   });
 
