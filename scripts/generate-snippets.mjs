@@ -40,7 +40,7 @@ function languageNameToKey(languageName) {
       return "javascript";
     case "ts":
     case "tsx":
-      return "tyepscript";
+      return "typescript";
     default:
       return languageName;
   }
@@ -57,6 +57,56 @@ const CONTRACT_HOOKS = [
   "useVote",
   "usePack",
 ];
+
+const NFT_HOOKS = [
+  "useNFT",
+  "useNFTs",
+  "useTotalCirculatingSupply",
+  "useOwnedNFTs",
+  "useNFTBalance",
+  "useMintNFT",
+];
+
+const TOKEN_HOOKS = ["useTokenSupply", "useTokenBalance", "useMintToken"];
+
+const MARKETPLACE_HOOKS = [
+  "useListing",
+  "useListings",
+  "useActiveListings",
+  "useWinningBid",
+  "useAuctionWinner",
+  "useBidBuffer",
+  "useCreateDirectListing",
+  "useCreateAuctionListing",
+  "useMakeBid",
+  "useBuyNow",
+];
+
+const DROP_HOOKS = [
+  "useUnclaimedNFTs",
+  "useClaimedNFTs",
+  "useUnclaimedNFTSupply",
+  "useClaimedNFTSupply",
+  "useClaimNFT",
+];
+
+const CLAIM_CONDITIONS_HOOKS = [
+  "useActiveClaimCondition",
+  "useClaimCondition",
+  "useClaimIneligibilityReasons",
+];
+
+const CONTRACT_SUBHOOKS = {
+  useNFTCollection: [...NFT_HOOKS],
+  useEdition: [...NFT_HOOKS],
+  useToken: [...TOKEN_HOOKS],
+  useNFTDrop: [...NFT_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
+  useMarketplace: [...MARKETPLACE_HOOKS],
+  useEditionDrop: [...NFT_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
+  useSplit: [],
+  useVote: [],
+  usePack: [],
+};
 
 const hooks = json.members[0].members.filter(
   (m) => m.kind === "Function" && CONTRACT_HOOKS.includes(m.name),
@@ -107,11 +157,27 @@ const moduleMap = hooks.reduce((acc, m) => {
   const docComment = parserContext.docComment;
   const examples = parseExampleTag(docComment);
 
+  const contractSubhooks = json.members[0].members.filter(
+    (f) => f.kind === "Function" && CONTRACT_SUBHOOKS[m.name].includes(f.name),
+  );
+
+  const contractHooks = contractSubhooks.map((subhookContent) => {
+    const subhookContext = tsdocParser.parseString(subhookContent.docComment);
+    const subhookComment = subhookContext.docComment;
+    const subhookExamples = parseExampleTag(subhookComment);
+
+    return {
+      name: subhookContent.name,
+      example: subhookExamples?.javascript || "",
+    };
+  });
+
   if (Object.keys(examples).length > 0) {
     acc[m.name] = {
       name: m.name,
       summary: Formatter.renderDocNode(docComment.summarySection),
       examples,
+      subhooks: contractHooks,
       reference: extractReferenceLink(m),
     };
   }
