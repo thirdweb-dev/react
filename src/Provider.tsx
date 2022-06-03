@@ -6,12 +6,14 @@ import { MagicConnector, MagicConnectorArguments } from "./connectors/magic";
 import {
   Chain,
   SupportedChain,
-  SupportedChainId,
   defaultSupportedChains,
 } from "./constants/chain";
+import {
+  ThirdwebConfigProvider,
+  defaultChainRpc,
+} from "./contexts/thirdweb-config";
 import { useSigner } from "./hooks/useSigner";
 import {
-  ChainId,
   ChainOrRpc,
   IStorage,
   SDKOptions,
@@ -184,15 +186,6 @@ export interface ThirdwebProviderProps<
 }
 
 // SDK handles this under the hood for us
-const defaultChainRpc: Record<SupportedChainId, string> = {
-  [ChainId.Mainnet]: "mainnet",
-  [ChainId.Rinkeby]: "rinkeby",
-  [ChainId.Goerli]: "goerli",
-  [ChainId.Polygon]: "polygon",
-  [ChainId.Mumbai]: "mumbai",
-  [ChainId.Fantom]: "fantom",
-  [ChainId.Avalanche]: "avalanche",
-};
 
 const defaultdAppMeta: DAppMetaData = {
   name: "thirdweb powered dApp",
@@ -413,17 +406,21 @@ export const ThirdwebProvider = <
   }, [queryClient]);
 
   return (
-    <QueryClientProvider client={queryClientWithDefault}>
-      <WagmiProvider {...wagmiProps}>
-        <ThirdwebSDKProviderWagmiWrapper
-          desiredChainId={desiredChainId}
-          sdkOptions={sdkOptionsWithDefaults}
-          storageInterface={storageInterface}
-        >
-          {children}
-        </ThirdwebSDKProviderWagmiWrapper>
-      </WagmiProvider>
-    </QueryClientProvider>
+    <ThirdwebConfigProvider
+      value={{ rpcUrlMap: _rpcUrlMap, supportedChains: _supporrtedChains }}
+    >
+      <QueryClientProvider client={queryClientWithDefault}>
+        <WagmiProvider {...wagmiProps}>
+          <ThirdwebSDKProviderWagmiWrapper
+            desiredChainId={desiredChainId}
+            sdkOptions={sdkOptionsWithDefaults}
+            storageInterface={storageInterface}
+          >
+            {children}
+          </ThirdwebSDKProviderWagmiWrapper>
+        </WagmiProvider>
+      </QueryClientProvider>
+    </ThirdwebConfigProvider>
   );
 };
 

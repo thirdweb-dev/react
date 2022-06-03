@@ -4,6 +4,9 @@
 
 ## useBalance() function
 
+> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+> 
+
 <b>Signature:</b>
 
 ```typescript
@@ -13,16 +16,16 @@ export declare function useBalance(tokenAddress?: ContractAddress): import("reac
     value: import("ethers").BigNumber;
     decimals: number;
     displayValue: string;
-}, unknown>;
+} | undefined, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  tokenAddress | [ContractAddress](./react.contractaddress.md) | <i>(Optional)</i> |
+|  tokenAddress | [ContractAddress](./react.contractaddress.md) | <i>(Optional)</i> the address of the token contract, if empty will use the chain's native token |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ symbol: string; name: string; value: import("ethers").BigNumber; decimals: number; displayValue: string; }, unknown&gt;
+import("react-query").UseQueryResult&lt;{ symbol: string; name: string; value: import("ethers").BigNumber; decimals: number; displayValue: string; } \| undefined, unknown&gt;
 

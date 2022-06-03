@@ -1,3 +1,4 @@
+import { SupportedChainId } from "../constants/chain";
 import { ContractAddress, RequiredParam, WalletAddress } from "../types";
 import type {
   MarketplaceFilter,
@@ -66,8 +67,11 @@ export const cacheKeys = {
       createCachekey(["chainId", chainId]),
   },
   wallet: {
-    balance: (tokenAddress?: ContractAddress) =>
-      createCachekey(["balance", { tokenAddress }]),
+    balance: (chainId: SupportedChainId, tokenAddress?: ContractAddress) =>
+      createCacheKeyWithNetwork(
+        createCachekey(["balance", { tokenAddress }]),
+        chainId,
+      ),
   },
   contract: {
     type: (contractAddress: RequiredParam<ContractAddress>) =>
@@ -112,6 +116,8 @@ export const cacheKeys = {
             "query",
             "totalCirculatingSupply",
           ]),
+        totalCount: (contractAddress: RequiredParam<ContractAddress>) =>
+          createContractCacheKey(contractAddress, ["query", "totalCount"]),
         owned: {
           all: (
             contractAddress: RequiredParam<ContractAddress>,
@@ -235,6 +241,34 @@ export const cacheKeys = {
             ? ["claimConditions", "getActive", { tokenId }, params]
             : ["claimConditions", "getActive", params],
         ),
+    },
+
+    // primary sale contracts
+    sales: {
+      getRecipient: (contractAddress: RequiredParam<ContractAddress>) =>
+        createContractCacheKey(contractAddress, ["sales"]),
+    },
+    // royalties
+    royalties: {
+      getDefaultRoyaltyInfo: (
+        contractAddress: RequiredParam<ContractAddress>,
+      ) => createContractCacheKey(contractAddress, ["royalties"]),
+    },
+    // platform fees
+    platformFees: {
+      get: (contractAddress: RequiredParam<ContractAddress>) =>
+        createContractCacheKey(contractAddress, ["platformFees"]),
+    },
+    // contract metadata
+    metadata: {
+      get: (contractAddress: RequiredParam<ContractAddress>) =>
+        createContractCacheKey(contractAddress, ["metadata"]),
+    },
+    roles: {
+      getAll: (contractAddress: RequiredParam<ContractAddress>) =>
+        createContractCacheKey(contractAddress, ["roles"]),
+      get: (contractAddress: RequiredParam<ContractAddress>, role: string) =>
+        createContractCacheKey(contractAddress, ["roles", { role }]),
     },
   },
 } as const;

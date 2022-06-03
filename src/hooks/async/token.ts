@@ -1,11 +1,16 @@
 import { useActiveChainId } from "../../Provider";
-import { RequiredParam, TokenMintParams, WalletAddress } from "../../types";
+import {
+  ClaimTokenParams,
+  RequiredParam,
+  TokenMintParams,
+  WalletAddress,
+} from "../../types";
 import {
   cacheKeys,
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type { Erc20 } from "@thirdweb-dev/sdk";
+import type { Erc20, TokenDrop } from "@thirdweb-dev/sdk";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -116,7 +121,62 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
       return contract.mint.to(to, amount);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to claim tokens on your {@link TokenDrop}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: claimTokens,
+ *     isLoading,
+ *     error,
+ *   } = useClaimToken(TokenDropContract);
+ *
+ *   if (error) {
+ *     console.error("failed to claim tokens", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => claimTokens({to: "0x...", amount: 100})}
+ *     >
+ *       Claim Tokens!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instace of a {@link TokenDrop}
+ * @returns a mutation object that can be used to tokens to the wallet specificed in the params
+ * @beta
+ */
+export function useClaimToken<TContract extends TokenDrop>(
+  contract: RequiredParam<TContract>,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (data: ClaimTokenParams) => {
+      invariant(data.to, 'No "to" address provided');
+      invariant(contract?.claimTo, "contract does not support claimTo");
+      return await contract.claimTo(data.to, data.amount, data.proofs);
+    },
+    {
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,
