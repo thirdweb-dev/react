@@ -1077,9 +1077,9 @@
   integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
 
 "@types/node@*":
-  version "17.0.38"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.38.tgz#f8bb07c371ccb1903f3752872c89f44006132947"
-  integrity sha512-5jY9RhV7c0Z4Jy09G+NIDTsCZ5G0L5n+Z+p+Y7t5VJHM30bgwzSjVtlcBxqAj+6L/swIlvtOSzr8rBk/aNyV2g==
+  version "17.0.39"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.39.tgz#3652d82e2a16b4ea679d5ea3143b816c91b7e113"
+  integrity sha512-JDU3YLlnPK3WDao6/DlXLOgSNpG13ct+CwIO17V8q0/9fWJyeMJJ/VyZ1lv8kDprihvZMydzVwf0tQOqGiY2Nw==
 
 "@types/node@12.20.24":
   version "12.20.24"
@@ -1311,9 +1311,9 @@
     keyvaluestorage-interface "^1.0.0"
 
 "@walletconnect/jsonrpc-utils@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@walletconnect/jsonrpc-utils/-/jsonrpc-utils-1.0.0.tgz#1a2f668d606e8f0b6e7d8fdebae86001bd037a3f"
-  integrity sha512-qUHbKUK6sHeHn67qtHZoLoYk5hS6x1arTPjKDRkY93/6Fx+ZmNIpdm1owX3l6aYueyegJ7mz43FpvYHUqJ8xcw==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@walletconnect/jsonrpc-utils/-/jsonrpc-utils-1.0.1.tgz#d84bb4a8537d8e4542dfccf0af936d74f236d9b3"
+  integrity sha512-Ptmcq5SsXlJDE4xuwiqpCGZddPxvneXwDfQL20Ut4TyuZZwR4ZhNFcUBu3FDHBbtDL5qojnmZ1GHqABLJchpBQ==
   dependencies:
     "@walletconnect/environment" "^1.0.0"
     "@walletconnect/jsonrpc-types" "^1.0.0"
@@ -1811,9 +1811,9 @@ camelcase@^5.0.0:
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
 caniuse-lite@^1.0.30001332:
-  version "1.0.30001344"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001344.tgz#8a1e7fdc4db9c2ec79a05e9fd68eb93a761888bb"
-  integrity sha512-0ZFjnlCaXNOAYcV7i+TtdKBp0L/3XEU2MF/x6Du1lrh+SRX4IfzIVL4HNJg5pB2PmFb8rszIGyOvsZnqqRoc2g==
+  version "1.0.30001346"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001346.tgz#e895551b46b9cc9cc9de852facd42f04839a8fbe"
+  integrity sha512-q6ibZUO2t88QCIPayP/euuDREq+aMAxFE5S70PkrLh0iTDj/zEhgvJRKC2+CvXY6EWc6oQwUR48lL5vCW6jiXQ==
 
 cbor@^8.1.0:
   version "8.1.0"
@@ -2151,9 +2151,9 @@ eip1193-provider@1.0.1:
     "@json-rpc-tools/provider" "^1.5.5"
 
 electron-to-chromium@^1.4.118:
-  version "1.4.143"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.143.tgz#10f1bb595ad6cd893c05097039c685dcf5c8e30c"
-  integrity sha512-2hIgvu0+pDfXIqmVmV5X6iwMjQ2KxDsWKwM+oI1fABEOy/Dqmll0QJRmIQ3rm+XaoUa/qKrmy5h7LSTFQ6Ldzg==
+  version "1.4.145"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.145.tgz#5be3aa470cae3c2bccd20afc4d2a5efdca337b7b"
+  integrity sha512-g4VQCi61gA0t5fJHsalxAc8NpvxC/CEwLAGLfJ+DmkRXTEyntJA7H01771uVD6X6nnViv3GToPgb0QOVA8ivOQ==
 
 elliptic@6.5.4, elliptic@^6.4.0, elliptic@^6.5.2, elliptic@^6.5.4:
   version "6.5.4"
@@ -2718,9 +2718,9 @@ ethereumjs-util@^6.0.0:
     rlp "^2.2.3"
 
 ethereumjs-util@^7.1.0, ethereumjs-util@^7.1.4:
-  version "7.1.4"
-  resolved "https://registry.yarnpkg.com/ethereumjs-util/-/ethereumjs-util-7.1.4.tgz#a6885bcdd92045b06f596c7626c3e89ab3312458"
-  integrity sha512-p6KmuPCX4mZIqsQzXfmSx9Y0l2hqf+VkAiwSisW3UKUFdk8ZkAt+AYaor83z2nSi6CU2zSsXMlD80hAbNEGM0A==
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/ethereumjs-util/-/ethereumjs-util-7.1.5.tgz#9ecf04861e4fbbeed7465ece5f23317ad1129181"
+  integrity sha512-SDl5kKrQAudFBUe5OJM9Ac6WmMyYmXX/6sTmLZ3ffG2eY6ZIGBes3pEDxNN6V72WyOw4CPD5RomKdsa8DAAwLg==
   dependencies:
     "@types/bn.js" "^5.1.0"
     bn.js "^5.1.2"
@@ -4092,7 +4092,7 @@ prettier@^2.5.1:
 process@^0.11.10:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
-  integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
+  integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
 
 punycode@^2.1.0:
   version "2.1.1"
@@ -4155,9 +4155,9 @@ react-cool-dimensions@^2.0.7:
   integrity sha512-z1VwkAAJ5d8QybDRuYIXTE41RxGr5GYsv1bQhbOBE8cMfoZQZpcF0odL64vdgrQVzat2jayedj1GoYi80FWcbA==
 
 react-query@^4.0.0-beta.3:
-  version "4.0.0-beta.19"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-4.0.0-beta.19.tgz#21ad1f6fca09ccbf42f726153108f83a39447986"
-  integrity sha512-0QR8coF2WFih9p7s25h+QM9HDhlyr6Q1Pj8dWe0j1qjxku3egt0v7W9XqHiovZlIYlwyChOBeQ/3wQqWdUfUWg==
+  version "4.0.0-beta.20"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-4.0.0-beta.20.tgz#37e73280ccbee291d845e08159eb84e9baff6d7b"
+  integrity sha512-ESDxiHbv4R6KL7IOduPZjgVQo1pH5tenehAemh7sNETqXt9r4mfk9vVG6aSWbzGp6F1tudRllTreADOi19RJqg==
   dependencies:
     "@babel/runtime" "^7.17.9"
     "@types/use-sync-external-store" "^0.0.3"

@@ -340,7 +340,7 @@ export function useAllRoleMembers<TContract extends ContractWithRoles>(contract:
 // @beta
 export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string | undefined, unknown>;
 
-// @beta (undocumented)
+// @beta
 export function useBalance(tokenAddress?: ContractAddress): UseQueryResult<    {
 symbol: string;
 name: string;
