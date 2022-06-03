@@ -2,12 +2,11 @@ import { SupportedChainId } from "../../constants/chain";
 import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
 import { ContractAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
-import { useAddress } from "../useAddress";
 import { useChainId } from "../useChainId";
 import { useSigner } from "../useSigner";
 import { UserWallet } from "@thirdweb-dev/sdk";
-import { useEffect, useMemo } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useMemo } from "react";
+import { useQuery } from "react-query";
 
 /**
  * A hook to get the native or (optional) ERC20 token balance of the connected wallet.
@@ -20,18 +19,6 @@ export function useBalance(tokenAddress?: ContractAddress) {
   const { rpcUrlMap } = useThirdwebConfigContext();
   const chainId = useChainId() as SupportedChainId;
   const signer = useSigner();
-  const walletAddress = useAddress();
-
-  const queryClient = useQueryClient();
-
-  const cacheKey = useMemo(() => {
-    return cacheKeys.wallet.balance(chainId, walletAddress, tokenAddress);
-  }, [chainId, tokenAddress, walletAddress]);
-
-  useEffect(() => {
-    queryClient.cancelQueries(cacheKey);
-    queryClient.invalidateQueries(cacheKey);
-  }, [cacheKey]);
 
   const walletSDK = useMemo(() => {
     if (signer) {
@@ -45,6 +32,13 @@ export function useBalance(tokenAddress?: ContractAddress) {
     return undefined;
   }, [signer, chainId]);
 
+  // this is ugly but it works
+  const walletAddress = (walletSDK as any)?.connection?.signer?._address;
+
+  const cacheKey = useMemo(() => {
+    return cacheKeys.wallet.balance(chainId, walletAddress, tokenAddress);
+  }, [chainId, tokenAddress, walletAddress]);
+
   return useQuery(
     cacheKey,
     () => {
@@ -54,6 +48,7 @@ export function useBalance(tokenAddress?: ContractAddress) {
       // if user is not logged in no reason to try to fetch
       enabled: !!walletSDK && !!walletAddress,
       retry: true,
+      keepPreviousData: false,
     },
   );
 }
