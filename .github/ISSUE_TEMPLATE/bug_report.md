@@ -12,7 +12,7 @@ assignees:
 **Prerequisites**
 
 * [ ] I have checked that `@thirdweb-dev/react` and the `@thirdweb-dev/sdk` are on the latest _stable_ version and the bug still exists.
-* [ ] I have checked [existing issues](https://github.com/thirdweb-dev/typescript-sdk/issues?q=is%3Aissue) and I was unable to find a duplicate of this.
+* [ ] I have checked [existing issues](https://github.com/thirdweb-dev/react/issues?q=is%3Aissue) and I was unable to find a duplicate of this.
 
 **Optional**
 
