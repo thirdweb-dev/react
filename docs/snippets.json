@@ -5,6 +5,38 @@
     "examples": {
       "javascript": "import { useEdition } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const edition = useEdition(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the edition contract in the rest of the component\n}"
     },
+    "subhooks": [
+      {
+        "name": "useMintNFT",
+        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(NFTContract);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.usemintnft"
+      },
+      {
+        "name": "useNFT",
+        "example": "const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.usenft"
+      },
+      {
+        "name": "useNFTBalance",
+        "example": "const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);",
+        "reference": "https://portal.thirdweb.com/react/react.usenftbalance"
+      },
+      {
+        "name": "useNFTs",
+        "example": "const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.usenfts"
+      },
+      {
+        "name": "useOwnedNFTs",
+        "example": "const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);",
+        "reference": "https://portal.thirdweb.com/react/react.useownednfts"
+      },
+      {
+        "name": "useTotalCirculatingSupply",
+        "example": "const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);",
+        "reference": "https://portal.thirdweb.com/react/react.usetotalcirculatingsupply"
+      }
+    ],
     "reference": "https://docs.thirdweb.com/typescript/react.useEdition"
   },
   "useEditionDrop": {
@@ -13,6 +45,73 @@
     "examples": {
       "javascript": "import { useEditionDrop } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const editionDrop = useEditionDrop(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the edition drop contract in the rest of the component\n}"
     },
+    "subhooks": [
+      {
+        "name": "useActiveClaimCondition",
+        "example": "const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC1155ContractInstance>, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.useactiveclaimcondition"
+      },
+      {
+        "name": "useClaimedNFTs",
+        "example": "const { data: claimedNFTs, isLoading, error } = useClaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimednfts"
+      },
+      {
+        "name": "useClaimedNFTSupply",
+        "example": "",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimednftsupply"
+      },
+      {
+        "name": "useClaimIneligibilityReasons",
+        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimineligibilityreasons"
+      },
+      {
+        "name": "useClaimNFT",
+        "example": "const Component = () => {\n  const {\n    mutate: claimNft,\n    isLoading,\n    error,\n  } = useClaimNFT(DropContract);\n\n  if (error) {\n    console.error(\"failed to claim nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimNft({to: \"0x...\", quantity: 1})}\n    >\n      Claim NFT!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimnft"
+      },
+      {
+        "name": "useMintNFT",
+        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(NFTContract);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.usemintnft"
+      },
+      {
+        "name": "useNFT",
+        "example": "const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.usenft"
+      },
+      {
+        "name": "useNFTBalance",
+        "example": "const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);",
+        "reference": "https://portal.thirdweb.com/react/react.usenftbalance"
+      },
+      {
+        "name": "useNFTs",
+        "example": "const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.usenfts"
+      },
+      {
+        "name": "useOwnedNFTs",
+        "example": "const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);",
+        "reference": "https://portal.thirdweb.com/react/react.useownednfts"
+      },
+      {
+        "name": "useTotalCirculatingSupply",
+        "example": "const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);",
+        "reference": "https://portal.thirdweb.com/react/react.usetotalcirculatingsupply"
+      },
+      {
+        "name": "useUnclaimedNFTs",
+        "example": "const { data: unclaimedNfts, isLoading, error } = useUnclaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.useunclaimednfts"
+      },
+      {
+        "name": "useUnclaimedNFTSupply",
+        "example": "",
+        "reference": "https://portal.thirdweb.com/react/react.useunclaimednftsupply"
+      }
+    ],
     "reference": "https://docs.thirdweb.com/typescript/react.useEditionDrop"
   },
   "useMarketplace": {
@@ -21,6 +120,58 @@
     "examples": {
       "javascript": "import { useMarketplace } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const marketplace = useMarketplace(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the marketplace contract in the rest of the component\n}"
     },
+    "subhooks": [
+      {
+        "name": "useActiveListings",
+        "example": "const { data: listings, isLoading, error } = useMarketplaceListings(<YourMarketplaceContractInstance>, { seller: \"0x...\", tokenContract: \"0x...\", tokenId: 1, start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.useactivelistings"
+      },
+      {
+        "name": "useAuctionWinner",
+        "example": "const { data: auctionWinner, isLoading, error } = useAuctionWinner(<YourMarketplaceContractInstance>, <listingId>);",
+        "reference": "https://portal.thirdweb.com/react/react.useauctionwinner"
+      },
+      {
+        "name": "useBidBuffer",
+        "example": "const { data: auctionWinner, isLoading, error } = useAuctionWinner(<YourMarketplaceContractInstance>, <listingId>);",
+        "reference": "https://portal.thirdweb.com/react/react.usebidbuffer"
+      },
+      {
+        "name": "useBuyNow",
+        "example": "const Component = () => {\n  const {\n    mutate: buyNow,\n    isLoading,\n    error,\n  } = useBuyNow(\">>YourMarketplaceContractInstance<<\");\n\n  if (error) {\n    console.error(\"failed to buyout listing\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => buyNow({listingId: 1, type: ListingType.Auction})}\n    >\n      Buy listing!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.usebuynow"
+      },
+      {
+        "name": "useCreateAuctionListing",
+        "example": "const Component = () => {\n  const {\n    mutate: createAuctionListing,\n    isLoading,\n    error,\n  } = useCreateAuctionListing(\">>YourMarketplaceContractInstance<<\");\n\n  if (error) {\n    console.error(\"failed to create auction listing\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => createAuctionListing(auctionListingData)}\n    >\n      Create Auction Listing!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.usecreateauctionlisting"
+      },
+      {
+        "name": "useCreateDirectListing",
+        "example": "const Component = () => {\n  const {\n    mutate: createDirectListing,\n    isLoading,\n    error,\n  } = useCreateDirectListing(\">>YourMarketplaceContractInstance<<\");\n\n  if (error) {\n    console.error(\"failed to create direct listing\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => createDirectListing(directListingData)}\n    >\n      Create Direct Listing!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.usecreatedirectlisting"
+      },
+      {
+        "name": "useListing",
+        "example": "const { data: listing, isLoading, error } = useListing(<YourMarketplaceContractInstance>, <listingId>);",
+        "reference": "https://portal.thirdweb.com/react/react.uselisting"
+      },
+      {
+        "name": "useListings",
+        "example": "const { data: listings, isLoading, error } = useListings(<YourMarketplaceContractInstance>, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.uselistings"
+      },
+      {
+        "name": "useMakeBid",
+        "example": "const Component = () => {\n  const {\n    mutate: makeBid,\n    isLoading,\n    error,\n  } = useMakeBid(\">>YourMarketplaceContractInstance<<\");\n\n  if (error) {\n    console.error(\"failed to make a bid\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => makeBid({ listingId: 1, bid: 2 })}\n    >\n      Bid!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.usemakebid"
+      },
+      {
+        "name": "useWinningBid",
+        "example": "const { data: winningBid, isLoading, error } = useWinningBid(<YourMarketplaceContractInstance>, <listingId>);",
+        "reference": "https://portal.thirdweb.com/react/react.usewinningbid"
+      }
+    ],
     "reference": "https://docs.thirdweb.com/typescript/react.useMarketplace"
   },
   "useNFTCollection": {
@@ -29,6 +180,38 @@
     "examples": {
       "javascript": "import { useNFTCollection } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const nftCollection = useNFTCollection(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the nftCollection contract in the rest of the component\n}"
     },
+    "subhooks": [
+      {
+        "name": "useMintNFT",
+        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(NFTContract);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.usemintnft"
+      },
+      {
+        "name": "useNFT",
+        "example": "const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.usenft"
+      },
+      {
+        "name": "useNFTBalance",
+        "example": "const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);",
+        "reference": "https://portal.thirdweb.com/react/react.usenftbalance"
+      },
+      {
+        "name": "useNFTs",
+        "example": "const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.usenfts"
+      },
+      {
+        "name": "useOwnedNFTs",
+        "example": "const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);",
+        "reference": "https://portal.thirdweb.com/react/react.useownednfts"
+      },
+      {
+        "name": "useTotalCirculatingSupply",
+        "example": "const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);",
+        "reference": "https://portal.thirdweb.com/react/react.usetotalcirculatingsupply"
+      }
+    ],
     "reference": "https://docs.thirdweb.com/typescript/react.useNFTCollection"
   },
   "useNFTDrop": {
@@ -37,6 +220,73 @@
     "examples": {
       "javascript": "import { useNFTDrop } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const nftDrop = useNFTDrop(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the nft drop contract in the rest of the component\n}"
     },
+    "subhooks": [
+      {
+        "name": "useActiveClaimCondition",
+        "example": "const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC1155ContractInstance>, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.useactiveclaimcondition"
+      },
+      {
+        "name": "useClaimedNFTs",
+        "example": "const { data: claimedNFTs, isLoading, error } = useClaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimednfts"
+      },
+      {
+        "name": "useClaimedNFTSupply",
+        "example": "",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimednftsupply"
+      },
+      {
+        "name": "useClaimIneligibilityReasons",
+        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimineligibilityreasons"
+      },
+      {
+        "name": "useClaimNFT",
+        "example": "const Component = () => {\n  const {\n    mutate: claimNft,\n    isLoading,\n    error,\n  } = useClaimNFT(DropContract);\n\n  if (error) {\n    console.error(\"failed to claim nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimNft({to: \"0x...\", quantity: 1})}\n    >\n      Claim NFT!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimnft"
+      },
+      {
+        "name": "useMintNFT",
+        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(NFTContract);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.usemintnft"
+      },
+      {
+        "name": "useNFT",
+        "example": "const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.usenft"
+      },
+      {
+        "name": "useNFTBalance",
+        "example": "const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);",
+        "reference": "https://portal.thirdweb.com/react/react.usenftbalance"
+      },
+      {
+        "name": "useNFTs",
+        "example": "const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.usenfts"
+      },
+      {
+        "name": "useOwnedNFTs",
+        "example": "const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);",
+        "reference": "https://portal.thirdweb.com/react/react.useownednfts"
+      },
+      {
+        "name": "useTotalCirculatingSupply",
+        "example": "const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);",
+        "reference": "https://portal.thirdweb.com/react/react.usetotalcirculatingsupply"
+      },
+      {
+        "name": "useUnclaimedNFTs",
+        "example": "const { data: unclaimedNfts, isLoading, error } = useUnclaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.useunclaimednfts"
+      },
+      {
+        "name": "useUnclaimedNFTSupply",
+        "example": "",
+        "reference": "https://portal.thirdweb.com/react/react.useunclaimednftsupply"
+      }
+    ],
     "reference": "https://docs.thirdweb.com/typescript/react.useNFTDrop"
   },
   "usePack": {
@@ -45,6 +295,7 @@
     "examples": {
       "javascript": "import { usePack } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const pack = usePack(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the pack contract in the rest of the component\n}"
     },
+    "subhooks": [],
     "reference": "https://docs.thirdweb.com/typescript/react.usePack"
   },
   "useSplit": {
@@ -53,6 +304,7 @@
     "examples": {
       "javascript": "import { useSplit } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const split = useSplit(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the split contract in the rest of the component\n}"
     },
+    "subhooks": [],
     "reference": "https://docs.thirdweb.com/typescript/react.useSplit"
   },
   "useToken": {
@@ -61,6 +313,23 @@
     "examples": {
       "javascript": "import { useToken } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const token = useToken(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the token contract in the rest of the component\n}"
     },
+    "subhooks": [
+      {
+        "name": "useMintToken",
+        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintToken(\">>YourERC20ContractInstance<<\");\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.useminttoken"
+      },
+      {
+        "name": "useTokenBalance",
+        "example": "const { data: balance, isLoading, error } = useTokenBalance(<YourTokenContractInstance>);",
+        "reference": "https://portal.thirdweb.com/react/react.usetokenbalance"
+      },
+      {
+        "name": "useTokenSupply",
+        "example": "const { data: totalSupply, isLoading, error } = useTokenSupply(<YourTokenContractInstance>);",
+        "reference": "https://portal.thirdweb.com/react/react.usetokensupply"
+      }
+    ],
     "reference": "https://docs.thirdweb.com/typescript/react.useToken"
   },
   "useVote": {
@@ -69,6 +338,7 @@
     "examples": {
       "javascript": "import { useVote } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const vote = useVote(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the vote contract in the rest of the component\n}"
     },
+    "subhooks": [],
     "reference": "https://docs.thirdweb.com/typescript/react.useVote"
   }
 }

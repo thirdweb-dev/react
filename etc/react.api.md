@@ -5,11 +5,12 @@
 ```ts
 
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
+import type { Amount } from '@thirdweb-dev/sdk';
 import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import type { BytesLike } from 'ethers';
-import { Chain as Chain_2 } from './types';
+import { Chain } from './types';
 import { ChainId } from '@thirdweb-dev/sdk';
 import { ChainOrRpc } from '@thirdweb-dev/sdk';
 import { ClaimEligibility } from '@thirdweb-dev/sdk';
@@ -55,6 +56,7 @@ import { QueryObserverResult } from 'react-query';
 import { default as React_2 } from 'react';
 import { RefetchOptions } from 'react-query';
 import { RefetchQueryFilters } from 'react-query';
+import type { Role } from '@thirdweb-dev/sdk';
 import { SDKOptions } from '@thirdweb-dev/sdk';
 import { SignatureDrop } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
@@ -71,6 +73,7 @@ import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
 import { useProvider } from './hooks';
 import { UseQueryResult } from 'react-query';
+import type { ValidContractInstance } from '@thirdweb-dev/sdk';
 import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
@@ -92,7 +95,7 @@ export { ChainId }
 // Warning: (ae-internal-missing-underscore) The name "ChainRpc" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain, string>;
+export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupportedChain extends Chain_2 ? TSupportedChain["id"] : TSupportedChain, string>;
 
 // @beta
 export type ClaimIneligibilityParameters = {
@@ -115,8 +118,20 @@ export type ClaimNFTParams<TContract extends DropContract> = TContract extends E
 // @beta
 export type ClaimNFTReturnType<TContract extends DropContract> = TContract extends Erc721 ? Awaited<ReturnType<TContract["claimTo"]>> : TContract extends Erc1155 ? Awaited<ReturnType<TContract["claimTo"]>> : never;
 
+// @public (undocumented)
+export type ClaimTokenParams = {
+    to: WalletAddress;
+    amount: Amount;
+    proofs?: BytesLike[];
+};
+
 // @beta
 export type ContractAddress = string;
+
+// Warning: (ae-internal-missing-underscore) The name "ContractWithRoles" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export type ContractWithRoles = Exclude<ValidContractInstance, Vote | Split | Multiwrap> | SmartContract;
 
 // @public
 export interface DAppMetaData {
@@ -214,6 +229,11 @@ export type NFTContract = Erc721 | Erc1155;
 // @beta
 export type RequiredParam<T> = T | undefined;
 
+// Warning: (ae-internal-missing-underscore) The name "RolesForContract" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export type RolesForContract<TContract extends ContractWithRoles> = TContract extends SmartContract ? Role | (string & {}) : NonNullable<TContract["roles"]>["roles"][number];
+
 // @public (undocumented)
 export interface SharedMediaProps {
     // (undocumented)
@@ -245,7 +265,7 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
     // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
     dAppMeta?: DAppMetaData;
-    desiredChainId: TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain | undefined;
+    desiredChainId: TSupportedChain extends Chain_2 ? TSupportedChain["id"] : TSupportedChain | undefined;
     // @beta
     queryClient?: QueryClient;
     sdkOptions?: SDKOptions;
@@ -311,19 +331,23 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 // @public
 export function useAddress(): string | undefined;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useAllRoleMembers" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "useAllRoleMembers" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+//
+// @beta
+export function useAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseQueryResult<Awaited<Record<RolesForContract<TContract>, string[]>>, unknown>;
+
 // @beta
 export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<string | undefined, unknown>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "useBalance" is marked as @public, but its signature references "ContractAddress" which is marked as @beta
-//
-// @public (undocumented)
+// @beta
 export function useBalance(tokenAddress?: ContractAddress): UseQueryResult<    {
 symbol: string;
 name: string;
 value: BigNumber;
 decimals: number;
 displayValue: string;
-}, unknown>;
+} | undefined, unknown>;
 
 // @beta
 export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResult<BigNumber, unknown>;
@@ -390,6 +414,12 @@ export function useClaimIneligibilityReasons<TContract extends NFTDrop | Edition
 
 // @beta
 export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
+
+// @beta
+export function useClaimToken<TContract extends TokenDrop>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, ClaimTokenParams, unknown>;
 
 // @public
 export function useCoinbaseWallet(): () => Promise<{
@@ -792,6 +822,20 @@ export function useGnosis(): (config: GnosisConnectorArguments) => Promise<{
     error?: Error | undefined;
 }>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useGrantRole" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
+//
+// @beta
+export function useGrantRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, {
+role: RolesForContract<TContract>;
+address: WalletAddress;
+}, unknown>;
+
+// Warning: (ae-incompatible-release-tags) The symbol "useIsAddressRole" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "useIsAddressRole" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+//
+// @beta
+export function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>): boolean;
+
 // @beta
 export function useListing(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<AuctionListing | DirectListing, unknown>;
 
@@ -812,6 +856,15 @@ data: () => Promise<unknown>;
 
 // @public
 export function useMarketplace(contractAddress?: string): Marketplace | undefined;
+
+// @beta
+export function useMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
+[x: string]: Json;
+description?: string | undefined;
+image?: any;
+external_link?: string | undefined;
+name: string;
+}, unknown>;
 
 // @public
 export function useMetamask(): () => Promise<{
@@ -852,7 +905,7 @@ export function useNetwork(): readonly [{
             }[] | undefined;
             testnet?: boolean | undefined;
         } | undefined;
-        readonly chains: Chain_2[];
+        readonly chains: Chain[];
     };
     readonly error: Error | undefined;
     readonly loading: boolean | undefined;
@@ -860,7 +913,7 @@ export function useNetwork(): readonly [{
     data: undefined;
     error: SwitchChainError;
 } | {
-    data: Chain_2 | undefined;
+    data: Chain | undefined;
     error: undefined;
 }>) | undefined];
 
@@ -898,6 +951,15 @@ export function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredPa
 // @public
 export function usePack(contractAddress?: string): Pack | undefined;
 
+// @beta
+export function usePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
+platform_fee_basis_points: number;
+platform_fee_recipient: string;
+}, unknown>;
+
+// @beta (undocumented)
+export function usePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<string, unknown>;
+
 export { useProvider }
 
 // Warning: (ae-internal-missing-underscore) The name "useReadonlySDK" should be prefixed with an underscore because the declaration is marked as @internal
@@ -911,10 +973,36 @@ export function useResolvedMediaType(uri?: string): {
     mimeType: string | undefined;
 };
 
+// Warning: (ae-incompatible-release-tags) The symbol "useRevokeRole" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
+//
+// @beta
+export function useRevokeRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, {
+role: RolesForContract<TContract>;
+address: WalletAddress;
+}, unknown>;
+
+// Warning: (ae-incompatible-release-tags) The symbol "useRoleMembers" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "useRoleMembers" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+//
+// @beta
+export function useRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>): UseQueryResult<string[], unknown>;
+
+// @beta
+export function useRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
+seller_fee_basis_points: number;
+fee_recipient: string;
+}, unknown>;
+
 // Warning: (ae-internal-missing-underscore) The name "useSDK" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export function useSDK(): ThirdwebSDK | undefined;
+
+// Warning: (ae-incompatible-release-tags) The symbol "useSetAllRoleMembers" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "useSetAllRoleMembers" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+//
+// @beta
+export function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
 
 // @public
 export function useSignatureDrop(contractAddress?: string): SignatureDrop | undefined;
@@ -954,7 +1042,13 @@ displayValue: string;
 }, unknown>;
 
 // @beta
-export function useTotalCirculatingSupply(contract: RequiredParam<NFTContract>): UseQueryResult<BigNumber, unknown>;
+export function useTotalCirculatingSupply<TContract extends NFTContract>(...[contract, tokenId]: useTotalCirculatingSupplyParams<TContract>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export type useTotalCirculatingSupplyParams<TContract> = TContract extends Erc1155 ? [contract: RequiredParam<TContract>, tokenId: BigNumberish] : [contract: RequiredParam<TContract>];
+
+// @beta
+export function useTotalCount(contract: RequiredParam<NFTContract>): UseQueryResult<BigNumber, unknown>;
 
 // @beta
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {
@@ -972,6 +1066,45 @@ id: BigNumber;
 //
 // @public (undocumented)
 export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export function useUpdateMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<    {
+receipt: TransactionReceipt;
+data: () => Promise<any>;
+}, unknown, {
+[x: string]: Json;
+description?: string | undefined;
+image?: any;
+external_link?: string | undefined;
+name: string;
+}, unknown>;
+
+// @beta
+export function useUpdatePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, {
+platform_fee_basis_points?: number | undefined;
+fee_recipient?: string | undefined;
+}, unknown>;
+
+// @beta
+export function useUpdatePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, string, unknown>;
+
+// @beta
+export function useUpdateRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<    {
+receipt: TransactionReceipt;
+data: () => Promise<{
+seller_fee_basis_points: number;
+fee_recipient: string;
+}>;
+}, unknown, {
+seller_fee_basis_points?: number | undefined;
+fee_recipient?: string | undefined;
+}, unknown>;
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
@@ -1021,8 +1154,11 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 //
 // dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+// dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/useNetwork.d.ts:75:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:122:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:127:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:133:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

@@ -269,7 +269,7 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
       return await contract.direct.createListing(data);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,
@@ -325,7 +325,7 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
       return await contract.auction.createListing(data);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,
@@ -381,7 +381,7 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
       return await contract.auction.makeBid(data.listingId, data.bid);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,
@@ -449,7 +449,7 @@ export function useBuyNow(contract: RequiredParam<Marketplace>) {
       return await contract.auction.buyoutListing(data.id);
     },
     {
-      onSuccess: () =>
+      onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
           contractAddress,

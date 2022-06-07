@@ -3,7 +3,7 @@ import type { Chain as WagmiChain } from "wagmi";
 
 export type Chain = WagmiChain;
 
-const chain = {
+const chain: Record<string, Chain> = {
   mainnet: {
     id: ChainId.Mainnet,
     name: "Mainnet",
@@ -118,24 +118,6 @@ const chain = {
     ],
     testnet: false,
   },
-  // avalancheFuji: {
-  //   id: 43113,
-  //   name: "Avalanche FUJI",
-  //   nativeCurrency: {
-  //     name: "AVAX",
-  //     symbol: "AVAX",
-  //     decimals: 18,
-  //   },
-  //   rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
-  //   blockExplorers: [
-  //     {
-  //       name: "SnowTrace",
-  //       url: "https://testnet.snowtrace.io/",
-  //     },
-  //   ],
-  //   testnet: true,
-  // },
-  // custom added (non wagmi standard)
   fantom: {
     id: ChainId.Fantom,
     name: "Fantom Opera",
@@ -145,7 +127,7 @@ const chain = {
       decimals: 18,
     },
     rpcUrls: ["https://rpc.ftm.tools"],
-    blockExplorerUrls: [
+    blockExplorers: [
       {
         name: "FTMScan",
         url: "https://ftmscan.com/",
@@ -153,9 +135,9 @@ const chain = {
     ],
     testnet: false,
   },
-} as const;
+};
 
-export const defaultSupportedChains = Object.values(chain);
+export const defaultSupportedChains = Object.values(chain) as Chain[];
 
 export type SupportedChainId = typeof defaultSupportedChains[number]["id"];
 

@@ -1,4 +1,5 @@
 import type {
+  Amount,
   EditionDrop,
   Erc721,
   Erc721Mintable,
@@ -73,6 +74,15 @@ export type NFT<TContract extends NFTContract> = {
 
   [key: string]: unknown;
 };
+
+/**
+ * The params to pass to `useTotalCirculatingSupply`.
+ * @beta
+ */
+export type useTotalCirculatingSupplyParams<TContract> =
+  TContract extends Erc1155
+    ? [contract: RequiredParam<TContract>, tokenId: BigNumberish]
+    : [contract: RequiredParam<TContract>];
 
 /**
  * The params to pass to `useNftBalance`.
@@ -165,3 +175,11 @@ export type BuyNowParams<TListingType = ListingType> =
         id: BigNumberish;
         type: ListingType.Auction;
       };
+
+// TOKEN DROP //
+
+export type ClaimTokenParams = {
+  to: WalletAddress;
+  amount: Amount;
+  proofs?: BytesLike[];
+};
