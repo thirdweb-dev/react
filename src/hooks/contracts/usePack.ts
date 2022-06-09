@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Pack } from "@thirdweb-dev/sdk";
+import { Pack } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of a `Pack` contract. This contract supports the creation of on-chain luck-based lootboxes.

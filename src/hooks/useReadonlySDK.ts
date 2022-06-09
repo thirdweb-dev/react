@@ -1,4 +1,8 @@
-import { IStorage, SDKOptions, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import {
+  IStorage,
+  SDKOptions,
+  ThirdwebSDK,
+} from "@thirdweb-dev/sdk/dist/browser";
 import { useMemo } from "react";
 
 /**

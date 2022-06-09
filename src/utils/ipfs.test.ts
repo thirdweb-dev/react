@@ -1,5 +1,5 @@
 import { resolveIpfsUri, resolveMimeType } from "./ipfs";
-import { DEFAULT_IPFS_GATEWAY } from "@thirdweb-dev/sdk";
+import { DEFAULT_IPFS_GATEWAY } from "@thirdweb-dev/sdk/dist/browser";
 import { describe, expect, test } from "vitest";
 
 describe("resolveIpfsUri", () => {

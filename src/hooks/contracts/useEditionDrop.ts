@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { EditionDrop } from "@thirdweb-dev/sdk";
+import { EditionDrop } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of an `EditionDrop` contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted.

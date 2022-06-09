@@ -5,7 +5,10 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type { SmartContract, ValidContractInstance } from "@thirdweb-dev/sdk";
+import type {
+  SmartContract,
+  ValidContractInstance,
+} from "@thirdweb-dev/sdk/dist/browser";
 import type { CustomContractMetadata } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
