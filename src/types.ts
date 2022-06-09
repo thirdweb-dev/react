@@ -9,7 +9,7 @@ import type {
   NFTDrop,
   NFTMetadata,
   Price,
-} from "@thirdweb-dev/sdk";
+} from "@thirdweb-dev/sdk/dist/browser";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish, BytesLike } from "ethers";
 

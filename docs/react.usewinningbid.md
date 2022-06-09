@@ -12,7 +12,7 @@ Use this to get a the winning bid for an auction listing from your marketplace c
 <b>Signature:</b>
 
 ```typescript
-export declare function useWinningBid(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk").Offer | undefined, unknown>;
+export declare function useWinningBid(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk/dist/browser").Offer | undefined, unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useWinningBid(contract: RequiredParam<Marketplace>, list
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk").Offer \| undefined, unknown&gt;
+import("react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk/dist/browser").Offer \| undefined, unknown&gt;
 
 a response object that includes the  that is winning the auction
 

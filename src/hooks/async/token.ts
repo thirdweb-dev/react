@@ -10,7 +10,7 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type { Erc20, TokenDrop } from "@thirdweb-dev/sdk";
+import type { Erc20, TokenDrop } from "@thirdweb-dev/sdk/dist/browser";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 

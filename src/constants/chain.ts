@@ -1,4 +1,4 @@
-import { ChainId } from "@thirdweb-dev/sdk";
+import { ChainId } from "@thirdweb-dev/sdk/dist/browser";
 import type { Chain as WagmiChain } from "wagmi";
 
 export type Chain = WagmiChain;

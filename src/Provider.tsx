@@ -21,7 +21,7 @@ import {
   SignerOrProvider,
   ThirdwebSDK,
   getProviderForNetwork,
-} from "@thirdweb-dev/sdk";
+} from "@thirdweb-dev/sdk/dist/browser";
 import { SDKOptionsOutput } from "@thirdweb-dev/sdk/dist/src/schema";
 import { Signer } from "ethers";
 import React, { createContext, useEffect, useMemo } from "react";
