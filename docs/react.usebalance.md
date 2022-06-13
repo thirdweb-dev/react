@@ -14,8 +14,8 @@ A hook to get the native or (optional) ERC20 token balance of the connected wall
 ```typescript
 export declare function useBalance(tokenAddress?: ContractAddress): import("react-query").UseQueryResult<{
     symbol: string;
-    name: string;
     value: import("ethers").BigNumber;
+    name: string;
     decimals: number;
     displayValue: string;
 } | undefined, unknown>;
@@ -29,7 +29,7 @@ export declare function useBalance(tokenAddress?: ContractAddress): import("reac
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ symbol: string; name: string; value: import("ethers").BigNumber; decimals: number; displayValue: string; } \| undefined, unknown&gt;
+import("react-query").UseQueryResult&lt;{ symbol: string; value: import("ethers").BigNumber; name: string; decimals: number; displayValue: string; } \| undefined, unknown&gt;
 
 the balance of the connected wallet (native or ERC20)
 

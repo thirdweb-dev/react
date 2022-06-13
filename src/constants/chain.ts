@@ -135,6 +135,23 @@ const chain: Record<string, Chain> = {
     ],
     testnet: false,
   },
+  optimismTestnet: {
+    id: ChainId.OptimismTestnet,
+    name: "Optimism Testnet",
+    nativeCurrency: {
+      name: "Ether",
+      symbol: "ETH",
+      decimals: 18,
+    },
+    rpcUrls: ["https://kovan.optimism.io"],
+    blockExplorers: [
+      {
+        name: "OptimismTestnetScan",
+        url: "https://kovan-optimistic.etherscan.io/",
+      },
+    ],
+    testnet: true,
+  },
 };
 
 export const defaultSupportedChains = Object.values(chain) as Chain[];

@@ -318,8 +318,8 @@ availableSupply: string;
 currentMintSupply: string;
 currencyMetadata: {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 };
@@ -343,8 +343,8 @@ export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId
 // @beta
 export function useBalance(tokenAddress?: ContractAddress): UseQueryResult<    {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 } | undefined, unknown>;
@@ -391,8 +391,8 @@ availableSupply: string;
 currentMintSupply: string;
 currencyMetadata: {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 };
@@ -650,29 +650,29 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
 } | {
     abi: {
         [x: string]: any;
-        name: string;
         type: string;
+        name: string;
         outputs: {
             [x: string]: any;
             stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
-                name: string;
                 type: string;
+                name: string;
             }[] | undefined;
-            name: string;
             type: string;
+            name: string;
         }[];
         inputs: {
             [x: string]: any;
             stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
-                name: string;
                 type: string;
+                name: string;
             }[] | undefined;
-            name: string;
             type: string;
+            name: string;
         }[];
     }[] | null;
     data: {
@@ -713,29 +713,29 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
 } | {
     abi: {
         [x: string]: any;
-        name: string;
         type: string;
+        name: string;
         outputs: {
             [x: string]: any;
             stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
-                name: string;
                 type: string;
+                name: string;
             }[] | undefined;
-            name: string;
             type: string;
+            name: string;
         }[];
         inputs: {
             [x: string]: any;
             stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
-                name: string;
                 type: string;
+                name: string;
             }[] | undefined;
-            name: string;
             type: string;
+            name: string;
         }[];
     }[] | null;
     data: {
@@ -1025,8 +1025,8 @@ export function useToken(contractAddress?: string): Token | undefined;
 // @beta
 export function useTokenBalance(contract: RequiredParam<Erc20>, walletAddress: RequiredParam<WalletAddress>): UseQueryResult<    {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 }, unknown>;
@@ -1039,8 +1039,8 @@ export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 // @beta
 export function useTokenSupply(contract: RequiredParam<Erc20>): UseQueryResult<    {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 }, unknown>;
