@@ -177,7 +177,7 @@ const chain: Record<string, Chain> = {
   },
   optimismTestnet: {
     id: ChainId.OptimismTestnet,
-    name: "Optimism Testnet",
+    name: "Optimism Kovan",
     nativeCurrency: NATIVE_TOKENS[
       ChainId.OptimismTestnet as SUPPORTED_CHAIN_ID
     ] as NativeTkn,
@@ -207,7 +207,7 @@ const chain: Record<string, Chain> = {
   },
   arbitrumTestnet: {
     id: ChainId.ArbitrumTestnet,
-    name: "Arbitrum",
+    name: "Arbitrum Rinkeby",
     nativeCurrency: NATIVE_TOKENS[
       ChainId.ArbitrumTestnet as SUPPORTED_CHAIN_ID
     ] as NativeTkn,
