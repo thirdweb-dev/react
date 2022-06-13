@@ -11,9 +11,9 @@ import type {
   MarketplaceFilter,
   NewAuctionListing,
   NewDirectListing,
-} from "@thirdweb-dev/sdk";
+} from "@thirdweb-dev/sdk/dist/browser";
 // eslint-disable-next-line no-duplicate-imports
-import { ListingType } from "@thirdweb-dev/sdk";
+import { ListingType } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";

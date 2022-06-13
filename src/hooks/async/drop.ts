@@ -11,7 +11,11 @@ import {
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useNFTs } from "./nft";
-import { Erc1155, NFTDrop, QueryAllParams } from "@thirdweb-dev/sdk";
+import {
+  Erc1155,
+  NFTDrop,
+  QueryAllParams,
+} from "@thirdweb-dev/sdk/dist/browser";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 

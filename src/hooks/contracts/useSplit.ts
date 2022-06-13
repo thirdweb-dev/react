@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Split } from "@thirdweb-dev/sdk";
+import { Split } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of a `Split` contract. This contract supports fund distribution to multiple parties.

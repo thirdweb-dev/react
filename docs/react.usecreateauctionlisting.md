@@ -12,7 +12,7 @@ Use this to create a new Auction Listing on your marketplace contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useCreateAuctionListing(contract: RequiredParam<Marketplace>): import("react-query").UseMutationResult<import("@thirdweb-dev/sdk").TransactionResultWithId<never>, unknown, NewAuctionListing, unknown>;
+export declare function useCreateAuctionListing(contract: RequiredParam<Marketplace>): import("react-query").UseMutationResult<import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId<never>, unknown, NewAuctionListing, unknown>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function useCreateAuctionListing(contract: RequiredParam<Marketpl
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;never&gt;, unknown, NewAuctionListing, unknown&gt;
+import("react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId&lt;never&gt;, unknown, NewAuctionListing, unknown&gt;
 
 a mutation object that can be used to create a new auction listing
 

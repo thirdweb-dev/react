@@ -4,7 +4,7 @@ import { ContractAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useChainId } from "../useChainId";
 import { useSigner } from "../useSigner";
-import { UserWallet } from "@thirdweb-dev/sdk";
+import { UserWallet } from "@thirdweb-dev/sdk/dist/browser";
 import { useMemo } from "react";
 import { useQuery } from "react-query";
 

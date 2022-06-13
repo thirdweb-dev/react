@@ -3,7 +3,7 @@ import {
   SupportedChainId,
   defaultSupportedChains,
 } from "../constants/chain";
-import { ChainId } from "@thirdweb-dev/sdk";
+import { ChainId } from "@thirdweb-dev/sdk/dist/browser";
 import React, { PropsWithChildren, createContext, useContext } from "react";
 
 interface ThirdwebConfigContext {

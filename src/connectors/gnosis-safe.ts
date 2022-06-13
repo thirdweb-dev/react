@@ -1,4 +1,4 @@
-import { ChainId } from "@thirdweb-dev/sdk";
+import { ChainId } from "@thirdweb-dev/sdk/dist/browser";
 import { Signer, ethers, utils } from "ethers";
 import invariant from "tiny-invariant";
 import { Chain, Connector, ConnectorData, normalizeChainId } from "wagmi";

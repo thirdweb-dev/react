@@ -12,7 +12,7 @@ Use this to get a list active listings from your marketplace contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useActiveListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): import("react-query").UseQueryResult<(import("@thirdweb-dev/sdk").AuctionListing | import("@thirdweb-dev/sdk").DirectListing)[], unknown>;
+export declare function useActiveListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): import("react-query").UseQueryResult<(import("@thirdweb-dev/sdk/dist/browser").AuctionListing | import("@thirdweb-dev/sdk/dist/browser").DirectListing)[], unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useActiveListings(contract: RequiredParam<Marketplace>, 
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;(import("@thirdweb-dev/sdk").AuctionListing \| import("@thirdweb-dev/sdk").DirectListing)\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;(import("@thirdweb-dev/sdk/dist/browser").AuctionListing \| import("@thirdweb-dev/sdk/dist/browser").DirectListing)\[\], unknown&gt;
 
 a response object that includes an array of listings
 

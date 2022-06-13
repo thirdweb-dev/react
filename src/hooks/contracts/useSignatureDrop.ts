@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { SignatureDrop } from "@thirdweb-dev/sdk";
+import { SignatureDrop } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of an `SignatureDrop` contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted.

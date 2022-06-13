@@ -1,5 +1,5 @@
 import { MediaRenderer, SharedMediaProps } from "./MediaRenderer";
-import { NFTMetadata } from "@thirdweb-dev/sdk";
+import { NFTMetadata } from "@thirdweb-dev/sdk/dist/browser";
 import React from "react";
 
 /**

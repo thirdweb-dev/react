@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Marketplace } from "@thirdweb-dev/sdk";
+import { Marketplace } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of a `Marketplace` contract. This contract is used to support marketplace for purchase and sale of on-chain assets.
