@@ -137,7 +137,7 @@ const chain: Record<string, Chain> = {
     id: ChainId.Optimism,
     name: "Optimism",
     nativeCurrency: NATIVE_TOKENS[ChainId.Optimism],
-    rpcUrls: ["https://kovan.optimism.io"],
+    rpcUrls: ["https://mainnet.optimism.io"],
     blockExplorers: [
       {
         name: "Etherscan",
