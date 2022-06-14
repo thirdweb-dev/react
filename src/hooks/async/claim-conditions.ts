@@ -5,6 +5,7 @@ import {
   EditionDrop,
   Erc1155,
   NFTDrop,
+  SmartContract,
   TokenDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumberish } from "ethers";
@@ -41,7 +42,7 @@ type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
  * @beta
  */
 export function useActiveClaimCondition<
-  TContract extends NFTDrop | EditionDrop | TokenDrop,
+  TContract extends NFTDrop | EditionDrop | TokenDrop | SmartContract,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
@@ -49,15 +50,26 @@ export function useActiveClaimCondition<
     cacheKeys.extensions.claimConditions.getActive(contractAddress, tokenId),
     () => {
       invariant(contract, "No Contract instance provided");
-      invariant(
-        contract.claimConditions.getActive,
-        "Contract instance does not support claimConditions.getActive",
-      );
+      if (contract instanceof SmartContract) {
+        invariant(
+          contract.nft?.drop?.claimConditions?.getActive,
+          "Contract instance does not support claimConditions.getActive",
+        );
+      } else {
+        invariant(
+          contract.claimConditions.getActive,
+          "Contract instance does not support claimConditions.getActive",
+        );
+      }
       if (contract instanceof Erc1155) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
         return contract.claimConditions.getActive(tokenId);
       }
-      return contract.claimConditions.getActive();
+      if (contract instanceof SmartContract) {
+        return contract?.nft?.drop?.claimConditions?.getActive();
+      } else {
+        return contract.claimConditions.getActive();
+      }
     },
     {
       // Checks that happen here:
@@ -91,7 +103,7 @@ export function useActiveClaimCondition<
  * @beta
  */
 export function useClaimConditions<
-  TContract extends NFTDrop | EditionDrop | TokenDrop,
+  TContract extends NFTDrop | EditionDrop | TokenDrop | SmartContract,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
@@ -99,15 +111,26 @@ export function useClaimConditions<
     cacheKeys.extensions.claimConditions.getAll(contractAddress, tokenId),
     () => {
       invariant(contract, "No Contract instance provided");
-      invariant(
-        contract.claimConditions.getAll,
-        "Contract instance does not support claimConditions.getAll",
-      );
+      if (contract instanceof SmartContract) {
+        invariant(
+          contract.nft?.drop?.claimConditions?.getAll,
+          "Contract instance does not support claimConditions.getAll",
+        );
+      } else {
+        invariant(
+          contract.claimConditions.getAll,
+          "Contract instance does not support claimConditions.getAll",
+        );
+      }
       if (contract instanceof Erc1155) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
         return contract.claimConditions.getAll(tokenId);
       }
-      return contract.claimConditions.getAll();
+      if (contract instanceof SmartContract) {
+        return contract?.nft?.drop?.claimConditions?.getAll();
+      } else {
+        return contract.claimConditions.getAll();
+      }
     },
     {
       // Checks that happen here:
@@ -164,7 +187,7 @@ type ClaimIneligibilityInputParams<TContract> = TContract extends Erc1155
  * @beta
  */
 export function useClaimIneligibilityReasons<
-  TContract extends NFTDrop | EditionDrop | TokenDrop,
+  TContract extends NFTDrop | EditionDrop | TokenDrop | SmartContract,
 >(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
@@ -176,10 +199,17 @@ export function useClaimIneligibilityReasons<
     ),
     () => {
       invariant(contract, "No Contract instance provided");
-      invariant(
-        contract.claimConditions.getClaimIneligibilityReasons,
-        "Contract instance does not support claimConditions.getClaimIneligibilityReasons",
-      );
+      if (contract instanceof SmartContract) {
+        invariant(
+          contract.nft?.drop?.claimConditions?.getClaimIneligibilityReasons,
+          "Contract instance does not support claimConditions.getClaimIneligibilityReasons",
+        );
+      } else {
+        invariant(
+          contract.claimConditions.getClaimIneligibilityReasons,
+          "Contract instance does not support claimConditions.getClaimIneligibilityReasons",
+        );
+      }
       if (contract instanceof Erc1155) {
         invariant(
           tokenId,
@@ -191,10 +221,18 @@ export function useClaimIneligibilityReasons<
           params.walletAddress,
         );
       }
-      return contract.claimConditions.getClaimIneligibilityReasons(
-        params.quantity,
-        params.walletAddress,
-      );
+
+      if (contract instanceof SmartContract) {
+        return contract?.nft?.drop?.claimConditions?.getClaimIneligibilityReasons(
+          params.quantity,
+          params.walletAddress,
+        );
+      } else {
+        return contract.claimConditions.getClaimIneligibilityReasons(
+          params.quantity,
+          params.walletAddress,
+        );
+      }
     },
     {
       // Checks that happen here:
