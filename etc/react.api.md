@@ -318,8 +318,8 @@ availableSupply: string;
 currentMintSupply: string;
 currencyMetadata: {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 };
@@ -343,8 +343,8 @@ export function useAuctionWinner(contract: RequiredParam<Marketplace>, listingId
 // @beta
 export function useBalance(tokenAddress?: ContractAddress): UseQueryResult<    {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 } | undefined, unknown>;
@@ -391,8 +391,8 @@ availableSupply: string;
 currentMintSupply: string;
 currencyMetadata: {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 };
@@ -650,29 +650,29 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
 } | {
     abi: {
         [x: string]: any;
-        name: string;
         type: string;
+        name: string;
         outputs: {
             [x: string]: any;
             stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
-                name: string;
                 type: string;
+                name: string;
             }[] | undefined;
-            name: string;
             type: string;
+            name: string;
         }[];
         inputs: {
             [x: string]: any;
             stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
-                name: string;
                 type: string;
+                name: string;
             }[] | undefined;
-            name: string;
             type: string;
+            name: string;
         }[];
     }[] | null;
     data: {
@@ -713,29 +713,29 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
 } | {
     abi: {
         [x: string]: any;
-        name: string;
         type: string;
+        name: string;
         outputs: {
             [x: string]: any;
             stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
-                name: string;
                 type: string;
+                name: string;
             }[] | undefined;
-            name: string;
             type: string;
+            name: string;
         }[];
         inputs: {
             [x: string]: any;
             stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
-                name: string;
                 type: string;
+                name: string;
             }[] | undefined;
-            name: string;
             type: string;
+            name: string;
         }[];
     }[] | null;
     data: {
@@ -1025,8 +1025,8 @@ export function useToken(contractAddress?: string): Token | undefined;
 // @beta
 export function useTokenBalance(contract: RequiredParam<Erc20>, walletAddress: RequiredParam<WalletAddress>): UseQueryResult<    {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 }, unknown>;
@@ -1039,8 +1039,8 @@ export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 // @beta
 export function useTokenSupply(contract: RequiredParam<Erc20>): UseQueryResult<    {
 symbol: string;
-name: string;
 value: BigNumber;
+name: string;
 decimals: number;
 displayValue: string;
 }, unknown>;
@@ -1160,7 +1160,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
-// dist/hooks/useNetwork.d.ts:75:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
+// dist/hooks/useNetwork.d.ts:77:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
 // dist/types.d.ts:127:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 // dist/types.d.ts:133:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 

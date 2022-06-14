@@ -1,17 +1,13 @@
+import { NATIVE_TOKENS } from "@thirdweb-dev/sdk";
 import { ChainId } from "@thirdweb-dev/sdk/dist/browser";
 import type { Chain as WagmiChain } from "wagmi";
 
 export type Chain = WagmiChain;
-
 const chain: Record<string, Chain> = {
   mainnet: {
     id: ChainId.Mainnet,
     name: "Mainnet",
-    nativeCurrency: {
-      name: "Ether",
-      symbol: "ETH",
-      decimals: 18,
-    },
+    nativeCurrency: NATIVE_TOKENS[ChainId.Mainnet],
     rpcUrls: ["https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
     blockExplorers: [
       {
@@ -23,11 +19,7 @@ const chain: Record<string, Chain> = {
   rinkeby: {
     id: ChainId.Rinkeby,
     name: "Rinkeby",
-    nativeCurrency: {
-      name: "Rinkeby Ether",
-      symbol: "rETH",
-      decimals: 18,
-    },
+    nativeCurrency: NATIVE_TOKENS[ChainId.Rinkeby],
     rpcUrls: ["https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
     blockExplorers: [
       {
@@ -40,11 +32,7 @@ const chain: Record<string, Chain> = {
   goerli: {
     id: ChainId.Goerli,
     name: "Goerli",
-    nativeCurrency: {
-      name: "Goerli Ether",
-      symbol: "gETH",
-      decimals: 18,
-    },
+    nativeCurrency: NATIVE_TOKENS[ChainId.Goerli],
     rpcUrls: ["https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
     blockExplorers: [
       {
@@ -57,11 +45,7 @@ const chain: Record<string, Chain> = {
   polygonMainnet: {
     id: ChainId.Polygon,
     name: "Polygon Mainnet",
-    nativeCurrency: {
-      name: "Matic",
-      symbol: "MATIC",
-      decimals: 18,
-    },
+    nativeCurrency: NATIVE_TOKENS[ChainId.Polygon],
     rpcUrls: [
       "https://polygon-rpc.com",
       "https://rpc-mainnet.matic.network",
@@ -80,11 +64,7 @@ const chain: Record<string, Chain> = {
   polygonTestnetMumbai: {
     id: ChainId.Mumbai,
     name: "Polygon Testnet Mumbai",
-    nativeCurrency: {
-      name: "Matic",
-      symbol: "MATIC",
-      decimals: 18,
-    },
+    nativeCurrency: NATIVE_TOKENS[ChainId.Mumbai],
     rpcUrls: [
       "https://matic-mumbai.chainstacklabs.com",
       "https://rpc-mumbai.maticvigil.com",
@@ -92,7 +72,7 @@ const chain: Record<string, Chain> = {
     ],
     blockExplorers: [
       {
-        name: "Polygonscan",
+        name: "PolygonScan",
         url: "https://mumbai.polygonscan.com",
       },
     ],
@@ -101,11 +81,7 @@ const chain: Record<string, Chain> = {
   avalanche: {
     id: ChainId.Avalanche,
     name: "Avalanche",
-    nativeCurrency: {
-      name: "AVAX",
-      symbol: "AVAX",
-      decimals: 18,
-    },
+    nativeCurrency: NATIVE_TOKENS[ChainId.Avalanche],
     rpcUrls: [
       "https://api.avax.network/ext/bc/C/rpc",
       "https://rpc.ankr.com/avalanche",
@@ -118,22 +94,96 @@ const chain: Record<string, Chain> = {
     ],
     testnet: false,
   },
+  avalancheFujiTestnet: {
+    id: ChainId.AvalancheFujiTestnet,
+    name: "Avalanche Fuji",
+    nativeCurrency: NATIVE_TOKENS[ChainId.AvalancheFujiTestnet],
+    rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
+    blockExplorers: [
+      {
+        name: "SnowTrace",
+        url: "https://testnet.snowtrace.io/",
+      },
+    ],
+    testnet: true,
+  },
   fantom: {
     id: ChainId.Fantom,
     name: "Fantom Opera",
-    nativeCurrency: {
-      name: "Fantom",
-      symbol: "FTM",
-      decimals: 18,
-    },
+    nativeCurrency: NATIVE_TOKENS[ChainId.Fantom],
     rpcUrls: ["https://rpc.ftm.tools"],
     blockExplorers: [
       {
-        name: "FTMScan",
+        name: "FTMscan",
         url: "https://ftmscan.com/",
       },
     ],
     testnet: false,
+  },
+  fantomTestnet: {
+    id: ChainId.FantomTestnet,
+    name: "Fantom Testnet",
+    nativeCurrency: NATIVE_TOKENS[ChainId.FantomTestnet],
+    rpcUrls: ["https://rpc.testnet.fantom.network"],
+    blockExplorers: [
+      {
+        name: "FTMscan",
+        url: "https://testnet.ftmscan.com/",
+      },
+    ],
+    testnet: false,
+  },
+  optimism: {
+    id: ChainId.Optimism,
+    name: "Optimism",
+    nativeCurrency: NATIVE_TOKENS[ChainId.Optimism],
+    rpcUrls: ["https://kovan.optimism.io"],
+    blockExplorers: [
+      {
+        name: "Etherscan",
+        url: "https://optimistic.etherscan.io/",
+      },
+    ],
+    testnet: false,
+  },
+  optimismTestnet: {
+    id: ChainId.OptimismTestnet,
+    name: "Optimism Kovan",
+    nativeCurrency: NATIVE_TOKENS[ChainId.OptimismTestnet],
+    rpcUrls: ["https://kovan.optimism.io"],
+    blockExplorers: [
+      {
+        name: "Etherscan",
+        url: "https://kovan-optimistic.etherscan.io/",
+      },
+    ],
+    testnet: true,
+  },
+  arbitrum: {
+    id: ChainId.Arbitrum,
+    name: "Arbitrum",
+    nativeCurrency: NATIVE_TOKENS[ChainId.Arbitrum],
+    rpcUrls: ["https://arb1.arbitrum.io/rpc"],
+    blockExplorers: [
+      {
+        name: "Arbiscan",
+        url: "https://arbiscan.io/",
+      },
+    ],
+    testnet: false,
+  },
+  arbitrumTestnet: {
+    id: ChainId.ArbitrumTestnet,
+    name: "Arbitrum Rinkeby",
+    nativeCurrency: NATIVE_TOKENS[ChainId.ArbitrumTestnet],
+    rpcUrls: ["https://rinkeby.arbitrum.io/rpc"],
+    blockExplorers: [
+      {
+        name: "Arbiscan",
+        url: "https://testnet.arbiscan.io/",
+      },
+    ],
+    testnet: true,
   },
 };
 
