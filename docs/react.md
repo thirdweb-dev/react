@@ -74,11 +74,7 @@ import { useMetamask } from "@thirdweb-dev/react"
 |  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md) |
 |  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC20 contract |
 |  [useMultiwrap(contractAddress)](./react.usemultiwrap.md) | Hook for getting an instance of an <code>Multiwrap</code> contract. This contract is an ERC721 in which you can wrap ERC721, ERC1155 and ERC20 tokens. |
-|  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks
-```javascript
-import { useNetwork } from "@thirdweb-dev/react"
-```
- |
+|  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks |
 |  [useNetworkMismatch()](./react.usenetworkmismatch.md) | Hook for checking whether the connected wallet is on the correct network specified by the <code>desiredChainId</code> passed to the <code>&lt;ThirdwebProvider /&gt;</code>.
 ```javascript
 import { useNetworkMistmatch } from "@thirdweb-dev/react"
