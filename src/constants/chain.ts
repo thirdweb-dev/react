@@ -6,7 +6,7 @@ export type Chain = WagmiChain;
 const chain: Record<string, Chain> = {
   mainnet: {
     id: ChainId.Mainnet,
-    name: "Mainnet",
+    name: "Ethereum Mainnet",
     nativeCurrency: NATIVE_TOKENS[ChainId.Mainnet],
     rpcUrls: ["https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
     blockExplorers: [
@@ -63,7 +63,7 @@ const chain: Record<string, Chain> = {
   },
   polygonTestnetMumbai: {
     id: ChainId.Mumbai,
-    name: "Polygon Testnet Mumbai",
+    name: "Mumbai",
     nativeCurrency: NATIVE_TOKENS[ChainId.Mumbai],
     rpcUrls: [
       "https://matic-mumbai.chainstacklabs.com",
@@ -96,7 +96,7 @@ const chain: Record<string, Chain> = {
   },
   avalancheFujiTestnet: {
     id: ChainId.AvalancheFujiTestnet,
-    name: "Avalanche Fuji",
+    name: "Avalanche Fuji Testnet",
     nativeCurrency: NATIVE_TOKENS[ChainId.AvalancheFujiTestnet],
     rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
     blockExplorers: [
@@ -137,7 +137,7 @@ const chain: Record<string, Chain> = {
     id: ChainId.Optimism,
     name: "Optimism",
     nativeCurrency: NATIVE_TOKENS[ChainId.Optimism],
-    rpcUrls: ["https://kovan.optimism.io"],
+    rpcUrls: ["https://mainnet.optimism.io"],
     blockExplorers: [
       {
         name: "Etherscan",
@@ -161,7 +161,7 @@ const chain: Record<string, Chain> = {
   },
   arbitrum: {
     id: ChainId.Arbitrum,
-    name: "Arbitrum",
+    name: "Arbitrum One",
     nativeCurrency: NATIVE_TOKENS[ChainId.Arbitrum],
     rpcUrls: ["https://arb1.arbitrum.io/rpc"],
     blockExplorers: [
