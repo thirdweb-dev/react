@@ -4,6 +4,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
     "plugin:prettier/recommended",
+    "plugin:react/recommended",
   ],
   rules: {
     // tsdoc
@@ -30,13 +31,20 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "error",
     "@typescript-eslint/no-parameter-properties": "error",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     // import
     "import/first": "error",
     "import/newline-after-import": "error",
-    "import/no-cycle": "warn",
+    "import/no-cycle": "error",
     "import/no-default-export": "off",
     "import/no-useless-path-segments": "error",
+    // react
+    "react/forbid-dom-props": ["error", { forbid: ["className", "style"] }],
+    "react/no-children-prop": "off",
+    "react/prop-types": "off",
+    // react-hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
     // eslint
     curly: "error",
     eqeqeq: "error",
@@ -46,7 +54,8 @@ module.exports = {
       { beforeColon: false, afterColon: true, mode: "strict" },
     ],
     "keyword-spacing": ["error", { before: true, after: true }],
-    "line-comment-position": "off",
+    "line-comment-position": "error",
+    "new-cap": "error",
     "no-alert": "error",
     "no-case-declarations": "off",
 
@@ -87,25 +96,33 @@ module.exports = {
     "valid-typeof": "error",
     semi: ["warn", "always"],
     // Inclusive
-    "inclusive-language/use-inclusive-words": "off",
+    "inclusive-language/use-inclusive-words": "error",
+    // turn off deprecated things?
+    "react/react-in-jsx-scope": "off",
   },
   parser: "@typescript-eslint/parser",
   plugins: [
     "@typescript-eslint",
     "import",
     "inclusive-language",
-    "eslint-plugin-tsdoc",
+    "react",
+    "react-hooks",
   ],
   parserOptions: {
-    // project: "./tsconfig.json",
-    // tsconfigRootDir: __dirname,
     ecmaVersion: 2019,
     ecmaFeatures: {
       impliedStrict: true,
+      jsx: true,
     },
     warnOnUnsupportedTypeScriptVersion: true,
   },
-  settings: {},
+  settings: {
+    react: {
+      createClass: "createReactClass",
+      pragma: "React",
+      version: "detect",
+    },
+  },
   overrides: [
     // enable rule specifically for TypeScript files
     {
@@ -115,6 +132,16 @@ module.exports = {
       },
     },
 
+    // in test files, allow null assertions and anys and eslint is sometimes weird about the react-scope thing
+    {
+      files: ["*test.ts?(x)"],
+      rules: {
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+
+        "react/display-name": "off",
+      },
+    },
     // allow requires in non-transpiled JS files and logical key ordering in config files
     {
       files: [
@@ -138,6 +165,5 @@ module.exports = {
   ],
   env: {
     browser: true,
-    node: true,
   },
 };

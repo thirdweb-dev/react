@@ -1,4 +1,4 @@
-import { useSDK } from "../../Provider";
+import { useSDK } from "../../providers/thirdweb-sdk";
 import {
   ContractForContractType,
   ContractType,

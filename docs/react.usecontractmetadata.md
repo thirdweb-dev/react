@@ -13,7 +13,7 @@ Use this to get the contract metadata for a (built-in or custom) contract.
 
 ```typescript
 export declare function useContractMetadata(contractAddress: RequiredParam<ContractAddress>): import("react-query").UseQueryResult<{
-    [x: string]: import("@thirdweb-dev/sdk/dist/browser").Json;
+    [x: string]: import("@thirdweb-dev/sdk").Json;
     description?: string | undefined;
     image?: any;
     external_link?: string | undefined;
@@ -25,11 +25,11 @@ export declare function useContractMetadata(contractAddress: RequiredParam<Contr
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[ContractAddress](./react.contractaddress.md)<!-- -->&gt; | the address of the deployed contract |
+|  contractAddress | RequiredParam&lt;ContractAddress&gt; | the address of the deployed contract |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
+import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
 
 a response object that includes the contract metadata of the deployed contract
 

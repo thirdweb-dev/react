@@ -19,7 +19,7 @@ export declare function useAllRoleMembers<TContract extends ContractWithRoles>(c
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
+|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
 
 <b>Returns:</b>
 

@@ -1,15 +1,12 @@
-import { useActiveChainId, useSDK } from "../../Provider";
-import { ContractAddress, RequiredParam } from "../../types";
-import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type { ThirdwebSDK } from "@thirdweb-dev/sdk/dist/browser";
-// eslint-disable-next-line no-duplicate-imports
-import { CONTRACTS_MAP, SmartContract } from "@thirdweb-dev/sdk/dist/browser";
+import { useSDK } from "../../providers/thirdweb-sdk";
+import { cacheKeys } from "../../query-cache/cache-keys";
+import { ContractAddress, RequiredParam } from "../../types/types";
+import { CONTRACTS_MAP, SmartContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
 import type {
   CustomContractMetadata,
   PublishedMetadata,
 } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
-import { QueryClient, useQueryClient } from "react-query";
+import { QueryClient, useQuery, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 async function fetchContractType(
@@ -35,9 +32,9 @@ async function fetchContractPublishMetadata(
     return;
   }
 
-  return await (
-    await sdk.getPublisher()
-  ).fetchContractMetadataFromAddress(contractAddress);
+  return await sdk
+    .getPublisher()
+    .fetchContractMetadataFromAddress(contractAddress);
 }
 async function fetchContractTypeAndPublishMetadata(
   queryClient: QueryClient,
@@ -48,10 +45,7 @@ async function fetchContractTypeAndPublishMetadata(
     return;
   }
   const contractType = await queryClient.fetchQuery(
-    createCacheKeyWithNetwork(
-      cacheKeys.contract.type(contractAddress),
-      (sdk as any)._chainId,
-    ),
+    cacheKeys.contract.type(contractAddress),
     () => fetchContractType(contractAddress, sdk),
     // is immutable, so infinite stale time
     { staleTime: Infinity },
@@ -63,10 +57,8 @@ async function fetchContractTypeAndPublishMetadata(
     };
   }
   const publishMetadata = await queryClient.fetchQuery(
-    createCacheKeyWithNetwork(
-      cacheKeys.contract.publishMetadata(contractAddress),
-      (sdk as any)._chainId,
-    ),
+    cacheKeys.contract.publishMetadata(contractAddress),
+
     () => fetchContractPublishMetadata(contractAddress, sdk),
     // is immutable, so infinite stale time
     { staleTime: Infinity },
@@ -104,7 +96,7 @@ function getContractFromCombinedTypeAndPublishMetadata(
   sdk: RequiredParam<ThirdwebSDK>,
 ) {
   if (!input || !sdk || !contractAddress || !input.contractType) {
-    return null;
+    return undefined;
   }
 
   const contractAbi = getContractAbi(input);
@@ -138,7 +130,7 @@ export function useContractAbi(
   ) {
     return {
       ...contractTypeAndPublishMetadata,
-      abi: null,
+      abi: undefined,
     };
   }
 
@@ -162,7 +154,7 @@ export function useContractType(
   contractAddress: RequiredParam<ContractAddress>,
 ) {
   const sdk = useSDK();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.type(contractAddress),
     () => fetchContractType(contractAddress, sdk),
     {
@@ -189,7 +181,7 @@ export function useContractPublishMetadata(
   contractAddress: RequiredParam<ContractAddress>,
 ) {
   const sdk = useSDK();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.publishMetadata(contractAddress),
     () => fetchContractPublishMetadata(contractAddress, sdk),
     {
@@ -208,7 +200,7 @@ function useContractTypeAndPublishMetadata(
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.typeAndPublishMetadata(contractAddress),
     () =>
       fetchContractTypeAndPublishMetadata(queryClient, contractAddress, sdk),
@@ -245,7 +237,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>) {
   ) {
     return {
       ...contractTypeAndPublishMetadata,
-      contract: null,
+      contract: undefined,
     };
   }
 
@@ -274,15 +266,13 @@ export function useContractMetadata(
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
-  const activeChainId = useActiveChainId();
-  return useQueryWithNetwork(
+
+  return useQuery(
     cacheKeys.contract.metadata(contractAddress),
     async () => {
       const typeAndPublishMetadata = await queryClient.fetchQuery(
-        createCacheKeyWithNetwork(
-          cacheKeys.contract.typeAndPublishMetadata(contractAddress),
-          activeChainId,
-        ),
+        cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+
         () =>
           fetchContractTypeAndPublishMetadata(
             queryClient,
@@ -314,15 +304,13 @@ export function useContractFunctions(
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
-  const activeChainId = useActiveChainId();
-  return useQueryWithNetwork(
+
+  return useQuery(
     cacheKeys.contract.extractFunctions(contractAddress),
     async () => {
       const typeAndPublishMetadata = await queryClient.fetchQuery(
-        createCacheKeyWithNetwork(
-          cacheKeys.contract.typeAndPublishMetadata(contractAddress),
-          activeChainId,
-        ),
+        cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+
         () =>
           fetchContractTypeAndPublishMetadata(
             queryClient,
@@ -340,7 +328,7 @@ export function useContractFunctions(
       if (contract instanceof SmartContract) {
         return contract.publishedMetadata.extractFunctions();
       }
-      return null;
+      return undefined;
     },
     {
       enabled: !!contractAddress || !!sdk,

@@ -1,21 +1,17 @@
-import { useActiveChainId } from "../../Provider";
-import { BuyNowParams, MakeBidParams, RequiredParam } from "../../types";
 import {
   cacheKeys,
   invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { useAddress } from "../useAddress";
-import type {
+} from "../../query-cache/cache-keys";
+import { BuyNowParams, MakeBidParams, RequiredParam } from "../../types/types";
+import {
+  ListingType,
   Marketplace,
   MarketplaceFilter,
   NewAuctionListing,
   NewDirectListing,
-} from "@thirdweb-dev/sdk/dist/browser";
-// eslint-disable-next-line no-duplicate-imports
-import { ListingType } from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 import { BigNumber, BigNumberish } from "ethers";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
@@ -40,7 +36,7 @@ export function useListing(
   listingId: RequiredParam<BigNumberish>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.marketplace.getListing(contractAddress, listingId),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -71,7 +67,7 @@ export function useListings(
   filter?: MarketplaceFilter,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.marketplace.getAllListings(contractAddress, filter),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -102,7 +98,7 @@ export function useActiveListings(
   filter?: MarketplaceFilter,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.marketplace.getActiveListings(contractAddress, filter),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -134,7 +130,7 @@ export function useWinningBid(
   listingId: RequiredParam<BigNumberish>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.marketplace.auction.getWinningBid(
       contractAddress,
       listingId,
@@ -167,7 +163,7 @@ export function useAuctionWinner(
   listingId: RequiredParam<BigNumberish>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.marketplace.auction.getWinner(
       contractAddress,
       listingId,
@@ -207,7 +203,7 @@ export function useAuctionWinner(
  */
 export function useBidBuffer(contract: RequiredParam<Marketplace>) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.marketplace.getBidBufferBps(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -255,13 +251,11 @@ export function useBidBuffer(contract: RequiredParam<Marketplace>) {
  * @beta
  */
 export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
-  const walletAddress = useAddress();
+
   return useMutation(
     async (data: NewDirectListing) => {
-      invariant(walletAddress, "no wallet connected, cannot create listing");
       invariant(
         contract?.direct?.createListing,
         "contract does not support direct.createListing",
@@ -270,11 +264,7 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -311,13 +301,11 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
  * @beta
  */
 export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
-  const walletAddress = useAddress();
+
   return useMutation(
     async (data: NewAuctionListing) => {
-      invariant(walletAddress, "no wallet connected, cannot create listing");
       invariant(
         contract?.direct?.createListing,
         "contract does not support auction.createListing",
@@ -326,11 +314,7 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -367,13 +351,11 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
  * @beta
  */
 export function useMakeBid(contract: RequiredParam<Marketplace>) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
-  const walletAddress = useAddress();
+
   return useMutation(
     async (data: MakeBidParams) => {
-      invariant(walletAddress, "no wallet connected, cannot make bid");
       invariant(
         contract?.auction?.makeBid,
         "contract does not support auction.makeBid",
@@ -382,11 +364,7 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -423,13 +401,11 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
  * @beta
  */
 export function useBuyNow(contract: RequiredParam<Marketplace>) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
-  const walletAddress = useAddress();
+
   return useMutation(
     async (data: BuyNowParams) => {
-      invariant(walletAddress, "no wallet connected, cannot make bid");
       if (data.type === ListingType.Direct) {
         invariant(
           contract?.direct.buyoutListing,
@@ -450,11 +426,7 @@ export function useBuyNow(contract: RequiredParam<Marketplace>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }

@@ -22,11 +22,11 @@ export declare function useMintToken(contract: RequiredParam<Erc20>): import("re
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&gt; | an instace of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec) |
+|  contract | RequiredParam&lt;Erc20&gt; | an instace of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec) |
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [TokenMintParams](./react.tokenmintparams.md)<!-- -->, unknown&gt;
+import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, TokenMintParams, unknown&gt;
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 

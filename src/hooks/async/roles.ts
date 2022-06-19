@@ -1,10 +1,8 @@
-import { useActiveChainId } from "../../Provider";
-import { RequiredParam, WalletAddress } from "../../types";
 import {
   cacheKeys,
   invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+} from "../../query-cache/cache-keys";
+import { RequiredParam, WalletAddress } from "../../types/types";
 import type {
   Multiwrap,
   Role,
@@ -12,9 +10,9 @@ import type {
   Split,
   ValidContractInstance,
   Vote,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 import { constants } from "ethers";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
@@ -63,7 +61,7 @@ export function useAllRoleMembers<TContract extends ContractWithRoles>(
   contract: RequiredParam<TContract>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork<Awaited<GetAllReturnType<TContract>>>(
+  return useQuery<Awaited<GetAllReturnType<TContract>>>(
     cacheKeys.extensions.roles.getAll(contractAddress),
     () => {
       invariant(contract, "No contract provided");
@@ -95,7 +93,7 @@ export function useRoleMembers<TContract extends ContractWithRoles>(
   role: RolesForContract<TContract>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.extensions.roles.get(contractAddress, role),
     () => {
       invariant(contract, "No contract provided");
@@ -186,7 +184,6 @@ export function useIsAddressRole<TContract extends ContractWithRoles>(
 export function useSetAllRoleMembers<TContract extends ContractWithRoles>(
   contract: RequiredParam<TContract>,
 ) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
@@ -200,11 +197,7 @@ export function useSetAllRoleMembers<TContract extends ContractWithRoles>(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -245,7 +238,6 @@ export function useSetAllRoleMembers<TContract extends ContractWithRoles>(
 export function useGrantRole<TContract extends ContractWithRoles>(
   contract: RequiredParam<TContract>,
 ) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
@@ -260,11 +252,7 @@ export function useGrantRole<TContract extends ContractWithRoles>(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -303,7 +291,6 @@ export function useGrantRole<TContract extends ContractWithRoles>(
 export function useRevokeRole<TContract extends ContractWithRoles>(
   contract: RequiredParam<TContract>,
 ) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
   return useMutation(
@@ -317,11 +304,7 @@ export function useRevokeRole<TContract extends ContractWithRoles>(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }

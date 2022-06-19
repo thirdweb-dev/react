@@ -14,7 +14,7 @@ export declare function useClaimedNFTSupply(contract: RequiredParam<DropContract
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt; | an instace of a [DropContract](./react.dropcontract.md) |
+|  contract | RequiredParam&lt;DropContract&gt; | an instace of a  |
 
 <b>Returns:</b>
 

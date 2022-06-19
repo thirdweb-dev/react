@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get a the number of tokens in your [NFTContract](./react.nftcontract.md)<!-- -->.
+Use this to get a the number of tokens in your .
 
 <b>Signature:</b>
 
@@ -19,7 +19,7 @@ export declare function useTotalCount(contract: RequiredParam<NFTContract>): imp
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[NFTContract](./react.nftcontract.md)<!-- -->&gt; | an instace of a [NFTContract](./react.nftcontract.md) |
+|  contract | RequiredParam&lt;NFTContract&gt; | an instace of a  |
 
 <b>Returns:</b>
 

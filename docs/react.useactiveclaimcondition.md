@@ -17,11 +17,11 @@ export declare function useActiveClaimCondition<TContract extends NFTDrop | Edit
         address: string;
         maxClaimable: string;
     }[] | undefined;
-    quantityLimitPerTransaction: string;
     startTime: Date;
-    price: import("ethers").BigNumber;
     currencyAddress: string;
+    price: import("ethers").BigNumber;
     maxQuantity: string;
+    quantityLimitPerTransaction: string;
     waitInSeconds: import("ethers").BigNumber;
     merkleRootHash: string | number[];
     availableSupply: string;
@@ -44,7 +44,7 @@ export declare function useActiveClaimCondition<TContract extends NFTDrop | Edit
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ snapshot?: { address: string; maxClaimable: string; }\[\] \| undefined; quantityLimitPerTransaction: string; startTime: Date; price: import("ethers").BigNumber; currencyAddress: string; maxQuantity: string; waitInSeconds: import("ethers").BigNumber; merkleRootHash: string \| number\[\]; availableSupply: string; currentMintSupply: string; currencyMetadata: { symbol: string; value: import("ethers").BigNumber; name: string; decimals: number; displayValue: string; }; }, unknown&gt;
+import("react-query").UseQueryResult&lt;{ snapshot?: { address: string; maxClaimable: string; }\[\] \| undefined; startTime: Date; currencyAddress: string; price: import("ethers").BigNumber; maxQuantity: string; quantityLimitPerTransaction: string; waitInSeconds: import("ethers").BigNumber; merkleRootHash: string \| number\[\]; availableSupply: string; currentMintSupply: string; currencyMetadata: { symbol: string; value: import("ethers").BigNumber; name: string; decimals: number; displayValue: string; }; }, unknown&gt;
 
 a response object with the currently active claim condition
 

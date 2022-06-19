@@ -4,40 +4,17 @@
 
 ## useWalletConnect() function
 
-Hook for connecting to a mobile wallet with Wallet Connect
-
-```javascript
-import { useWalletConnect } from "@thirdweb-dev/react"
-```
-
 <b>Signature:</b>
 
 ```typescript
-export declare function useWalletConnect(): () => Promise<{
-    data?: import("wagmi-core").ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}>;
+export declare function useWalletConnect(): {
+    error: Error | null;
+    isConnected: boolean;
+    isConnecting: boolean;
+    connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
+};
 ```
 <b>Returns:</b>
 
-() =&gt; Promise&lt;{ data?: import("wagmi-core").ConnectorData&lt;any&gt; \| undefined; error?: Error \| undefined; }&gt;
-
-## Example
-
-We can allows user to connect their mobile wallets as follows:
-
-```javascript
-import { useWalletConnect } from "@thirdweb-dev/react"
-
-const App = () => {
-  const connectWithWalletConnect = useWalletConnect()
-
-  return (
-    <button onClick={connectWithWalletConnect}>
-      Connect WalletConnect
-    </button>
-  )
-}
-```
-When users click this button, a popup will appear on the screen prompting them to scan a QR code from their phone to connect their mobile wallets. Once they scan the QR code from a wallet connect supported mobile wallet, their wallet will then be connected to the page as expected.
+{ error: Error \| null; isConnected: boolean; isConnecting: boolean; connect: (chainId?: SUPPORTED\_CHAIN\_ID) =&gt; Promise&lt;void&gt;; }
 

@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to grant a [WalletAddress](./react.walletaddress.md) a specific role on a 
+Use this to grant a  a specific role on a 
 
 <b>Signature:</b>
 
@@ -22,11 +22,11 @@ export declare function useGrantRole<TContract extends ContractWithRoles>(contra
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
+|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;void, unknown, { role: RolesForContract&lt;TContract&gt;; address: [WalletAddress](./react.walletaddress.md)<!-- -->; }, unknown&gt;
+import("react-query").UseMutationResult&lt;void, unknown, { role: RolesForContract&lt;TContract&gt;; address: WalletAddress; }, unknown&gt;
 
 a mutation object that can be used to grant a member of a role on the contract
 

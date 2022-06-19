@@ -1,16 +1,14 @@
-import { useActiveChainId } from "../../Provider";
-import { RequiredParam, WalletAddress } from "../../types";
 import {
   cacheKeys,
   invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+} from "../../query-cache/cache-keys";
+import { RequiredParam, WalletAddress } from "../../types/types";
 import type {
   SmartContract,
   ValidContractInstance,
 } from "@thirdweb-dev/sdk/dist/browser";
 import type { CustomContractMetadata } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 // primary sales
@@ -31,7 +29,7 @@ export function usePrimarySaleRecipient(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.extensions.sales.getRecipient(contractAddress),
     () => {
       invariant(contract, "No contract provided");
@@ -81,7 +79,6 @@ export function useUpdatePrimarySaleRecipient(
 ) {
   const queryClient = useQueryClient();
   const contractAddress = contract?.getAddress();
-  const activeChainId = useActiveChainId();
   return useMutation(
     (newRecipient: WalletAddress) => {
       invariant(contract, "No contract provided");
@@ -93,11 +90,7 @@ export function useUpdatePrimarySaleRecipient(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -122,7 +115,7 @@ export function useRoyaltySettings(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.extensions.royalties.getDefaultRoyaltyInfo(contractAddress),
     () => {
       invariant(contract, "No contract provided");
@@ -172,7 +165,7 @@ export function useUpdateRoyaltySettings(
 ) {
   const queryClient = useQueryClient();
   const contractAddress = contract?.getAddress();
-  const activeChainId = useActiveChainId();
+
   return useMutation(
     (updatePayload: {
       seller_fee_basis_points?: number;
@@ -187,11 +180,7 @@ export function useUpdateRoyaltySettings(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -216,7 +205,7 @@ export function usePlatformFees(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.extensions.platformFees.get(contractAddress),
     () => {
       invariant(contract, "No contract provided");
@@ -265,7 +254,7 @@ export function useUpdatePlatformFees(
 ) {
   const queryClient = useQueryClient();
   const contractAddress = contract?.getAddress();
-  const activeChainId = useActiveChainId();
+
   return useMutation(
     (updatePayload: {
       platform_fee_basis_points?: number;
@@ -280,11 +269,7 @@ export function useUpdatePlatformFees(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -309,7 +294,7 @@ export function useMetadata(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.extensions.metadata.get(contractAddress),
     () => {
       invariant(contract, "No contract provided");
@@ -357,7 +342,7 @@ export function useUpdateMetadata(
 ) {
   const queryClient = useQueryClient();
   const contractAddress = contract?.getAddress();
-  const activeChainId = useActiveChainId();
+
   return useMutation(
     (updatePayload: CustomContractMetadata) => {
       invariant(contract, "No contract provided");
@@ -369,11 +354,7 @@ export function useUpdateMetadata(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }

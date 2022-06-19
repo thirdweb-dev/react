@@ -1,22 +1,20 @@
-import { useActiveChainId } from "../../Provider";
+import {
+  cacheKeys,
+  invalidateContractAndBalances,
+} from "../../query-cache/cache-keys";
 import {
   ClaimNFTParams,
   ClaimNFTReturnType,
   DropContract,
   RequiredParam,
-} from "../../types";
-import {
-  cacheKeys,
-  invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+} from "../../types/types";
 import { useNFTs } from "./nft";
 import {
   Erc1155,
   NFTDrop,
   QueryAllParams,
 } from "@thirdweb-dev/sdk/dist/browser";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
@@ -41,7 +39,7 @@ export function useUnclaimedNFTs(
   queryParams?: QueryAllParams,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.nft.drop.getAllUnclaimed(contractAddress, queryParams),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -83,7 +81,7 @@ export function useClaimedNFTs(
  */
 export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.nft.drop.totalUnclaimedSupply(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -105,7 +103,7 @@ export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
  */
 export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.nft.drop.totalClaimedSupply(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -159,7 +157,6 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
 export function useClaimNFT<TContract extends DropContract>(
   contract: RequiredParam<TContract>,
 ) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
@@ -185,11 +182,7 @@ export function useClaimNFT<TContract extends DropContract>(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }

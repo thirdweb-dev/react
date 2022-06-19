@@ -28,7 +28,7 @@ export declare function useUpdateMetadata(contract: RequiredParam<SmartContract 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
+|  contract | RequiredParam&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 

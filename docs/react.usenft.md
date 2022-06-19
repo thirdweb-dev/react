@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get an individual NFT token of your [NFTContract](./react.nftcontract.md)<!-- -->.
+Use this to get an individual NFT token of your .
 
 <b>Signature:</b>
 
@@ -19,12 +19,12 @@ export declare function useNFT<TContract extends NFTContract>(contract: Required
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instace of a [NFTContract](./react.nftcontract.md) |
-|  tokenId | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;BigNumberish&gt; | the tokenId to look up |
+|  contract | RequiredParam&lt;TContract&gt; | an instace of a  |
+|  tokenId | RequiredParam&lt;BigNumberish&gt; | the tokenId to look up |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;, unknown&gt;
+import("react-query").UseQueryResult&lt;NFT&lt;TContract&gt;, unknown&gt;
 
 a response object that includes the metadata for the given tokenId
 

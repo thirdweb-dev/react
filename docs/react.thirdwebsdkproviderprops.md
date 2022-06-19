@@ -7,14 +7,18 @@
 <b>Signature:</b>
 
 ```typescript
-export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> 
+export interface ThirdwebSDKProviderProps 
 ```
-<b>Extends:</b> Pick&lt;[ThirdwebProviderProps](./react.thirdwebproviderprops.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [provider](./react.thirdwebsdkproviderprops.provider.md) | ChainOrRpc \| SignerOrProvider |  |
+|  [appMetadata?](./react.thirdwebsdkproviderprops.appmetadata.md) | AppMetadata | <i>(Optional)</i> |
+|  [chainId](./react.thirdwebsdkproviderprops.chainid.md) | RequiredParam&lt;ChainOrRpc&gt; |  |
+|  [chainIdToRPCUrlMap?](./react.thirdwebsdkproviderprops.chainidtorpcurlmap.md) | Partial&lt;ChainIDToRpcUrlMap&gt; | <i>(Optional)</i> |
+|  [options?](./react.thirdwebsdkproviderprops.options.md) | SDKOptions | <i>(Optional)</i> |
+|  [queryClient?](./react.thirdwebsdkproviderprops.queryclient.md) | QueryClient | <i>(Optional)</i> |
 |  [signer?](./react.thirdwebsdkproviderprops.signer.md) | Signer | <i>(Optional)</i> |
+|  [storageInterface?](./react.thirdwebsdkproviderprops.storageinterface.md) | IStorage | <i>(Optional)</i> |
 

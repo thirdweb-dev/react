@@ -19,8 +19,8 @@ export declare function useAuctionWinner(contract: RequiredParam<Marketplace>, l
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Marketplace&gt; | an instace of a marketplace contract |
-|  listingId | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;BigNumberish&gt; | the listing id to check |
+|  contract | RequiredParam&lt;Marketplace&gt; | an instace of a marketplace contract |
+|  listingId | RequiredParam&lt;BigNumberish&gt; | the listing id to check |
 
 <b>Returns:</b>
 

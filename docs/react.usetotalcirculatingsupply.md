@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get a the total (minted) supply of your [NFTContract](./react.nftcontract.md)<!-- -->.
+Use this to get a the total (minted) supply of your .
 
 <b>Signature:</b>
 
@@ -19,7 +19,7 @@ export declare function useTotalCirculatingSupply<TContract extends NFTContract>
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  \[contract, tokenId\] | [useTotalCirculatingSupplyParams](./react.usetotalcirculatingsupplyparams.md)<!-- -->&lt;TContract&gt; |  |
+|  \[contract, tokenId\] | useTotalCirculatingSupplyParams&lt;TContract&gt; |  |
 
 <b>Returns:</b>
 

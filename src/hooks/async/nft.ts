@@ -1,4 +1,7 @@
-import { useActiveChainId } from "../../Provider";
+import {
+  cacheKeys,
+  invalidateContractAndBalances,
+} from "../../query-cache/cache-keys";
 import {
   MintNFTParams,
   MintNFTReturnType,
@@ -8,17 +11,10 @@ import {
   WalletAddress,
   useNFTBalanceParams,
   useTotalCirculatingSupplyParams,
-} from "../../types";
-import {
-  cacheKeys,
-  invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
-// eslint-disable-next-line no-duplicate-imports
-import { Erc721, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
+} from "../../types/types";
+import { Erc721, Erc1155, QueryAllParams } from "@thirdweb-dev/sdk";
 import { BigNumber, BigNumberish } from "ethers";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /**
@@ -76,7 +72,7 @@ export function useNFT<TContract extends NFTContract>(
 ) {
   const contractAddress = contract?.getAddress();
 
-  return useQueryWithNetwork<NFT<TContract>>(
+  return useQuery<NFT<TContract>>(
     cacheKeys.contract.nft.get(contractAddress, tokenId),
     async () => {
       invariant(contract, "No Contract instance provided");
@@ -111,7 +107,7 @@ export function useNFTs<TContract extends NFTContract>(
   queryParams?: QueryAllParams,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork<NFT<TContract>[]>(
+  return useQuery<NFT<TContract>[]>(
     cacheKeys.contract.nft.query.all(contractAddress, queryParams),
     async () => {
       invariant(contract, "No Contract instance provided");
@@ -126,7 +122,7 @@ export function useNFTs<TContract extends NFTContract>(
       );
     },
     {
-      enabled: !!contract || !contractAddress,
+      enabled: !!contract && !!contractAddress,
       keepPreviousData: true,
     },
   );
@@ -148,7 +144,7 @@ export function useTotalCirculatingSupply<TContract extends NFTContract>(
   ...[contract, tokenId]: useTotalCirculatingSupplyParams<TContract>
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.nft.query.totalCirculatingSupply(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -189,7 +185,7 @@ export function useTotalCirculatingSupply<TContract extends NFTContract>(
  */
 export function useTotalCount(contract: RequiredParam<NFTContract>) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.nft.query.totalCount(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -230,7 +226,7 @@ export function useOwnedNFTs<TContract extends NFTContract>(
   ownerWalletAddress: RequiredParam<WalletAddress>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork<NFT<TContract>[]>(
+  return useQuery<NFT<TContract>[]>(
     cacheKeys.contract.nft.query.owned.all(contractAddress, ownerWalletAddress),
     async () => {
       invariant(contract, "No Contract instance provided");
@@ -277,7 +273,7 @@ export function useNFTBalance<TContract extends NFTContract>(
   ...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.nft.balanceOf(
       contractAddress,
       ownerWalletAddress,
@@ -340,7 +336,6 @@ export function useNFTBalance<TContract extends NFTContract>(
 export function useMintNFT<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
 ) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
@@ -363,11 +358,7 @@ export function useMintNFT<TContract extends NFTContract>(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }

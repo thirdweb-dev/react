@@ -1,0 +1,8 @@
+{
+  "main": "dist/thirdweb-dev-react-wagmi-connectors-magic.cjs.js",
+  "module": "dist/thirdweb-dev-react-wagmi-connectors-magic.esm.js",
+  "browser": {
+    "./dist/thirdweb-dev-react-wagmi-connectors-magic.cjs.js": "./dist/thirdweb-dev-react-wagmi-connectors-magic.browser.cjs.js",
+    "./dist/thirdweb-dev-react-wagmi-connectors-magic.esm.js": "./dist/thirdweb-dev-react-wagmi-connectors-magic.browser.esm.js"
+  }
+}

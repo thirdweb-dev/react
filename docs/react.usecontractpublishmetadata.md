@@ -19,7 +19,7 @@ export declare function useContractPublishMetadata(contractAddress: RequiredPara
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[ContractAddress](./react.contractaddress.md)<!-- -->&gt; | the address of the deployed contract |
+|  contractAddress | RequiredParam&lt;ContractAddress&gt; | the address of the deployed contract |
 
 <b>Returns:</b>
 

@@ -22,11 +22,11 @@ export declare function useMakeBid(contract: RequiredParam<Marketplace>): import
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Marketplace&gt; | an instace of a Marketplace contract |
+|  contract | RequiredParam&lt;Marketplace&gt; | an instace of a Marketplace contract |
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [MakeBidParams](./react.makebidparams.md)<!-- -->, unknown&gt;
+import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, MakeBidParams, unknown&gt;
 
 a mutation object that can be used to make a bid on an auction listing
 

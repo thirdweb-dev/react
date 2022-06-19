@@ -1,17 +1,15 @@
-import { useActiveChainId } from "../../Provider";
+import {
+  cacheKeys,
+  invalidateContractAndBalances,
+} from "../../query-cache/cache-keys";
 import {
   ClaimTokenParams,
   RequiredParam,
   TokenMintParams,
   WalletAddress,
-} from "../../types";
-import {
-  cacheKeys,
-  invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type { Erc20, TokenDrop } from "@thirdweb-dev/sdk/dist/browser";
-import { useMutation, useQueryClient } from "react-query";
+} from "../../types/types";
+import type { Erc20, TokenDrop } from "@thirdweb-dev/sdk";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
@@ -32,7 +30,7 @@ import invariant from "tiny-invariant";
  */
 export function useTokenSupply(contract: RequiredParam<Erc20>) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.token.totalSupply(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
@@ -61,7 +59,7 @@ export function useTokenBalance(
   walletAddress: RequiredParam<WalletAddress>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKeys.contract.token.balanceOf(contractAddress, walletAddress),
     async () => {
       invariant(contract, "No Contract instance provided");
@@ -110,7 +108,6 @@ export function useTokenBalance(
  * @beta
  */
 export function useMintToken(contract: RequiredParam<Erc20>) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
@@ -122,11 +119,7 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }
@@ -165,7 +158,6 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
 export function useClaimToken<TContract extends TokenDrop>(
   contract: RequiredParam<TContract>,
 ) {
-  const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
@@ -177,11 +169,7 @@ export function useClaimToken<TContract extends TokenDrop>(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(
-          queryClient,
-          contractAddress,
-          activeChainId,
-        ),
+        invalidateContractAndBalances(queryClient, contractAddress),
     },
   );
 }

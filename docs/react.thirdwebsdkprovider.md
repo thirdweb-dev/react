@@ -4,20 +4,8 @@
 
 ## ThirdwebSDKProvider variable
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
-A barebones wrapper around the Thirdweb SDK.
-
-You can use this in order to be able to pass a provider &amp; signer directly to the SDK.
-
 <b>Signature:</b>
 
 ```typescript
 ThirdwebSDKProvider: React.FC<React.PropsWithChildren<ThirdwebSDKProviderProps>>
 ```
-
-## Remarks
-
-Utilizing this provider will mean hooks for wallet management are not available, if you need those please use the [ThirdwebProvider](./react.thirdwebprovider.md) instead.
-
