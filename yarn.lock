@@ -1749,7 +1749,7 @@
   integrity sha512-hm6qK5GSp776ctXV3NeA6jvHHfkolJjTLXQ/ed9gZVBLVD5Bl1ofLRZ30wG3lf8eMMxFoJCEqOsoQlB95M+qOw==
 
 "@thirdweb-dev/sdk@file:.yalc/@thirdweb-dev/sdk":
-  version "2.3.14"
+  version "2.3.15-1"
   dependencies:
     "@thirdweb-dev/contracts" "2.3.15-0"
     "@web-std/file" "^3.0.0"
@@ -3026,7 +3026,7 @@ eslint-plugin-react@^7.30.0:
     semver "^6.3.0"
     string.prototype.matchall "^4.0.7"
 
-eslint-plugin-tsdoc@^0.2.14:
+eslint-plugin-tsdoc@^0.2.16:
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/eslint-plugin-tsdoc/-/eslint-plugin-tsdoc-0.2.16.tgz#a3d31fb9c7955faa3c66a43dd43da7635f1c5e0d"
   integrity sha512-F/RWMnyDQuGlg82vQEFHQtGyWi7++XJKdYNn0ulIbyMOFqYIjoJOUdE6olORxgwgLkpJxsCJpJbTHgxJ/ggfXw==

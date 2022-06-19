@@ -107,6 +107,7 @@ module.exports = {
     "inclusive-language",
     "react",
     "react-hooks",
+    "eslint-plugin-tsdoc",
   ],
   parserOptions: {
     ecmaVersion: 2019,
