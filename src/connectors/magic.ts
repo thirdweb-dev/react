@@ -51,7 +51,7 @@ export class MagicConnector extends Connector {
   }
 
   async connect(isAutoConnect?: true) {
-    const { apiKey } = this.options;
+    const { apiKey, doNotAutoConnect, rpcUrls, ...options } = this.options;
     const configuration = this.getConfiguration();
 
     try {
@@ -64,7 +64,7 @@ export class MagicConnector extends Connector {
       }
 
       return import("magic-sdk").then(async (m) => {
-        this.magic = new m.Magic(apiKey);
+        this.magic = new m.Magic(apiKey, options);
 
         await this.magic.auth.loginWithMagicLink(configuration);
         const provider = this.getProvider();

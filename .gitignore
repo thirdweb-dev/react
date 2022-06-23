@@ -6,3 +6,5 @@ temp/
 .swc/
 *.log
 .DS_Store
+# jns shenanigans
+old_src/

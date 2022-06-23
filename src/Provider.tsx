@@ -250,8 +250,10 @@ export const ThirdwebProvider = <
     return _supporrtedChains.reduce((prev, curr) => {
       prev[curr.id] =
         curr.id in chainRpc
-          ? chainRpc[curr.id as keyof ChainRpc<TSupportedChain>] ||
-            curr.rpcUrls[0]
+          ? (getProviderForNetwork(
+              chainRpc[curr.id as keyof ChainRpc<TSupportedChain>] ||
+                curr.rpcUrls[0],
+            ) as string)
           : curr.rpcUrls[0];
       return prev;
     }, {} as Record<number, string>);
