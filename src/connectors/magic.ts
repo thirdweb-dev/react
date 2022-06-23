@@ -16,6 +16,8 @@ export interface MagicConnectorArguments
 
 const __IS_SERVER__ = typeof window === "undefined";
 
+const LOCAL_STORAGE_KEY = "--magic-link:configuration";
+
 export class MagicConnector extends Connector {
   readonly id = "magic";
   readonly name = "Magic";
@@ -30,7 +32,7 @@ export class MagicConnector extends Connector {
       return undefined;
     }
 
-    const config = window.localStorage.getItem("-magic-link:configuration");
+    const config = window.localStorage.getItem(LOCAL_STORAGE_KEY);
     if (config) {
       this.configuration = JSON.parse(config);
     }
@@ -175,12 +177,12 @@ export class MagicConnector extends Connector {
     if (configuration) {
       this.configuration = configuration;
       window.localStorage.setItem(
-        "-magic-link:configuration",
+        LOCAL_STORAGE_KEY,
         JSON.stringify(configuration),
       );
     } else {
       this.configuration = undefined;
-      window.localStorage.removeItem("-magic-link:configuration");
+      window.localStorage.removeItem(LOCAL_STORAGE_KEY);
     }
   }
 }
