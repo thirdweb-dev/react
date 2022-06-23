@@ -1,6 +1,10 @@
 import { useActiveChainId, useSDK } from "../../Provider";
 import { ContractAddress, RequiredParam } from "../../types";
-import { cacheKeys, createCacheKeyWithNetwork } from "../../utils/cache-keys";
+import {
+  cacheKeys,
+  createCacheKeyWithNetwork,
+  createContractCacheKey,
+} from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { ThirdwebSDK } from "@thirdweb-dev/sdk/dist/browser";
 // eslint-disable-next-line no-duplicate-imports
@@ -9,7 +13,7 @@ import type {
   CustomContractMetadata,
   PublishedMetadata,
 } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
-import { QueryClient, useQueryClient } from "react-query";
+import { QueryClient, useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 async function fetchContractType(
@@ -346,6 +350,50 @@ export function useContractFunctions(
       enabled: !!contractAddress || !!sdk,
       // functions are based on publish metadata (abi), so this is immutable
       staleTime: Infinity,
+    },
+  );
+}
+
+export function useContractData(
+  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  functionName: RequiredParam<string>,
+  ...args: unknown[]
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.call(contractAddress, functionName, args),
+    () => {
+      invariant(contract, "contract must be defined");
+      invariant(functionName, "function name must be provided");
+      return contract.call(functionName, ...args);
+    },
+    {
+      enabled: !!contract || !!functionName,
+    },
+  );
+}
+
+export function useContractCall(
+  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (functionName: RequiredParam<string>, ...args: unknown[]) => {
+      invariant(contract, "contract must be defined");
+      invariant(functionName, "function name must be provided");
+      return contract.call(functionName, ...args);
+    },
+    {
+      onSettled: () =>
+        queryClient.invalidateQueries(
+          createCacheKeyWithNetwork(
+            createContractCacheKey(contractAddress),
+            activeChainId,
+          ),
+        ),
     },
   );
 }
