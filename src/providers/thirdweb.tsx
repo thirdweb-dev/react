@@ -1,6 +1,7 @@
+import { defaultChains } from "../costants/chains";
 import { ThirdwebSDKProvider, ThirdwebSDKProviderProps } from "./thirdweb-sdk";
 import { defaultRPCMap, getReadOnlyProvider } from "@thirdweb-dev/sdk";
-import { InjectedConnector } from "@wagmi/core";
+import { Chain, InjectedConnector } from "@wagmi/core";
 import { getDefaultProvider, providers } from "ethers";
 import React, { useMemo } from "react";
 import {
@@ -22,16 +23,32 @@ const DEFAULT_WAGMI_CONFIG: CreateClientConfig<
 };
 
 interface ThirdweProviderProps
-  extends Omit<ThirdwebSDKProviderProps, "signer" | "queryClient"> {
+  extends Omit<
+    ThirdwebSDKProviderProps,
+    "signer" | "queryClient" | "chainIdToRPCUrlMap"
+  > {
+  supportedChains?: Chain[];
   wagmiClient?: ReturnType<typeof createClient>;
 }
 
 export const ThirdwebProvider: React.FC<
   React.PropsWithChildren<ThirdweProviderProps>
-> = ({ children, wagmiClient, chainIdToRPCUrlMap, ...restProps }) => {
+> = ({
+  children,
+  wagmiClient,
+  supportedChains = defaultChains,
+  ...restProps
+}) => {
   const mergedRPCMap = useMemo(() => {
-    return { ...defaultRPCMap, ...chainIdToRPCUrlMap };
-  }, [chainIdToRPCUrlMap]);
+    return {
+      ...defaultRPCMap,
+      // turn the supportedChains into a map of chainId to rpcUrl
+      ...supportedChains.reduce((acc, curr) => {
+        acc[curr.id] = curr.rpcUrls.default;
+        return acc;
+      }, {} as Record<number, string>),
+    };
+  }, [supportedChains]);
 
   // use the passed-in wagmi client or create a new one with the default config
   const client = useMemo(() => {
@@ -60,10 +77,7 @@ export const ThirdwebProvider: React.FC<
 
   return (
     <WagmiConfig client={client}>
-      <ThirdwebWagmiEnhancer
-        {...restProps}
-        chainIdToRPCUrlMap={chainIdToRPCUrlMap}
-      >
+      <ThirdwebWagmiEnhancer {...restProps} chainIdToRPCUrlMap={mergedRPCMap}>
         {children}
       </ThirdwebWagmiEnhancer>
     </WagmiConfig>
@@ -71,7 +85,9 @@ export const ThirdwebProvider: React.FC<
 };
 
 const ThirdwebWagmiEnhancer: React.FC<
-  React.PropsWithChildren<Omit<ThirdweProviderProps, "wagmiClient">>
+  React.PropsWithChildren<
+    Omit<ThirdwebSDKProviderProps, "signer" | "queryClient">
+  >
 > = ({ children, chainId, ...restProps }) => {
   const { data: signer } = useSigner();
   const { activeChain } = useNetwork();

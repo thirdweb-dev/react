@@ -1,6 +1,6 @@
 import { RequiredParam } from "../types/types";
 import {
-  ChainOrRpc,
+  ChainIdOrName,
   IStorage,
   SDKOptions,
   SUPPORTED_CHAIN_ID,
@@ -36,7 +36,7 @@ const ThirdwebConfigContext = createContext<ThirdwebConfigContext>({
 });
 
 export interface ThirdwebSDKProviderProps {
-  readonly chainId: RequiredParam<ChainOrRpc>;
+  readonly chainId: RequiredParam<ChainIdOrName>;
   readonly chainIdToRPCUrlMap?: Partial<ChainIDToRpcUrlMap>;
   readonly options?: SDKOptions;
   readonly storageInterface?: IStorage;
@@ -84,8 +84,17 @@ export const ThirdwebSDKProvider: React.FC<
   // setup the SDK instance
   const sdk = useMemo(() => {
     if (chainId) {
-      // if we already have a signer we'll pass it in from the getgo, but it is not required here
-      return new ThirdwebSDK(chainId, signer, mergedOptions, storageInterface);
+      // if we already have a signer we'll immediately construct the SDK from signer
+      if (signer) {
+        return ThirdwebSDK.fromSigner(
+          signer,
+          chainId,
+          mergedOptions,
+          storageInterface,
+        );
+      }
+      // if we do not have a signer, no problem, start out as read-only
+      return new ThirdwebSDK(chainId, mergedOptions, storageInterface);
     }
     return undefined;
     // we're ignoring the signer on purpose here, signer gets connected and disconnected below

@@ -10,7 +10,8 @@ import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import type { BytesLike } from 'ethers';
-import { ChainOrRpc } from '@thirdweb-dev/sdk';
+import { Chain } from '@wagmi/core';
+import { ChainIdOrName } from '@thirdweb-dev/sdk';
 import { ClaimEligibility } from '@thirdweb-dev/sdk/dist/browser';
 import { ContractForContractType } from '@thirdweb-dev/sdk/dist/browser';
 import { ContractType } from '@thirdweb-dev/sdk/dist/browser';
@@ -105,7 +106,7 @@ export interface ThirdwebSDKProviderProps {
     // Warning: (ae-forgotten-export) The symbol "RequiredParam" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
     //
     // (undocumented)
-    readonly chainId: RequiredParam<ChainOrRpc>;
+    readonly chainId: RequiredParam<ChainIdOrName>;
     // Warning: (ae-forgotten-export) The symbol "ChainIDToRpcUrlMap" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
     //
     // (undocumented)

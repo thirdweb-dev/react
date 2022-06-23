@@ -1,27 +1,85 @@
-import {
-  ChainId,
-  NATIVE_TOKENS,
-  SUPPORTED_CHAIN_ID,
-  defaultRPCMap,
-} from "@thirdweb-dev/sdk";
+import { ChainId, NATIVE_TOKENS, defaultRPCMap } from "@thirdweb-dev/sdk";
 import { Chain, chain } from "@wagmi/core";
 
-export const defaultChains: Record<SUPPORTED_CHAIN_ID, Chain> = {
+export const defaultChains: readonly Chain[] = [
   // eth
-  [ChainId.Mainnet]: chain.mainnet,
-  [ChainId.Rinkeby]: chain.rinkeby,
-  [ChainId.Goerli]: chain.goerli,
+  {
+    ...chain.mainnet,
+    id: ChainId.Mainnet,
+    rpcUrls: {
+      ...chain.mainnet.rpcUrls,
+      default: defaultRPCMap[ChainId.Mainnet],
+    },
+  },
+  {
+    ...chain.rinkeby,
+    id: ChainId.Rinkeby,
+    rpcUrls: {
+      ...chain.rinkeby.rpcUrls,
+      default: defaultRPCMap[ChainId.Rinkeby],
+    },
+  },
+  {
+    ...chain.goerli,
+    id: ChainId.Goerli,
+    rpcUrls: {
+      ...chain.goerli.rpcUrls,
+      default: defaultRPCMap[ChainId.Goerli],
+    },
+  },
   // polygon
-  [ChainId.Polygon]: chain.polygon,
-  [ChainId.Mumbai]: chain.polygonMumbai,
+  {
+    ...chain.polygon,
+    id: ChainId.Polygon,
+    rpcUrls: {
+      ...chain.polygon.rpcUrls,
+      default: defaultRPCMap[ChainId.Polygon],
+    },
+  },
+  {
+    ...chain.polygonMumbai,
+    id: ChainId.Mumbai,
+    rpcUrls: {
+      ...chain.polygonMumbai.rpcUrls,
+      default: defaultRPCMap[ChainId.Mumbai],
+    },
+  },
   // optimism
-  [ChainId.Optimism]: chain.optimism,
-  [ChainId.OptimismTestnet]: chain.optimismKovan,
+  {
+    ...chain.optimism,
+    id: ChainId.Optimism,
+    rpcUrls: {
+      ...chain.optimism.rpcUrls,
+      default: defaultRPCMap[ChainId.Optimism],
+    },
+  },
+  {
+    ...chain.optimismKovan,
+    id: ChainId.OptimismTestnet,
+    rpcUrls: {
+      ...chain.optimismKovan.rpcUrls,
+      default: defaultRPCMap[ChainId.OptimismTestnet],
+    },
+  },
   // arbitrum
-  [ChainId.Arbitrum]: chain.arbitrum,
-  [ChainId.ArbitrumTestnet]: chain.arbitrumRinkeby,
+  {
+    ...chain.arbitrum,
+    id: ChainId.Arbitrum,
+    rpcUrls: {
+      ...chain.arbitrum.rpcUrls,
+      default: defaultRPCMap[ChainId.Arbitrum],
+    },
+  },
+  {
+    ...chain.arbitrumRinkeby,
+    id: ChainId.ArbitrumTestnet,
+    rpcUrls: {
+      ...chain.arbitrumRinkeby.rpcUrls,
+      default: defaultRPCMap[ChainId.ArbitrumTestnet],
+    },
+  },
   // fantom
-  [ChainId.Fantom]: {
+  {
     id: ChainId.Fantom,
     name: "Fantom",
     network: "fantom",
@@ -36,7 +94,7 @@ export const defaultChains: Record<SUPPORTED_CHAIN_ID, Chain> = {
       },
     },
   },
-  [ChainId.FantomTestnet]: {
+  {
     id: ChainId.FantomTestnet,
     name: "Fantom Testnet",
     network: "fantom-testnet",
@@ -53,7 +111,7 @@ export const defaultChains: Record<SUPPORTED_CHAIN_ID, Chain> = {
     testnet: true,
   },
   // avalanche
-  [ChainId.Avalanche]: {
+  {
     id: ChainId.Avalanche,
     name: "Avalanche",
     network: "avax-c-chain",
@@ -68,7 +126,7 @@ export const defaultChains: Record<SUPPORTED_CHAIN_ID, Chain> = {
       },
     },
   },
-  [ChainId.AvalancheFujiTestnet]: {
+  {
     id: ChainId.AvalancheFujiTestnet,
     name: "Avalanche Fuji Testnet",
     network: "avax-c-chain-testnet",
@@ -83,4 +141,4 @@ export const defaultChains: Record<SUPPORTED_CHAIN_ID, Chain> = {
       },
     },
   },
-};
+];

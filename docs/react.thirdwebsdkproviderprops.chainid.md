@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-readonly chainId: RequiredParam<ChainOrRpc>;
+readonly chainId: RequiredParam<ChainIdOrName>;
 ```
