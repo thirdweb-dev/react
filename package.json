@@ -21,12 +21,12 @@
       "default": "./dist/thirdweb-dev-react.cjs.js"
     },
     "./connectors/gnosis": {
-      "module": "./connectors/gnosis/dist/thirdweb-dev-react-wagmi-connectors-gnosis.esm.js",
-      "default": "./connectors/gnosis/dist/thirdweb-dev-react-wagmi-connectors-gnosis.cjs.js"
+      "module": "./wagmi-connectors/gnosis/dist/thirdweb-dev-react-wagmi-connectors-gnosis.esm.js",
+      "default": "./wagmi-connectors/gnosis/dist/thirdweb-dev-react-wagmi-connectors-gnosis.cjs.js"
     },
     "./connectors/magic": {
-      "module": "./connectors/magic/dist/thirdweb-dev-react-wagmi-connectors-magic.esm.js",
-      "default": "./connectors/magic/dist/thirdweb-dev-react-wagmi-connectors-magic.cjs.js"
+      "module": "./wagmi-connectors/magic/dist/thirdweb-dev-react-wagmi-connectors-magic.esm.js",
+      "default": "./wagmi-connectors/magic/dist/thirdweb-dev-react-wagmi-connectors-magic.cjs.js"
     }
   },
   "files": [
@@ -50,7 +50,7 @@
     "entrypoints": [
       "index.ts",
       "wagmi-connectors/gnosis.ts",
-      "wagmi-connectors/magic.ts"
+      "wagmi-connectors/magic/index.ts"
     ]
   },
   "devDependencies": {
@@ -80,7 +80,10 @@
     "prettier": "^2.5.1",
     "react": "^18.1.0",
     "typescript": "^4.6.2",
-    "wagmi": "^0.4.12"
+    "wagmi": "^0.4.12",
+    "magic-sdk": "^8.1.1",
+    "@magic-ext/oauth": "^2.1.1",
+    "@magic-sdk/provider": "^8.1.1"
   },
   "dependencies": {
     "@wagmi/core": "^0.3.8",
@@ -91,10 +94,22 @@
     "@thirdweb-dev/sdk": "^2.3.7",
     "ethers": ">=5.5.1",
     "react": ">=17.0.0",
-    "wagmi": "^0.4.12"
+    "wagmi": "^0.4.12",
+    "magic-sdk": "^8.1.1",
+    "@magic-ext/oauth": "^2.1.1",
+    "@magic-sdk/provider": "^8.1.1"
   },
   "peerDependenciesMeta": {
     "wagmi": {
+      "optional": true
+    },
+    "magic-sdk": {
+      "optional": true
+    },
+    "@magic-ext/oauth": {
+      "optional": true
+    },
+    "@magic-sdk/provider": {
       "optional": true
     }
   },
