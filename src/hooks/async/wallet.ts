@@ -2,6 +2,7 @@ import { SupportedChainId } from "../../constants/chain";
 import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
 import { ContractAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
+import { useAddress } from "../useAddress";
 import { useChainId } from "../useChainId";
 import { useSigner } from "../useSigner";
 import { UserWallet } from "@thirdweb-dev/sdk/dist/browser";
@@ -19,6 +20,7 @@ export function useBalance(tokenAddress?: ContractAddress) {
   const { rpcUrlMap } = useThirdwebConfigContext();
   const chainId = useChainId() as SupportedChainId;
   const signer = useSigner();
+  const walletAddress = useAddress();
 
   const walletSDK = useMemo(() => {
     if (signer) {
@@ -31,9 +33,6 @@ export function useBalance(tokenAddress?: ContractAddress) {
     }
     return undefined;
   }, [signer, chainId]);
-
-  // this is ugly but it works
-  const walletAddress = (walletSDK as any)?.connection?.signer?._address;
 
   const cacheKey = useMemo(() => {
     return cacheKeys.wallet.balance(chainId, walletAddress, tokenAddress);
