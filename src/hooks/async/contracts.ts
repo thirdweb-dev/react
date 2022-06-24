@@ -13,6 +13,7 @@ import type {
   CustomContractMetadata,
   PublishedMetadata,
 } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
+import { CallOverrides } from "ethers";
 import { QueryClient, useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -354,10 +355,26 @@ export function useContractFunctions(
   );
 }
 
+/**
+ * Use this to get data from a contract read-function call.
+ *
+ * @example
+ * ```javascript
+ * const { contract } = useContract("{{contract_address}}");
+ * const { data, isLoading, error } = useContractData(contract, "functionName", ...args);
+ *```
+ *
+ * @param contract - the contract instance of the contract to call a function on
+ * @param functionName - the name of the function to call
+ * @param args - The arguments to pass to the function (if any), with optional call arguments as the last parameter
+ * @returns a response object that includes the data returned by the function call
+ *
+ * @beta
+ */
 export function useContractData(
   contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
   functionName: RequiredParam<string>,
-  ...args: unknown[]
+  ...args: unknown[] | [...unknown[], CallOverrides]
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -373,15 +390,34 @@ export function useContractData(
   );
 }
 
+/**
+ * Use this to get a function to make a write call to your contract
+ *
+ * @example
+ * ```javascript
+ * const { contract } = useContract("{{contract_address}}");
+ * const { mutate: myFunction, isLoading, error } = useContractCall(contract, "myFunction");
+ *
+ * // the function can be called as follows:
+ * // myFunction(...args)
+ *```
+ *
+ * @param contract - the contract instance of the contract to call a function on
+ * @param functionName - the name of the function to call
+ * @returns a response object that includes the write function to call
+ *
+ * @beta
+ */
 export function useContractCall(
   contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  functionName: RequiredParam<string>,
 ) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (functionName: RequiredParam<string>, ...args: unknown[]) => {
+    async (...args: unknown[] | [...unknown[], CallOverrides]) => {
       invariant(contract, "contract must be defined");
       invariant(functionName, "function name must be provided");
       return contract.call(functionName, ...args);
