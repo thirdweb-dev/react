@@ -10,6 +10,7 @@ import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import type { BytesLike } from 'ethers';
+import { CallOverrides } from 'ethers';
 import { Chain } from './types';
 import { ChainId } from '@thirdweb-dev/sdk/dist/browser';
 import { ChainOrRpc } from '@thirdweb-dev/sdk/dist/browser';
@@ -774,6 +775,12 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     remove: () => void;
     fetchStatus: FetchStatus;
 };
+
+// @beta
+export function useContractCall(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>): UseMutationResult<any, unknown, unknown, unknown>;
+
+// @beta
+export function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): UseQueryResult<any, unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useContractFunctions" should be prefixed with an underscore because the declaration is marked as @internal
 //

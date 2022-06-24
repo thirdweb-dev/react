@@ -37,6 +37,8 @@ import { useCoinbaseWallet } from "@thirdweb-dev/react"
 ```
  |
 |  [useContract(contractAddress)](./react.usecontract.md) | <b><i>(BETA)</i></b> Use this resolve a contract address to a thirdweb (built-in / custom) contract instance. |
+|  [useContractCall(contract, functionName)](./react.usecontractcall.md) | <b><i>(BETA)</i></b> Use this to get a function to make a write call to your contract |
+|  [useContractData(contract, functionName, args)](./react.usecontractdata.md) | <b><i>(BETA)</i></b> Use this to get data from a contract read-function call. |
 |  [useContractMetadata(contractAddress)](./react.usecontractmetadata.md) | <b><i>(BETA)</i></b> Use this to get the contract metadata for a (built-in or custom) contract. |
 |  [useContractPublishMetadata(contractAddress)](./react.usecontractpublishmetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
 |  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
