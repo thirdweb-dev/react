@@ -385,7 +385,7 @@ export function useContractData(
       return contract.call(functionName, ...args);
     },
     {
-      enabled: !!contract || !!functionName,
+      enabled: !!contract && !!functionName,
     },
   );
 }
