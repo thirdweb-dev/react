@@ -88,6 +88,11 @@ export const cacheKeys = {
       createContractCacheKey(contractAddress, ["metadata"]),
     extractFunctions: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["extractFunctions"]),
+    call: (
+      contractAddress: RequiredParam<ContractAddress>,
+      functionName: RequiredParam<string>,
+      args: unknown[],
+    ) => createContractCacheKey(contractAddress, ["call", functionName, args]),
 
     // specific contract types
     nft: {
