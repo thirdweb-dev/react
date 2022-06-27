@@ -539,9 +539,14 @@ export function useContractEvents(
   const contractAddress = contract?.getAddress();
   const queryEnabled = !!contract && !!eventName;
   const queryClient = useQueryClient();
+  const activeChainId = useActiveChainId();
 
   const cacheKey = useMemo(
-    () => cacheKeys.contract.events.getEvents(contractAddress, eventName),
+    () =>
+      createCacheKeyWithNetwork(
+        cacheKeys.contract.events.getAllEvents(contractAddress),
+        activeChainId,
+      ),
     [contractAddress],
   );
   useEffect(() => {
@@ -578,7 +583,7 @@ export function useContractEvents(
     return cleanupListener;
   }, [queryEnabled, options.subscribe, cacheKey, eventName]);
 
-  return useQueryWithNetwork(
+  return useQuery(
     cacheKey,
     () => {
       invariant(contract, "contract must be defined");
