@@ -1,12 +1,28 @@
 import { useSDK } from "../../providers/thirdweb-sdk";
-import { cacheKeys } from "../../query-cache/cache-keys";
+import {
+  cacheKeys,
+  invalidateContractAndBalances,
+} from "../../query-cache/cache-keys";
 import { ContractAddress, RequiredParam } from "../../types/types";
-import { CONTRACTS_MAP, SmartContract, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import {
+  CONTRACTS_MAP,
+  ContractEvent,
+  EventQueryFilter,
+  SmartContract,
+  ThirdwebSDK,
+} from "@thirdweb-dev/sdk";
 import type {
   CustomContractMetadata,
   PublishedMetadata,
 } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
-import { QueryClient, useQuery, useQueryClient } from "react-query";
+import { CallOverrides } from "ethers";
+import { useEffect, useMemo } from "react";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
 import invariant from "tiny-invariant";
 
 async function fetchContractType(
@@ -334,6 +350,224 @@ export function useContractFunctions(
       enabled: !!contractAddress || !!sdk,
       // functions are based on publish metadata (abi), so this is immutable
       staleTime: Infinity,
+    },
+  );
+}
+
+/**
+ * Use this to get data from a contract read-function call.
+ *
+ * @example
+ * ```javascript
+ * const { contract } = useContract("{{contract_address}}");
+ * const { data, isLoading, error } = useContractData(contract, "functionName", ...args);
+ *```
+ *
+ * @param contract - the contract instance of the contract to call a function on
+ * @param functionName - the name of the function to call
+ * @param args - The arguments to pass to the function (if any), with optional call arguments as the last parameter
+ * @returns a response object that includes the data returned by the function call
+ *
+ * @beta
+ */
+export function useContractData(
+  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  functionName: RequiredParam<string>,
+  ...args: unknown[] | [...unknown[], CallOverrides]
+) {
+  const contractAddress = contract?.getAddress();
+  return useQuery(
+    cacheKeys.contract.call(contractAddress, functionName, args),
+    () => {
+      invariant(contract, "contract must be defined");
+      invariant(functionName, "function name must be provided");
+      return contract.call(functionName, ...args);
+    },
+    {
+      enabled: !!contract && !!functionName,
+    },
+  );
+}
+
+/**
+ * Use this to get a function to make a write call to your contract
+ *
+ * @example
+ * ```javascript
+ * const { contract } = useContract("{{contract_address}}");
+ * const { mutate: myFunction, isLoading, error } = useContractCall(contract, "myFunction");
+ *
+ * // the function can be called as follows:
+ * // myFunction(...args)
+ *```
+ *
+ * @param contract - the contract instance of the contract to call a function on
+ * @param functionName - the name of the function to call
+ * @returns a response object that includes the write function to call
+ *
+ * @beta
+ */
+export function useContractCall(
+  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  functionName: RequiredParam<string>,
+) {
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (...args: unknown[] | [...unknown[], CallOverrides]) => {
+      invariant(contract, "contract must be defined");
+      invariant(functionName, "function name must be provided");
+      return contract.call(functionName, ...args);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(queryClient, contractAddress),
+    },
+  );
+}
+
+/**
+ * Use this to query (and subscribe) to all events on a contract.
+ *
+ * @param contract - the contract instance of the contract to call a function on
+ * @param options - options incldues the filters ({@link QueryAllEvents}) for the query as well as if you want to subscribe to real-time updates (default: true)
+ * @returns a response object that includes the contract events
+ * @beta
+ */
+export function useAllContractEvents(
+  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  options: { queryFilter?: EventQueryFilter; subscribe?: boolean } = {
+    subscribe: true,
+  },
+) {
+  const contractAddress = contract?.getAddress();
+  const queryEnabled = !!contract;
+  const queryClient = useQueryClient();
+
+  const cacheKey = useMemo(
+    () => cacheKeys.contract.events.getAllEvents(contractAddress),
+    [contractAddress],
+  );
+  useEffect(() => {
+    // if we're not subscribing or query is not enabled yet we can early exit
+    if (!options.subscribe || !queryEnabled || !contract) {
+      return;
+    }
+
+    const cleanupListener = contract.events.listenToAllEvents(
+      (contractEvent) => {
+        // insert new event to the front of the array (no duplicates, though)
+        queryClient.setQueryData(
+          cacheKey,
+          (oldData: ContractEvent[] | undefined) => {
+            if (!oldData) {
+              return [contractEvent];
+            }
+            const eventIsNotAlreadyInEventsList =
+              oldData.findIndex(
+                (e) =>
+                  e.transaction.transactionHash ===
+                    contractEvent.transaction.transactionHash &&
+                  e.transaction.logIndex === contractEvent.transaction.logIndex,
+              ) === -1;
+            if (eventIsNotAlreadyInEventsList) {
+              return [contractEvent, ...oldData];
+            }
+            return oldData;
+          },
+        );
+      },
+    );
+    // cleanup listener on unmount
+    return cleanupListener;
+  }, [queryEnabled, options.subscribe, cacheKey]);
+
+  return useQuery(
+    cacheKey,
+    () => {
+      invariant(contract, "contract must be defined");
+      return contract.events.getAllEvents(options.queryFilter);
+    },
+    {
+      enabled: queryEnabled,
+      // we do not need to re-fetch if we're subscribing
+      refetchOnWindowFocus: !options.subscribe,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+    },
+  );
+}
+
+/**
+ * Use this to query (and subscribe) to a specific event on a contract.
+ *
+ * @param contract - the contract instance of the contract to call a function on
+ * @param options - options incldues the filters ({@link QueryAllEvents}) for the query as well as if you want to subscribe to real-time updates (default: true)
+ * @returns a response object that includes the contract events
+ * @beta
+ */
+export function useContractEvents(
+  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  eventName: string,
+  options: { queryFilter?: EventQueryFilter; subscribe?: boolean } = {
+    subscribe: true,
+  },
+) {
+  const contractAddress = contract?.getAddress();
+  const queryEnabled = !!contract && !!eventName;
+  const queryClient = useQueryClient();
+
+  const cacheKey = useMemo(
+    () => cacheKeys.contract.events.getAllEvents(contractAddress),
+    [contractAddress],
+  );
+  useEffect(() => {
+    // if we're not subscribing or query is not enabled yet we can early exit
+    if (!options.subscribe || !queryEnabled || !contract || !eventName) {
+      return;
+    }
+
+    const cleanupListener = contract.events.listenToAllEvents(
+      (contractEvent) => {
+        // insert new event to the front of the array (no duplicates, though)
+        queryClient.setQueryData(
+          cacheKey,
+          (oldData: ContractEvent[] | undefined) => {
+            if (!oldData) {
+              return [contractEvent];
+            }
+            const eventIsNotAlreadyInEventsList =
+              oldData.findIndex(
+                (e) =>
+                  e.transaction.transactionHash ===
+                    contractEvent.transaction.transactionHash &&
+                  e.transaction.logIndex === contractEvent.transaction.logIndex,
+              ) === -1;
+            if (eventIsNotAlreadyInEventsList) {
+              return [contractEvent, ...oldData];
+            }
+            return oldData;
+          },
+        );
+      },
+    );
+    // cleanup listener on unmount
+    return cleanupListener;
+  }, [queryEnabled, options.subscribe, cacheKey, eventName]);
+
+  return useQuery(
+    cacheKey,
+    () => {
+      invariant(contract, "contract must be defined");
+      return contract.events.getEvents(eventName, options.queryFilter);
+    },
+    {
+      enabled: queryEnabled,
+      // we do not need to re-fetch if we're subscribing
+      refetchOnWindowFocus: !options.subscribe,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
     },
   );
 }

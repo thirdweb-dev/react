@@ -165,7 +165,11 @@ export function useClaimToken<TContract extends TokenDrop>(
     async (data: ClaimTokenParams) => {
       invariant(data.to, 'No "to" address provided');
       invariant(contract?.claimTo, "contract does not support claimTo");
-      return await contract.claimTo(data.to, data.amount, data.proofs);
+      return await contract.claimTo(
+        data.to,
+        data.amount,
+        data.checkERC20Allowance,
+      );
     },
     {
       onSettled: () =>

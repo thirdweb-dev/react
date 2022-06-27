@@ -2,10 +2,9 @@ import { defaultChains } from "../costants/chains";
 import { ThirdwebSDKProvider, ThirdwebSDKProviderProps } from "./thirdweb-sdk";
 import { defaultRPCMap, getReadOnlyProvider } from "@thirdweb-dev/sdk";
 import { Chain, InjectedConnector } from "@wagmi/core";
-import { getDefaultProvider, providers } from "ethers";
+import { getDefaultProvider } from "ethers";
 import React, { useMemo } from "react";
 import {
-  CreateClientConfig,
   WagmiConfig,
   createClient,
   useClient,
@@ -14,13 +13,6 @@ import {
 } from "wagmi";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-
-const DEFAULT_WAGMI_CONFIG: CreateClientConfig<
-  providers.BaseProvider,
-  providers.WebSocketProvider
-> = {
-  autoConnect: true,
-};
 
 interface ThirdweProviderProps
   extends Omit<
@@ -55,8 +47,9 @@ export const ThirdwebProvider: React.FC<
     if (wagmiClient) {
       return wagmiClient;
     }
+
     return createClient({
-      ...DEFAULT_WAGMI_CONFIG,
+      autoConnect: true,
       // if we have an rpc url for the current chain, use it
       provider: ({ chainId }) =>
         chainId && !!mergedRPCMap[chainId as keyof typeof mergedRPCMap]
@@ -90,12 +83,12 @@ const ThirdwebWagmiEnhancer: React.FC<
   >
 > = ({ children, chainId, ...restProps }) => {
   const { data: signer } = useSigner();
-  const { activeChain } = useNetwork();
+  const { chain } = useNetwork();
   const wagmiClient = useClient();
   return (
     <ThirdwebSDKProvider
       {...restProps}
-      chainId={chainId || activeChain?.id}
+      chainId={chainId || chain?.id}
       signer={signer || undefined}
       queryClient={wagmiClient.queryClient}
     >

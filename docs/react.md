@@ -10,6 +10,7 @@
 |  --- | --- |
 |  [useActiveClaimCondition(\[contract, tokenId\])](./react.useactiveclaimcondition.md) | <b><i>(BETA)</i></b> Use this to get the active claim conditon for ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useActiveListings(contract, filter)](./react.useactivelistings.md) | <b><i>(BETA)</i></b> Use this to get a list active listings from your marketplace contract. |
+|  [useAllContractEvents(contract, options)](./react.useallcontractevents.md) | <b><i>(BETA)</i></b> Use this to query (and subscribe) to all events on a contract. |
 |  [useAllRoleMembers(contract)](./react.useallrolemembers.md) | <b><i>(BETA)</i></b> Use this to get the roles of a  |
 |  [useAuctionWinner(contract, listingId)](./react.useauctionwinner.md) | <b><i>(BETA)</i></b> Use this to get the winner of an auction listing from your marketplace contract. |
 |  [useBidBuffer(contract)](./react.usebidbuffer.md) | <b><i>(BETA)</i></b> Use this to get the buffer in basis points between offers from your marketplace contract. |
@@ -22,6 +23,9 @@
 |  [useClaimToken(contract)](./react.useclaimtoken.md) | <b><i>(BETA)</i></b> Use this to claim tokens on your  |
 |  [useCoinbaseWallet()](./react.usecoinbasewallet.md) |  |
 |  [useContract(contractAddress)](./react.usecontract.md) | <b><i>(BETA)</i></b> Use this resolve a contract address to a thirdweb (built-in / custom) contract instance. |
+|  [useContractCall(contract, functionName)](./react.usecontractcall.md) | <b><i>(BETA)</i></b> Use this to get a function to make a write call to your contract |
+|  [useContractData(contract, functionName, args)](./react.usecontractdata.md) | <b><i>(BETA)</i></b> Use this to get data from a contract read-function call. |
+|  [useContractEvents(contract, eventName, options)](./react.usecontractevents.md) | <b><i>(BETA)</i></b> Use this to query (and subscribe) to a specific event on a contract. |
 |  [useContractMetadata(contractAddress)](./react.usecontractmetadata.md) | <b><i>(BETA)</i></b> Use this to get the contract metadata for a (built-in or custom) contract. |
 |  [useContractPublishMetadata(contractAddress)](./react.usecontractpublishmetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
 |  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |

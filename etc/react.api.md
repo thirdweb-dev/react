@@ -9,10 +9,11 @@ import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
-import type { BytesLike } from 'ethers';
+import { CallOverrides } from 'ethers';
 import { Chain } from '@wagmi/core';
 import { ChainIdOrName } from '@thirdweb-dev/sdk';
 import { ClaimEligibility } from '@thirdweb-dev/sdk/dist/browser';
+import { ContractEvent } from '@thirdweb-dev/sdk';
 import { ContractForContractType } from '@thirdweb-dev/sdk/dist/browser';
 import { ContractType } from '@thirdweb-dev/sdk/dist/browser';
 import { createClient } from 'wagmi';
@@ -24,6 +25,7 @@ import type { Erc1155Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc20 } from '@thirdweb-dev/sdk';
 import type { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc721Mintable } from '@thirdweb-dev/sdk/dist/browser';
+import { EventQueryFilter } from '@thirdweb-dev/sdk';
 import { FetchStatus } from 'react-query';
 import { IStorage } from '@thirdweb-dev/sdk';
 import { Json } from '@thirdweb-dev/sdk/dist/browser';
@@ -150,6 +152,12 @@ displayValue: string;
 // @beta
 export function useActiveListings(contract: RequiredParam<Marketplace_2>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
 
+// @beta
+export function useAllContractEvents(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, options?: {
+    queryFilter?: EventQueryFilter;
+    subscribe?: boolean;
+}): UseQueryResult<ContractEvent[], unknown>;
+
 // Warning: (ae-incompatible-release-tags) The symbol "useAllRoleMembers" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "useAllRoleMembers" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 //
@@ -236,8 +244,8 @@ data: () => Promise<unknown>;
 // @public (undocumented)
 export function useCoinbaseWallet(): {
     error: Error | null;
-    isConnected: boolean;
-    isConnecting: boolean;
+    isConnected: any;
+    isConnecting: any;
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 
@@ -649,6 +657,18 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     fetchStatus: FetchStatus;
 };
 
+// @beta
+export function useContractCall(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>): UseMutationResult<any, unknown, unknown, unknown>;
+
+// @beta
+export function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): UseQueryResult<any, unknown>;
+
+// @beta
+export function useContractEvents(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, eventName: string, options?: {
+    queryFilter?: EventQueryFilter;
+    subscribe?: boolean;
+}): UseQueryResult<ContractEvent[], unknown>;
+
 // Warning: (ae-internal-missing-underscore) The name "useContractFunctions" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -724,8 +744,8 @@ name: string;
 // @public (undocumented)
 export function useMetamask(): {
     error: Error | null;
-    isConnected: boolean;
-    isConnecting: boolean;
+    isConnected: any;
+    isConnecting: any;
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 
@@ -916,8 +936,8 @@ export function useVote(contractAddress?: string): Vote | undefined;
 // @public (undocumented)
 export function useWalletConnect(): {
     error: Error | null;
-    isConnected: boolean;
-    isConnecting: boolean;
+    isConnected: any;
+    isConnecting: any;
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 

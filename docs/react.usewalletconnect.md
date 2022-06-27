@@ -9,12 +9,12 @@
 ```typescript
 export declare function useWalletConnect(): {
     error: Error | null;
-    isConnected: boolean;
-    isConnecting: boolean;
+    isConnected: any;
+    isConnecting: any;
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 ```
 <b>Returns:</b>
 
-{ error: Error \| null; isConnected: boolean; isConnecting: boolean; connect: (chainId?: SUPPORTED\_CHAIN\_ID) =&gt; Promise&lt;void&gt;; }
+{ error: Error \| null; isConnected: any; isConnecting: any; connect: (chainId?: SUPPORTED\_CHAIN\_ID) =&gt; Promise&lt;void&gt;; }
 

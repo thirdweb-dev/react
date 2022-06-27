@@ -166,18 +166,18 @@ export function useClaimNFT<TContract extends DropContract>(
       invariant(contract?.claimTo, "contract does not support claimTo");
       if (contract instanceof Erc1155) {
         invariant("tokenId" in data, "tokenId not provided");
-        const { to, tokenId, quantity, proofs } = data;
+        const { to, tokenId, quantity } = data;
         return (await contract.claimTo(
           to,
           tokenId,
           quantity,
-          proofs,
+          data.checkERC20Allowance,
         )) as ClaimNFTReturnType<TContract>;
       }
       return (await contract.claimTo(
         data.to,
         data.quantity,
-        data.proofs,
+        data.checkERC20Allowance,
       )) as ClaimNFTReturnType<TContract>;
     },
     {

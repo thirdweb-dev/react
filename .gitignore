@@ -6,4 +6,8 @@ temp/
 .swc/
 *.log
 .DS_Store
+<<<<<<< HEAD
+=======
+# jns shenanigans
+>>>>>>> origin/main
 old_src/

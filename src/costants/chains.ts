@@ -1,7 +1,7 @@
 import { ChainId, NATIVE_TOKENS, defaultRPCMap } from "@thirdweb-dev/sdk";
 import { Chain, chain } from "@wagmi/core";
 
-export const defaultChains: readonly Chain[] = [
+export const defaultChains: Chain[] = [
   // eth
   {
     ...chain.mainnet,

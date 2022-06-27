@@ -1,6 +1,6 @@
 {
   "name": "@thirdweb-dev/react",
-  "version": "2.4.3",
+  "version": "2.4.6",
   "repository": {
     "type": "git",
     "url": "git+https://github.com:thirdweb-dev/react.git"
@@ -58,11 +58,13 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "@babel/preset-typescript": "^7.17.12",
+    "@magic-ext/oauth": "^2.1.1",
+    "@magic-sdk/provider": "^8.1.1",
     "@microsoft/api-documenter": "^7.15.3",
     "@microsoft/api-extractor": "^7.19.4",
     "@microsoft/tsdoc": "^0.14.1",
     "@preconstruct/cli": "^2.1.5",
-    "@thirdweb-dev/sdk": "file:.yalc/@thirdweb-dev/sdk",
+    "@thirdweb-dev/sdk": "^3.0.0-0",
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/mime": "^2.0.3",
     "@types/react": "^18.0.5",
@@ -77,27 +79,25 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-tsdoc": "^0.2.16",
     "ethers": "^5.6.1",
+    "magic-sdk": "^8.1.1",
     "prettier": "^2.5.1",
     "react": "^18.1.0",
     "typescript": "^4.6.2",
-    "wagmi": "^0.4.12",
-    "magic-sdk": "^8.1.1",
-    "@magic-ext/oauth": "^2.1.1",
-    "@magic-sdk/provider": "^8.1.1"
+    "wagmi": "^0.5.1"
   },
   "dependencies": {
-    "@wagmi/core": "^0.3.8",
+    "@wagmi/core": "^0.4.1",
     "react-query": "^4.0.0-beta.3",
     "tiny-invariant": "^1.2.0"
   },
   "peerDependencies": {
-    "@thirdweb-dev/sdk": "^2.3.7",
-    "ethers": ">=5.5.1",
-    "react": ">=17.0.0",
-    "wagmi": "^0.4.12",
-    "magic-sdk": "^8.1.1",
     "@magic-ext/oauth": "^2.1.1",
-    "@magic-sdk/provider": "^8.1.1"
+    "@magic-sdk/provider": "^8.1.1",
+    "@thirdweb-dev/sdk": "^3.0.0-0",
+    "ethers": ">=5.5.1",
+    "magic-sdk": "^8.1.1",
+    "react": ">=17.0.0",
+    "wagmi": "^0.5.1"
   },
   "peerDependenciesMeta": {
     "wagmi": {
