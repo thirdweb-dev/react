@@ -16,11 +16,11 @@ export declare type ClaimNFTParams<TContract extends DropContract> = TContract e
     to: WalletAddress;
     tokenId: BigNumberish;
     quantity: BigNumberish;
-    proofs?: BytesLike[];
+    checkERC20Allowance?: boolean;
 } : {
     to: WalletAddress;
     quantity: BigNumberish;
-    proofs?: BytesLike[];
+    checkERC20Allowance?: boolean;
 };
 ```
 <b>References:</b> [DropContract](./react.dropcontract.md)<!-- -->, [WalletAddress](./react.walletaddress.md)

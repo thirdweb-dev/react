@@ -11,7 +11,7 @@ import type {
   Price,
 } from "@thirdweb-dev/sdk/dist/browser";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
-import type { BigNumberish, BytesLike } from "ethers";
+import type { BigNumberish } from "ethers";
 
 /**
  * Makes a parameter required to be passed, but still allowes it to be undefined.
@@ -139,12 +139,12 @@ export type ClaimNFTParams<TContract extends DropContract> =
         to: WalletAddress;
         tokenId: BigNumberish;
         quantity: BigNumberish;
-        proofs?: BytesLike[];
+        checkERC20Allowance?: boolean;
       }
     : {
         to: WalletAddress;
         quantity: BigNumberish;
-        proofs?: BytesLike[];
+        checkERC20Allowance?: boolean;
       };
 
 /**
@@ -181,5 +181,5 @@ export type BuyNowParams<TListingType = ListingType> =
 export type ClaimTokenParams = {
   to: WalletAddress;
   amount: Amount;
-  proofs?: BytesLike[];
+  checkERC20Allowance?: boolean;
 };

@@ -94,6 +94,20 @@ export const cacheKeys = {
       args: unknown[],
     ) => createContractCacheKey(contractAddress, ["call", functionName, args]),
 
+    events: {
+      getEvents: (
+        contractAddress: RequiredParam<ContractAddress>,
+        eventName: string,
+      ) =>
+        createContractCacheKey(contractAddress, [
+          "events",
+          "getEvents",
+          { eventName },
+        ]),
+      getAllEvents: (contractAddress: RequiredParam<ContractAddress>) =>
+        createContractCacheKey(contractAddress, ["events", "getAllEvents"]),
+    },
+
     // specific contract types
     nft: {
       get: (

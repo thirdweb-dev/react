@@ -9,7 +9,6 @@ import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
-import type { BytesLike } from 'ethers';
 import { CallOverrides } from 'ethers';
 import { Chain } from './types';
 import { ChainId } from '@thirdweb-dev/sdk/dist/browser';
@@ -18,6 +17,7 @@ import { ClaimEligibility } from '@thirdweb-dev/sdk/dist/browser';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from './connectors';
 import { ConnectorData } from './connectors';
+import type { ContractEvent } from '@thirdweb-dev/sdk/dist/browser';
 import { ContractForContractType } from '@thirdweb-dev/sdk/dist/browser';
 import { ContractType } from '@thirdweb-dev/sdk/dist/browser';
 import { defaultChains } from './constants';
@@ -30,6 +30,7 @@ import type { Erc1155Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc20 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc721Mintable } from '@thirdweb-dev/sdk/dist/browser';
+import type { EventQueryFilter } from '@thirdweb-dev/sdk/dist/browser';
 import { FetchStatus } from 'react-query';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { IpfsStorage } from '@thirdweb-dev/sdk/dist/browser';
@@ -109,11 +110,11 @@ export type ClaimNFTParams<TContract extends DropContract> = TContract extends E
     to: WalletAddress;
     tokenId: BigNumberish;
     quantity: BigNumberish;
-    proofs?: BytesLike[];
+    checkERC20Allowance?: boolean;
 } : {
     to: WalletAddress;
     quantity: BigNumberish;
-    proofs?: BytesLike[];
+    checkERC20Allowance?: boolean;
 };
 
 // @beta
@@ -123,7 +124,7 @@ export type ClaimNFTReturnType<TContract extends DropContract> = TContract exten
 export type ClaimTokenParams = {
     to: WalletAddress;
     amount: Amount;
-    proofs?: BytesLike[];
+    checkERC20Allowance?: boolean;
 };
 
 // @beta
@@ -331,6 +332,12 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 
 // @public
 export function useAddress(): string | undefined;
+
+// @beta
+export function useAllContractEvents(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, options?: {
+    queryFilter?: EventQueryFilter;
+    subscribe?: boolean;
+}): UseQueryResult<ContractEvent[], unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useAllRoleMembers" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "useAllRoleMembers" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
@@ -781,6 +788,12 @@ export function useContractCall(contract: RequiredParam<ReturnType<typeof useCon
 
 // @beta
 export function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): UseQueryResult<any, unknown>;
+
+// @beta
+export function useContractEvents(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, eventName: string, options?: {
+    queryFilter?: EventQueryFilter;
+    subscribe?: boolean;
+}): UseQueryResult<ContractEvent[], unknown>;
 
 // Warning: (ae-internal-missing-underscore) The name "useContractFunctions" should be prefixed with an underscore because the declaration is marked as @internal
 //
