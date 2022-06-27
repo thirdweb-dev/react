@@ -10,7 +10,7 @@
 export declare type ClaimTokenParams = {
     to: WalletAddress;
     amount: Amount;
-    proofs?: BytesLike[];
+    checkERC20Allowance?: boolean;
 };
 ```
 <b>References:</b> [WalletAddress](./react.walletaddress.md)
