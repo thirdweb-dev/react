@@ -19,7 +19,7 @@ export declare function useActiveListings(contract: RequiredParam<Marketplace>, 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Marketplace&gt; | an instace of a marketplace contract |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Marketplace&gt; | an instance of a marketplace contract |
 |  filter | MarketplaceFilter | <i>(Optional)</i> filter to pass to the query for the sake of pagination &amp; filtering |
 
 <b>Returns:</b>

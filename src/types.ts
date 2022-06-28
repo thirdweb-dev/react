@@ -46,6 +46,27 @@ export type TokenMintParams = {
 
 /**
  * The possible NFT contract types.
+ * @example
+ * ```javascript
+ * const nftDrop = useNFTDrop(<ContractAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const editionDrop = useEditionDrop(<ContractAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const nftCollection = useNFTCollection(<ContractAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const edition = useEdition(<ContractAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const { contract } = useContract(<ContractAddress>);
+ * const nftContract = contract?.nft;
+ * ```
  * @beta
  */
 export type NFTContract = Erc721 | Erc1155;
