@@ -12,7 +12,7 @@ Use this to get a the owned NFTs for a specific  and wallet address.
 <b>Signature:</b>
 
 ```typescript
-export declare function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
+export declare function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ export declare function useOwnedNFTs<TContract extends NFTContract>(contract: Re
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;TContract&gt; | an instace of a  |
 |  ownerWalletAddress | RequiredParam&lt;WalletAddress&gt; | the wallet adress to get owned tokens for |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

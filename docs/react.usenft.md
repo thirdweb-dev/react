@@ -12,7 +12,7 @@ Use this to get an individual NFT token of your .
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<NFT<TContract>, unknown>;
+export declare function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<NFT<TContract>, unknown>;
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ export declare function useNFT<TContract extends NFTContract>(contract: Required
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;TContract&gt; | an instace of a  |
 |  tokenId | RequiredParam&lt;BigNumberish&gt; | the tokenId to look up |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

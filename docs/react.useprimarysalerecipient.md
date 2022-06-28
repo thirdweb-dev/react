@@ -10,7 +10,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function usePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseQueryResult<string, unknown>;
+export declare function usePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -18,10 +18,11 @@ export declare function usePrimarySaleRecipient(contract: RequiredParam<SmartCon
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;string, unknown&gt;
+import("react-query").UseQueryResult&lt;any, unknown&gt;
 
 the wallet address of the primary sales recipient
 

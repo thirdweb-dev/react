@@ -4,6 +4,7 @@ import {
 } from "../../query-cache/cache-keys";
 import {
   ClaimTokenParams,
+  ExposedQueryOptions,
   RequiredParam,
   TokenMintParams,
   WalletAddress,
@@ -29,7 +30,10 @@ import invariant from "tiny-invariant";
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useTokenSupply(contract: RequiredParam<Erc20>) {
+export function useTokenSupply(
+  contract: RequiredParam<Erc20>,
+  queryOptions: ExposedQueryOptions = {},
+) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.token.totalSupply(contractAddress),
@@ -40,6 +44,7 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
     },
     {
       enabled: !!contract || !!contractAddress,
+      ...queryOptions,
     },
   );
 }
@@ -59,6 +64,7 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
 export function useTokenBalance(
   contract: RequiredParam<Erc20>,
   walletAddress: RequiredParam<WalletAddress>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -71,6 +77,7 @@ export function useTokenBalance(
     },
     {
       enabled: !!walletAddress && !!contract,
+      ...queryOptions,
     },
   );
 }

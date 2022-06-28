@@ -12,7 +12,7 @@ Use this to get a the number of tokens in your .
 <b>Signature:</b>
 
 ```typescript
-export declare function useTotalCount(contract: RequiredParam<NFTContract>): import("react-query").UseQueryResult<BigNumber, unknown>;
+export declare function useTotalCount(contract: RequiredParam<NFTContract>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -20,10 +20,11 @@ export declare function useTotalCount(contract: RequiredParam<NFTContract>): imp
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;NFTContract&gt; | an instace of a  |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;BigNumber, unknown&gt;
+import("react-query").UseQueryResult&lt;any, unknown&gt;
 
 a response object that incudes the total number of tokens in the contract
 

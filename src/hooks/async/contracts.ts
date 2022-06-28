@@ -4,7 +4,11 @@ import {
   createCacheKeyWithNetwork,
   invalidateContractAndBalances,
 } from "../../query-cache/cache-keys";
-import { ContractAddress, RequiredParam } from "../../types/types";
+import {
+  ContractAddress,
+  ExposedQueryOptions,
+  RequiredParam,
+} from "../../types/types";
 import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import {
   CONTRACTS_MAP,
@@ -136,11 +140,16 @@ function getContractFromCombinedTypeAndPublishMetadata(
  */
 export function useContractAbi(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
 
-  const contractTypeAndPublishMetadata =
-    useContractTypeAndPublishMetadata(contractAddress);
+  const contractTypeAndPublishMetadata = useContractTypeAndPublishMetadata(
+    contractAddress,
+    chain,
+    queryOptions,
+  );
 
   if (
     !contractAddress ||
@@ -172,6 +181,7 @@ export function useContractAbi(
 export function useContractType(
   contractAddress: RequiredParam<ContractAddress>,
   chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   return useQueryWithNetwork(
@@ -182,6 +192,7 @@ export function useContractType(
       enabled: !!sdk && !!contractAddress,
       // never stale, a contract's publish metadata is immutable
       staleTime: Infinity,
+      ...queryOptions,
     },
   );
 }
@@ -201,6 +212,7 @@ export function useContractType(
 export function useContractPublishMetadata(
   contractAddress: RequiredParam<ContractAddress>,
   chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   return useQueryWithNetwork(
@@ -211,6 +223,7 @@ export function useContractPublishMetadata(
       enabled: !!sdk && !!contractAddress,
       // never stale, a contract's publish metadata is immutable
       staleTime: Infinity,
+      ...queryOptions,
     },
   );
 }
@@ -221,6 +234,7 @@ export function useContractPublishMetadata(
 function useContractTypeAndPublishMetadata(
   contractAddress: RequiredParam<ContractAddress>,
   chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
@@ -234,6 +248,7 @@ function useContractTypeAndPublishMetadata(
       enabled: !!sdk && !!contractAddress,
       // combination of type and publish metadata is immutable
       staleTime: Infinity,
+      ...queryOptions,
     },
   );
 }
@@ -253,12 +268,14 @@ function useContractTypeAndPublishMetadata(
 export function useContract(
   contractAddress: RequiredParam<ContractAddress>,
   chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
 
   const contractTypeAndPublishMetadata = useContractTypeAndPublishMetadata(
     contractAddress,
     chain,
+    queryOptions,
   );
 
   if (
@@ -295,6 +312,7 @@ export function useContract(
 export function useContractMetadata(
   contractAddress: RequiredParam<ContractAddress>,
   chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
@@ -325,6 +343,7 @@ export function useContractMetadata(
     },
     {
       enabled: !!contractAddress || !!sdk,
+      ...queryOptions,
     },
   );
 }
@@ -335,6 +354,7 @@ export function useContractMetadata(
 export function useContractFunctions(
   contractAddress: RequiredParam<ContractAddress>,
   chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
@@ -369,6 +389,7 @@ export function useContractFunctions(
       enabled: !!contractAddress || !!sdk,
       // functions are based on publish metadata (abi), so this is immutable
       staleTime: Infinity,
+      ...queryOptions,
     },
   );
 }
@@ -392,19 +413,21 @@ export function useContractFunctions(
 export function useContractData(
   contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
   functionName: RequiredParam<string>,
-  ...args: unknown[] | [...unknown[], CallOverrides]
+  functionArguments: unknown[] | [...unknown[], CallOverrides],
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.call(contractAddress, functionName, args),
+    cacheKeys.contract.call(contractAddress, functionName, functionArguments),
     contract?.getChainId(),
     () => {
       invariant(contract, "contract must be defined");
       invariant(functionName, "function name must be provided");
-      return contract.call(functionName, ...args);
+      return contract.call(functionName, ...functionArguments);
     },
     {
       enabled: !!contract && !!functionName,
+      ...queryOptions,
     },
   );
 }

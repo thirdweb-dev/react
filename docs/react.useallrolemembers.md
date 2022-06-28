@@ -12,7 +12,7 @@ Use this to get the roles of a
 <b>Signature:</b>
 
 ```typescript
-export declare function useAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): import("react-query").UseQueryResult<Awaited<Record<RolesForContract<TContract>, string[]>>, unknown>;
+export declare function useAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<Awaited<Record<RolesForContract<TContract>, string[]>>, unknown>;
 ```
 
 ## Parameters
@@ -20,6 +20,7 @@ export declare function useAllRoleMembers<TContract extends ContractWithRoles>(c
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

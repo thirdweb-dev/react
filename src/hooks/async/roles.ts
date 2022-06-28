@@ -2,7 +2,11 @@ import {
   cacheKeys,
   invalidateContractAndBalances,
 } from "../../query-cache/cache-keys";
-import { RequiredParam, WalletAddress } from "../../types/types";
+import {
+  ExposedQueryOptions,
+  RequiredParam,
+  WalletAddress,
+} from "../../types/types";
 import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import type {
   Multiwrap,
@@ -60,6 +64,7 @@ type GetAllReturnType<TContract extends ContractWithRoles> = Promise<
  */
 export function useAllRoleMembers<TContract extends ContractWithRoles>(
   contract: RequiredParam<TContract>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork<Awaited<GetAllReturnType<TContract>>>(
@@ -73,6 +78,7 @@ export function useAllRoleMembers<TContract extends ContractWithRoles>(
     },
     {
       enabled: !!contract && !!contractAddress,
+      ...queryOptions,
     },
   );
 }
@@ -93,6 +99,7 @@ export function useAllRoleMembers<TContract extends ContractWithRoles>(
 export function useRoleMembers<TContract extends ContractWithRoles>(
   contract: RequiredParam<TContract>,
   role: RolesForContract<TContract>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -105,6 +112,7 @@ export function useRoleMembers<TContract extends ContractWithRoles>(
     },
     {
       enabled: !!contract && !!contractAddress && !!role,
+      ...queryOptions,
     },
   );
 }
@@ -127,12 +135,14 @@ export function useIsAddressRole<TContract extends ContractWithRoles>(
   contract: RequiredParam<TContract>,
   role: RolesForContract<TContract>,
   walletAddress: RequiredParam<WalletAddress>,
+  queryOptions: ExposedQueryOptions = {},
 ): boolean {
   // TODO this might be possible to do with `verify` fn instead?
   const contractHasRoles = !!(contract && contract.roles);
   const { data } = useRoleMembers(
     contractHasRoles ? contract : undefined,
     role,
+    queryOptions,
   );
 
   // if the contract does not have roles then everything is allowed === true

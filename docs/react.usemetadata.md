@@ -12,13 +12,7 @@ Use this to get the metadata of your
 <b>Signature:</b>
 
 ```typescript
-export declare function useMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseQueryResult<{
-    [x: string]: import("@thirdweb-dev/sdk/dist/browser").Json;
-    description?: string | undefined;
-    image?: any;
-    external_link?: string | undefined;
-    name: string;
-}, unknown>;
+export declare function useMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -26,10 +20,11 @@ export declare function useMetadata(contract: RequiredParam<SmartContract | Vali
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
+import("react-query").UseQueryResult&lt;any, unknown&gt;
 
 a  object containing the metadata
 

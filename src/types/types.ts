@@ -1,5 +1,3 @@
-import type { useContract } from "../hooks/async/contracts";
-import type { useBuiltinContract } from "../hooks/contracts/useBuiltinContract";
 import type {
   Amount,
   EditionDrop,
@@ -14,13 +12,16 @@ import type {
 } from "@thirdweb-dev/sdk/dist/browser";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish } from "ethers";
+import type { UseQueryOptions } from "react-query";
+import type { Any } from "ts-toolbelt";
 
 /**
- * Any possible contract retrieved either via `useContract` or `useBuiltinContract`
+ * Exposed options shared across all query hooks.
+ * @beta
  */
-export type AnyContract =
-  | ReturnType<typeof useContract>["contract"]
-  | ReturnType<typeof useBuiltinContract>["data"];
+export type ExposedQueryOptions = Any.Compute<
+  Pick<UseQueryOptions<any>, "refetchInterval">
+>;
 
 /**
  * Makes a parameter required to be passed, but still allowes it to be undefined.

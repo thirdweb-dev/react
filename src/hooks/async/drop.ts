@@ -6,6 +6,7 @@ import {
   ClaimNFTParams,
   ClaimNFTReturnType,
   DropContract,
+  ExposedQueryOptions,
   RequiredParam,
 } from "../../types/types";
 import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
@@ -38,6 +39,7 @@ import invariant from "tiny-invariant";
 export function useUnclaimedNFTs(
   contract: RequiredParam<NFTDrop>,
   queryParams?: QueryAllParams,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -51,7 +53,10 @@ export function useUnclaimedNFTs(
       );
       return contract.getAllUnclaimed(queryParams);
     },
-    { enabled: !!contract },
+    {
+      enabled: !!contract,
+      ...queryOptions,
+    },
   );
 }
 
@@ -73,15 +78,19 @@ export function useUnclaimedNFTs(
 export function useClaimedNFTs(
   contract: RequiredParam<DropContract>,
   queryParams?: QueryAllParams,
+  queryOptions: ExposedQueryOptions = {},
 ) {
-  return useNFTs(contract, queryParams);
+  return useNFTs(contract, queryParams, queryOptions);
 }
 /**
  *
  * @param contract - an instace of a {@link NFTDrop}
  * @returns a response object that includes the number of NFTs that are unclaimed
  */
-export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
+export function useUnclaimedNFTSupply(
+  contract: RequiredParam<NFTDrop>,
+  queryOptions: ExposedQueryOptions = {},
+) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.drop.totalUnclaimedSupply(contractAddress),
@@ -95,7 +104,10 @@ export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
       );
       return contract.totalUnclaimedSupply();
     },
-    { enabled: !!contract },
+    {
+      enabled: !!contract,
+      ...queryOptions,
+    },
   );
 }
 
@@ -104,7 +116,10 @@ export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
  * @param contract - an instace of a {@link DropContract}
  * @returns a response object that includes the number of NFTs that are claimed
  */
-export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
+export function useClaimedNFTSupply(
+  contract: RequiredParam<DropContract>,
+  queryOptions: ExposedQueryOptions = {},
+) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.drop.totalClaimedSupply(contractAddress),
@@ -120,7 +135,10 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
       );
       return contract.totalClaimedSupply();
     },
-    { enabled: !!contract },
+    {
+      enabled: !!contract,
+      ...queryOptions,
+    },
   );
 }
 

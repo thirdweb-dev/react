@@ -2,7 +2,11 @@ import {
   cacheKeys,
   invalidateContractAndBalances,
 } from "../../query-cache/cache-keys";
-import { RequiredParam, WalletAddress } from "../../types/types";
+import {
+  ExposedQueryOptions,
+  RequiredParam,
+  WalletAddress,
+} from "../../types/types";
 import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import type {
   SmartContract,
@@ -28,6 +32,7 @@ import invariant from "tiny-invariant";
  */
 export function usePrimarySaleRecipient(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -41,7 +46,10 @@ export function usePrimarySaleRecipient(
       );
       return contract.sales.getRecipient();
     },
-    { enabled: !!contract || !!contractAddress },
+    {
+      enabled: !!contract || !!contractAddress,
+      ...queryOptions,
+    },
   );
 }
 
@@ -118,6 +126,7 @@ export function useUpdatePrimarySaleRecipient(
  */
 export function useRoyaltySettings(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -131,7 +140,10 @@ export function useRoyaltySettings(
       );
       return contract.royalties.getDefaultRoyaltyInfo();
     },
-    { enabled: !!contract || !!contractAddress },
+    {
+      enabled: !!contract || !!contractAddress,
+      ...queryOptions,
+    },
   );
 }
 
@@ -212,6 +224,7 @@ export function useUpdateRoyaltySettings(
  */
 export function usePlatformFees(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -225,7 +238,10 @@ export function usePlatformFees(
       );
       return contract.platformFees.get();
     },
-    { enabled: !!contract || !!contractAddress },
+    {
+      enabled: !!contract || !!contractAddress,
+      ...queryOptions,
+    },
   );
 }
 
@@ -305,6 +321,7 @@ export function useUpdatePlatformFees(
  */
 export function useMetadata(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
@@ -318,7 +335,10 @@ export function useMetadata(
       );
       return contract.metadata.get() as Promise<CustomContractMetadata>;
     },
-    { enabled: !!contract || !!contractAddress },
+    {
+      enabled: !!contract || !!contractAddress,
+      ...queryOptions,
+    },
   );
 }
 

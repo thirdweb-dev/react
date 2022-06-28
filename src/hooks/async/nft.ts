@@ -3,6 +3,7 @@ import {
   invalidateContractAndBalances,
 } from "../../query-cache/cache-keys";
 import {
+  ExposedQueryOptions,
   MintNFTParams,
   MintNFTReturnType,
   NFT,
@@ -70,6 +71,7 @@ function convertResponseToNFTTypeArray(
 export function useNFT<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
   tokenId: RequiredParam<BigNumberish>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
 
@@ -87,6 +89,7 @@ export function useNFT<TContract extends NFTContract>(
     },
     {
       enabled: !!contract && tokenId !== undefined,
+      ...queryOptions,
     },
   );
 }
@@ -107,6 +110,7 @@ export function useNFT<TContract extends NFTContract>(
 export function useNFTs<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
   queryParams?: QueryAllParams,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork<NFT<TContract>[]>(
@@ -127,6 +131,7 @@ export function useNFTs<TContract extends NFTContract>(
     {
       enabled: !!contract && !!contractAddress,
       keepPreviousData: true,
+      ...queryOptions,
     },
   );
 }
@@ -187,7 +192,10 @@ export function useTotalCirculatingSupply<TContract extends NFTContract>(
  * @returns a response object that incudes the total number of tokens in the contract
  * @beta
  */
-export function useTotalCount(contract: RequiredParam<NFTContract>) {
+export function useTotalCount(
+  contract: RequiredParam<NFTContract>,
+  queryOptions: ExposedQueryOptions = {},
+) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.query.totalCount(contractAddress),
@@ -209,6 +217,7 @@ export function useTotalCount(contract: RequiredParam<NFTContract>) {
     },
     {
       enabled: !!contract,
+      ...queryOptions,
     },
   );
 }
@@ -229,6 +238,7 @@ export function useTotalCount(contract: RequiredParam<NFTContract>) {
 export function useOwnedNFTs<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
   ownerWalletAddress: RequiredParam<WalletAddress>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork<NFT<TContract>[]>(
@@ -257,6 +267,7 @@ export function useOwnedNFTs<TContract extends NFTContract>(
     },
     {
       enabled: !!contract && !!ownerWalletAddress,
+      ...queryOptions,
     },
   );
 }

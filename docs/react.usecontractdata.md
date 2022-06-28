@@ -12,7 +12,7 @@ Use this to get data from a contract read-function call.
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): import("react-query").UseQueryResult<any, unknown>;
+export declare function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, functionArguments: unknown[] | [...unknown[], CallOverrides], queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -21,7 +21,8 @@ export declare function useContractData(contract: RequiredParam<ReturnType<typeo
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;ReturnType&lt;typeof useContract&gt;\["contract"\]&gt; | the contract instance of the contract to call a function on |
 |  functionName | RequiredParam&lt;string&gt; | the name of the function to call |
-|  args | unknown\[\] \| \[...unknown\[\], CallOverrides\] | The arguments to pass to the function (if any), with optional call arguments as the last parameter |
+|  functionArguments | unknown\[\] \| \[...unknown\[\], CallOverrides\] |  |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

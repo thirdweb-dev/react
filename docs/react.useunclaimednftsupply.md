@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>): import("react-query").UseQueryResult<import("ethers").BigNumber, unknown>;
+export declare function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -15,10 +15,11 @@ export declare function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>):
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;NFTDrop&gt; | an instace of a  |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("ethers").BigNumber, unknown&gt;
+import("react-query").UseQueryResult&lt;any, unknown&gt;
 
 a response object that includes the number of NFTs that are unclaimed
 

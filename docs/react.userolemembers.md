@@ -12,7 +12,7 @@ Use this to get the members of a role on a
 <b>Signature:</b>
 
 ```typescript
-export declare function useRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>): import("react-query").UseQueryResult<string[], unknown>;
+export declare function useRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -21,10 +21,11 @@ export declare function useRoleMembers<TContract extends ContractWithRoles>(cont
 |  --- | --- | --- |
 |  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
 |  role | RolesForContract&lt;TContract&gt; | the role to get the members of, see  |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;string\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;any, unknown&gt;
 
 a list of addresses that are members of the role
 

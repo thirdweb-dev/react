@@ -12,7 +12,7 @@ Use this to check if a  is a member of a role on a
 <b>Signature:</b>
 
 ```typescript
-export declare function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>): boolean;
+export declare function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>, queryOptions?: ExposedQueryOptions): boolean;
 ```
 
 ## Parameters
@@ -22,6 +22,7 @@ export declare function useIsAddressRole<TContract extends ContractWithRoles>(co
 |  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
 |  role | RolesForContract&lt;TContract&gt; | the role to check the member against, see  |
 |  walletAddress | RequiredParam&lt;WalletAddress&gt; | the address to check |
+|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

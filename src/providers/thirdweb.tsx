@@ -1,6 +1,10 @@
 import { defaultChains } from "../costants/chains";
 import { ThirdwebSDKProvider, ThirdwebSDKProviderProps } from "./thirdweb-sdk";
-import { defaultRPCMap, getReadOnlyProvider } from "@thirdweb-dev/sdk";
+import {
+  ChainIdOrName,
+  defaultRPCMap,
+  getReadOnlyProvider,
+} from "@thirdweb-dev/sdk";
 import { Chain, InjectedConnector } from "@wagmi/core";
 import { getDefaultProvider } from "ethers";
 import React, { useMemo } from "react";
@@ -17,10 +21,11 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 interface ThirdweProviderProps
   extends Omit<
     ThirdwebSDKProviderProps,
-    "signer" | "queryClient" | "chainIdToRPCUrlMap"
+    "signer" | "queryClient" | "chainIdToRPCUrlMap" | "chainId"
   > {
   supportedChains?: Chain[];
   wagmiClient?: ReturnType<typeof createClient>;
+  chainId?: ChainIdOrName;
 }
 
 export const ThirdwebProvider: React.FC<
@@ -79,7 +84,9 @@ export const ThirdwebProvider: React.FC<
 
 const ThirdwebWagmiEnhancer: React.FC<
   React.PropsWithChildren<
-    Omit<ThirdwebSDKProviderProps, "signer" | "queryClient">
+    Omit<ThirdwebSDKProviderProps, "signer" | "queryClient" | "chainId"> & {
+      chainId?: ChainIdOrName;
+    }
   >
 > = ({ children, chainId, ...restProps }) => {
   const { data: signer } = useSigner();
