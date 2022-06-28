@@ -3,6 +3,7 @@ import {
   invalidateContractAndBalances,
 } from "../../query-cache/cache-keys";
 import { BuyNowParams, MakeBidParams, RequiredParam } from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import {
   ListingType,
   Marketplace,
@@ -11,7 +12,7 @@ import {
   NewDirectListing,
 } from "@thirdweb-dev/sdk";
 import { BigNumber, BigNumberish } from "ethers";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
@@ -36,8 +37,9 @@ export function useListing(
   listingId: RequiredParam<BigNumberish>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.marketplace.getListing(contractAddress, listingId),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       return contract.getListing(BigNumber.from(listingId || 0));
@@ -67,8 +69,9 @@ export function useListings(
   filter?: MarketplaceFilter,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.marketplace.getAllListings(contractAddress, filter),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       return contract.getAllListings(filter);
@@ -98,8 +101,9 @@ export function useActiveListings(
   filter?: MarketplaceFilter,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.marketplace.getActiveListings(contractAddress, filter),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
 
@@ -130,11 +134,12 @@ export function useWinningBid(
   listingId: RequiredParam<BigNumberish>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.marketplace.auction.getWinningBid(
       contractAddress,
       listingId,
     ),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       return contract.auction.getWinningBid(BigNumber.from(listingId || 0));
@@ -163,11 +168,12 @@ export function useAuctionWinner(
   listingId: RequiredParam<BigNumberish>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.marketplace.auction.getWinner(
       contractAddress,
       listingId,
     ),
+    contract?.getChainId(),
     async () => {
       invariant(contract, "No Contract instance provided");
       let winner: string | undefined;
@@ -203,8 +209,9 @@ export function useAuctionWinner(
  */
 export function useBidBuffer(contract: RequiredParam<Marketplace>) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.marketplace.getBidBufferBps(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       return contract.getBidBufferBps();
@@ -251,7 +258,6 @@ export function useBidBuffer(contract: RequiredParam<Marketplace>) {
  * @beta
  */
 export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -264,7 +270,11 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }
@@ -301,7 +311,6 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
  * @beta
  */
 export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -314,7 +323,11 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }
@@ -351,7 +364,6 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
  * @beta
  */
 export function useMakeBid(contract: RequiredParam<Marketplace>) {
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -364,7 +376,11 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }
@@ -401,7 +417,6 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
  * @beta
  */
 export function useBuyNow(contract: RequiredParam<Marketplace>) {
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -426,7 +441,11 @@ export function useBuyNow(contract: RequiredParam<Marketplace>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }

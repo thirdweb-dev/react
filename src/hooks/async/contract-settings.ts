@@ -3,12 +3,13 @@ import {
   invalidateContractAndBalances,
 } from "../../query-cache/cache-keys";
 import { RequiredParam, WalletAddress } from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import type {
   SmartContract,
   ValidContractInstance,
 } from "@thirdweb-dev/sdk/dist/browser";
 import type { CustomContractMetadata } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 // primary sales
@@ -29,8 +30,9 @@ export function usePrimarySaleRecipient(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.extensions.sales.getRecipient(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No contract provided");
       invariant(
@@ -78,7 +80,6 @@ export function useUpdatePrimarySaleRecipient(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const queryClient = useQueryClient();
-  const contractAddress = contract?.getAddress();
   return useMutation(
     (newRecipient: WalletAddress) => {
       invariant(contract, "No contract provided");
@@ -90,7 +91,11 @@ export function useUpdatePrimarySaleRecipient(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }
@@ -115,8 +120,9 @@ export function useRoyaltySettings(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.extensions.royalties.getDefaultRoyaltyInfo(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No contract provided");
       invariant(
@@ -164,7 +170,6 @@ export function useUpdateRoyaltySettings(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const queryClient = useQueryClient();
-  const contractAddress = contract?.getAddress();
 
   return useMutation(
     (updatePayload: {
@@ -180,7 +185,11 @@ export function useUpdateRoyaltySettings(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }
@@ -205,8 +214,9 @@ export function usePlatformFees(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.extensions.platformFees.get(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No contract provided");
       invariant(
@@ -253,7 +263,6 @@ export function useUpdatePlatformFees(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const queryClient = useQueryClient();
-  const contractAddress = contract?.getAddress();
 
   return useMutation(
     (updatePayload: {
@@ -269,7 +278,11 @@ export function useUpdatePlatformFees(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }
@@ -294,8 +307,9 @@ export function useMetadata(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.extensions.metadata.get(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No contract provided");
       invariant(
@@ -341,7 +355,6 @@ export function useUpdateMetadata(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const queryClient = useQueryClient();
-  const contractAddress = contract?.getAddress();
 
   return useMutation(
     (updatePayload: CustomContractMetadata) => {
@@ -354,7 +367,11 @@ export function useUpdateMetadata(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }

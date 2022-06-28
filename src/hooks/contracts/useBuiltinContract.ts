@@ -1,22 +1,33 @@
 import { useSDK } from "../../providers/thirdweb-sdk";
-import {
-  ContractForContractType,
-  ContractType,
-} from "@thirdweb-dev/sdk/dist/browser";
+import { RequiredParam } from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
+import { ChainIdOrName, ContractType } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * @internal
  * @param contractType - the contract type
  * @param contractAddress - the contract address
- * @returns the instance of the contract for the given type and address
+ * @returns a promise with the the instance of the contract for the given type and address
  */
 export function useBuiltinContract<TContractType extends ContractType>(
-  contractType?: TContractType,
-  contractAddress?: string,
-): ContractForContractType<TContractType> | undefined {
+  contractType: RequiredParam<TContractType>,
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
+) {
   const sdk = useSDK();
-  if (!sdk || !contractAddress || !contractType) {
-    return undefined;
-  }
-  return sdk.getBuiltInContract(contractAddress, contractType);
+
+  return useQueryWithNetwork(
+    ["contract", contractAddress],
+    chain,
+    async () => {
+      if (!sdk || !contractAddress || !contractType) {
+        return undefined;
+      }
+      return await sdk.getBuiltInContract(contractAddress, contractType, chain);
+    },
+    {
+      enabled: !!sdk,
+      cacheTime: 0,
+    },
+  );
 }

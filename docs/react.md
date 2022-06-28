@@ -22,40 +22,40 @@
 |  [useClaimNFT(contract)](./react.useclaimnft.md) | <b><i>(BETA)</i></b> Use this to claim a NFT on your  |
 |  [useClaimToken(contract)](./react.useclaimtoken.md) | <b><i>(BETA)</i></b> Use this to claim tokens on your  |
 |  [useCoinbaseWallet()](./react.usecoinbasewallet.md) |  |
-|  [useContract(contractAddress)](./react.usecontract.md) | <b><i>(BETA)</i></b> Use this resolve a contract address to a thirdweb (built-in / custom) contract instance. |
+|  [useContract(contractAddress, chain)](./react.usecontract.md) | <b><i>(BETA)</i></b> Use this resolve a contract address to a thirdweb (built-in / custom) contract instance. |
 |  [useContractCall(contract, functionName)](./react.usecontractcall.md) | <b><i>(BETA)</i></b> Use this to get a function to make a write call to your contract |
 |  [useContractData(contract, functionName, args)](./react.usecontractdata.md) | <b><i>(BETA)</i></b> Use this to get data from a contract read-function call. |
 |  [useContractEvents(contract, eventName, options)](./react.usecontractevents.md) | <b><i>(BETA)</i></b> Use this to query (and subscribe) to a specific event on a contract. |
-|  [useContractMetadata(contractAddress)](./react.usecontractmetadata.md) | <b><i>(BETA)</i></b> Use this to get the contract metadata for a (built-in or custom) contract. |
+|  [useContractMetadata(contractAddress, chain)](./react.usecontractmetadata.md) | <b><i>(BETA)</i></b> Use this to get the contract metadata for a (built-in or custom) contract. |
 |  [useContractPublishMetadata(contractAddress)](./react.usecontractpublishmetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
 |  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
 |  [useCreateAuctionListing(contract)](./react.usecreateauctionlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Auction Listing on your marketplace contract. |
 |  [useCreateDirectListing(contract)](./react.usecreatedirectlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Direct Listing on your marketplace contract. |
-|  [useEdition(contractAddress)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |
-|  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
+|  [useEdition(contractAddress, chain)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |
+|  [useEditionDrop(contractAddress, chain)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
 |  [useGrantRole(contract)](./react.usegrantrole.md) | <b><i>(BETA)</i></b> Use this to grant a  a specific role on a  |
 |  [useIsAddressRole(contract, role, walletAddress)](./react.useisaddressrole.md) | <b><i>(BETA)</i></b> Use this to check if a  is a member of a role on a  |
 |  [useListing(contract, listingId)](./react.uselisting.md) | <b><i>(BETA)</i></b> Use this to get a specific listing from the marketplace. |
 |  [useListings(contract, filter)](./react.uselistings.md) | <b><i>(BETA)</i></b> Use this to get a list all listings from your marketplace contract. |
 |  [useMakeBid(contract)](./react.usemakebid.md) | <b><i>(BETA)</i></b> Use this to place a bid on an auction listing from your marketplace contract. |
-|  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Hook for getting an instance of a <code>Marketplace</code> contract. This contract is used to support marketplace for purchase and sale of on-chain assets. |
+|  [useMarketplace(contractAddress, chain)](./react.usemarketplace.md) | Hook for getting an instance of a <code>Marketplace</code> contract. This contract is used to support marketplace for purchase and sale of on-chain assets. |
 |  [useMetadata(contract)](./react.usemetadata.md) | <b><i>(BETA)</i></b> Use this to get the metadata of your  |
 |  [useMetamask()](./react.usemetamask.md) |  |
 |  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your  |
 |  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC20 contract |
-|  [useMultiwrap(contractAddress)](./react.usemultiwrap.md) | Hook for getting an instance of an <code>Multiwrap</code> contract. This contract is an ERC721 in which you can wrap ERC721, ERC1155 and ERC20 tokens. |
-|  [useNetworkMismatch()](./react.usenetworkmismatch.md) | Hook for checking whether the connected wallet is on the correct network specified by the <code>desiredChainId</code> passed to the <code>&lt;ThirdwebProvider /&gt;</code>.
+|  [useMultiwrap(contractAddress, chain)](./react.usemultiwrap.md) | Hook for getting an instance of an <code>Multiwrap</code> contract. This contract is an ERC721 in which you can wrap ERC721, ERC1155 and ERC20 tokens. |
+|  [useNetworkMismatch(contract)](./react.usenetworkmismatch.md) | Hook for checking whether the connected wallet is on the correct network specified by the <code>desiredChainId</code> passed to the <code>&lt;ThirdwebProvider /&gt;</code>.
 ```javascript
 import { useNetworkMistmatch } from "@thirdweb-dev/react"
 ```
  |
 |  [useNFT(contract, tokenId)](./react.usenft.md) | <b><i>(BETA)</i></b> Use this to get an individual NFT token of your . |
 |  [useNFTBalance(\[contract, ownerWalletAddress, tokenId\])](./react.usenftbalance.md) | <b><i>(BETA)</i></b> Use this to get a the total balance of a  and wallet address. |
-|  [useNFTCollection(contractAddress)](./react.usenftcollection.md) | Hook for getting an instance of an <code>NFTCollection</code> contract. This contract is meant to interface with ERC721 compliant NFTs. |
-|  [useNFTDrop(contractAddress)](./react.usenftdrop.md) | Hook for getting an instance of an <code>NFTDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
+|  [useNFTCollection(contractAddress, chain)](./react.usenftcollection.md) | Hook for getting an instance of an <code>NFTCollection</code> contract. This contract is meant to interface with ERC721 compliant NFTs. |
+|  [useNFTDrop(contractAddress, chain)](./react.usenftdrop.md) | Hook for getting an instance of an <code>NFTDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
 |  [useNFTs(contract, queryParams)](./react.usenfts.md) | <b><i>(BETA)</i></b> Use this to get a list of NFT tokens of your . |
 |  [useOwnedNFTs(contract, ownerWalletAddress)](./react.useownednfts.md) | <b><i>(BETA)</i></b> Use this to get a the owned NFTs for a specific  and wallet address. |
-|  [usePack(contractAddress)](./react.usepack.md) | Hook for getting an instance of a <code>Pack</code> contract. This contract supports the creation of on-chain luck-based lootboxes. |
+|  [usePack(contractAddress, chain)](./react.usepack.md) | Hook for getting an instance of a <code>Pack</code> contract. This contract supports the creation of on-chain luck-based lootboxes. |
 |  [usePlatformFees(contract)](./react.useplatformfees.md) | <b><i>(BETA)</i></b> Use this to get the platform fees settings of your  |
 |  [usePrimarySaleRecipient(contract)](./react.useprimarysalerecipient.md) | <b><i>(BETA)</i></b> |
 |  [useRevokeRole(contract)](./react.userevokerole.md) | <b><i>(BETA)</i></b> Use this to revoke a  a specific role on a  |
@@ -63,10 +63,10 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useRoyaltySettings(contract)](./react.useroyaltysettings.md) | <b><i>(BETA)</i></b> Use this to get the royalty settings of your  |
 |  [useSDK()](./react.usesdk.md) | Use this to access the ThirdwebSDK instance directly. |
 |  [useSetAllRoleMembers(contract)](./react.usesetallrolemembers.md) | <b><i>(BETA)</i></b> Use this to OVERWRITE the list of addresses that are members of specific roles |
-|  [useSignatureDrop(contractAddress)](./react.usesignaturedrop.md) | Hook for getting an instance of an <code>SignatureDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
-|  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
+|  [useSignatureDrop(contractAddress, chain)](./react.usesignaturedrop.md) | Hook for getting an instance of an <code>SignatureDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
+|  [useSplit(contractAddress, chain)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useThirdwebConfig()](./react.usethirdwebconfig.md) |  |
-|  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
+|  [useToken(contractAddress, chain)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
 |  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |
 |  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your Token contract. |
 |  [useTotalCirculatingSupply(\[contract, tokenId\])](./react.usetotalcirculatingsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your . |
@@ -77,7 +77,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useUpdatePlatformFees(contract)](./react.useupdateplatformfees.md) | <b><i>(BETA)</i></b> Use this to update the platform fees settings of your  |
 |  [useUpdatePrimarySaleRecipient(contract)](./react.useupdateprimarysalerecipient.md) | <b><i>(BETA)</i></b> Use this to update the primary sales recipient of your  |
 |  [useUpdateRoyaltySettings(contract)](./react.useupdateroyaltysettings.md) | <b><i>(BETA)</i></b> Use this to update the royalty settings of your  |
-|  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
+|  [useVote(contractAddress, chain)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
 |  [useWalletConnect()](./react.usewalletconnect.md) |  |
 |  [useWinningBid(contract, listingId)](./react.usewinningbid.md) | <b><i>(BETA)</i></b> Use this to get a the winning bid for an auction listing from your marketplace contract. |
 

@@ -1552,38 +1552,38 @@
   integrity sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==
 
 "@microsoft/api-documenter@^7.15.3":
-  version "7.17.24"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.17.24.tgz#0b625089535fe97d72ea1a1ebaaa63b12cbcbc6b"
-  integrity sha512-6hqZvFYLxqT95HV3mmORVjo1+nHpVGUj0PXYlDVZRT5hkGDqoCFJ7z7xZaL+u6JLrOcsScPn+SyyomtFCHG2Bw==
+  version "7.17.25"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.17.25.tgz#3ae5c750d3d1b129ef6206eb6787a3adf37f560f"
+  integrity sha512-NMGtIqL9B0kjySEC9PKj5b0S64OOxYJWJwHkssyhaI3P1/ZBJHbByLAfGC+QqzWt6S0Yc3YV4R2EAUqhZ6bC2Q==
   dependencies:
-    "@microsoft/api-extractor-model" "7.20.1"
+    "@microsoft/api-extractor-model" "7.20.2"
     "@microsoft/tsdoc" "0.14.1"
-    "@rushstack/node-core-library" "3.47.0"
-    "@rushstack/ts-command-line" "4.12.0"
+    "@rushstack/node-core-library" "3.48.0"
+    "@rushstack/ts-command-line" "4.12.1"
     colors "~1.2.1"
     js-yaml "~3.13.1"
     resolve "~1.17.0"
 
-"@microsoft/api-extractor-model@7.20.1":
-  version "7.20.1"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor-model/-/api-extractor-model-7.20.1.tgz#62a57641b9c85c64f23a977c784871c532827c6e"
-  integrity sha512-841Ynykxf8/qzUkxiVEu8DP1MrIne0hv6WKheHUe4nObD2YU56PeyfpXCg4DmQUEwQEO88a+nanbQmH4T4XQBw==
+"@microsoft/api-extractor-model@7.20.2":
+  version "7.20.2"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor-model/-/api-extractor-model-7.20.2.tgz#b027dec6b4e7a750552d622055802039f8a74778"
+  integrity sha512-xo5RbLj5fdCQ64WkQXxTpnzhkCvRvqy1x67VAcuMeVzUpXUrzcsHyW5mqfKbQVmNGWRgYfCQAKG8b9UtkGr6QQ==
   dependencies:
     "@microsoft/tsdoc" "0.14.1"
     "@microsoft/tsdoc-config" "~0.16.1"
-    "@rushstack/node-core-library" "3.47.0"
+    "@rushstack/node-core-library" "3.48.0"
 
 "@microsoft/api-extractor@^7.19.4":
-  version "7.27.1"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.27.1.tgz#c3e7fea55b645a402fbae307709aa0782db615a9"
-  integrity sha512-4t0+edQ2UMwhZ8UYg8CE279bHB8+HRd7liN/g+ahfUnQ0bJN24rC4Ubvz5vNWgKstikE9WUspE8+Med/iqaO+g==
+  version "7.28.0"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.28.0.tgz#16f9feb68ba26136daf912d65ed46fe77d2f242b"
+  integrity sha512-/uJbJGzLV49x2JiRJr61uyfWf6TNsmGh/XlYa1OXQ3szgPuAZ8VhaghN+4J3oJvD25IhfOZufpo7tgMmYhWUcA==
   dependencies:
-    "@microsoft/api-extractor-model" "7.20.1"
+    "@microsoft/api-extractor-model" "7.20.2"
     "@microsoft/tsdoc" "0.14.1"
     "@microsoft/tsdoc-config" "~0.16.1"
-    "@rushstack/node-core-library" "3.47.0"
-    "@rushstack/rig-package" "0.3.12"
-    "@rushstack/ts-command-line" "4.12.0"
+    "@rushstack/node-core-library" "3.48.0"
+    "@rushstack/rig-package" "0.3.13"
+    "@rushstack/ts-command-line" "4.12.1"
     colors "~1.2.1"
     lodash "~4.17.15"
     resolve "~1.17.0"
@@ -1746,10 +1746,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@rushstack/node-core-library@3.47.0":
-  version "3.47.0"
-  resolved "https://registry.yarnpkg.com/@rushstack/node-core-library/-/node-core-library-3.47.0.tgz#e732251050cba59bfd196578b649d30fc45e216a"
-  integrity sha512-+ak0y/cAAXFZKXCXs7l+USq7l+pUe8cKRRjc2GRFm/erFX8RBlEvJi9M9iFhylckWtUS4NkfzCw4rWREZHZWIA==
+"@rushstack/node-core-library@3.48.0":
+  version "3.48.0"
+  resolved "https://registry.yarnpkg.com/@rushstack/node-core-library/-/node-core-library-3.48.0.tgz#a727427d259aff14e680f5310beea994b6618f25"
+  integrity sha512-vgkG5gfYGiomnv3Lx4fxFhw0ytTBiAgMAT/6gkiYYracyv6g/Id7BYN+NtTFsHwSA8hSHvK42MOqQXqx04jYoA==
   dependencies:
     "@types/node" "12.20.24"
     colors "~1.2.1"
@@ -1761,18 +1761,18 @@
     timsort "~0.3.0"
     z-schema "~5.0.2"
 
-"@rushstack/rig-package@0.3.12":
-  version "0.3.12"
-  resolved "https://registry.yarnpkg.com/@rushstack/rig-package/-/rig-package-0.3.12.tgz#6bf2d45374ba665902bf31ec0c6e5dad55ba1b73"
-  integrity sha512-ZzxuBWG0wbOtI+9IHYvOsr3QN52GtxTWpcaHMsQ/PC9us2ve/k0xK0XOMu+CtStyHSnBG2nDdnF9vFv9HMYOZg==
+"@rushstack/rig-package@0.3.13":
+  version "0.3.13"
+  resolved "https://registry.yarnpkg.com/@rushstack/rig-package/-/rig-package-0.3.13.tgz#80d7b34bc9b7a7feeba133f317df8dbd1f65a822"
+  integrity sha512-4/2+yyA/uDl7LQvtYtFs1AkhSWuaIGEKhP9/KK2nNARqOVc5eCXmu1vyOqr5mPvNq7sHoIR+sG84vFbaKYGaDA==
   dependencies:
     resolve "~1.17.0"
     strip-json-comments "~3.1.1"
 
-"@rushstack/ts-command-line@4.12.0":
-  version "4.12.0"
-  resolved "https://registry.yarnpkg.com/@rushstack/ts-command-line/-/ts-command-line-4.12.0.tgz#8691d16771ed085c3431d5799875bdd2489e012b"
-  integrity sha512-+dC3ZwT1PjvsEnybXzM9UUYg4xdDOl6vmE+23eByxbWmAxo/nB8VAD5iFs+jbbUd9MtG/7xqCBWbMWEDA+cBjw==
+"@rushstack/ts-command-line@4.12.1":
+  version "4.12.1"
+  resolved "https://registry.yarnpkg.com/@rushstack/ts-command-line/-/ts-command-line-4.12.1.tgz#4437ffae6459eb88791625ad9e89b2f0ba254476"
+  integrity sha512-S1Nev6h/kNnamhHeGdp30WgxZTA+B76SJ/P721ctP7DrnC+rrjAc6h/R80I4V0cA2QuEEcMdVOQCtK2BTjsOiQ==
   dependencies:
     "@types/argparse" "1.0.38"
     argparse "~1.0.9"
@@ -1785,9 +1785,9 @@
   integrity sha512-hm6qK5GSp776ctXV3NeA6jvHHfkolJjTLXQ/ed9gZVBLVD5Bl1ofLRZ30wG3lf8eMMxFoJCEqOsoQlB95M+qOw==
 
 "@thirdweb-dev/sdk@^3.0.0-0":
-  version "3.0.0-0"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-3.0.0-0.tgz#8099c865e42e9ef66ea6fd45152d9cf7b59b9df2"
-  integrity sha512-erecKuFN7yzJhSWdDPgN8n5OwxLNPZ//enk7LUmdee9xwaHPY1lMAu217fZIa8L+GoGeCB8XWQ65nxoL7tO/SQ==
+  version "3.0.0-1"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-3.0.0-1.tgz#78109e015b162377a3f95dea248336f27167cc30"
+  integrity sha512-LRUIZbhbBHUEJWO82Th+sdV8zbUkJy0PoHn3VVEzkQH9VipzLlRsZCYaar5eeP3WJ8eMhf8IFx6LjtyH8nfQHw==
   dependencies:
     "@thirdweb-dev/contracts" "2.3.15-0"
     "@web-std/file" "^3.0.0"
@@ -2008,10 +2008,10 @@
     "@typescript-eslint/types" "5.30.0"
     eslint-visitor-keys "^3.3.0"
 
-"@wagmi/core@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.4.1.tgz#7d785cc86acddad25d0d2b7e47440a1ebe12be5b"
-  integrity sha512-c9mAjVnYnx0ps6GxiYyRMEqNWLMPxhwjfsQA+1/u8I/CP6tMrsaNbd7vVIh0nKVdmHuLpAGEgruQMNDhwwkpIQ==
+"@wagmi/core@^0.4.1", "@wagmi/core@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.4.2.tgz#b9717088ea8fa082b8d017299f2f710b4a19ced3"
+  integrity sha512-fd9niO/Wwr6MhaNeIjgHP3ToULAWKQ8neITgU7gAN5Q4uxbizKM8e6+i4EiffTKyaqvauMHa32Xz5zY7N+WAKA==
   dependencies:
     eventemitter3 "^4.0.7"
     zustand "^4.0.0-rc.1"
@@ -2952,9 +2952,9 @@ eip1193-provider@1.0.1:
     "@json-rpc-tools/provider" "^1.5.5"
 
 electron-to-chromium@^1.4.164:
-  version "1.4.171"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.171.tgz#2beb4e03744ef24a90580074edb87c06fbc86ed7"
-  integrity sha512-DmVNWJlGfCYtdgyxp24Aznd7Ou6a+XBSawxODh4lc39OHdh1a49Sitw8oxwMqzzm8n9m2P93OelvIF09SOTNwA==
+  version "1.4.172"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.172.tgz#87335795a3dc19e7b6dd5af291038477d81dc6b1"
+  integrity sha512-yDoFfTJnqBAB6hSiPvzmsBJSrjOXJtHSJoqJdI/zSIh7DYupYnIOHt/bbPw/WE31BJjNTybDdNAs21gCMnTh0Q==
 
 elliptic@6.5.4, elliptic@^6.4.0, elliptic@^6.5.2, elliptic@^6.5.4:
   version "6.5.4"
@@ -5842,12 +5842,12 @@ varint@^5.0.2:
   integrity sha512-lKxKYG6H03yCZUpAGOPOsMcGxd1RHCu1iKvEHYDPmTyq2HueGhD73ssNBqqQWfvYs04G9iUFRvmAVLW20Jw6ow==
 
 wagmi@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.5.1.tgz#e2778c495508b8cd5baa3e451047d06f435f4053"
-  integrity sha512-1pnNX4Gee/PkLD8PW02EOXice42zaQjPAGxyFKBLBYqdd0pnvdkWAYaGhynnM5YqP3Iw/dNjMiFIXyIVyb0G5Q==
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.5.3.tgz#3dc5f334b29aa10da210e21810ad5ad64dfa69e7"
+  integrity sha512-KPdN58GQhIBe/ciyxeKtJxkHFa81Ag33I5NHm3c7YWa12rrEci8esjmOn4TOfnn/9/hKgFEYtmYDt/P7pB04Lg==
   dependencies:
     "@coinbase/wallet-sdk" "^3.3.0"
-    "@wagmi/core" "^0.4.1"
+    "@wagmi/core" "^0.4.2"
     "@walletconnect/ethereum-provider" "^1.7.8"
     react-query "^4.0.0-beta.23"
     use-sync-external-store "^1.1.0"

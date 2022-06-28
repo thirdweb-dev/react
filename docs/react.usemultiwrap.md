@@ -9,14 +9,15 @@ Hook for getting an instance of an `Multiwrap` contract. This contract is an ERC
 <b>Signature:</b>
 
 ```typescript
-export declare function useMultiwrap(contractAddress?: string): Multiwrap | undefined;
+export declare function useMultiwrap(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Multiwrap | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the Multiwrap contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the Multiwrap contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

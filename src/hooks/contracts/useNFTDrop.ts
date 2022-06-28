@@ -1,5 +1,6 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { NFTDrop } from "@thirdweb-dev/sdk/dist/browser";
+import type { ChainIdOrName, NFTDrop } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of an `NFTDrop` contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted.
@@ -24,6 +25,9 @@ import { NFTDrop } from "@thirdweb-dev/sdk/dist/browser";
  * ```
  * @public
  */
-export function useNFTDrop(contractAddress?: string): NFTDrop | undefined {
-  return useBuiltinContract("nft-drop", contractAddress);
+export function useNFTDrop(
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
+): NFTDrop | undefined {
+  return useBuiltinContract("nft-drop", contractAddress, chain).data;
 }

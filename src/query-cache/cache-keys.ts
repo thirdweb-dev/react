@@ -27,15 +27,33 @@ export function createContractCacheKey(
 }
 
 /**
+ @internal
+ */
+export function createCacheKeyWithNetwork(
+  input: QueryKey,
+  chainId: RequiredParam<number>,
+): QueryKey {
+  return cacheKeys.network.active(chainId).concat(input);
+}
+
+/**
  * @internal
  */
 export function invalidateContractAndBalances(
   queryClient: QueryClient,
   contractAddress: RequiredParam<ContractAddress>,
+  chainId: RequiredParam<number>,
 ): Promise<unknown> {
   return Promise.all([
-    queryClient.invalidateQueries(createContractCacheKey(contractAddress)),
-    queryClient.invalidateQueries(createCachekey(["balance"])),
+    queryClient.invalidateQueries(
+      createCacheKeyWithNetwork(
+        createContractCacheKey(contractAddress),
+        chainId,
+      ),
+    ),
+    queryClient.invalidateQueries(
+      createCacheKeyWithNetwork(createCachekey(["balance"]), chainId),
+    ),
   ]);
 }
 

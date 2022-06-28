@@ -12,7 +12,7 @@ Use this resolve a contract address to a thirdweb (built-in / custom) contract i
 <b>Signature:</b>
 
 ```typescript
-export declare function useContract(contractAddress: RequiredParam<ContractAddress>): {
+export declare function useContract(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): {
     contract: undefined;
     data: undefined;
     error: unknown;
@@ -156,6 +156,7 @@ export declare function useContract(contractAddress: RequiredParam<ContractAddre
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contractAddress | RequiredParam&lt;ContractAddress&gt; | the address of the deployed contract |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

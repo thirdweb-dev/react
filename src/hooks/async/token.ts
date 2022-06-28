@@ -8,8 +8,9 @@ import {
   TokenMintParams,
   WalletAddress,
 } from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import type { Erc20, TokenDrop } from "@thirdweb-dev/sdk";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
@@ -30,8 +31,9 @@ import invariant from "tiny-invariant";
  */
 export function useTokenSupply(contract: RequiredParam<Erc20>) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.token.totalSupply(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       return contract.totalSupply();
@@ -59,8 +61,9 @@ export function useTokenBalance(
   walletAddress: RequiredParam<WalletAddress>,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.token.balanceOf(contractAddress, walletAddress),
+    contract?.getChainId(),
     async () => {
       invariant(contract, "No Contract instance provided");
       invariant(walletAddress, "No address provided");
@@ -108,7 +111,6 @@ export function useTokenBalance(
  * @beta
  */
 export function useMintToken(contract: RequiredParam<Erc20>) {
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -119,7 +121,11 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }
@@ -158,7 +164,6 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
 export function useClaimToken<TContract extends TokenDrop>(
   contract: RequiredParam<TContract>,
 ) {
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -173,7 +178,11 @@ export function useClaimToken<TContract extends TokenDrop>(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }

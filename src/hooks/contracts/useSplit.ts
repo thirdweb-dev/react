@@ -1,5 +1,6 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Split } from "@thirdweb-dev/sdk/dist/browser";
+import { ChainIdOrName, Split } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of a `Split` contract. This contract supports fund distribution to multiple parties.
@@ -25,6 +26,9 @@ import { Split } from "@thirdweb-dev/sdk/dist/browser";
  * ```
  * @public
  */
-export function useSplit(contractAddress?: string): Split | undefined {
-  return useBuiltinContract("split", contractAddress);
+export function useSplit(
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
+): Split | undefined {
+  return useBuiltinContract("split", contractAddress, chain).data;
 }

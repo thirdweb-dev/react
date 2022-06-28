@@ -7,7 +7,12 @@ import { useCallback } from "react";
 import { useConnect } from "wagmi";
 
 export function useMagicLink({ options }: { options: MagicConnectorOptions }) {
-  const { connect: _connect, error, isConnected, isConnecting } = useConnect();
+  const {
+    connect: _connect,
+    error,
+    isSuccess: isConnected,
+    isLoading: isConnecting,
+  } = useConnect();
 
   const connect = useCallback(
     async (connectionInfo: ConnectionInfo) => {

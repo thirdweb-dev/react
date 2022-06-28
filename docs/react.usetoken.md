@@ -9,14 +9,15 @@ Hook for getting an instance of an `Token` contract. This contract supports ERC2
 <b>Signature:</b>
 
 ```typescript
-export declare function useToken(contractAddress?: string): Token | undefined;
+export declare function useToken(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Token | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the Token contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the Token contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

@@ -12,13 +12,13 @@ import { BigNumberish } from 'ethers';
 import { CallOverrides } from 'ethers';
 import { Chain } from '@wagmi/core';
 import { ChainIdOrName } from '@thirdweb-dev/sdk';
+import { ChainIdOrName as ChainIdOrName_2 } from '@thirdweb-dev/sdk/dist/browser';
 import { ClaimEligibility } from '@thirdweb-dev/sdk/dist/browser';
 import { ContractEvent } from '@thirdweb-dev/sdk';
-import { ContractForContractType } from '@thirdweb-dev/sdk/dist/browser';
 import { ContractType } from '@thirdweb-dev/sdk/dist/browser';
 import { createClient } from 'wagmi';
 import { DirectListing } from '@thirdweb-dev/sdk';
-import { Edition } from '@thirdweb-dev/sdk/dist/browser';
+import type { Edition } from '@thirdweb-dev/sdk/dist/browser';
 import { EditionDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { Erc1155 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc1155Mintable } from '@thirdweb-dev/sdk/dist/browser';
@@ -31,14 +31,14 @@ import { IStorage } from '@thirdweb-dev/sdk';
 import { Json } from '@thirdweb-dev/sdk/dist/browser';
 import { Json as Json_2 } from '@thirdweb-dev/sdk';
 import { ListingType } from '@thirdweb-dev/sdk';
-import { Marketplace } from '@thirdweb-dev/sdk/dist/browser';
+import type { Marketplace } from '@thirdweb-dev/sdk/dist/browser';
 import { Marketplace as Marketplace_2 } from '@thirdweb-dev/sdk';
 import { MarketplaceFilter } from '@thirdweb-dev/sdk';
-import { Multiwrap } from '@thirdweb-dev/sdk/dist/browser';
+import type { Multiwrap } from '@thirdweb-dev/sdk/dist/browser';
 import type { Multiwrap as Multiwrap_2 } from '@thirdweb-dev/sdk';
 import { NewAuctionListing } from '@thirdweb-dev/sdk';
 import { NewDirectListing } from '@thirdweb-dev/sdk';
-import { NFTCollection } from '@thirdweb-dev/sdk/dist/browser';
+import type { NFTCollection } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTDrop } from '@thirdweb-dev/sdk/dist/browser';
 import type { NFTMetadata } from '@thirdweb-dev/sdk/dist/browser';
 import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
@@ -55,7 +55,7 @@ import { RefetchOptions } from 'react-query';
 import { RefetchQueryFilters } from 'react-query';
 import type { Role } from '@thirdweb-dev/sdk';
 import { SDKOptions } from '@thirdweb-dev/sdk';
-import { SignatureDrop } from '@thirdweb-dev/sdk/dist/browser';
+import type { SignatureDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { Signer } from 'ethers';
 import type { SmartContract } from '@thirdweb-dev/sdk/dist/browser';
 import { SmartContract as SmartContract_2 } from '@thirdweb-dev/sdk';
@@ -63,16 +63,17 @@ import { Split } from '@thirdweb-dev/sdk/dist/browser';
 import type { Split as Split_2 } from '@thirdweb-dev/sdk';
 import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
-import { Token } from '@thirdweb-dev/sdk/dist/browser';
+import type { Token } from '@thirdweb-dev/sdk/dist/browser';
 import { TokenDrop } from '@thirdweb-dev/sdk/dist/browser';
 import type { TokenDrop as TokenDrop_2 } from '@thirdweb-dev/sdk';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { TransactionResultWithId } from '@thirdweb-dev/sdk';
+import { UpdateableNetwork } from '@thirdweb-dev/sdk/dist/src/core/interfaces/contract';
 import { UseMutationResult } from 'react-query';
 import { UseQueryResult } from 'react-query';
 import type { ValidContractInstance } from '@thirdweb-dev/sdk/dist/browser';
 import type { ValidContractInstance as ValidContractInstance_2 } from '@thirdweb-dev/sdk';
-import { Vote } from '@thirdweb-dev/sdk/dist/browser';
+import type { Vote } from '@thirdweb-dev/sdk/dist/browser';
 import type { Vote as Vote_2 } from '@thirdweb-dev/sdk';
 
 // @beta
@@ -173,7 +174,7 @@ export function useBidBuffer(contract: RequiredParam<Marketplace_2>): UseQueryRe
 // Warning: (ae-internal-missing-underscore) The name "useBuiltinContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useBuiltinContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
+export function useBuiltinContract<TContractType extends ContractType>(contractType: RequiredParam<TContractType>, contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): UseQueryResult<undefined, unknown>;
 
 // @beta
 export function useBuyNow(contract: RequiredParam<Marketplace_2>): UseMutationResult<Omit<{
@@ -244,15 +245,14 @@ data: () => Promise<unknown>;
 // @public (undocumented)
 export function useCoinbaseWallet(): {
     error: Error | null;
-    isConnected: any;
-    isConnecting: any;
+    isConnecting: boolean;
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 
 // Warning: (ae-forgotten-export) The symbol "ContractAddress" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
-export function useContract(contractAddress: RequiredParam<ContractAddress>): {
+export function useContract(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): {
     contract: undefined;
     data: undefined;
     error: unknown;
@@ -672,10 +672,10 @@ export function useContractEvents(contract: RequiredParam<ReturnType<typeof useC
 // Warning: (ae-internal-missing-underscore) The name "useContractFunctions" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useContractFunctions(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<AbiFunction[] | undefined, unknown>;
+export function useContractFunctions(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): UseQueryResult<AbiFunction[] | undefined, unknown>;
 
 // @beta
-export function useContractMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<    {
+export function useContractMetadata(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): UseQueryResult<    {
 [x: string]: Json_2;
 description?: string | undefined;
 image?: any;
@@ -696,10 +696,10 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace_2>):
 export function useCreateDirectListing(contract: RequiredParam<Marketplace_2>): UseMutationResult<TransactionResultWithId<never>, unknown, NewDirectListing, unknown>;
 
 // @public
-export function useEdition(contractAddress?: string): Edition | undefined;
+export function useEdition(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): Edition | undefined;
 
 // @public
-export function useEditionDrop(contractAddress?: string): EditionDrop | undefined;
+export function useEditionDrop(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): EditionDrop | undefined;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useGrantRole" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
 //
@@ -730,7 +730,7 @@ data: () => Promise<unknown>;
 }, "data">, unknown, MakeBidParams, unknown>;
 
 // @public
-export function useMarketplace(contractAddress?: string): Marketplace | undefined;
+export function useMarketplace(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): Marketplace | undefined;
 
 // @beta
 export function useMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
@@ -744,8 +744,7 @@ name: string;
 // @public (undocumented)
 export function useMetamask(): {
     error: Error | null;
-    isConnected: any;
-    isConnecting: any;
+    isConnecting: boolean;
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 
@@ -765,10 +764,10 @@ data: () => Promise<unknown>;
 }, "data">, unknown, TokenMintParams, unknown>;
 
 // @public
-export function useMultiwrap(contractAddress?: string): Multiwrap | undefined;
+export function useMultiwrap(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): Multiwrap | undefined;
 
 // @public
-export function useNetworkMismatch(): boolean;
+export function useNetworkMismatch(contract?: UpdateableNetwork): boolean;
 
 // @beta
 export function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>): UseQueryResult<NFT<TContract>, unknown>;
@@ -779,10 +778,10 @@ export function useNFT<TContract extends NFTContract>(contract: RequiredParam<TC
 export function useNFTBalance<TContract extends NFTContract>(...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>): UseQueryResult<BigNumber, unknown>;
 
 // @public
-export function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
+export function useNFTCollection(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): NFTCollection | undefined;
 
 // @public
-export function useNFTDrop(contractAddress?: string): NFTDrop | undefined;
+export function useNFTDrop(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): NFTDrop | undefined;
 
 // @beta
 export function useNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, queryParams?: QueryAllParams_2): UseQueryResult<NFT<TContract>[], unknown>;
@@ -791,7 +790,7 @@ export function useNFTs<TContract extends NFTContract>(contract: RequiredParam<T
 export function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>): UseQueryResult<NFT<TContract>[], unknown>;
 
 // @public
-export function usePack(contractAddress?: string): Pack | undefined;
+export function usePack(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): Pack | undefined;
 
 // @beta
 export function usePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): UseQueryResult<    {
@@ -832,10 +831,10 @@ export function useSDK(): ThirdwebSDK | undefined;
 export function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
 
 // @public
-export function useSignatureDrop(contractAddress?: string): SignatureDrop | undefined;
+export function useSignatureDrop(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): SignatureDrop | undefined;
 
 // @public
-export function useSplit(contractAddress?: string): Split | undefined;
+export function useSplit(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): Split | undefined;
 
 // Warning: (ae-forgotten-export) The symbol "ThirdwebConfigContext" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
@@ -843,7 +842,7 @@ export function useSplit(contractAddress?: string): Split | undefined;
 export function useThirdwebConfig(): ThirdwebConfigContext;
 
 // @public
-export function useToken(contractAddress?: string): Token | undefined;
+export function useToken(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): Token | undefined;
 
 // @beta
 export function useTokenBalance(contract: RequiredParam<Erc20>, walletAddress: RequiredParam<WalletAddress>): UseQueryResult<    {
@@ -857,7 +856,7 @@ displayValue: string;
 // Warning: (ae-internal-missing-underscore) The name "useTokenDrop" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
-export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
+export function useTokenDrop(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): TokenDrop | undefined;
 
 // @beta
 export function useTokenSupply(contract: RequiredParam<Erc20>): UseQueryResult<    {
@@ -931,13 +930,12 @@ fee_recipient?: string | undefined;
 }, unknown>;
 
 // @public
-export function useVote(contractAddress?: string): Vote | undefined;
+export function useVote(contractAddress: RequiredParam<string>, chain?: ChainIdOrName_2): Vote | undefined;
 
 // @public (undocumented)
 export function useWalletConnect(): {
     error: Error | null;
-    isConnected: any;
-    isConnecting: any;
+    isConnecting: boolean;
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 

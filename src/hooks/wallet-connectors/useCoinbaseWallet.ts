@@ -5,7 +5,12 @@ import { useConnect } from "wagmi";
 
 export function useCoinbaseWallet() {
   const { appMetadata } = useThirdwebConfig();
-  const { connect: _connect, error, isConnected, isConnecting } = useConnect();
+  const {
+    connect: _connect,
+    error,
+    isLoading,
+    pendingConnector,
+  } = useConnect();
 
   const connect = useCallback(
     async (chainId?: SUPPORTED_CHAIN_ID) => {
@@ -25,5 +30,9 @@ export function useCoinbaseWallet() {
     [_connect, appMetadata.logoUrl, appMetadata.name],
   );
 
-  return { error, isConnected, isConnecting, connect };
+  return {
+    error,
+    isConnecting: isLoading && pendingConnector?.id === "coinbaseWallet",
+    connect,
+  };
 }

@@ -9,12 +9,11 @@
 ```typescript
 export declare function useCoinbaseWallet(): {
     error: Error | null;
-    isConnected: any;
-    isConnecting: any;
+    isConnecting: boolean;
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 ```
 <b>Returns:</b>
 
-{ error: Error \| null; isConnected: any; isConnecting: any; connect: (chainId?: SUPPORTED\_CHAIN\_ID) =&gt; Promise&lt;void&gt;; }
+{ error: Error \| null; isConnecting: boolean; connect: (chainId?: SUPPORTED\_CHAIN\_ID) =&gt; Promise&lt;void&gt;; }
 

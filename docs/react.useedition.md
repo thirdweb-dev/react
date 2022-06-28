@@ -9,14 +9,15 @@ Hook for getting an instance of an `Edition` contract. This contract is used to 
 <b>Signature:</b>
 
 ```typescript
-export declare function useEdition(contractAddress?: string): Edition | undefined;
+export declare function useEdition(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Edition | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the Edition contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the Edition contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

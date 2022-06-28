@@ -1,5 +1,9 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { NFTCollection } from "@thirdweb-dev/sdk/dist/browser";
+import type {
+  ChainIdOrName,
+  NFTCollection,
+} from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of an `NFTCollection` contract. This contract is meant to interface with ERC721 compliant NFTs.
@@ -26,7 +30,8 @@ import { NFTCollection } from "@thirdweb-dev/sdk/dist/browser";
  * @public
  */
 export function useNFTCollection(
-  contractAddress?: string,
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
 ): NFTCollection | undefined {
-  return useBuiltinContract("nft-collection", contractAddress);
+  return useBuiltinContract("nft-collection", contractAddress, chain).data;
 }

@@ -13,6 +13,10 @@
 <p align="center"><strong>Ultimate collection of React hooks for your web3 apps</strong></p>
 <br />
 
+> ## v2 upgrade is coming!
+>
+> upcoming v3 features are documented [here](./v3-upgrade.md)
+
 ## Installation
 
 You can install this SDK with either `npm` or `yarn`:

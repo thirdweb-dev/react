@@ -9,14 +9,15 @@ Hook for getting an instance of an `SignatureDrop` contract. This contract is me
 <b>Signature:</b>
 
 ```typescript
-export declare function useSignatureDrop(contractAddress?: string): SignatureDrop | undefined;
+export declare function useSignatureDrop(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): SignatureDrop | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the NFT Drop contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the NFT Drop contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

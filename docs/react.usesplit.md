@@ -9,14 +9,15 @@ Hook for getting an instance of a `Split` contract. This contract supports fund 
 <b>Signature:</b>
 
 ```typescript
-export declare function useSplit(contractAddress?: string): Split | undefined;
+export declare function useSplit(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Split | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the Split contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the Split contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

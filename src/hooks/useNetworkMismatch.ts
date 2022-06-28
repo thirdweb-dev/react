@@ -1,4 +1,5 @@
 import { useSDK } from "../providers/thirdweb-sdk";
+import { UpdateableNetwork } from "@thirdweb-dev/sdk/dist/src/core/interfaces/contract";
 import { useMemo } from "react";
 import { useNetwork } from "wagmi";
 
@@ -27,26 +28,23 @@ import { useNetwork } from "wagmi";
  *
  * @public
  */
-export function useNetworkMismatch() {
-  const sdkChainId = useSDK()?.getConnectionInfo().chainId;
+export function useNetworkMismatch(contract?: UpdateableNetwork) {
+  const sdk = useSDK();
+  const twChainId = contract
+    ? contract.getChainId()
+    : sdk?.getConnectionInfo().chainId;
   const networkQuery = useNetwork();
 
-  console.log("*** networkQuery", networkQuery);
-
   return useMemo(() => {
-    if (!sdkChainId) {
+    if (!twChainId) {
       // if there is no SDK or the sdk chainId is not set we don't care about the network mismatch
       return false;
     }
-    if (!networkQuery.activeChain) {
+    if (!networkQuery.chain) {
       // means no wallet is connected yet or at least there is no activeChain yet, so we don't care about the network mismatch
       return false;
     }
-    if (typeof sdkChainId !== "number") {
-      // we cannot compare the chainIds if the sdk chainId is not a number
-      return false;
-    }
     // check if the chainIds are different
-    return sdkChainId !== networkQuery.activeChain.id;
-  }, [networkQuery, sdkChainId]);
+    return twChainId !== networkQuery.chain.id;
+  }, [networkQuery, twChainId]);
 }

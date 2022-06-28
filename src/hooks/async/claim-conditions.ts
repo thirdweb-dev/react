@@ -1,13 +1,13 @@
 import { cacheKeys } from "../../query-cache/cache-keys";
 import { RequiredParam, WalletAddress } from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import {
   EditionDrop,
   Erc1155,
   NFTDrop,
   TokenDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
-import { BigNumberish } from "ethers";
-import { useQuery } from "react-query";
+import type { BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 
 type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
@@ -45,8 +45,9 @@ export function useActiveClaimCondition<
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getActive(contractAddress, tokenId),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
@@ -95,8 +96,9 @@ export function useClaimConditions<
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getAll(contractAddress, tokenId),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
@@ -168,12 +170,13 @@ export function useClaimIneligibilityReasons<
 >(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getClaimIneligibilityReasons(
       contractAddress,
       params,
       tokenId,
     ),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(

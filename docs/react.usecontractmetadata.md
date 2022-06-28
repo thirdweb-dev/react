@@ -12,7 +12,7 @@ Use this to get the contract metadata for a (built-in or custom) contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractMetadata(contractAddress: RequiredParam<ContractAddress>): import("react-query").UseQueryResult<{
+export declare function useContractMetadata(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): import("react-query").UseQueryResult<{
     [x: string]: import("@thirdweb-dev/sdk").Json;
     description?: string | undefined;
     image?: any;
@@ -26,6 +26,7 @@ export declare function useContractMetadata(contractAddress: RequiredParam<Contr
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contractAddress | RequiredParam&lt;ContractAddress&gt; | the address of the deployed contract |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

@@ -1,5 +1,9 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Marketplace } from "@thirdweb-dev/sdk/dist/browser";
+import type {
+  ChainIdOrName,
+  Marketplace,
+} from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of a `Marketplace` contract. This contract is used to support marketplace for purchase and sale of on-chain assets.
@@ -26,7 +30,8 @@ import { Marketplace } from "@thirdweb-dev/sdk/dist/browser";
  * @public
  */
 export function useMarketplace(
-  contractAddress?: string,
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
 ): Marketplace | undefined {
-  return useBuiltinContract("marketplace", contractAddress);
+  return useBuiltinContract("marketplace", contractAddress, chain).data;
 }

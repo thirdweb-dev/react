@@ -9,14 +9,15 @@ Hook for getting an instance of a `Marketplace` contract. This contract is used 
 <b>Signature:</b>
 
 ```typescript
-export declare function useMarketplace(contractAddress?: string): Marketplace | undefined;
+export declare function useMarketplace(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Marketplace | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the Marketplace contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the Marketplace contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

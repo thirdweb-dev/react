@@ -9,14 +9,15 @@ Hook for getting an instance of an `Vote` contract. This contract enables fully 
 <b>Signature:</b>
 
 ```typescript
-export declare function useVote(contractAddress?: string): Vote | undefined;
+export declare function useVote(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Vote | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the Vote contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the Vote contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

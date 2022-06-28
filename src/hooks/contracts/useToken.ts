@@ -1,5 +1,6 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Token } from "@thirdweb-dev/sdk/dist/browser";
+import type { ChainIdOrName, Token } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of an `Token` contract. This contract supports ERC20 compliant tokens.
@@ -25,6 +26,9 @@ import { Token } from "@thirdweb-dev/sdk/dist/browser";
  * ```
  * @public
  */
-export function useToken(contractAddress?: string): Token | undefined {
-  return useBuiltinContract("token", contractAddress);
+export function useToken(
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
+): Token | undefined {
+  return useBuiltinContract("token", contractAddress, chain).data;
 }

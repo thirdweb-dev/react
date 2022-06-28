@@ -9,14 +9,15 @@ Hook for getting an instance of a `Pack` contract. This contract supports the cr
 <b>Signature:</b>
 
 ```typescript
-export declare function usePack(contractAddress?: string): Pack | undefined;
+export declare function usePack(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Pack | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the Pack contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the Pack contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

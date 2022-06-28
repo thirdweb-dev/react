@@ -9,14 +9,15 @@ Hook for getting an instance of an `NFTCollection` contract. This contract is me
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTCollection(contractAddress?: string): NFTCollection | undefined;
+export declare function useNFTCollection(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): NFTCollection | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | string | <i>(Optional)</i> the address of the NFT Collection contract, found in your thirdweb dashboard |
+|  contractAddress | RequiredParam&lt;string&gt; | the address of the NFT Collection contract, found in your thirdweb dashboard |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

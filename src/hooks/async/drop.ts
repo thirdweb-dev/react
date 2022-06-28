@@ -8,6 +8,7 @@ import {
   DropContract,
   RequiredParam,
 } from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import { useNFTs } from "./nft";
 import {
   Erc1155,
@@ -39,8 +40,9 @@ export function useUnclaimedNFTs(
   queryParams?: QueryAllParams,
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.nft.drop.getAllUnclaimed(contractAddress, queryParams),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
@@ -81,8 +83,9 @@ export function useClaimedNFTs(
  */
 export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.nft.drop.totalUnclaimedSupply(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
 
@@ -157,7 +160,6 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
 export function useClaimNFT<TContract extends DropContract>(
   contract: RequiredParam<TContract>,
 ) {
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -182,7 +184,11 @@ export function useClaimNFT<TContract extends DropContract>(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }

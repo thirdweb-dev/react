@@ -1,11 +1,14 @@
 import { useSDK } from "../../providers/thirdweb-sdk";
 import {
   cacheKeys,
+  createCacheKeyWithNetwork,
   invalidateContractAndBalances,
 } from "../../query-cache/cache-keys";
 import { ContractAddress, RequiredParam } from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import {
   CONTRACTS_MAP,
+  ChainIdOrName,
   ContractEvent,
   EventQueryFilter,
   SmartContract,
@@ -213,11 +216,14 @@ export function useContractPublishMetadata(
  */
 function useContractTypeAndPublishMetadata(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
-  return useQuery(
+
+  return useQueryWithNetwork(
     cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+    chain,
     () =>
       fetchContractTypeAndPublishMetadata(queryClient, contractAddress, sdk),
     {
@@ -240,11 +246,16 @@ function useContractTypeAndPublishMetadata(
  * @returns a response object that includes the contract once it is resolved
  * @beta
  */
-export function useContract(contractAddress: RequiredParam<ContractAddress>) {
+export function useContract(
+  contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+) {
   const sdk = useSDK();
 
-  const contractTypeAndPublishMetadata =
-    useContractTypeAndPublishMetadata(contractAddress);
+  const contractTypeAndPublishMetadata = useContractTypeAndPublishMetadata(
+    contractAddress,
+    chain,
+  );
 
   if (
     !contractAddress ||
@@ -279,12 +290,14 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>) {
  */
 export function useContractMetadata(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
 
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.metadata(contractAddress),
+    chain,
     async () => {
       const typeAndPublishMetadata = await queryClient.fetchQuery(
         cacheKeys.contract.typeAndPublishMetadata(contractAddress),
@@ -317,12 +330,14 @@ export function useContractMetadata(
  */
 export function useContractFunctions(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
 
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.extractFunctions(contractAddress),
+    chain,
     async () => {
       const typeAndPublishMetadata = await queryClient.fetchQuery(
         cacheKeys.contract.typeAndPublishMetadata(contractAddress),
@@ -376,8 +391,9 @@ export function useContractData(
   ...args: unknown[] | [...unknown[], CallOverrides]
 ) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.call(contractAddress, functionName, args),
+    contract?.getChainId(),
     () => {
       invariant(contract, "contract must be defined");
       invariant(functionName, "function name must be provided");
@@ -411,7 +427,6 @@ export function useContractCall(
   contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
   functionName: RequiredParam<string>,
 ) {
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -422,7 +437,11 @@ export function useContractCall(
     },
     {
       onSettled: () =>
-        invalidateContractAndBalances(queryClient, contractAddress),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
+        ),
     },
   );
 }
@@ -441,14 +460,18 @@ export function useAllContractEvents(
     subscribe: true,
   },
 ) {
-  const contractAddress = contract?.getAddress();
   const queryEnabled = !!contract;
   const queryClient = useQueryClient();
 
   const cacheKey = useMemo(
-    () => cacheKeys.contract.events.getAllEvents(contractAddress),
-    [contractAddress],
+    () =>
+      createCacheKeyWithNetwork(
+        cacheKeys.contract.events.getAllEvents(contract?.getAddress()),
+        contract?.getChainId(),
+      ),
+    [contract],
   );
+
   useEffect(() => {
     // if we're not subscribing or query is not enabled yet we can early exit
     if (!options.subscribe || !queryEnabled || !contract) {
@@ -514,14 +537,18 @@ export function useContractEvents(
     subscribe: true,
   },
 ) {
-  const contractAddress = contract?.getAddress();
   const queryEnabled = !!contract && !!eventName;
   const queryClient = useQueryClient();
 
   const cacheKey = useMemo(
-    () => cacheKeys.contract.events.getAllEvents(contractAddress),
-    [contractAddress],
+    () =>
+      createCacheKeyWithNetwork(
+        cacheKeys.contract.events.getAllEvents(contract?.getAddress()),
+        contract?.getChainId(),
+      ),
+    [contract],
   );
+
   useEffect(() => {
     // if we're not subscribing or query is not enabled yet we can early exit
     if (!options.subscribe || !queryEnabled || !contract || !eventName) {
