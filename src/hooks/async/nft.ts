@@ -1,5 +1,9 @@
-import { useActiveChainId } from "../../Provider";
 import {
+  cacheKeys,
+  invalidateContractAndBalances,
+} from "../../query-cache/cache-keys";
+import {
+  ExposedQueryOptions,
   MintNFTParams,
   MintNFTReturnType,
   NFT,
@@ -8,15 +12,13 @@ import {
   WalletAddress,
   useNFTBalanceParams,
   useTotalCirculatingSupplyParams,
-} from "../../types";
+} from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import {
-  cacheKeys,
-  invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
-// eslint-disable-next-line no-duplicate-imports
-import { Erc721, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
+  Erc721,
+  Erc1155,
+  QueryAllParams,
+} from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
@@ -79,11 +81,13 @@ function convertResponseToNFTTypeArray(
 export function useNFT<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
   tokenId: RequiredParam<BigNumberish>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
 
   return useQueryWithNetwork<NFT<TContract>>(
     cacheKeys.contract.nft.get(contractAddress, tokenId),
+    contract?.getChainId(),
     async () => {
       invariant(contract, "No Contract instance provided");
       invariant(contract.get, "Contract instance does not support get");
@@ -95,6 +99,7 @@ export function useNFT<TContract extends NFTContract>(
     },
     {
       enabled: !!contract && tokenId !== undefined,
+      ...queryOptions,
     },
   );
 }
@@ -121,10 +126,12 @@ export function useNFT<TContract extends NFTContract>(
 export function useNFTs<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
   queryParams?: QueryAllParams,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork<NFT<TContract>[]>(
     cacheKeys.contract.nft.query.all(contractAddress, queryParams),
+    contract?.getChainId(),
     async () => {
       invariant(contract, "No Contract instance provided");
       invariant(
@@ -138,8 +145,9 @@ export function useNFTs<TContract extends NFTContract>(
       );
     },
     {
-      enabled: !!contract || !contractAddress,
+      enabled: !!contract && !!contractAddress,
       keepPreviousData: true,
+      ...queryOptions,
     },
   );
 }
@@ -168,6 +176,7 @@ export function useTotalCirculatingSupply<TContract extends NFTContract>(
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.query.totalCirculatingSupply(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       if (contract instanceof Erc721) {
@@ -211,10 +220,14 @@ export function useTotalCirculatingSupply<TContract extends NFTContract>(
  * @returns a response object that incudes the total number of tokens in the contract
  * @beta
  */
-export function useTotalCount(contract: RequiredParam<NFTContract>) {
+export function useTotalCount(
+  contract: RequiredParam<NFTContract>,
+  queryOptions: ExposedQueryOptions = {},
+) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.query.totalCount(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       if (contract instanceof Erc721) {
@@ -232,6 +245,7 @@ export function useTotalCount(contract: RequiredParam<NFTContract>) {
     },
     {
       enabled: !!contract,
+      ...queryOptions,
     },
   );
 }
@@ -258,10 +272,12 @@ export function useTotalCount(contract: RequiredParam<NFTContract>) {
 export function useOwnedNFTs<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
   ownerWalletAddress: RequiredParam<WalletAddress>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork<NFT<TContract>[]>(
     cacheKeys.contract.nft.query.owned.all(contractAddress, ownerWalletAddress),
+    contract?.getChainId(),
     async () => {
       invariant(contract, "No Contract instance provided");
       if (contract instanceof Erc721) {
@@ -285,6 +301,7 @@ export function useOwnedNFTs<TContract extends NFTContract>(
     },
     {
       enabled: !!contract && !!ownerWalletAddress,
+      ...queryOptions,
     },
   );
 }
@@ -318,6 +335,7 @@ export function useNFTBalance<TContract extends NFTContract>(
       ownerWalletAddress,
       tokenId,
     ),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
@@ -380,16 +398,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  *
  *   if (error) {
  *     console.error("failed to mint nft", error);
- *   }
- *
- *   return (
- *     <button
- *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
- *     >
- *       Mint!
- *     </button>
- *   );
+	@@ -333,7 +393,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  * };
  * ```
  *
@@ -400,8 +409,6 @@ export function useNFTBalance<TContract extends NFTContract>(
 export function useMintNFT<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
 ) {
-  const activeChainId = useActiveChainId();
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -425,8 +432,8 @@ export function useMintNFT<TContract extends NFTContract>(
       onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
-          contractAddress,
-          activeChainId,
+          contract?.getAddress(),
+          contract?.getChainId(),
         ),
     },
   );

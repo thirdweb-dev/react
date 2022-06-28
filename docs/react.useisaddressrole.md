@@ -12,7 +12,7 @@ Use this to check if a [WalletAddress](./react.walletaddress.md) is a member of 
 <b>Signature:</b>
 
 ```typescript
-export declare function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>): boolean;
+export declare function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>, queryOptions?: ExposedQueryOptions): boolean;
 ```
 
 ## Parameters
@@ -22,6 +22,7 @@ export declare function useIsAddressRole<TContract extends ContractWithRoles>(co
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
 |  role | RolesForContract&lt;TContract&gt; | the role to check the member against, see  |
 |  walletAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; | the address to check |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

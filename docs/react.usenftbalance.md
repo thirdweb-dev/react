@@ -27,10 +27,19 @@ import("react-query").UseQueryResult&lt;BigNumber, unknown&gt;
 
 a response object that includes the total balance of the owner
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: ownerBalance, isLoading, error } = useNFTBalance(nftDrop, <OwnerWalletAddress>);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: ownerBalance, isLoading, error } = useNFTBalance(contract?.nft, <OwnerWalletAddress>);
 ```
 

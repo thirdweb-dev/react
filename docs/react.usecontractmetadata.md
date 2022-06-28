@@ -12,13 +12,7 @@ Use this to get the contract metadata for a (built-in or custom) contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractMetadata(contractAddress: RequiredParam<ContractAddress>): import("react-query").UseQueryResult<{
-    [x: string]: import("@thirdweb-dev/sdk/dist/browser").Json;
-    description?: string | undefined;
-    image?: any;
-    external_link?: string | undefined;
-    name: string;
-}, unknown>;
+export declare function useContractMetadata(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -26,10 +20,12 @@ export declare function useContractMetadata(contractAddress: RequiredParam<Contr
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[ContractAddress](./react.contractaddress.md)<!-- -->&gt; | the address of the deployed contract |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
+import("react-query").UseQueryResult&lt;any, unknown&gt;
 
 a response object that includes the contract metadata of the deployed contract
 

@@ -12,7 +12,7 @@ Use this to get an individual NFT token of your [NFTContract](./react.nftcontrac
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<NFT<TContract>, unknown>;
+export declare function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<NFT<TContract>, unknown>;
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ export declare function useNFT<TContract extends NFTContract>(contract: Required
 |  --- | --- | --- |
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [NFTContract](./react.nftcontract.md) |
 |  tokenId | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;BigNumberish&gt; | the tokenId to look up |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
@@ -28,10 +29,19 @@ import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContra
 
 a response object that includes the metadata for the given tokenId
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: nft, isLoading, error } = useNFT(nftDrop, <tokenId>);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: nft, isLoading, error } = useNFT(contract?.nft, <tokenId>);
 ```
 

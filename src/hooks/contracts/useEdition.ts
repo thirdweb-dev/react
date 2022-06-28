@@ -1,5 +1,6 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Edition } from "@thirdweb-dev/sdk/dist/browser";
+import type { ChainIdOrName, Edition } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of an `Edition` contract. This contract is used to interface with ERC1155 compliant NFTs.
@@ -25,6 +26,9 @@ import { Edition } from "@thirdweb-dev/sdk/dist/browser";
  * ```
  * @public
  */
-export function useEdition(contractAddress?: string): Edition | undefined {
-  return useBuiltinContract("edition", contractAddress);
+export function useEdition(
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
+): Edition | undefined {
+  return useBuiltinContract("edition", contractAddress, chain).data;
 }

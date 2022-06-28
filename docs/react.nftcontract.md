@@ -14,3 +14,40 @@ The possible NFT contract types.
 ```typescript
 export declare type NFTContract = Erc721 | Erc1155;
 ```
+
+## Example 1
+
+
+```javascript
+const nftDrop = useNFTDrop(<ContractAddress>);
+```
+
+## Example 2
+
+
+```javascript
+const editionDrop = useEditionDrop(<ContractAddress>);
+```
+
+## Example 3
+
+
+```javascript
+const nftCollection = useNFTCollection(<ContractAddress>);
+```
+
+## Example 4
+
+
+```javascript
+const edition = useEdition(<ContractAddress>);
+```
+
+## Example 5
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const nftContract = contract?.nft;
+```
+

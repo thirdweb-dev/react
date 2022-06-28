@@ -12,7 +12,7 @@ Use this to get a list of NFT tokens of your [NFTContract](./react.nftcontract.m
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
+export declare function useNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, queryParams?: QueryAllParams, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ export declare function useNFTs<TContract extends NFTContract>(contract: Require
 |  --- | --- | --- |
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [NFTContract](./react.nftcontract.md) |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
@@ -28,10 +29,19 @@ import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContra
 
 a response object that includes an array of NFTs
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: nfts, isLoading, error } = useNFTs(nftDrop, { start: 0, count: 100 });
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: nfts, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });
 ```
 

@@ -1,15 +1,15 @@
-import { useActiveChainId } from "../../Provider";
-import {
-  ClaimTokenParams,
-  RequiredParam,
-  TokenMintParams,
-  WalletAddress,
-} from "../../types";
 import {
   cacheKeys,
   invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+} from "../../query-cache/cache-keys";
+import {
+  ClaimTokenParams,
+  ExposedQueryOptions,
+  RequiredParam,
+  TokenMintParams,
+  WalletAddress,
+} from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import type { Erc20, TokenDrop } from "@thirdweb-dev/sdk/dist/browser";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
@@ -30,16 +30,21 @@ import invariant from "tiny-invariant";
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useTokenSupply(contract: RequiredParam<Erc20>) {
+export function useTokenSupply(
+  contract: RequiredParam<Erc20>,
+  queryOptions: ExposedQueryOptions = {},
+) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.token.totalSupply(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       return contract.totalSupply();
     },
     {
       enabled: !!contract || !!contractAddress,
+      ...queryOptions,
     },
   );
 }
@@ -59,10 +64,12 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
 export function useTokenBalance(
   contract: RequiredParam<Erc20>,
   walletAddress: RequiredParam<WalletAddress>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.token.balanceOf(contractAddress, walletAddress),
+    contract?.getChainId(),
     async () => {
       invariant(contract, "No Contract instance provided");
       invariant(walletAddress, "No address provided");
@@ -70,6 +77,7 @@ export function useTokenBalance(
     },
     {
       enabled: !!walletAddress && !!contract,
+      ...queryOptions,
     },
   );
 }
@@ -110,8 +118,6 @@ export function useTokenBalance(
  * @beta
  */
 export function useMintToken(contract: RequiredParam<Erc20>) {
-  const activeChainId = useActiveChainId();
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -124,8 +130,8 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
       onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
-          contractAddress,
-          activeChainId,
+          contract?.getAddress(),
+          contract?.getChainId(),
         ),
     },
   );
@@ -165,8 +171,6 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
 export function useClaimToken<TContract extends TokenDrop>(
   contract: RequiredParam<TContract>,
 ) {
-  const activeChainId = useActiveChainId();
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -183,8 +187,8 @@ export function useClaimToken<TContract extends TokenDrop>(
       onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
-          contractAddress,
-          activeChainId,
+          contract?.getAddress(),
+          contract?.getChainId(),
         ),
     },
   );

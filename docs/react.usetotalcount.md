@@ -12,7 +12,7 @@ Use this to get a the number of tokens in your [NFTContract](./react.nftcontract
 <b>Signature:</b>
 
 ```typescript
-export declare function useTotalCount(contract: RequiredParam<NFTContract>): import("react-query").UseQueryResult<BigNumber, unknown>;
+export declare function useTotalCount(contract: RequiredParam<NFTContract>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -20,10 +20,11 @@ export declare function useTotalCount(contract: RequiredParam<NFTContract>): imp
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[NFTContract](./react.nftcontract.md)<!-- -->&gt; | an instance of a [NFTContract](./react.nftcontract.md) |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;BigNumber, unknown&gt;
+import("react-query").UseQueryResult&lt;any, unknown&gt;
 
 a response object that incudes the total number of tokens in the contract
 
@@ -31,10 +32,19 @@ a response object that incudes the total number of tokens in the contract
 
 The `total count` and `total supply` are the same for  based contracts. For  the `total count` is the number of NFTs that exist on the contract, \*\*not\*\* the sum of all supply of each token. (Since ERC1155 can have multiple owners per token.)
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: totalSupply, isLoading, error } = useTotalCount(NFTContract);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: totalCount, isLoading, error } = useTotalCount(nftDrop);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: totalCount, isLoading, error } = useTotalCount(contract?.nft);
 ```
 

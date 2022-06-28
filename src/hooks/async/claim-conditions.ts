@@ -1,13 +1,13 @@
-import { RequiredParam, WalletAddress } from "../../types";
-import { cacheKeys } from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import { cacheKeys } from "../../query-cache/cache-keys";
+import { RequiredParam, WalletAddress } from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import {
   EditionDrop,
   Erc1155,
   NFTDrop,
   TokenDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
-import { BigNumberish } from "ethers";
+import type { BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 
 type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
@@ -47,6 +47,7 @@ export function useActiveClaimCondition<
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getActive(contractAddress, tokenId),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
@@ -97,6 +98,7 @@ export function useClaimConditions<
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getAll(contractAddress, tokenId),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
@@ -174,6 +176,7 @@ export function useClaimIneligibilityReasons<
       params,
       tokenId,
     ),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(

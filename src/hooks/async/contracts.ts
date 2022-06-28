@@ -1,18 +1,23 @@
-import { useActiveChainId, useSDK } from "../../Provider";
-import { ContractAddress, RequiredParam } from "../../types";
+import { useSDK } from "../../providers/thirdweb-sdk";
 import {
   cacheKeys,
   createCacheKeyWithNetwork,
-  createContractCacheKey,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type {
+  invalidateContractAndBalances,
+} from "../../query-cache/cache-keys";
+import {
+  ContractAddress,
+  ExposedQueryOptions,
+  RequiredParam,
+} from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
+import {
+  CONTRACTS_MAP,
+  ChainIdOrName,
   ContractEvent,
   EventQueryFilter,
+  SmartContract,
   ThirdwebSDK,
 } from "@thirdweb-dev/sdk/dist/browser";
-// eslint-disable-next-line no-duplicate-imports
-import { CONTRACTS_MAP, SmartContract } from "@thirdweb-dev/sdk/dist/browser";
 import type {
   CustomContractMetadata,
   PublishedMetadata,
@@ -50,9 +55,9 @@ async function fetchContractPublishMetadata(
     return;
   }
 
-  return await (
-    await sdk.getPublisher()
-  ).fetchContractMetadataFromAddress(contractAddress);
+  return await sdk
+    .getPublisher()
+    .fetchContractMetadataFromAddress(contractAddress);
 }
 async function fetchContractTypeAndPublishMetadata(
   queryClient: QueryClient,
@@ -63,10 +68,7 @@ async function fetchContractTypeAndPublishMetadata(
     return;
   }
   const contractType = await queryClient.fetchQuery(
-    createCacheKeyWithNetwork(
-      cacheKeys.contract.type(contractAddress),
-      (sdk as any)._chainId,
-    ),
+    cacheKeys.contract.type(contractAddress),
     () => fetchContractType(contractAddress, sdk),
     // is immutable, so infinite stale time
     { staleTime: Infinity },
@@ -78,10 +80,8 @@ async function fetchContractTypeAndPublishMetadata(
     };
   }
   const publishMetadata = await queryClient.fetchQuery(
-    createCacheKeyWithNetwork(
-      cacheKeys.contract.publishMetadata(contractAddress),
-      (sdk as any)._chainId,
-    ),
+    cacheKeys.contract.publishMetadata(contractAddress),
+
     () => fetchContractPublishMetadata(contractAddress, sdk),
     // is immutable, so infinite stale time
     { staleTime: Infinity },
@@ -119,7 +119,7 @@ function getContractFromCombinedTypeAndPublishMetadata(
   sdk: RequiredParam<ThirdwebSDK>,
 ) {
   if (!input || !sdk || !contractAddress || !input.contractType) {
-    return null;
+    return undefined;
   }
 
   const contractAbi = getContractAbi(input);
@@ -140,11 +140,16 @@ function getContractFromCombinedTypeAndPublishMetadata(
  */
 export function useContractAbi(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
 
-  const contractTypeAndPublishMetadata =
-    useContractTypeAndPublishMetadata(contractAddress);
+  const contractTypeAndPublishMetadata = useContractTypeAndPublishMetadata(
+    contractAddress,
+    chain,
+    queryOptions,
+  );
 
   if (
     !contractAddress ||
@@ -153,7 +158,7 @@ export function useContractAbi(
   ) {
     return {
       ...contractTypeAndPublishMetadata,
-      abi: null,
+      abi: undefined,
     };
   }
 
@@ -175,15 +180,19 @@ export function useContractAbi(
  */
 export function useContractType(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   return useQueryWithNetwork(
     cacheKeys.contract.type(contractAddress),
+    chain,
     () => fetchContractType(contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
       // never stale, a contract's publish metadata is immutable
       staleTime: Infinity,
+      ...queryOptions,
     },
   );
 }
@@ -202,15 +211,19 @@ export function useContractType(
  */
 export function useContractPublishMetadata(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   return useQueryWithNetwork(
     cacheKeys.contract.publishMetadata(contractAddress),
+    chain,
     () => fetchContractPublishMetadata(contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
       // never stale, a contract's publish metadata is immutable
       staleTime: Infinity,
+      ...queryOptions,
     },
   );
 }
@@ -220,17 +233,22 @@ export function useContractPublishMetadata(
  */
 function useContractTypeAndPublishMetadata(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
+
   return useQueryWithNetwork(
     cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+    chain,
     () =>
       fetchContractTypeAndPublishMetadata(queryClient, contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
       // combination of type and publish metadata is immutable
       staleTime: Infinity,
+      ...queryOptions,
     },
   );
 }
@@ -247,11 +265,18 @@ function useContractTypeAndPublishMetadata(
  * @returns a response object that includes the contract once it is resolved
  * @beta
  */
-export function useContract(contractAddress: RequiredParam<ContractAddress>) {
+export function useContract(
+  contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
+) {
   const sdk = useSDK();
 
-  const contractTypeAndPublishMetadata =
-    useContractTypeAndPublishMetadata(contractAddress);
+  const contractTypeAndPublishMetadata = useContractTypeAndPublishMetadata(
+    contractAddress,
+    chain,
+    queryOptions,
+  );
 
   if (
     !contractAddress ||
@@ -260,7 +285,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>) {
   ) {
     return {
       ...contractTypeAndPublishMetadata,
-      contract: null,
+      contract: undefined,
     };
   }
 
@@ -286,18 +311,19 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>) {
  */
 export function useContractMetadata(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
-  const activeChainId = useActiveChainId();
+
   return useQueryWithNetwork(
     cacheKeys.contract.metadata(contractAddress),
+    chain,
     async () => {
       const typeAndPublishMetadata = await queryClient.fetchQuery(
-        createCacheKeyWithNetwork(
-          cacheKeys.contract.typeAndPublishMetadata(contractAddress),
-          activeChainId,
-        ),
+        cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+
         () =>
           fetchContractTypeAndPublishMetadata(
             queryClient,
@@ -317,6 +343,7 @@ export function useContractMetadata(
     },
     {
       enabled: !!contractAddress || !!sdk,
+      ...queryOptions,
     },
   );
 }
@@ -326,18 +353,19 @@ export function useContractMetadata(
  */
 export function useContractFunctions(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
-  const activeChainId = useActiveChainId();
+
   return useQueryWithNetwork(
     cacheKeys.contract.extractFunctions(contractAddress),
+    chain,
     async () => {
       const typeAndPublishMetadata = await queryClient.fetchQuery(
-        createCacheKeyWithNetwork(
-          cacheKeys.contract.typeAndPublishMetadata(contractAddress),
-          activeChainId,
-        ),
+        cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+
         () =>
           fetchContractTypeAndPublishMetadata(
             queryClient,
@@ -355,12 +383,13 @@ export function useContractFunctions(
       if (contract instanceof SmartContract) {
         return contract.publishedMetadata.extractFunctions();
       }
-      return null;
+      return undefined;
     },
     {
       enabled: !!contractAddress || !!sdk,
       // functions are based on publish metadata (abi), so this is immutable
       staleTime: Infinity,
+      ...queryOptions,
     },
   );
 }
@@ -384,18 +413,21 @@ export function useContractFunctions(
 export function useContractData(
   contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
   functionName: RequiredParam<string>,
-  ...args: unknown[] | [...unknown[], CallOverrides]
+  functionArguments: unknown[] | [...unknown[], CallOverrides],
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
-    cacheKeys.contract.call(contractAddress, functionName, args),
+    cacheKeys.contract.call(contractAddress, functionName, functionArguments),
+    contract?.getChainId(),
     () => {
       invariant(contract, "contract must be defined");
       invariant(functionName, "function name must be provided");
-      return contract.call(functionName, ...args);
+      return contract.call(functionName, ...functionArguments);
     },
     {
       enabled: !!contract && !!functionName,
+      ...queryOptions,
     },
   );
 }
@@ -422,23 +454,23 @@ export function useContractCall(
   contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
   functionName: RequiredParam<string>,
 ) {
-  const activeChainId = useActiveChainId();
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
     async (...args: unknown[] | [...unknown[], CallOverrides]) => {
       invariant(contract, "contract must be defined");
       invariant(functionName, "function name must be provided");
+      if (!args.length) {
+        return contract.call(functionName);
+      }
       return contract.call(functionName, ...args);
     },
     {
       onSettled: () =>
-        queryClient.invalidateQueries(
-          createCacheKeyWithNetwork(
-            createContractCacheKey(contractAddress),
-            activeChainId,
-          ),
+        invalidateContractAndBalances(
+          queryClient,
+          contract?.getAddress(),
+          contract?.getChainId(),
         ),
     },
   );
@@ -458,19 +490,18 @@ export function useAllContractEvents(
     subscribe: true,
   },
 ) {
-  const contractAddress = contract?.getAddress();
   const queryEnabled = !!contract;
   const queryClient = useQueryClient();
-  const activeChainId = useActiveChainId();
 
   const cacheKey = useMemo(
     () =>
       createCacheKeyWithNetwork(
-        cacheKeys.contract.events.getAllEvents(contractAddress),
-        activeChainId,
+        cacheKeys.contract.events.getAllEvents(contract?.getAddress()),
+        contract?.getChainId(),
       ),
-    [contractAddress],
+    [contract],
   );
+
   useEffect(() => {
     // if we're not subscribing or query is not enabled yet we can early exit
     if (!options.subscribe || !queryEnabled || !contract) {
@@ -505,6 +536,7 @@ export function useAllContractEvents(
     return cleanupListener;
   }, [queryEnabled, options.subscribe, cacheKey]);
 
+  // **not** queryWithNetwork, cacheKey already includes network
   return useQuery(
     cacheKey,
     () => {
@@ -536,19 +568,18 @@ export function useContractEvents(
     subscribe: true,
   },
 ) {
-  const contractAddress = contract?.getAddress();
   const queryEnabled = !!contract && !!eventName;
   const queryClient = useQueryClient();
-  const activeChainId = useActiveChainId();
 
   const cacheKey = useMemo(
     () =>
       createCacheKeyWithNetwork(
-        cacheKeys.contract.events.getAllEvents(contractAddress),
-        activeChainId,
+        cacheKeys.contract.events.getAllEvents(contract?.getAddress()),
+        contract?.getChainId(),
       ),
-    [contractAddress],
+    [contract],
   );
+
   useEffect(() => {
     // if we're not subscribing or query is not enabled yet we can early exit
     if (!options.subscribe || !queryEnabled || !contract || !eventName) {
@@ -583,6 +614,7 @@ export function useContractEvents(
     return cleanupListener;
   }, [queryEnabled, options.subscribe, cacheKey, eventName]);
 
+  // **not** queryWithNetwork, cacheKey already includes network
   return useQuery(
     cacheKey,
     () => {

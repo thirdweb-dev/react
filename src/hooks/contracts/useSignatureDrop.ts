@@ -1,5 +1,9 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { SignatureDrop } from "@thirdweb-dev/sdk/dist/browser";
+import type {
+  ChainIdOrName,
+  SignatureDrop,
+} from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of an `SignatureDrop` contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted.
@@ -25,7 +29,8 @@ import { SignatureDrop } from "@thirdweb-dev/sdk/dist/browser";
  * @public
  */
 export function useSignatureDrop(
-  contractAddress?: string,
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
 ): SignatureDrop | undefined {
-  return useBuiltinContract("signature-drop", contractAddress);
+  return useBuiltinContract("signature-drop", contractAddress, chain).data;
 }

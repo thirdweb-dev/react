@@ -12,7 +12,7 @@ Use this to get a the owned NFTs for a specific [NFTContract](./react.nftcontrac
 <b>Signature:</b>
 
 ```typescript
-export declare function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
+export declare function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ export declare function useOwnedNFTs<TContract extends NFTContract>(contract: Re
 |  --- | --- | --- |
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [NFTContract](./react.nftcontract.md) |
 |  ownerWalletAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; | the wallet adress to get owned tokens for |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
@@ -28,10 +29,19 @@ import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContra
 
 a response object that includes the list of owned tokens
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(nftDrop, <OwnerWalletAddress>);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(contract?.nft, <OwnerWalletAddress>);
 ```
 

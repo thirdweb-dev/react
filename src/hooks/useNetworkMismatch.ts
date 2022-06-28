@@ -1,5 +1,7 @@
-import { useDesiredChainId } from "../Provider";
-import { useChainId } from "./useChainId";
+import { useSDK } from "../providers/thirdweb-sdk";
+import { UpdateableNetwork } from "@thirdweb-dev/sdk/dist/src/core/interfaces/contract";
+import { useMemo } from "react";
+import { useNetwork } from "wagmi";
 
 /**
  * Hook for checking whether the connected wallet is on the correct network specified by the `desiredChainId` passed to the `<ThirdwebProvider />`.
@@ -26,18 +28,23 @@ import { useChainId } from "./useChainId";
  *
  * @public
  */
-export function useNetworkMismatch() {
-  const desiredChainId = useDesiredChainId();
-  const activeChainId = useChainId();
+export function useNetworkMismatch(contract?: UpdateableNetwork) {
+  const sdk = useSDK();
+  const twChainId = contract
+    ? contract.getChainId()
+    : sdk?.getConnectionInfo().chainId;
+  const networkQuery = useNetwork();
 
-  if (desiredChainId === -1) {
-    // means no desiredChainId is set in the <ThirdwebProvider />, so we don't care about the network mismatch
-    return false;
-  }
-  if (!activeChainId) {
-    // means no wallet is connected yet, so we don't care about the network mismatch
-    return false;
-  }
-  // check if the chainIds are different
-  return desiredChainId !== activeChainId;
+  return useMemo(() => {
+    if (!twChainId) {
+      // if there is no SDK or the sdk chainId is not set we don't care about the network mismatch
+      return false;
+    }
+    if (!networkQuery.chain) {
+      // means no wallet is connected yet or at least there is no activeChain yet, so we don't care about the network mismatch
+      return false;
+    }
+    // check if the chainIds are different
+    return twChainId !== networkQuery.chain.id;
+  }, [networkQuery, twChainId]);
 }

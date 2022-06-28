@@ -12,7 +12,7 @@ Use this to get a list of \*claimed\* (minted) NFT tokens of your ERC721 Drop co
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimedNFTs(contract: RequiredParam<DropContract>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<import("../../types").NFT<DropContract>[], unknown>;
+export declare function useClaimedNFTs(contract: RequiredParam<DropContract>, queryParams?: QueryAllParams, queryOptions?: ExposedQueryOptions): import("react-query").UseQueryResult<import("../../types/types").NFT<DropContract>[], unknown>;
 ```
 
 ## Parameters
@@ -21,10 +21,11 @@ export declare function useClaimedNFTs(contract: RequiredParam<DropContract>, qu
 |  --- | --- | --- |
 |  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt; | an instance of a [DropContract](./react.dropcontract.md) |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("../../types").[NFT](./react.nft.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt;\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;import("../../types/types").[NFT](./react.nft.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt;\[\], unknown&gt;
 
 a response object that includes an array of NFTs that are claimed
 

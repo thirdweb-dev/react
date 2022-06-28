@@ -13,8 +13,15 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 <b>Signature:</b>
 
 ```typescript
-export declare function useNetworkMismatch(): boolean;
+export declare function useNetworkMismatch(contract?: UpdateableNetwork): boolean;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  contract | UpdateableNetwork | <i>(Optional)</i> |
+
 <b>Returns:</b>
 
 boolean

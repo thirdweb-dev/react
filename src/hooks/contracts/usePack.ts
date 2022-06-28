@@ -1,5 +1,6 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Pack } from "@thirdweb-dev/sdk/dist/browser";
+import { ChainIdOrName, Pack } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of a `Pack` contract. This contract supports the creation of on-chain luck-based lootboxes.
@@ -25,6 +26,9 @@ import { Pack } from "@thirdweb-dev/sdk/dist/browser";
  * ```
  * @public
  */
-export function usePack(contractAddress?: string): Pack | undefined {
-  return useBuiltinContract("pack", contractAddress);
+export function usePack(
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
+): Pack | undefined {
+  return useBuiltinContract("pack", contractAddress, chain).data;
 }

@@ -34,12 +34,11 @@
     "skipLibCheck": true,
     // error out if import and file system have a casing mismatch. Recommended by TS
     "forceConsistentCasingInFileNames": true,
-    "emitDeclarationOnly": true,
     "target": "ES6",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "strictNullChecks": true,
-    "noImplicitOverride": true
+    "noImplicitOverride": true,
+    "noEmit": true
   }
 }

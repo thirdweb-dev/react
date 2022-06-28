@@ -1,10 +1,13 @@
-import { useActiveChainId } from "../../Provider";
-import { RequiredParam, WalletAddress } from "../../types";
 import {
   cacheKeys,
   invalidateContractAndBalances,
-} from "../../utils/cache-keys";
-import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+} from "../../query-cache/cache-keys";
+import {
+  ExposedQueryOptions,
+  RequiredParam,
+  WalletAddress,
+} from "../../types/types";
+import { useQueryWithNetwork } from "../utils/useQueryWithNetwork";
 import type {
   SmartContract,
   ValidContractInstance,
@@ -29,10 +32,12 @@ import invariant from "tiny-invariant";
  */
 export function usePrimarySaleRecipient(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.extensions.sales.getRecipient(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No contract provided");
       invariant(
@@ -41,7 +46,10 @@ export function usePrimarySaleRecipient(
       );
       return contract.sales.getRecipient();
     },
-    { enabled: !!contract || !!contractAddress },
+    {
+      enabled: !!contract || !!contractAddress,
+      ...queryOptions,
+    },
   );
 }
 
@@ -80,8 +88,6 @@ export function useUpdatePrimarySaleRecipient(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const queryClient = useQueryClient();
-  const contractAddress = contract?.getAddress();
-  const activeChainId = useActiveChainId();
   return useMutation(
     (newRecipient: WalletAddress) => {
       invariant(contract, "No contract provided");
@@ -95,8 +101,8 @@ export function useUpdatePrimarySaleRecipient(
       onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
-          contractAddress,
-          activeChainId,
+          contract?.getAddress(),
+          contract?.getChainId(),
         ),
     },
   );
@@ -120,10 +126,12 @@ export function useUpdatePrimarySaleRecipient(
  */
 export function useRoyaltySettings(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.extensions.royalties.getDefaultRoyaltyInfo(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No contract provided");
       invariant(
@@ -132,7 +140,10 @@ export function useRoyaltySettings(
       );
       return contract.royalties.getDefaultRoyaltyInfo();
     },
-    { enabled: !!contract || !!contractAddress },
+    {
+      enabled: !!contract || !!contractAddress,
+      ...queryOptions,
+    },
   );
 }
 
@@ -171,8 +182,7 @@ export function useUpdateRoyaltySettings(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const queryClient = useQueryClient();
-  const contractAddress = contract?.getAddress();
-  const activeChainId = useActiveChainId();
+
   return useMutation(
     (updatePayload: {
       seller_fee_basis_points?: number;
@@ -189,8 +199,8 @@ export function useUpdateRoyaltySettings(
       onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
-          contractAddress,
-          activeChainId,
+          contract?.getAddress(),
+          contract?.getChainId(),
         ),
     },
   );
@@ -214,10 +224,12 @@ export function useUpdateRoyaltySettings(
  */
 export function usePlatformFees(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.extensions.platformFees.get(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No contract provided");
       invariant(
@@ -226,7 +238,10 @@ export function usePlatformFees(
       );
       return contract.platformFees.get();
     },
-    { enabled: !!contract || !!contractAddress },
+    {
+      enabled: !!contract || !!contractAddress,
+      ...queryOptions,
+    },
   );
 }
 
@@ -264,8 +279,7 @@ export function useUpdatePlatformFees(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const queryClient = useQueryClient();
-  const contractAddress = contract?.getAddress();
-  const activeChainId = useActiveChainId();
+
   return useMutation(
     (updatePayload: {
       platform_fee_basis_points?: number;
@@ -282,8 +296,8 @@ export function useUpdatePlatformFees(
       onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
-          contractAddress,
-          activeChainId,
+          contract?.getAddress(),
+          contract?.getChainId(),
         ),
     },
   );
@@ -307,10 +321,12 @@ export function useUpdatePlatformFees(
  */
 export function useMetadata(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
+  queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.extensions.metadata.get(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No contract provided");
       invariant(
@@ -319,7 +335,10 @@ export function useMetadata(
       );
       return contract.metadata.get() as Promise<CustomContractMetadata>;
     },
-    { enabled: !!contract || !!contractAddress },
+    {
+      enabled: !!contract || !!contractAddress,
+      ...queryOptions,
+    },
   );
 }
 
@@ -356,8 +375,7 @@ export function useUpdateMetadata(
   contract: RequiredParam<SmartContract | ValidContractInstance>,
 ) {
   const queryClient = useQueryClient();
-  const contractAddress = contract?.getAddress();
-  const activeChainId = useActiveChainId();
+
   return useMutation(
     (updatePayload: CustomContractMetadata) => {
       invariant(contract, "No contract provided");
@@ -371,8 +389,8 @@ export function useUpdateMetadata(
       onSettled: () =>
         invalidateContractAndBalances(
           queryClient,
-          contractAddress,
-          activeChainId,
+          contract?.getAddress(),
+          contract?.getChainId(),
         ),
     },
   );

@@ -1,5 +1,9 @@
+import { RequiredParam } from "../../types/types";
 import { useBuiltinContract } from "./useBuiltinContract";
-import { EditionDrop } from "@thirdweb-dev/sdk/dist/browser";
+import type {
+  ChainIdOrName,
+  EditionDrop,
+} from "@thirdweb-dev/sdk/dist/browser";
 
 /**
  * Hook for getting an instance of an `EditionDrop` contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted.
@@ -25,7 +29,8 @@ import { EditionDrop } from "@thirdweb-dev/sdk/dist/browser";
  * @public
  */
 export function useEditionDrop(
-  contractAddress?: string,
+  contractAddress: RequiredParam<string>,
+  chain?: ChainIdOrName,
 ): EditionDrop | undefined {
-  return useBuiltinContract("edition-drop", contractAddress);
+  return useBuiltinContract("edition-drop", contractAddress, chain).data;
 }

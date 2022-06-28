@@ -8,32 +8,32 @@
     "subhooks": [
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(NFTContract);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n    @@ -333,7 +393,7 @@ export function useNFTBalance<TContract extends NFTContract>(\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
         "name": "useNFT",
-        "example": "const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: nft, isLoading, error } = useNFT(contract?.nft, <tokenId>);",
         "reference": "https://portal.thirdweb.com/react/react.usenft"
       },
       {
         "name": "useNFTBalance",
-        "example": "const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: ownerBalance, isLoading, error } = useNFTBalance(contract?.nft, <OwnerWalletAddress>);",
         "reference": "https://portal.thirdweb.com/react/react.usenftbalance"
       },
       {
         "name": "useNFTs",
-        "example": "const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: nfts, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });",
         "reference": "https://portal.thirdweb.com/react/react.usenfts"
       },
       {
         "name": "useOwnedNFTs",
-        "example": "const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: ownedNFTs, isLoading, error } = useOwnedNFTs(contract?.nft, <OwnerWalletAddress>);",
         "reference": "https://portal.thirdweb.com/react/react.useownednfts"
       },
       {
         "name": "useTotalCirculatingSupply",
-        "example": "const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: totalSupply, isLoading, error } = useNFTSupply(contract?.nft);",
         "reference": "https://portal.thirdweb.com/react/react.usetotalcirculatingsupply"
       }
     ],
@@ -73,32 +73,32 @@
       },
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(NFTContract);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n    @@ -333,7 +393,7 @@ export function useNFTBalance<TContract extends NFTContract>(\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
         "name": "useNFT",
-        "example": "const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: nft, isLoading, error } = useNFT(contract?.nft, <tokenId>);",
         "reference": "https://portal.thirdweb.com/react/react.usenft"
       },
       {
         "name": "useNFTBalance",
-        "example": "const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: ownerBalance, isLoading, error } = useNFTBalance(contract?.nft, <OwnerWalletAddress>);",
         "reference": "https://portal.thirdweb.com/react/react.usenftbalance"
       },
       {
         "name": "useNFTs",
-        "example": "const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: nfts, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });",
         "reference": "https://portal.thirdweb.com/react/react.usenfts"
       },
       {
         "name": "useOwnedNFTs",
-        "example": "const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: ownedNFTs, isLoading, error } = useOwnedNFTs(contract?.nft, <OwnerWalletAddress>);",
         "reference": "https://portal.thirdweb.com/react/react.useownednfts"
       },
       {
         "name": "useTotalCirculatingSupply",
-        "example": "const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: totalSupply, isLoading, error } = useNFTSupply(contract?.nft);",
         "reference": "https://portal.thirdweb.com/react/react.usetotalcirculatingsupply"
       },
       {
@@ -183,32 +183,32 @@
     "subhooks": [
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(NFTContract);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n    @@ -333,7 +393,7 @@ export function useNFTBalance<TContract extends NFTContract>(\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
         "name": "useNFT",
-        "example": "const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: nft, isLoading, error } = useNFT(contract?.nft, <tokenId>);",
         "reference": "https://portal.thirdweb.com/react/react.usenft"
       },
       {
         "name": "useNFTBalance",
-        "example": "const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: ownerBalance, isLoading, error } = useNFTBalance(contract?.nft, <OwnerWalletAddress>);",
         "reference": "https://portal.thirdweb.com/react/react.usenftbalance"
       },
       {
         "name": "useNFTs",
-        "example": "const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: nfts, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });",
         "reference": "https://portal.thirdweb.com/react/react.usenfts"
       },
       {
         "name": "useOwnedNFTs",
-        "example": "const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: ownedNFTs, isLoading, error } = useOwnedNFTs(contract?.nft, <OwnerWalletAddress>);",
         "reference": "https://portal.thirdweb.com/react/react.useownednfts"
       },
       {
         "name": "useTotalCirculatingSupply",
-        "example": "const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: totalSupply, isLoading, error } = useNFTSupply(contract?.nft);",
         "reference": "https://portal.thirdweb.com/react/react.usetotalcirculatingsupply"
       }
     ],
@@ -248,32 +248,32 @@
       },
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(NFTContract);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n    @@ -333,7 +393,7 @@ export function useNFTBalance<TContract extends NFTContract>(\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
         "name": "useNFT",
-        "example": "const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: nft, isLoading, error } = useNFT(contract?.nft, <tokenId>);",
         "reference": "https://portal.thirdweb.com/react/react.usenft"
       },
       {
         "name": "useNFTBalance",
-        "example": "const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: ownerBalance, isLoading, error } = useNFTBalance(contract?.nft, <OwnerWalletAddress>);",
         "reference": "https://portal.thirdweb.com/react/react.usenftbalance"
       },
       {
         "name": "useNFTs",
-        "example": "const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: nfts, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });",
         "reference": "https://portal.thirdweb.com/react/react.usenfts"
       },
       {
         "name": "useOwnedNFTs",
-        "example": "const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: ownedNFTs, isLoading, error } = useOwnedNFTs(contract?.nft, <OwnerWalletAddress>);",
         "reference": "https://portal.thirdweb.com/react/react.useownednfts"
       },
       {
         "name": "useTotalCirculatingSupply",
-        "example": "const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);",
+        "example": "const { contract } = useContract(<ContractAddress>);\nconst { data: totalSupply, isLoading, error } = useNFTSupply(contract?.nft);",
         "reference": "https://portal.thirdweb.com/react/react.usetotalcirculatingsupply"
       },
       {
