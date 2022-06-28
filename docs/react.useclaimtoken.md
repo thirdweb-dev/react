@@ -22,7 +22,7 @@ export declare function useClaimToken<TContract extends TokenDrop>(contract: Req
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instace of a  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
 
 <b>Returns:</b>
 

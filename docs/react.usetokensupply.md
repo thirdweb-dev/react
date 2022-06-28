@@ -25,7 +25,7 @@ export declare function useTokenSupply(contract: RequiredParam<Erc20>): import("
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&gt; | an instace of a Token contract. |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&gt; | an instance of a Token contract. |
 
 <b>Returns:</b>
 

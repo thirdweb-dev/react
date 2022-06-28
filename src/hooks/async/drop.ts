@@ -31,7 +31,7 @@ import invariant from "tiny-invariant";
  * const { data: unclaimedNfts, isLoading, error } = useUnclaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });
  * ```
  *
- * @param contract - an instace of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
+ * @param contract - an instance of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 & drop spec)
  * @param queryParams - query params to pass to the query for the sake of pagination
  * @returns a response object that includes an array of NFTs that are unclaimed
  * @beta
@@ -65,7 +65,7 @@ export function useUnclaimedNFTs(
  * const { data: claimedNFTs, isLoading, error } = useClaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });
  * ```
  *
- * @param contract - an instace of a {@link DropContract}
+ * @param contract - an instance of a {@link DropContract}
  * @param queryParams - query params to pass to the query for the sake of pagination
  * @returns a response object that includes an array of NFTs that are claimed
  * @beta
@@ -78,7 +78,7 @@ export function useClaimedNFTs(
 }
 /**
  *
- * @param contract - an instace of a {@link NFTDrop}
+ * @param contract - an instance of a {@link NFTDrop}
  * @returns a response object that includes the number of NFTs that are unclaimed
  */
 export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
@@ -100,7 +100,7 @@ export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
 
 /**
  *
- * @param contract - an instace of a {@link DropContract}
+ * @param contract - an instance of a {@link DropContract}
  * @returns a response object that includes the number of NFTs that are claimed
  */
 export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
@@ -152,7 +152,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
  * };
  * ```
  *
- * @param contract - an instace of a {@link DropContract}
+ * @param contract - an instance of a {@link DropContract}
  * @returns a mutation object that can be used to claim a NFT to the wallet specificed in the params
  * @beta
  */
