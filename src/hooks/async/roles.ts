@@ -102,7 +102,7 @@ export function useRoleMembers<TContract extends ContractWithRoles>(
   queryOptions: ExposedQueryOptions = {},
 ) {
   const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork(
+  return useQueryWithNetwork<string[]>(
     cacheKeys.extensions.roles.get(contractAddress, role),
     contract?.getChainId(),
     () => {

@@ -889,7 +889,7 @@ address: WalletAddress;
 // Warning: (ae-incompatible-release-tags) The symbol "useRoleMembers" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 //
 // @beta
-export function useRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, queryOptions?: ExposedQueryOptions): UseQueryResult<any, unknown>;
+export function useRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, queryOptions?: ExposedQueryOptions): UseQueryResult<string[], unknown>;
 
 // @beta
 export function useRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>, queryOptions?: ExposedQueryOptions): UseQueryResult<any, unknown>;
