@@ -12,7 +12,7 @@ Use this to get the contract type for a (built-in or custom) contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractType(contractAddress: RequiredParam<ContractAddress>): import("react-query").UseQueryResult<"split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | "custom" | undefined, unknown>;
+export declare function useContractType(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): import("react-query").UseQueryResult<"split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | "custom" | undefined, unknown>;
 ```
 
 ## Parameters
@@ -20,6 +20,7 @@ export declare function useContractType(contractAddress: RequiredParam<ContractA
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contractAddress | RequiredParam&lt;ContractAddress&gt; | the address of the deployed contract |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

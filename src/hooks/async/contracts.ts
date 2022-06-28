@@ -171,10 +171,12 @@ export function useContractAbi(
  */
 export function useContractType(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
 ) {
   const sdk = useSDK();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.type(contractAddress),
+    chain,
     () => fetchContractType(contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
@@ -198,10 +200,12 @@ export function useContractType(
  */
 export function useContractPublishMetadata(
   contractAddress: RequiredParam<ContractAddress>,
+  chain?: ChainIdOrName,
 ) {
   const sdk = useSDK();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.publishMetadata(contractAddress),
+    chain,
     () => fetchContractPublishMetadata(contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
@@ -506,6 +510,7 @@ export function useAllContractEvents(
     return cleanupListener;
   }, [queryEnabled, options.subscribe, cacheKey]);
 
+  // **not** queryWithNetwork, cacheKey already includes network
   return useQuery(
     cacheKey,
     () => {
@@ -583,6 +588,7 @@ export function useContractEvents(
     return cleanupListener;
   }, [queryEnabled, options.subscribe, cacheKey, eventName]);
 
+  // **not** queryWithNetwork, cacheKey already includes network
   return useQuery(
     cacheKey,
     () => {

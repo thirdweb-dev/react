@@ -684,10 +684,10 @@ name: string;
 }, unknown>;
 
 // @beta
-export function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<PublishedMetadata | undefined, unknown>;
+export function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
-export function useContractType(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<"split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | "custom" | undefined, unknown>;
+export function useContractType(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): UseQueryResult<"split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | "custom" | undefined, unknown>;
 
 // @beta
 export function useCreateAuctionListing(contract: RequiredParam<Marketplace_2>): UseMutationResult<TransactionResultWithId<never>, unknown, NewAuctionListing, unknown>;

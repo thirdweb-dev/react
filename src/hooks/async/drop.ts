@@ -15,7 +15,7 @@ import {
   NFTDrop,
   QueryAllParams,
 } from "@thirdweb-dev/sdk/dist/browser";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
@@ -106,8 +106,9 @@ export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
  */
 export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
   const contractAddress = contract?.getAddress();
-  return useQuery(
+  return useQueryWithNetwork(
     cacheKeys.contract.nft.drop.totalClaimedSupply(contractAddress),
+    contract?.getChainId(),
     () => {
       invariant(contract, "No Contract instance provided");
       if (contract instanceof Erc1155) {

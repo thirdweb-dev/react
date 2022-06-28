@@ -27,8 +27,8 @@
 |  [useContractData(contract, functionName, args)](./react.usecontractdata.md) | <b><i>(BETA)</i></b> Use this to get data from a contract read-function call. |
 |  [useContractEvents(contract, eventName, options)](./react.usecontractevents.md) | <b><i>(BETA)</i></b> Use this to query (and subscribe) to a specific event on a contract. |
 |  [useContractMetadata(contractAddress, chain)](./react.usecontractmetadata.md) | <b><i>(BETA)</i></b> Use this to get the contract metadata for a (built-in or custom) contract. |
-|  [useContractPublishMetadata(contractAddress)](./react.usecontractpublishmetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
-|  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
+|  [useContractPublishMetadata(contractAddress, chain)](./react.usecontractpublishmetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
+|  [useContractType(contractAddress, chain)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
 |  [useCreateAuctionListing(contract)](./react.usecreateauctionlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Auction Listing on your marketplace contract. |
 |  [useCreateDirectListing(contract)](./react.usecreatedirectlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Direct Listing on your marketplace contract. |
 |  [useEdition(contractAddress, chain)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |

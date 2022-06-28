@@ -12,7 +12,7 @@ Use this to get the publish metadata for a deployed contract.
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>): import("react-query").UseQueryResult<PublishedMetadata | undefined, unknown>;
+export declare function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName): import("react-query").UseQueryResult<PublishedMetadata | undefined, unknown>;
 ```
 
 ## Parameters
@@ -20,6 +20,7 @@ export declare function useContractPublishMetadata(contractAddress: RequiredPara
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contractAddress | RequiredParam&lt;ContractAddress&gt; | the address of the deployed contract |
+|  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
