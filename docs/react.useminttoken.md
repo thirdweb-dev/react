@@ -22,7 +22,7 @@ export declare function useMintToken(contract: RequiredParam<Erc20>): import("re
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;Erc20&gt; | an instace of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec) |
+|  contract | RequiredParam&lt;Erc20&gt; | an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec) |
 
 <b>Returns:</b>
 

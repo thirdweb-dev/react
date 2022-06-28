@@ -19,7 +19,7 @@ export declare function useTokenBalance(contract: RequiredParam<Erc20>, walletAd
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;Erc20&gt; | an instace of a Token contract. |
+|  contract | RequiredParam&lt;Erc20&gt; | an instance of a Token contract. |
 |  walletAddress | RequiredParam&lt;WalletAddress&gt; |  |
 |  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 

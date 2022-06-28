@@ -19,7 +19,7 @@ export declare function useClaimedNFTs(contract: RequiredParam<DropContract>, qu
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;DropContract&gt; | an instace of a  |
+|  contract | RequiredParam&lt;DropContract&gt; | an instance of a  |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
 |  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 

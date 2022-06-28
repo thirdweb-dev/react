@@ -79,7 +79,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useToken(contractAddress, chain)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
 |  [useTokenBalance(contract, walletAddress, queryOptions)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |
 |  [useTokenSupply(contract, queryOptions)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your Token contract. |
-|  [useTotalCirculatingSupply(\[contract, tokenId\])](./react.usetotalcirculatingsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your . |
+|  [useTotalCirculatingSupply(\[contract, tokenId\])](./react.usetotalcirculatingsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your .<!-- -->\* |
 |  [useTotalCount(contract, queryOptions)](./react.usetotalcount.md) | <b><i>(BETA)</i></b> Use this to get a the number of tokens in your . |
 |  [useUnclaimedNFTs(contract, queryParams, queryOptions)](./react.useunclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*unclaimed\* NFT tokens of your ERC721 Drop contract. |
 |  [useUnclaimedNFTSupply(contract, queryOptions)](./react.useunclaimednftsupply.md) |  |

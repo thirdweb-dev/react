@@ -1,4 +1,4 @@
-import type { SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
+import type { SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk/dist/browser";
 import { useCallback } from "react";
 import { useConnect } from "wagmi";
 

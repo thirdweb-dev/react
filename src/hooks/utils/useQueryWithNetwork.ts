@@ -1,7 +1,7 @@
 import { useSDK } from "../../providers/thirdweb-sdk";
 import { createCacheKeyWithNetwork } from "../../query-cache/cache-keys";
 import { RequiredParam } from "../../types/types";
-import { ChainIdOrName, toChainId } from "@thirdweb-dev/sdk";
+import { ChainIdOrName, toChainId } from "@thirdweb-dev/sdk/dist/browser";
 import {
   QueryFunction,
   QueryKey,

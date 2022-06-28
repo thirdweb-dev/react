@@ -19,7 +19,7 @@ export declare function useTokenSupply(contract: RequiredParam<Erc20>, queryOpti
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;Erc20&gt; | an instace of a Token contract. |
+|  contract | RequiredParam&lt;Erc20&gt; | an instance of a Token contract. |
 |  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>

@@ -22,7 +22,7 @@ export declare function useMakeBid(contract: RequiredParam<Marketplace>): import
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;Marketplace&gt; | an instace of a Marketplace contract |
+|  contract | RequiredParam&lt;Marketplace&gt; | an instance of a Marketplace contract |
 
 <b>Returns:</b>
 

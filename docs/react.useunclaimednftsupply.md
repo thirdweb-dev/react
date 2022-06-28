@@ -14,7 +14,7 @@ export declare function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>, 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;NFTDrop&gt; | an instace of a  |
+|  contract | RequiredParam&lt;NFTDrop&gt; | an instance of a  |
 |  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
 <b>Returns:</b>

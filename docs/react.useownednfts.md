@@ -19,7 +19,7 @@ export declare function useOwnedNFTs<TContract extends NFTContract>(contract: Re
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;TContract&gt; | an instace of a  |
+|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
 |  ownerWalletAddress | RequiredParam&lt;WalletAddress&gt; | the wallet adress to get owned tokens for |
 |  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
@@ -29,10 +29,19 @@ import("react-query").UseQueryResult&lt;NFT&lt;TContract&gt;\[\], unknown&gt;
 
 a response object that includes the list of owned tokens
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(nftDrop, <OwnerWalletAddress>);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(contract?.nft, <OwnerWalletAddress>);
 ```
 

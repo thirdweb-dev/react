@@ -15,7 +15,7 @@ import type {
   Split,
   ValidContractInstance,
   Vote,
-} from "@thirdweb-dev/sdk";
+} from "@thirdweb-dev/sdk/dist/browser";
 import { constants } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";

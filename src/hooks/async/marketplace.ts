@@ -10,7 +10,7 @@ import {
   MarketplaceFilter,
   NewAuctionListing,
   NewDirectListing,
-} from "@thirdweb-dev/sdk";
+} from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
@@ -27,7 +27,7 @@ import invariant from "tiny-invariant";
  * const { data: listing, isLoading, error } = useListing(<YourMarketplaceContractInstance>, <listingId>);
  * ```
  *
- * @param contract - an instace of a marketplace contract
+ * @param contract - an instance of a marketplace contract
  * @param listingId - the listing id to check
  * @returns a response object that includes an array of listings
  * @beta
@@ -59,7 +59,7 @@ export function useListing(
  * const { data: listings, isLoading, error } = useListings(<YourMarketplaceContractInstance>, { start: 0, count: 100 });
  * ```
  *
- * @param contract - an instace of a marketplace contract
+ * @param contract - an instance of a marketplace contract
  * @param filter - filter to pass to the query for the sake of pagination & filtering
  * @returns a response object that includes an array of listings
  * @beta
@@ -91,7 +91,7 @@ export function useListings(
  * const { data: listings, isLoading, error } = useMarketplaceListings(<YourMarketplaceContractInstance>, { seller: "0x...", tokenContract: "0x...", tokenId: 1, start: 0, count: 100 });
  * ```
  *
- * @param contract - an instace of a marketplace contract
+ * @param contract - an instance of a marketplace contract
  * @param filter - filter to pass to the query for the sake of pagination & filtering
  * @returns a response object that includes an array of listings
  * @beta
@@ -124,7 +124,7 @@ export function useActiveListings(
  * const { data: winningBid, isLoading, error } = useWinningBid(<YourMarketplaceContractInstance>, <listingId>);
  * ```
  *
- * @param contract - an instace of a marketplace contract
+ * @param contract - an instance of a marketplace contract
  * @param listingId - the listing id to check
  * @returns a response object that includes the {@link Offer} that is winning the auction
  * @beta
@@ -158,7 +158,7 @@ export function useWinningBid(
  * const { data: auctionWinner, isLoading, error } = useAuctionWinner(<YourMarketplaceContractInstance>, <listingId>);
  * ```
  *
- * @param contract - an instace of a marketplace contract
+ * @param contract - an instance of a marketplace contract
  * @param listingId - the listing id to check
  * @returns a response object that includes the address of the winner of the auction or undefined if there is no winner yet
  * @beta
@@ -202,7 +202,7 @@ export function useAuctionWinner(
  * const { data: auctionWinner, isLoading, error } = useAuctionWinner(<YourMarketplaceContractInstance>, <listingId>);
  * ```
  *
- * @param contract - an instace of a marketplace contract
+ * @param contract - an instance of a marketplace contract
 
  * @returns a response object that includes an array of listings
  * @beta
@@ -253,7 +253,7 @@ export function useBidBuffer(contract: RequiredParam<Marketplace>) {
  * };
  * ```
  *
- * @param contract - an instace of a Marketplace contract
+ * @param contract - an instance of a Marketplace contract
  * @returns a mutation object that can be used to create a new direct listing
  * @beta
  */
@@ -306,7 +306,7 @@ export function useCreateDirectListing(contract: RequiredParam<Marketplace>) {
  * };
  * ```
  *
- * @param contract - an instace of a Marketplace contract
+ * @param contract - an instance of a Marketplace contract
  * @returns a mutation object that can be used to create a new auction listing
  * @beta
  */
@@ -359,7 +359,7 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>) {
  * };
  * ```
  *
- * @param contract - an instace of a Marketplace contract
+ * @param contract - an instance of a Marketplace contract
  * @returns a mutation object that can be used to make a bid on an auction listing
  * @beta
  */
@@ -412,7 +412,7 @@ export function useMakeBid(contract: RequiredParam<Marketplace>) {
  * };
  * ```
  *
- * @param contract - an instace of a Marketplace contract
+ * @param contract - an instance of a Marketplace contract
  * @returns a mutation object that can be used to buy out an auction listing
  * @beta
  */

@@ -6,7 +6,7 @@ import {
   SUPPORTED_CHAIN_ID,
   ThirdwebSDK,
   defaultRPCMap,
-} from "@thirdweb-dev/sdk";
+} from "@thirdweb-dev/sdk/dist/browser";
 import { Signer } from "ethers";
 import React, { createContext, useContext, useEffect, useMemo } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";

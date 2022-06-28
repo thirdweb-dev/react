@@ -19,7 +19,7 @@ export declare function useNFTs<TContract extends NFTContract>(contract: Require
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;TContract&gt; | an instace of a  |
+|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
 |  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
@@ -29,10 +29,19 @@ import("react-query").UseQueryResult&lt;NFT&lt;TContract&gt;\[\], unknown&gt;
 
 a response object that includes an array of NFTs
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: nfts, isLoading, error } = useNFTs(nftDrop, { start: 0, count: 100 });
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: nfts, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });
 ```
 

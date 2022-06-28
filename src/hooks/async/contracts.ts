@@ -17,7 +17,7 @@ import {
   EventQueryFilter,
   SmartContract,
   ThirdwebSDK,
-} from "@thirdweb-dev/sdk";
+} from "@thirdweb-dev/sdk/dist/browser";
 import type {
   CustomContractMetadata,
   PublishedMetadata,

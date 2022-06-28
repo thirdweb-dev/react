@@ -19,7 +19,7 @@ export declare function useMintNFT<TContract extends NFTContract>(contract: Requ
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;TContract&gt; | an instace of a  |
+|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
 
 <b>Returns:</b>
 
@@ -27,16 +27,17 @@ import("react-query").UseMutationResult&lt;MintNFTReturnType&lt;TContract&gt;, u
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 
-## Example
+## Example 1
 
 
 ```jsx
 const Component = () => {
+  const nftDrop = useNFTDrop(<ContractAddress>);
   const {
     mutate: mintNft,
     isLoading,
     error,
-  } = useMintNFT(NFTContract);
+  } = useMintNFT(nftDrop);
 
   if (error) {
     console.error("failed to mint nft", error);
@@ -50,6 +51,24 @@ const Component = () => {
       Mint!
     </button>
   );
+};
+```
+
+## Example 2
+
+
+```jsx
+const Component = () => {
+ const { contract } = useContract(<ContractAddress>);
+  const {
+    mutate: mintNft,
+    isLoading,
+    error,
+  } = useMintNFT(contract?.nft);
+
+  if (error) {
+    console.error("failed to mint nft", error);
+    @@ -333,7 +393,7 @@ export function useNFTBalance<TContract extends NFTContract>(
 };
 ```
 

@@ -19,7 +19,7 @@ export declare function useNFT<TContract extends NFTContract>(contract: Required
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;TContract&gt; | an instace of a  |
+|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
 |  tokenId | RequiredParam&lt;BigNumberish&gt; | the tokenId to look up |
 |  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
 
@@ -29,10 +29,19 @@ import("react-query").UseQueryResult&lt;NFT&lt;TContract&gt;, unknown&gt;
 
 a response object that includes the metadata for the given tokenId
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: nft, isLoading, error } = useNFT(nftDrop, <tokenId>);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: nft, isLoading, error } = useNFT(contract?.nft, <tokenId>);
 ```
 

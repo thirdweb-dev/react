@@ -9,6 +9,8 @@
 
 Use this to get a the total (minted) supply of your .
 
+\*
+
 <b>Signature:</b>
 
 ```typescript
@@ -27,10 +29,19 @@ import("react-query").UseQueryResult&lt;BigNumber, unknown&gt;
 
 a response object that incudes the total minted supply
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: totalSupply, isLoading, error } = useNFTSupply(nftDrop);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: totalSupply, isLoading, error } = useNFTSupply(contract?.nft);
 ```
 

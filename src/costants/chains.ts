@@ -1,4 +1,8 @@
-import { ChainId, NATIVE_TOKENS, defaultRPCMap } from "@thirdweb-dev/sdk";
+import {
+  ChainId,
+  NATIVE_TOKENS,
+  defaultRPCMap,
+} from "@thirdweb-dev/sdk/dist/browser";
 import { Chain, chain } from "@wagmi/core";
 
 export const defaultChains: Chain[] = [

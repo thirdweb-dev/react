@@ -4,7 +4,7 @@ import {
   ChainIdOrName,
   defaultRPCMap,
   getReadOnlyProvider,
-} from "@thirdweb-dev/sdk";
+} from "@thirdweb-dev/sdk/dist/browser";
 import { Chain, InjectedConnector } from "@wagmi/core";
 import { getDefaultProvider } from "ethers";
 import React, { useMemo } from "react";
