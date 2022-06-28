@@ -63,7 +63,7 @@
     "@microsoft/api-extractor": "^7.19.4",
     "@microsoft/tsdoc": "^0.14.1",
     "@preconstruct/cli": "^2.1.5",
-    "@thirdweb-dev/sdk": "^3.0.0-0",
+    "@thirdweb-dev/sdk": "^3.0.0-2",
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/mime": "^2.0.3",
     "@types/react": "^18.0.5",
@@ -92,7 +92,7 @@
   "peerDependencies": {
     "@magic-ext/oauth": "^2.1.1",
     "@magic-sdk/provider": "^8.1.1",
-    "@thirdweb-dev/sdk": "^3.0.0-0",
+    "@thirdweb-dev/sdk": "^3.0.0-2",
     "ethers": ">=5.5.1",
     "magic-sdk": "^8.1.1",
     "react": ">=17.0.0",
