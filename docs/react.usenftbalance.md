@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get a the total balance of a  and wallet address.
+Use this to get a the total balance of a [NFTContract](./react.nftcontract.md) and wallet address.
 
 <b>Signature:</b>
 
@@ -19,7 +19,7 @@ export declare function useNFTBalance<TContract extends NFTContract>(...[contrac
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  \[contract, ownerWalletAddress, tokenId\] | useNFTBalanceParams&lt;TContract&gt; |  |
+|  \[contract, ownerWalletAddress, tokenId\] | [useNFTBalanceParams](./react.usenftbalanceparams.md)<!-- -->&lt;TContract&gt; |  |
 
 <b>Returns:</b>
 

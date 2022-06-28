@@ -19,13 +19,13 @@ export declare function useClaimedNFTs(contract: RequiredParam<DropContract>, qu
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;DropContract&gt; | an instance of a  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt; | an instance of a [DropContract](./react.dropcontract.md) |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("../../types/types").NFT&lt;DropContract&gt;\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;import("../../types/types").[NFT](./react.nft.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt;\[\], unknown&gt;
 
 a response object that includes an array of NFTs that are claimed
 

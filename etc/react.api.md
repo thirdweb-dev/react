@@ -5,7 +5,6 @@
 ```ts
 
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
-import type { Any } from 'ts-toolbelt';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
@@ -66,16 +65,92 @@ import { UseQueryResult } from 'react-query';
 import type { ValidContractInstance } from '@thirdweb-dev/sdk/dist/browser';
 import type { Vote } from '@thirdweb-dev/sdk/dist/browser';
 
+// @public (undocumented)
+export type BuyNowParams<TListingType = ListingType> = TListingType extends ListingType.Direct ? {
+    id: BigNumberish;
+    type: ListingType.Direct;
+    buyAmount: BigNumberish;
+    buyForWallet?: WalletAddress;
+} : {
+    id: BigNumberish;
+    type: ListingType.Auction;
+};
+
 // @beta
 export type ClaimIneligibilityParameters = {
     walletAddress?: WalletAddress;
     quantity: string | number;
 };
 
+// @beta
+export type ClaimNFTParams<TContract extends DropContract> = TContract extends Erc1155 ? {
+    to: WalletAddress;
+    tokenId: BigNumberish;
+    quantity: BigNumberish;
+    checkERC20Allowance?: boolean;
+} : {
+    to: WalletAddress;
+    quantity: BigNumberish;
+    checkERC20Allowance?: boolean;
+};
+
+// @beta
+export type ClaimNFTReturnType<TContract extends DropContract> = TContract extends Erc721 ? Awaited<ReturnType<TContract["claimTo"]>> : TContract extends Erc1155 ? Awaited<ReturnType<TContract["claimTo"]>> : never;
+
+// @public (undocumented)
+export type ClaimTokenParams = {
+    to: WalletAddress;
+    amount: Amount;
+    checkERC20Allowance?: boolean;
+};
+
+// @beta
+export type ContractAddress = string;
+
 // Warning: (ae-internal-missing-underscore) The name "ContractWithRoles" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export type ContractWithRoles = Exclude<ValidContractInstance, Vote | Split | Multiwrap> | SmartContract;
+
+// @beta
+export type DropContract = NFTDrop | EditionDrop;
+
+// @beta
+export type ExposedQueryOptions = Pick<UseQueryOptions<any>, "refetchInterval">;
+
+// @public (undocumented)
+export type MakeBidParams = {
+    listingId: BigNumberish;
+    bid: Price;
+};
+
+// @beta
+export type MintNFTParams<TContract extends NFTContract> = TContract extends Erc1155 ? {
+    metadata: NFTMetadataOrUri;
+    supply: BigNumberish;
+    to: WalletAddress;
+} : {
+    metadata: NFTMetadataOrUri;
+    to: WalletAddress;
+};
+
+// @beta
+export type MintNFTReturnType<TContract> = TContract extends Erc721 ? Awaited<ReturnType<Erc721Mintable["to"]>> : TContract extends Erc1155 ? Awaited<ReturnType<Erc1155Mintable["to"]>> : never;
+
+// @beta
+export type NFT<TContract extends NFTContract> = {
+    metadata: NFTMetadata;
+    owner: string;
+    type: TContract extends Erc721 ? "ERC721" : "ERC1155";
+    supply: TContract extends Erc721 ? 1 : number;
+    [key: string]: unknown;
+};
+
+// @beta
+export type NFTContract = Erc721 | Erc1155;
+
+// @beta
+export type RequiredParam<T> = T | undefined;
 
 // Warning: (ae-internal-missing-underscore) The name "RolesForContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -96,7 +171,7 @@ export interface ThirdwebSDKProviderProps {
     //
     // (undocumented)
     readonly appMetadata?: AppMetadata;
-    // Warning: (ae-forgotten-export) The symbol "RequiredParam" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+    // Warning: (ae-incompatible-release-tags) The symbol "chainId" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
     //
     // (undocumented)
     readonly chainId: RequiredParam<ChainIdOrName>;
@@ -113,6 +188,12 @@ export interface ThirdwebSDKProviderProps {
     // (undocumented)
     readonly storageInterface?: IStorage;
 }
+
+// @beta
+export type TokenMintParams = {
+    to: WalletAddress;
+    amount: string | number;
+};
 
 // Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
@@ -152,7 +233,6 @@ export function useAllContractEvents(contract: RequiredParam<ReturnType<typeof u
     subscribe?: boolean;
 }): UseQueryResult<ContractEvent[], unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "ExposedQueryOptions" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 // Warning: (ae-incompatible-release-tags) The symbol "useAllRoleMembers" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "useAllRoleMembers" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 //
@@ -211,12 +291,13 @@ displayValue: string;
 };
 }[], unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "DropContract" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-// Warning: (ae-forgotten-export) The symbol "NFT" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useClaimedNFTs(contract: RequiredParam<DropContract>, queryParams?: QueryAllParams, queryOptions?: ExposedQueryOptions): UseQueryResult<NFT<DropContract>[], unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNFTSupply" is marked as @public, but its signature references "DropContract" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useClaimedNFTSupply" is marked as @public, but its signature references "ExposedQueryOptions" which is marked as @beta
+//
 // @public (undocumented)
 export function useClaimedNFTSupply(contract: RequiredParam<DropContract>, queryOptions?: ExposedQueryOptions): UseQueryResult<any, unknown>;
 
@@ -225,14 +306,9 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>, query
 // @beta
 export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "ClaimNFTReturnType" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-// Warning: (ae-forgotten-export) The symbol "ClaimNFTParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "ClaimTokenParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useClaimToken<TContract extends TokenDrop>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
@@ -246,8 +322,6 @@ export function useCoinbaseWallet(): {
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 
-// Warning: (ae-forgotten-export) The symbol "ContractAddress" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useContract(contractAddress: RequiredParam<ContractAddress>, chain?: ChainIdOrName, queryOptions?: ExposedQueryOptions): {
     contract: SmartContract<any> | undefined;
@@ -692,9 +766,13 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>): U
 // @beta
 export function useCreateDirectListing(contract: RequiredParam<Marketplace>): UseMutationResult<TransactionResultWithId<never>, unknown, NewDirectListing, unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useEdition" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useEdition(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Edition | undefined;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useEditionDrop" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useEditionDrop(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): EditionDrop | undefined;
 
@@ -718,14 +796,14 @@ export function useListing(contract: RequiredParam<Marketplace>, listingId: Requ
 // @beta
 export function useListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "MakeBidParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useMakeBid(contract: RequiredParam<Marketplace>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
 }, "data">, unknown, MakeBidParams, unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useMarketplace" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useMarketplace(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Marketplace | undefined;
 
@@ -739,21 +817,17 @@ export function useMetamask(): {
     connect: (chainId?: SUPPORTED_CHAIN_ID) => Promise<void>;
 };
 
-// Warning: (ae-forgotten-export) The symbol "NFTContract" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-// Warning: (ae-forgotten-export) The symbol "MintNFTReturnType" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-// Warning: (ae-forgotten-export) The symbol "MintNFTParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useMintNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<MintNFTReturnType<TContract>, unknown, MintNFTParams<TContract>, unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "TokenMintParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
 }, "data">, unknown, TokenMintParams, unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useMultiwrap" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useMultiwrap(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Multiwrap | undefined;
 
@@ -763,14 +837,26 @@ export function useNetworkMismatch(contract?: UpdateableNetwork): boolean;
 // @beta
 export function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>, queryOptions?: ExposedQueryOptions): UseQueryResult<NFT<TContract>, unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "useNFTBalanceParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useNFTBalance<TContract extends NFTContract>(...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>): UseQueryResult<BigNumber, unknown>;
 
+// @beta
+export type useNFTBalanceParams<TContract> = TContract extends Erc1155 ? [
+contract: RequiredParam<TContract>,
+ownerWalletAddress: RequiredParam<WalletAddress>,
+tokenId: RequiredParam<BigNumberish>
+] : [
+contract: RequiredParam<TContract>,
+ownerWalletAddress: RequiredParam<WalletAddress>
+];
+
+// Warning: (ae-incompatible-release-tags) The symbol "useNFTCollection" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useNFTCollection(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): NFTCollection | undefined;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useNFTDrop" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useNFTDrop(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): NFTDrop | undefined;
 
@@ -780,6 +866,8 @@ export function useNFTs<TContract extends NFTContract>(contract: RequiredParam<T
 // @beta
 export function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>, queryOptions?: ExposedQueryOptions): UseQueryResult<NFT<TContract>[], unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "usePack" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function usePack(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Pack | undefined;
 
@@ -815,9 +903,13 @@ export function useSDK(): ThirdwebSDK | undefined;
 // @beta
 export function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useSignatureDrop" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useSignatureDrop(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): SignatureDrop | undefined;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useSplit" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useSplit(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Split | undefined;
 
@@ -826,6 +918,8 @@ export function useSplit(contractAddress: RequiredParam<string>, chain?: ChainId
 // @public (undocumented)
 export function useThirdwebConfig(): ThirdwebConfigContext;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useToken" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useToken(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Token | undefined;
 
@@ -840,10 +934,11 @@ export function useTokenDrop(contractAddress: RequiredParam<string>, chain?: Cha
 // @beta
 export function useTokenSupply(contract: RequiredParam<Erc20>, queryOptions?: ExposedQueryOptions): UseQueryResult<any, unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "useTotalCirculatingSupplyParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-//
 // @beta
 export function useTotalCirculatingSupply<TContract extends NFTContract>(...[contract, tokenId]: useTotalCirculatingSupplyParams<TContract>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export type useTotalCirculatingSupplyParams<TContract> = TContract extends Erc1155 ? [contract: RequiredParam<TContract>, tokenId: BigNumberish] : [contract: RequiredParam<TContract>];
 
 // @beta
 export function useTotalCount(contract: RequiredParam<NFTContract>, queryOptions?: ExposedQueryOptions): UseQueryResult<any, unknown>;
@@ -851,6 +946,9 @@ export function useTotalCount(contract: RequiredParam<NFTContract>, queryOptions
 // @beta
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams, queryOptions?: ExposedQueryOptions): UseQueryResult<any, unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNFTSupply" is marked as @public, but its signature references "ExposedQueryOptions" which is marked as @beta
+//
 // @public (undocumented)
 export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>, queryOptions?: ExposedQueryOptions): UseQueryResult<any, unknown>;
 
@@ -893,6 +991,8 @@ seller_fee_basis_points?: number | undefined;
 fee_recipient?: string | undefined;
 }, unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useVote" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
 // @public
 export function useVote(contractAddress: RequiredParam<string>, chain?: ChainIdOrName): Vote | undefined;
 
@@ -906,11 +1006,15 @@ export function useWalletConnect(): {
 // @beta
 export function useWinningBid(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<Offer | undefined, unknown>;
 
+// @beta
+export type WalletAddress = string;
+
 // Warnings were encountered during analysis:
 //
-// dist/declarations/dist/hooks/async/claim-conditions.d.ts:102:5 - (ae-forgotten-export) The symbol "WalletAddress" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 // dist/declarations/dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/declarations/dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+// dist/declarations/dist/types/types.d.ts:154:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/declarations/dist/types/types.d.ts:160:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

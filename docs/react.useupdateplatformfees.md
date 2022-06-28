@@ -25,7 +25,7 @@ export declare function useUpdatePlatformFees(contract: RequiredParam<SmartContr
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 

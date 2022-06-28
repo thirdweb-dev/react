@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get a the owned NFTs for a specific  and wallet address.
+Use this to get a the owned NFTs for a specific [NFTContract](./react.nftcontract.md) and wallet address.
 
 <b>Signature:</b>
 
@@ -19,13 +19,13 @@ export declare function useOwnedNFTs<TContract extends NFTContract>(contract: Re
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
-|  ownerWalletAddress | RequiredParam&lt;WalletAddress&gt; | the wallet adress to get owned tokens for |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [NFTContract](./react.nftcontract.md) |
+|  ownerWalletAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; | the wallet adress to get owned tokens for |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;NFT&lt;TContract&gt;\[\], unknown&gt;
+import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;\[\], unknown&gt;
 
 a response object that includes the list of owned tokens
 

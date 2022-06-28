@@ -19,8 +19,8 @@ export declare function useTokenSupply(contract: RequiredParam<Erc20>, queryOpti
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;Erc20&gt; | an instance of a Token contract. |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Erc20&gt; | an instance of a Token contract. |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

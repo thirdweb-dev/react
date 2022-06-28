@@ -19,9 +19,9 @@ export declare function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, query
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;NFTDrop&gt; | an instance of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 &amp; drop spec) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;NFTDrop&gt; | an instance of a contract that extends the Erc721 spec (nft drop, custom contract that follows the Erc721 &amp; drop spec) |
 |  queryParams | QueryAllParams | <i>(Optional)</i> query params to pass to the query for the sake of pagination |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

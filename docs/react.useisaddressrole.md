@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to check if a  is a member of a role on a 
+Use this to check if a [WalletAddress](./react.walletaddress.md) is a member of a role on a 
 
 <b>Signature:</b>
 
@@ -19,10 +19,10 @@ export declare function useIsAddressRole<TContract extends ContractWithRoles>(co
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
 |  role | RolesForContract&lt;TContract&gt; | the role to check the member against, see  |
-|  walletAddress | RequiredParam&lt;WalletAddress&gt; | the address to check |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  walletAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[WalletAddress](./react.walletaddress.md)<!-- -->&gt; | the address to check |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

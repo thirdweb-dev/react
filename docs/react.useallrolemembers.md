@@ -19,8 +19,8 @@ export declare function useAllRoleMembers<TContract extends ContractWithRoles>(c
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

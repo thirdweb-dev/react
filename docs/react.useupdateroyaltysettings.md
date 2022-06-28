@@ -28,7 +28,7 @@ export declare function useUpdateRoyaltySettings(contract: RequiredParam<SmartCo
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
 
 <b>Returns:</b>
 

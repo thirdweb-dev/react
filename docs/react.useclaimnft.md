@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to claim a NFT on your 
+Use this to claim a NFT on your [DropContract](./react.dropcontract.md)
 
 <b>Signature:</b>
 
@@ -19,11 +19,11 @@ export declare function useClaimNFT<TContract extends DropContract>(contract: Re
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;TContract&gt; | an instance of a  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [DropContract](./react.dropcontract.md) |
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;ClaimNFTReturnType&lt;TContract&gt;, unknown, ClaimNFTParams&lt;TContract&gt;, unknown&gt;
+import("react-query").UseMutationResult&lt;[ClaimNFTReturnType](./react.claimnftreturntype.md)<!-- -->&lt;TContract&gt;, unknown, [ClaimNFTParams](./react.claimnftparams.md)<!-- -->&lt;TContract&gt;, unknown&gt;
 
 a mutation object that can be used to claim a NFT to the wallet specificed in the params
 

@@ -19,10 +19,10 @@ export declare function useContractData(contract: RequiredParam<ReturnType<typeo
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;ReturnType&lt;typeof useContract&gt;\["contract"\]&gt; | the contract instance of the contract to call a function on |
-|  functionName | RequiredParam&lt;string&gt; | the name of the function to call |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;ReturnType&lt;typeof useContract&gt;\["contract"\]&gt; | the contract instance of the contract to call a function on |
+|  functionName | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;string&gt; | the name of the function to call |
 |  functionArguments | unknown\[\] \| \[...unknown\[\], CallOverrides\] |  |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

@@ -17,3 +17,5 @@ export declare type ClaimIneligibilityParameters = {
     quantity: string | number;
 };
 ```
+<b>References:</b> [WalletAddress](./react.walletaddress.md)
+

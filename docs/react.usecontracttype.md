@@ -19,9 +19,9 @@ export declare function useContractType(contractAddress: RequiredParam<ContractA
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | RequiredParam&lt;ContractAddress&gt; | the address of the deployed contract |
+|  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[ContractAddress](./react.contractaddress.md)<!-- -->&gt; | the address of the deployed contract |
 |  chain | ChainIdOrName | <i>(Optional)</i> |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

@@ -17,8 +17,8 @@ export declare function usePrimarySaleRecipient(contract: RequiredParam<SmartCon
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
-|  queryOptions | ExposedQueryOptions | <i>(Optional)</i> |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;SmartContract \| ValidContractInstance&gt; | an instance of a  |
+|  queryOptions | [ExposedQueryOptions](./react.exposedqueryoptions.md) | <i>(Optional)</i> |
 
 <b>Returns:</b>
 

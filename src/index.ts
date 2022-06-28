@@ -25,3 +25,6 @@ export * from "./hooks/useNetworkMismatch";
 // wagmi wrappers
 export * from "./hooks/wagmi-wrappers/useAddress";
 export * from "./hooks/wagmi-wrappers/useChainId";
+
+//types
+export * from "./types/types";

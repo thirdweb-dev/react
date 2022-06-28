@@ -22,7 +22,7 @@ export declare function useContractEvents(contract: RequiredParam<ReturnType<typ
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;ReturnType&lt;typeof useContract&gt;\["contract"\]&gt; | the contract instance of the contract to call a function on |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;ReturnType&lt;typeof useContract&gt;\["contract"\]&gt; | the contract instance of the contract to call a function on |
 |  eventName | string |  |
 |  options | { queryFilter?: EventQueryFilter; subscribe?: boolean; } | <i>(Optional)</i> options incldues the filters (<!-- -->) for the query as well as if you want to subscribe to real-time updates (default: true) |
 

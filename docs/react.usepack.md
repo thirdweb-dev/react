@@ -16,7 +16,7 @@ export declare function usePack(contractAddress: RequiredParam<string>, chain?: 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | RequiredParam&lt;string&gt; | the address of the Pack contract, found in your thirdweb dashboard |
+|  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;string&gt; | the address of the Pack contract, found in your thirdweb dashboard |
 |  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>

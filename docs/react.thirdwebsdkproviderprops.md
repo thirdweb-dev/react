@@ -15,7 +15,7 @@ export interface ThirdwebSDKProviderProps
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [appMetadata?](./react.thirdwebsdkproviderprops.appmetadata.md) | AppMetadata | <i>(Optional)</i> |
-|  [chainId](./react.thirdwebsdkproviderprops.chainid.md) | RequiredParam&lt;ChainIdOrName&gt; |  |
+|  [chainId](./react.thirdwebsdkproviderprops.chainid.md) | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;ChainIdOrName&gt; |  |
 |  [chainIdToRPCUrlMap?](./react.thirdwebsdkproviderprops.chainidtorpcurlmap.md) | Partial&lt;ChainIDToRpcUrlMap&gt; | <i>(Optional)</i> |
 |  [options?](./react.thirdwebsdkproviderprops.options.md) | SDKOptions | <i>(Optional)</i> |
 |  [queryClient?](./react.thirdwebsdkproviderprops.queryclient.md) | QueryClient | <i>(Optional)</i> |

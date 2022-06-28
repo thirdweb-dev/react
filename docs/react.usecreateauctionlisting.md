@@ -19,7 +19,7 @@ export declare function useCreateAuctionListing(contract: RequiredParam<Marketpl
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | RequiredParam&lt;Marketplace&gt; | an instance of a Marketplace contract |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Marketplace&gt; | an instance of a Marketplace contract |
 
 <b>Returns:</b>
 

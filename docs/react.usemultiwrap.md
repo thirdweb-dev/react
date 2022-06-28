@@ -16,7 +16,7 @@ export declare function useMultiwrap(contractAddress: RequiredParam<string>, cha
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contractAddress | RequiredParam&lt;string&gt; | the address of the Multiwrap contract, found in your thirdweb dashboard |
+|  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;string&gt; | the address of the Multiwrap contract, found in your thirdweb dashboard |
 |  chain | ChainIdOrName | <i>(Optional)</i> |
 
 <b>Returns:</b>

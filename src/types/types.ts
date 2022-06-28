@@ -13,15 +13,12 @@ import type {
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish } from "ethers";
 import type { UseQueryOptions } from "react-query";
-import type { Any } from "ts-toolbelt";
 
 /**
  * Exposed options shared across all query hooks.
  * @beta
  */
-export type ExposedQueryOptions = Any.Compute<
-  Pick<UseQueryOptions<any>, "refetchInterval">
->;
+export type ExposedQueryOptions = Pick<UseQueryOptions<any>, "refetchInterval">;
 
 /**
  * Makes a parameter required to be passed, but still allowes it to be undefined.
