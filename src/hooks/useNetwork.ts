@@ -5,44 +5,15 @@ import { useNetwork as useWagmiNetwork } from "wagmi";
  *
  * @example
  * ```javascript
- * import { useNetwork } from "@thirdweb-dev/react";
+ * import { useNetwork, ChainId } from "@thirdweb-dev/react";
  *
  * const App = () => {
- *   const [
- *     {
- *       data: { chain, chains },
- *       loading,
- *       error,
- *     },
- *     switchNetwork,
- *   ] = useNetwork();
+ *   const [, switchNetwork] = useNetwork();
  *
  *   return (
- *     <>
- *       {loading ? (
- *         <div>Connecting...</div>
- *       ) : chain ? (
- *         <div>Connected to {chain.name}</div>
- *       ) : (
- *         ""
- *       )}
- *
- *       {chains.map((ch) => (
- *         <button
- *           disabled={!switchNetwork || ch.id === chain?.id}
- *           key={ch.id}
- *           onClick={() => {
- *             if (switchNetwork) {
- *               switchNetwork(ch.id);
- *             }
- *           }}
- *         >
- *           {ch.name}
- *         </button>
- *       ))}
- *
- *       {error && <div>{error.message}</div>}
- *     </>
+ *     <button onClick={() => switchNetwork(ChainId.Polygon)}>
+ *        Switch Network
+ *     </button>
  *   );
  * };
 ```
