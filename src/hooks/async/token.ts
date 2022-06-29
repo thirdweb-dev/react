@@ -26,7 +26,7 @@ import invariant from "tiny-invariant";
  * const { data: totalSupply, isLoading, error } = useTokenSupply(<YourTokenContractInstance>);
  * ```
  *
- * @param contract - an instace of a Token contract.
+ * @param contract - an instance of a Token contract.
  * @returns a response object that incudes the total minted supply
  * @beta
  */
@@ -52,7 +52,7 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
  * const { data: balance, isLoading, error } = useTokenBalance(<YourTokenContractInstance>);
  * ```
  *
- * @param contract - an instace of a Token contract.
+ * @param contract - an instance of a Token contract.
  * @returns a response object that includes the balance of the address
  * @beta
  */
@@ -105,7 +105,7 @@ export function useTokenBalance(
  * };
  * ```
  *
- * @param contract - an instace of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
+ * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
@@ -158,7 +158,7 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
  * };
  * ```
  *
- * @param contract - an instace of a {@link TokenDrop}
+ * @param contract - an instance of a {@link TokenDrop}
  * @returns a mutation object that can be used to tokens to the wallet specificed in the params
  * @beta
  */

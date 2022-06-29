@@ -19,7 +19,7 @@ export declare function useMintNFT<TContract extends NFTContract>(contract: Requ
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instace of a [NFTContract](./react.nftcontract.md) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [NFTContract](./react.nftcontract.md) |
 
 <b>Returns:</b>
 
