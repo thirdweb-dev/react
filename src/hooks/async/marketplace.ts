@@ -89,7 +89,7 @@ export function useListings(
  *
  * @example
  * ```javascript
- * const { data: listings, isLoading, error } = useMarketplaceListings(<YourMarketplaceContractInstance>, { seller: "0x...", tokenContract: "0x...", tokenId: 1, start: 0, count: 100 });
+ * const { data: listings, isLoading, error } = useActiveListings(<YourMarketplaceContractInstance>, { seller: "0x...", tokenContract: "0x...", tokenId: 1, start: 0, count: 100 });
  * ```
  *
  * @param contract - an instance of a marketplace contract
@@ -197,7 +197,7 @@ export function useAuctionWinner(
  *
  * @example
  * ```javascript
- * const { data: auctionWinner, isLoading, error } = useAuctionWinner(<YourMarketplaceContractInstance>, <listingId>);
+ * const { data: auctionWinner, isLoading, error } = useBidBuffer(<YourMarketplaceContractInstance>);
  * ```
  *
  * @param contract - an instance of a marketplace contract
