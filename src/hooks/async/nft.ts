@@ -14,7 +14,7 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import type { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
+import { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
 // eslint-disable-next-line no-duplicate-imports
 import { Erc721, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
@@ -62,10 +62,16 @@ function convertResponseToNFTTypeArray(
  *
  * @example
  * ```javascript
- * const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);
+ * const nftDrop = useNFTDrop(<ContractAddress>);
+ * const { data: nft, isLoading, error } = useNFT(nftDrop, <tokenId>);
+ * ```
+ * @example
+ * ```javascript
+ * const { contract } = useContract(<ContractAddress>);
+ * const { data: nft, isLoading, error } = useNFT(contract?.nft, <tokenId>);
  * ```
  *
- * @param contract - an instace of a {@link NFTContract}
+ * @param contract - an instance of a {@link NFTContract}
  * @param tokenId - the tokenId to look up
  * @returns a response object that includes the metadata for the given tokenId
  * @beta
@@ -98,10 +104,16 @@ export function useNFT<TContract extends NFTContract>(
  *
  * @example
  * ```javascript
- * const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });
+ * const nftDrop = useNFTDrop(<ContractAddress>);
+ * const { data: nfts, isLoading, error } = useNFTs(nftDrop, { start: 0, count: 100 });
+ * ```
+ * @example
+ * ```javascript
+ * const { contract } = useContract(<ContractAddress>);
+ * const { data: nfts, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });
  * ```
  *
- * @param contract - an instace of a {@link NFTContract}
+ * @param contract - an instance of a {@link NFTContract}
  * @param queryParams - query params to pass to the query for the sake of pagination
  * @returns a response object that includes an array of NFTs
  * @beta
@@ -135,12 +147,18 @@ export function useNFTs<TContract extends NFTContract>(
 /**
  * Use this to get a the total (minted) supply of your {@link NFTContract}.
  *
+ *  * @example
+ * ```javascript
+ * const nftDrop = useNFTDrop(<ContractAddress>);
+ * const { data: totalSupply, isLoading, error } = useNFTSupply(nftDrop);
+ * ```
  * @example
  * ```javascript
- * const { data: totalSupply, isLoading, error } = useNFTSupply(NFTContract);
+ * const { contract } = useContract(<ContractAddress>);
+ * const { data: totalSupply, isLoading, error } = useNFTSupply(contract?.nft);
  * ```
  *
- * @param contract - an instace of a {@link NFTContract}
+ * @param contract - an instance of a {@link NFTContract}
  * @returns a response object that incudes the total minted supply
  * @beta
  */
@@ -180,10 +198,16 @@ export function useTotalCirculatingSupply<TContract extends NFTContract>(
  *
  * @example
  * ```javascript
- * const { data: totalSupply, isLoading, error } = useTotalCount(NFTContract);
+ * const nftDrop = useNFTDrop(<ContractAddress>);
+ * const { data: totalCount, isLoading, error } = useTotalCount(nftDrop);
+ * ```
+ * @example
+ * ```javascript
+ * const { contract } = useContract(<ContractAddress>);
+ * const { data: totalCount, isLoading, error } = useTotalCount(contract?.nft);
  * ```
  *
- * @param contract - an instace of a {@link NFTContract}
+ * @param contract - an instance of a {@link NFTContract}
  * @returns a response object that incudes the total number of tokens in the contract
  * @beta
  */
@@ -217,10 +241,16 @@ export function useTotalCount(contract: RequiredParam<NFTContract>) {
  *
  * @example
  * ```javascript
- * const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);
+ * const nftDrop = useNFTDrop(<ContractAddress>);
+ * const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(nftDrop, <OwnerWalletAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const { contract } = useContract(<ContractAddress>);
+ * const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(contract?.nft, <OwnerWalletAddress>);
  * ```
  *
- * @param contract - an instace of a {@link NFTContract}
+ * @param contract - an instance of a {@link NFTContract}
  * @param ownerWalletAddress - the wallet adress to get owned tokens for
  * @returns a response object that includes the list of owned tokens
  * @beta
@@ -262,13 +292,18 @@ export function useOwnedNFTs<TContract extends NFTContract>(
 /**
  * Use this to get a the total balance of a {@link NFTContract} and wallet address.
  *
- *
+ *  @example
+ * ```javascript
+ * const nftDrop = useNFTDrop(<ContractAddress>);
+ * const { data: ownerBalance, isLoading, error } = useNFTBalance(nftDrop, <OwnerWalletAddress>);
+ * ```
  * @example
  * ```javascript
- * const { data: ownerBalance, isLoading, error } = useNFTBalance(NFTContract, <OwnerWalletAddress>);
+ * const { contract } = useContract(<ContractAddress>);
+ * const { data: ownerBalance, isLoading, error } = useNFTBalance(contract?.nft, <OwnerWalletAddress>);
  * ```
  *
- * @param contract - an instace of a {@link NFTContract}
+ * @param contract - an instance of a {@link NFTContract}
  * @param ownerWalletAddress - the wallet adress to check the balance of
  * @returns a response object that includes the total balance of the owner
  * @beta
@@ -312,11 +347,36 @@ export function useNFTBalance<TContract extends NFTContract>(
  * @example
  * ```jsx
  * const Component = () => {
+ *   const nftDrop = useNFTDrop(<ContractAddress>);
  *   const {
  *     mutate: mintNft,
  *     isLoading,
  *     error,
- *   } = useMintNFT(NFTContract);
+ *   } = useMintNFT(nftDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to mint nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *     >
+ *       Mint!
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *  const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: mintNft,
+ *     isLoading,
+ *     error,
+ *   } = useMintNFT(contract?.nft);
  *
  *   if (error) {
  *     console.error("failed to mint nft", error);
@@ -333,7 +393,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  * };
  * ```
  *
- * @param contract - an instace of a {@link NFTContract}
+ * @param contract - an instance of a {@link NFTContract}
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */

@@ -19,7 +19,7 @@ export declare function useNFT<TContract extends NFTContract>(contract: Required
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instace of a [NFTContract](./react.nftcontract.md) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [NFTContract](./react.nftcontract.md) |
 |  tokenId | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;BigNumberish&gt; | the tokenId to look up |
 
 <b>Returns:</b>
