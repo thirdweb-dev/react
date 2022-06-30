@@ -430,6 +430,9 @@ export function useContractCall(
     async (...args: unknown[] | [...unknown[], CallOverrides]) => {
       invariant(contract, "contract must be defined");
       invariant(functionName, "function name must be provided");
+      if (!args.length) {
+        return contract.call(functionName);
+      }
       return contract.call(functionName, ...args);
     },
     {
