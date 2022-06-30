@@ -28,10 +28,19 @@ import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContra
 
 a response object that includes an array of NFTs
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: nfts, isLoading, error } = useNFTs(NFTContract, { start: 0, count: 100 });
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: nfts, isLoading, error } = useNFTs(nftDrop, { start: 0, count: 100 });
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: nfts, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });
 ```
 
