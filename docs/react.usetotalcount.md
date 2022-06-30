@@ -31,10 +31,19 @@ a response object that incudes the total number of tokens in the contract
 
 The `total count` and `total supply` are the same for  based contracts. For  the `total count` is the number of NFTs that exist on the contract, \*\*not\*\* the sum of all supply of each token. (Since ERC1155 can have multiple owners per token.)
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: totalSupply, isLoading, error } = useTotalCount(NFTContract);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: totalCount, isLoading, error } = useTotalCount(nftDrop);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: totalCount, isLoading, error } = useTotalCount(contract?.nft);
 ```
 

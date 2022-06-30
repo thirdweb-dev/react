@@ -31,6 +31,6 @@ a response object that includes an array of listings
 
 
 ```javascript
-const { data: auctionWinner, isLoading, error } = useAuctionWinner(<YourMarketplaceContractInstance>, <listingId>);
+const { data: auctionWinner, isLoading, error } = useBidBuffer(<YourMarketplaceContractInstance>);
 ```
 
