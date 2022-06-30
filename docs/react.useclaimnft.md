@@ -19,7 +19,7 @@ export declare function useClaimNFT<TContract extends DropContract>(contract: Re
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instace of a [DropContract](./react.dropcontract.md) |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [DropContract](./react.dropcontract.md) |
 
 <b>Returns:</b>
 

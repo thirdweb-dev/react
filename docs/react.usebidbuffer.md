@@ -19,7 +19,7 @@ export declare function useBidBuffer(contract: RequiredParam<Marketplace>): impo
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Marketplace&gt; | an instace of a marketplace contract |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;Marketplace&gt; | an instance of a marketplace contract |
 
 <b>Returns:</b>
 

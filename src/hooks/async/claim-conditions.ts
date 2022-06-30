@@ -34,7 +34,7 @@ type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
  * const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC1155ContractInstance>, <tokenId>);
  * ```
  *
- * @param contract - an instace of a contract that extends the ERC721 or ERC1155 spec and implements the `claimConditions` extension.
+ * @param contract - an instance of a contract that extends the ERC721 or ERC1155 spec and implements the `claimConditions` extension.
  * @param tokenId - the id of the token to fetch the claim conditions for (if the contract is an ERC1155 contract)
  * @returns a response object with the currently active claim condition
  *
@@ -84,7 +84,7 @@ export function useActiveClaimCondition<
  * const { data: claimConditions, isLoading, error } = useClaimConditions(<YourERC1155ContractInstance>, <tokenId>);
  * ```
  *
- * @param contract - an instace of a contract that extends the ERC721 or ERC1155 spec and implements the `claimConditions` extension.
+ * @param contract - an instance of a contract that extends the ERC721 or ERC1155 spec and implements the `claimConditions` extension.
  * @param tokenId - the id of the token to fetch the claim conditions for (if the contract is an ERC1155 contract)
  * @returns a response object with the list of claim conditions
  *
@@ -156,7 +156,7 @@ type ClaimIneligibilityInputParams<TContract> = TContract extends Erc1155
  * const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);
  * ```
  *
- * @param contract - an instace of a contract that extends the  ERC20, ERC721 or ERC1155 spec and implements the `claimConditions` extension.
+ * @param contract - an instance of a contract that extends the  ERC20, ERC721 or ERC1155 spec and implements the `claimConditions` extension.
  * @param eligibilityParams - the parameters for the eligibility check, see: {@link ClaimIneligibilityParameters}
  * @param tokenId - the id of the token to fetch the claim conditions for (if the contract is an ERC1155 contract)
  * @returns a response object with the resons for the claim ineligibility

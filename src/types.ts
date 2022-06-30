@@ -11,7 +11,7 @@ import type {
   Price,
 } from "@thirdweb-dev/sdk/dist/browser";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
-import type { BigNumberish, BytesLike } from "ethers";
+import type { BigNumberish } from "ethers";
 
 /**
  * Makes a parameter required to be passed, but still allowes it to be undefined.
@@ -46,6 +46,27 @@ export type TokenMintParams = {
 
 /**
  * The possible NFT contract types.
+ * @example
+ * ```javascript
+ * const nftDrop = useNFTDrop(<ContractAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const editionDrop = useEditionDrop(<ContractAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const nftCollection = useNFTCollection(<ContractAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const edition = useEdition(<ContractAddress>);
+ * ```
+ * @example
+ * ```javascript
+ * const { contract } = useContract(<ContractAddress>);
+ * const nftContract = contract?.nft;
+ * ```
  * @beta
  */
 export type NFTContract = Erc721 | Erc1155;
@@ -139,12 +160,12 @@ export type ClaimNFTParams<TContract extends DropContract> =
         to: WalletAddress;
         tokenId: BigNumberish;
         quantity: BigNumberish;
-        proofs?: BytesLike[];
+        checkERC20Allowance?: boolean;
       }
     : {
         to: WalletAddress;
         quantity: BigNumberish;
-        proofs?: BytesLike[];
+        checkERC20Allowance?: boolean;
       };
 
 /**
@@ -181,5 +202,5 @@ export type BuyNowParams<TListingType = ListingType> =
 export type ClaimTokenParams = {
   to: WalletAddress;
   amount: Amount;
-  proofs?: BytesLike[];
+  checkERC20Allowance?: boolean;
 };
