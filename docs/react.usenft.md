@@ -28,10 +28,19 @@ import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContra
 
 a response object that includes the metadata for the given tokenId
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: nft, isLoading, error } = useNFT(NFTContract, <tokenId>);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: nft, isLoading, error } = useNFT(nftDrop, <tokenId>);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: nft, isLoading, error } = useNFT(contract?.nft, <tokenId>);
 ```
 
