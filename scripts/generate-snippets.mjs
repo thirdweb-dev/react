@@ -56,6 +56,7 @@ const CONTRACT_HOOKS = [
   "useSplit",
   "useVote",
   "usePack",
+  "useContract",
 ];
 
 const NFT_HOOKS = [
@@ -88,12 +89,53 @@ const DROP_HOOKS = [
   "useUnclaimedNFTSupply",
   "useClaimedNFTSupply",
   "useClaimNFT",
+  "useClaimToken",
 ];
 
 const CLAIM_CONDITIONS_HOOKS = [
   "useActiveClaimCondition",
-  "useClaimCondition",
+  "useClaimConditions",
   "useClaimIneligibilityReasons",
+];
+
+const WALLET_CONNECTION_HOOKS = [
+  "useAddress",
+  "useMetamask",
+  "useWalletConnect",
+  "useCoinbaseWallet",
+  "useMagic",
+  "useGnosis",
+  "useDisconnect",
+];
+
+const NETWORK_INFO_HOOKS = ["useChainId", "useNetwork", "useNetworkMismatch"];
+
+const CUSTOM_CONTRACT_HOOKS = [
+  "useContract",
+  "useContractData",
+  "useAllContractEvents",
+  "useContractEvents",
+  "useContractType",
+  "useContractPublishMetadata",
+  "useContractMetadata",
+  "useContractCall",
+];
+
+const CONTRACT_SETTINGS_HOOKS = [
+  "useMetadata",
+  "useUpdateMetadata",
+  "usePrimarySalesRecipient",
+  "useUpdatePrimarySaleRecipient",
+  "useRoyaltySettings",
+  "useUpdateRoyaltySettings",
+  "usePlatformFees",
+  "useUpdatePlatformFees",
+  "useAllRoleMembers",
+  "useRoleMembers",
+  "useIsAddressRole",
+  "useSetAllRoleMembers",
+  "useGrantRole",
+  "useRevokeRole",
 ];
 
 const CONTRACT_SUBHOOKS = {
@@ -105,7 +147,13 @@ const CONTRACT_SUBHOOKS = {
   useEditionDrop: [...NFT_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
   useSplit: [],
   useVote: [],
-  usePack: [],
+  usePack: [...NFT_HOOKS],
+  useContract: [
+    ...WALLET_CONNECTION_HOOKS,
+    ...NETWORK_INFO_HOOKS,
+    ...CUSTOM_CONTRACT_HOOKS,
+    ...CONTRACT_SETTINGS_HOOKS,
+  ],
 };
 
 const hooks = json.members[0].members.filter(
@@ -156,6 +204,8 @@ const moduleMap = hooks.reduce((acc, m) => {
   const parserContext = tsdocParser.parseString(m.docComment);
   const docComment = parserContext.docComment;
   const examples = parseExampleTag(docComment);
+
+  console.log(json.members[0].members);
 
   const contractSubhooks = json.members[0].members.filter(
     (f) => f.kind === "Function" && CONTRACT_SUBHOOKS[m.name].includes(f.name),
