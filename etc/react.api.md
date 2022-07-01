@@ -7,6 +7,7 @@
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
+import { BaseContract } from 'ethers';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import { CallOverrides } from 'ethers';
@@ -515,7 +516,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: SmartContract<any> | null;
+    contract: SmartContract<BaseContract> | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
         publishMetadata: null;
@@ -552,7 +553,7 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: SmartContract<any> | null;
+    contract: SmartContract<BaseContract> | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
         publishMetadata: null;
@@ -662,23 +663,23 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
         name: string;
         outputs: {
             [x: string]: any;
-            stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
                 type: string;
                 name: string;
             }[] | undefined;
+            stateMutability?: string | undefined;
             type: string;
             name: string;
         }[];
         inputs: {
             [x: string]: any;
-            stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
                 type: string;
                 name: string;
             }[] | undefined;
+            stateMutability?: string | undefined;
             type: string;
             name: string;
         }[];
@@ -725,23 +726,23 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
         name: string;
         outputs: {
             [x: string]: any;
-            stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
                 type: string;
                 name: string;
             }[] | undefined;
+            stateMutability?: string | undefined;
             type: string;
             name: string;
         }[];
         inputs: {
             [x: string]: any;
-            stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
                 type: string;
                 name: string;
             }[] | undefined;
+            stateMutability?: string | undefined;
             type: string;
             name: string;
         }[];

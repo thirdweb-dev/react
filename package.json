@@ -34,7 +34,7 @@
     "@microsoft/api-extractor": "^7.19.4",
     "@microsoft/tsdoc": "^0.14.1",
     "@swc/core": "^1.2.177",
-    "@thirdweb-dev/sdk": "^2.3.20",
+    "@thirdweb-dev/sdk": "^2.3.23",
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/mime": "^2.0.3",
     "@types/react": "^18.0.5",
@@ -65,7 +65,7 @@
     "wagmi": "^0.2.28"
   },
   "peerDependencies": {
-    "@thirdweb-dev/sdk": "^2.3.20",
+    "@thirdweb-dev/sdk": "^2.3.23",
     "ethers": ">=5.5.1",
     "react": ">=17.0.0"
   },
