@@ -36,10 +36,10 @@ export declare function useContract(contractAddress: RequiredParam<ContractAddre
     isStale: boolean;
     refetch: <TPageData>(options?: (import("react-query").RefetchOptions & import("react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("react-query").QueryObserverResult<{
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: import("react-query").FetchStatus;
@@ -67,10 +67,10 @@ export declare function useContract(contractAddress: RequiredParam<ContractAddre
     isStale: boolean;
     refetch: <TPageData>(options?: (import("react-query").RefetchOptions & import("react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("react-query").QueryObserverResult<{
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: import("react-query").FetchStatus;
@@ -78,10 +78,10 @@ export declare function useContract(contractAddress: RequiredParam<ContractAddre
     contract: SmartContract<import("ethers").BaseContract> | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -104,10 +104,10 @@ export declare function useContract(contractAddress: RequiredParam<ContractAddre
     isStale: boolean;
     refetch: <TPageData>(options?: (import("react-query").RefetchOptions & import("react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("react-query").QueryObserverResult<{
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: import("react-query").FetchStatus;
@@ -115,10 +115,10 @@ export declare function useContract(contractAddress: RequiredParam<ContractAddre
     contract: SmartContract<import("ethers").BaseContract> | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -141,10 +141,10 @@ export declare function useContract(contractAddress: RequiredParam<ContractAddre
     isStale: boolean;
     refetch: <TPageData>(options?: (import("react-query").RefetchOptions & import("react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("react-query").QueryObserverResult<{
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: import("react-query").FetchStatus;
@@ -159,7 +159,7 @@ export declare function useContract(contractAddress: RequiredParam<ContractAddre
 
 <b>Returns:</b>
 
-{ contract: null; data: undefined; error: unknown; isError: true; isLoading: false; isLoadingError: true; isRefetchError: false; isSuccess: false; status: "error"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; errorUpdateCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: null; data: undefined; error: null; isError: false; isLoading: true; isLoadingError: false; isRefetchError: false; isSuccess: false; status: "loading"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; errorUpdateCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: SmartContract&lt;import("ethers").BaseContract&gt; \| null; data: { contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: PublishedMetadata \| undefined; } \| undefined; error: unknown; isError: true; isLoading: false; isLoadingError: false; isRefetchError: true; isSuccess: false; status: "error"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; errorUpdateCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: SmartContract&lt;import("ethers").BaseContract&gt; \| null; data: { contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: PublishedMetadata \| undefined; } \| undefined; error: null; isError: false; isLoading: false; isLoadingError: false; isRefetchError: false; isSuccess: true; status: "success"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; errorUpdateCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; publishMetadata: null; } \| { contractType: "custom"; publishMetadata: PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; }
+{ contract: null; data: undefined; error: unknown; isError: true; isLoading: false; isLoadingError: true; isRefetchError: false; isSuccess: false; status: "error"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; errorUpdateCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; compilerMetadata: null; } \| { contractType: "custom"; compilerMetadata: PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: null; data: undefined; error: null; isError: false; isLoading: true; isLoadingError: false; isRefetchError: false; isSuccess: false; status: "loading"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; errorUpdateCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; compilerMetadata: null; } \| { contractType: "custom"; compilerMetadata: PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: SmartContract&lt;import("ethers").BaseContract&gt; \| null; data: { contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; compilerMetadata: null; } \| { contractType: "custom"; compilerMetadata: PublishedMetadata \| undefined; } \| undefined; error: unknown; isError: true; isLoading: false; isLoadingError: false; isRefetchError: true; isSuccess: false; status: "error"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; errorUpdateCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; compilerMetadata: null; } \| { contractType: "custom"; compilerMetadata: PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; } \| { contract: SmartContract&lt;import("ethers").BaseContract&gt; \| null; data: { contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; compilerMetadata: null; } \| { contractType: "custom"; compilerMetadata: PublishedMetadata \| undefined; } \| undefined; error: null; isError: false; isLoading: false; isLoadingError: false; isRefetchError: false; isSuccess: true; status: "success"; dataUpdatedAt: number; errorUpdatedAt: number; failureCount: number; errorUpdateCount: number; isFetched: boolean; isFetchedAfterMount: boolean; isFetching: boolean; isPaused: boolean; isPlaceholderData: boolean; isPreviousData: boolean; isRefetching: boolean; isStale: boolean; refetch: &lt;TPageData&gt;(options?: (import("react-query").RefetchOptions &amp; import("react-query").RefetchQueryFilters&lt;TPageData&gt;) \| undefined) =&gt; Promise&lt;import("react-query").QueryObserverResult&lt;{ contractType: "split" \| "nft-drop" \| "signature-drop" \| "nft-collection" \| "edition-drop" \| "edition" \| "token-drop" \| "token" \| "vote" \| "marketplace" \| "pack" \| "multiwrap" \| undefined; compilerMetadata: null; } \| { contractType: "custom"; compilerMetadata: PublishedMetadata \| undefined; } \| undefined, unknown&gt;&gt;; remove: () =&gt; void; fetchStatus: import("react-query").FetchStatus; }
 
 a response object that includes the contract once it is resolved
 

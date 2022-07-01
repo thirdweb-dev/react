@@ -477,10 +477,10 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -508,10 +508,10 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -519,10 +519,10 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     contract: SmartContract<BaseContract> | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -545,10 +545,10 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -556,10 +556,10 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     contract: SmartContract<BaseContract> | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -582,10 +582,10 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -618,10 +618,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -649,10 +649,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -686,10 +686,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     }[] | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -712,10 +712,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -749,10 +749,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     }[] | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -775,10 +775,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -786,6 +786,9 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
 
 // @beta
 export function useContractCall(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>): UseMutationResult<any, unknown, unknown, unknown>;
+
+// @beta
+export function useContractCompilerMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
 export function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): UseQueryResult<any, unknown>;
@@ -809,9 +812,6 @@ image?: any;
 external_link?: string | undefined;
 name: string;
 }, unknown>;
-
-// @beta
-export function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
 export function useContractType(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<"split" | "custom" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined, unknown>;
