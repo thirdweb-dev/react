@@ -217,13 +217,6 @@ export function useTotalCount(contract: RequiredParam<NFTContract>) {
     cacheKeys.contract.nft.query.totalCount(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
-      if (contract instanceof Erc721) {
-        invariant(
-          contract?.query?.totalCirculatingSupply,
-          "Contract instance does not support query.totalCirculatingSupply",
-        );
-        return contract.query.totalCirculatingSupply();
-      }
       invariant(
         contract.query?.totalCount,
         "Contract instance does not support query.totalCount",
