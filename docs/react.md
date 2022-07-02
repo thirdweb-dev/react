@@ -39,10 +39,10 @@ import { useCoinbaseWallet } from "@thirdweb-dev/react"
  |
 |  [useContract(contractAddress)](./react.usecontract.md) | <b><i>(BETA)</i></b> Use this resolve a contract address to a thirdweb (built-in / custom) contract instance. |
 |  [useContractCall(contract, functionName)](./react.usecontractcall.md) | <b><i>(BETA)</i></b> Use this to get a function to make a write call to your contract |
+|  [useContractCompilerMetadata(contractAddress)](./react.usecontractcompilermetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
 |  [useContractData(contract, functionName, args)](./react.usecontractdata.md) | <b><i>(BETA)</i></b> Use this to get data from a contract read-function call. |
 |  [useContractEvents(contract, eventName, options)](./react.usecontractevents.md) | <b><i>(BETA)</i></b> Use this to query (and subscribe) to a specific event on a contract. |
 |  [useContractMetadata(contractAddress)](./react.usecontractmetadata.md) | <b><i>(BETA)</i></b> Use this to get the contract metadata for a (built-in or custom) contract. |
-|  [useContractPublishMetadata(contractAddress)](./react.usecontractpublishmetadata.md) | <b><i>(BETA)</i></b> Use this to get the publish metadata for a deployed contract. |
 |  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
 |  [useCreateAuctionListing(contract)](./react.usecreateauctionlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Auction Listing on your marketplace contract. |
 |  [useCreateDirectListing(contract)](./react.usecreatedirectlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Direct Listing on your marketplace contract. |

@@ -42,7 +42,7 @@ async function fetchContractType(
   }
 }
 
-async function fetchContractPublishMetadata(
+async function fetchContractCompilerMetadata(
   contractAddress: RequiredParam<string>,
   sdk: RequiredParam<ThirdwebSDK>,
 ) {
@@ -52,9 +52,9 @@ async function fetchContractPublishMetadata(
 
   return await (
     await sdk.getPublisher()
-  ).fetchContractMetadataFromAddress(contractAddress);
+  ).fetchCompilerMetadataFromAddress(contractAddress);
 }
-async function fetchContractTypeAndPublishMetadata(
+async function fetchContractTypeAndCompilerMetadata(
   queryClient: QueryClient,
   contractAddress?: string,
   sdk?: ThirdwebSDK,
@@ -74,27 +74,27 @@ async function fetchContractTypeAndPublishMetadata(
   if (contractType !== "custom") {
     return {
       contractType,
-      publishMetadata: null,
+      compilerMetadata: null,
     };
   }
-  const publishMetadata = await queryClient.fetchQuery(
+  const compilerMetadata = await queryClient.fetchQuery(
     createCacheKeyWithNetwork(
-      cacheKeys.contract.publishMetadata(contractAddress),
+      cacheKeys.contract.compilerMetadata(contractAddress),
       (sdk as any)._chainId,
     ),
-    () => fetchContractPublishMetadata(contractAddress, sdk),
+    () => fetchContractCompilerMetadata(contractAddress, sdk),
     // is immutable, so infinite stale time
     { staleTime: Infinity },
   );
   return {
     contractType,
-    publishMetadata,
+    compilerMetadata,
   };
 }
 
 function getContractAbi(
   input: RequiredParam<
-    Awaited<ReturnType<typeof fetchContractTypeAndPublishMetadata>>
+    Awaited<ReturnType<typeof fetchContractTypeAndCompilerMetadata>>
   >,
 ) {
   if (!input || !input.contractType) {
@@ -104,17 +104,17 @@ function getContractAbi(
   if (input.contractType !== "custom") {
     contractAbi = CONTRACTS_MAP[input.contractType].contractAbi;
   }
-  if (input.contractType === "custom" && input.publishMetadata) {
-    contractAbi = input.publishMetadata?.abi;
+  if (input.contractType === "custom" && input.compilerMetadata) {
+    contractAbi = input.compilerMetadata?.abi;
   }
 
   return contractAbi;
 }
 
-function getContractFromCombinedTypeAndPublishMetadata(
+function getContractFromCombinedTypeAndCompilerMetadata(
   contractAddress: RequiredParam<ContractAddress>,
   input: RequiredParam<
-    Awaited<ReturnType<typeof fetchContractTypeAndPublishMetadata>>
+    Awaited<ReturnType<typeof fetchContractTypeAndCompilerMetadata>>
   >,
   sdk: RequiredParam<ThirdwebSDK>,
 ) {
@@ -143,22 +143,22 @@ export function useContractAbi(
 ) {
   const sdk = useSDK();
 
-  const contractTypeAndPublishMetadata =
-    useContractTypeAndPublishMetadata(contractAddress);
+  const contractTypeAndCompilerMetadata =
+    useContractTypeAndCompilerMetadata(contractAddress);
 
   if (
     !contractAddress ||
     !sdk ||
-    !contractTypeAndPublishMetadata.data?.contractType
+    !contractTypeAndCompilerMetadata.data?.contractType
   ) {
     return {
-      ...contractTypeAndPublishMetadata,
+      ...contractTypeAndCompilerMetadata,
       abi: null,
     };
   }
 
-  const abi = getContractAbi(contractTypeAndPublishMetadata.data);
-  return { ...contractTypeAndPublishMetadata, abi };
+  const abi = getContractAbi(contractTypeAndCompilerMetadata.data);
+  return { ...contractTypeAndCompilerMetadata, abi };
 }
 
 /**
@@ -193,20 +193,20 @@ export function useContractType(
  *
  * @example
  * ```javascript
- * const { data: publishMetadata, isLoading, error } = useContractPublishMetadata("{{contract_address}}");
+ * const { data: compilerMetadata, isLoading, error } = useContractCompilerMetadata("{{contract_address}}");
  * ```
  *
  * @param contractAddress - the address of the deployed contract
  * @returns a response object that includes the published metadata (name, abi, bytecode) of the contract
  * @beta
  */
-export function useContractPublishMetadata(
+export function useContractCompilerMetadata(
   contractAddress: RequiredParam<ContractAddress>,
 ) {
   const sdk = useSDK();
   return useQueryWithNetwork(
-    cacheKeys.contract.publishMetadata(contractAddress),
-    () => fetchContractPublishMetadata(contractAddress, sdk),
+    cacheKeys.contract.compilerMetadata(contractAddress),
+    () => fetchContractCompilerMetadata(contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
       // never stale, a contract's publish metadata is immutable
@@ -218,15 +218,15 @@ export function useContractPublishMetadata(
 /**
  * @internal
  */
-function useContractTypeAndPublishMetadata(
+function useContractTypeAndCompilerMetadata(
   contractAddress: RequiredParam<ContractAddress>,
 ) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
   return useQueryWithNetwork(
-    cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+    cacheKeys.contract.typeAndCompilerMetadata(contractAddress),
     () =>
-      fetchContractTypeAndPublishMetadata(queryClient, contractAddress, sdk),
+      fetchContractTypeAndCompilerMetadata(queryClient, contractAddress, sdk),
     {
       enabled: !!sdk && !!contractAddress,
       // combination of type and publish metadata is immutable
@@ -250,26 +250,26 @@ function useContractTypeAndPublishMetadata(
 export function useContract(contractAddress: RequiredParam<ContractAddress>) {
   const sdk = useSDK();
 
-  const contractTypeAndPublishMetadata =
-    useContractTypeAndPublishMetadata(contractAddress);
+  const contractTypeAndCompilerMetadata =
+    useContractTypeAndCompilerMetadata(contractAddress);
 
   if (
     !contractAddress ||
     !sdk ||
-    !contractTypeAndPublishMetadata.data?.contractType
+    !contractTypeAndCompilerMetadata.data?.contractType
   ) {
     return {
-      ...contractTypeAndPublishMetadata,
+      ...contractTypeAndCompilerMetadata,
       contract: null,
     };
   }
 
-  const contract = getContractFromCombinedTypeAndPublishMetadata(
+  const contract = getContractFromCombinedTypeAndCompilerMetadata(
     contractAddress,
-    contractTypeAndPublishMetadata.data,
+    contractTypeAndCompilerMetadata.data,
     sdk,
   );
-  return { ...contractTypeAndPublishMetadata, contract };
+  return { ...contractTypeAndCompilerMetadata, contract };
 }
 
 /**
@@ -293,13 +293,13 @@ export function useContractMetadata(
   return useQueryWithNetwork(
     cacheKeys.contract.metadata(contractAddress),
     async () => {
-      const typeAndPublishMetadata = await queryClient.fetchQuery(
+      const typeAndCompilerMetadata = await queryClient.fetchQuery(
         createCacheKeyWithNetwork(
-          cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+          cacheKeys.contract.typeAndCompilerMetadata(contractAddress),
           activeChainId,
         ),
         () =>
-          fetchContractTypeAndPublishMetadata(
+          fetchContractTypeAndCompilerMetadata(
             queryClient,
             contractAddress,
             sdk,
@@ -307,9 +307,9 @@ export function useContractMetadata(
         // is immutable, so infinite stale time
         { staleTime: Infinity },
       );
-      const contract = getContractFromCombinedTypeAndPublishMetadata(
+      const contract = getContractFromCombinedTypeAndCompilerMetadata(
         contractAddress,
-        typeAndPublishMetadata,
+        typeAndCompilerMetadata,
         sdk,
       );
       invariant(contract?.metadata?.get, "contract metadata is not available");
@@ -333,13 +333,13 @@ export function useContractFunctions(
   return useQueryWithNetwork(
     cacheKeys.contract.extractFunctions(contractAddress),
     async () => {
-      const typeAndPublishMetadata = await queryClient.fetchQuery(
+      const typeAndCompilerMetadata = await queryClient.fetchQuery(
         createCacheKeyWithNetwork(
-          cacheKeys.contract.typeAndPublishMetadata(contractAddress),
+          cacheKeys.contract.typeAndCompilerMetadata(contractAddress),
           activeChainId,
         ),
         () =>
-          fetchContractTypeAndPublishMetadata(
+          fetchContractTypeAndCompilerMetadata(
             queryClient,
             contractAddress,
             sdk,
@@ -347,9 +347,9 @@ export function useContractFunctions(
         // is immutable, so infinite stale time
         { staleTime: Infinity },
       );
-      const contract = getContractFromCombinedTypeAndPublishMetadata(
+      const contract = getContractFromCombinedTypeAndCompilerMetadata(
         contractAddress,
-        typeAndPublishMetadata,
+        typeAndCompilerMetadata,
         sdk,
       );
       if (contract instanceof SmartContract) {

@@ -205,8 +205,6 @@ const moduleMap = hooks.reduce((acc, m) => {
   const docComment = parserContext.docComment;
   const examples = parseExampleTag(docComment);
 
-  console.log(json.members[0].members);
-
   const contractSubhooks = json.members[0].members.filter(
     (f) => f.kind === "Function" && CONTRACT_SUBHOOKS[m.name].includes(f.name),
   );

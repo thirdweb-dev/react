@@ -57,11 +57,6 @@
         "reference": "https://portal.thirdweb.com/react/react.usecontractmetadata"
       },
       {
-        "name": "useContractPublishMetadata",
-        "example": "const { data: publishMetadata, isLoading, error } = useContractPublishMetadata(\"{{contract_address}}\");",
-        "reference": "https://portal.thirdweb.com/react/react.usecontractpublishmetadata"
-      },
-      {
         "name": "useContractType",
         "example": "const { data: contractType, isLoading, error } = useContractType(\"{{contract_address}}\");",
         "reference": "https://portal.thirdweb.com/react/react.usecontracttype"
