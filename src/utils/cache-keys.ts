@@ -252,8 +252,8 @@ export const cacheKeys = {
         createContractCacheKey(
           contractAddress,
           tokenId
-            ? ["claimConditions", "getActive", { tokenId }]
-            : ["claimConditions", "getActive"],
+            ? ["claimConditions", "getAll", { tokenId }]
+            : ["claimConditions", "getAll"],
         ),
       getClaimIneligibilityReasons: (
         contractAddress: RequiredParam<ContractAddress>,
@@ -263,8 +263,13 @@ export const cacheKeys = {
         createContractCacheKey(
           contractAddress,
           tokenId
-            ? ["claimConditions", "getActive", { tokenId }, params]
-            : ["claimConditions", "getActive", params],
+            ? [
+                "claimConditions",
+                "getIneligibilityReasons",
+                { tokenId },
+                params,
+              ]
+            : ["claimConditions", "getIneligibilityReasons", params],
         ),
     },
 
