@@ -80,9 +80,11 @@ export const cacheKeys = {
   contract: {
     type: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["contract-type"]),
-    publishMetadata: (contractAddress: RequiredParam<ContractAddress>) =>
+    compilerMetadata: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["publish-metadata"]),
-    typeAndPublishMetadata: (contractAddress: RequiredParam<ContractAddress>) =>
+    typeAndCompilerMetadata: (
+      contractAddress: RequiredParam<ContractAddress>,
+    ) =>
       createContractCacheKey(contractAddress, ["contract-type-and-metadata"]),
     metadata: (contractAddress: RequiredParam<ContractAddress>) =>
       createContractCacheKey(contractAddress, ["metadata"]),
@@ -250,8 +252,8 @@ export const cacheKeys = {
         createContractCacheKey(
           contractAddress,
           tokenId
-            ? ["claimConditions", "getActive", { tokenId }]
-            : ["claimConditions", "getActive"],
+            ? ["claimConditions", "getAll", { tokenId }]
+            : ["claimConditions", "getAll"],
         ),
       getClaimIneligibilityReasons: (
         contractAddress: RequiredParam<ContractAddress>,
@@ -261,8 +263,13 @@ export const cacheKeys = {
         createContractCacheKey(
           contractAddress,
           tokenId
-            ? ["claimConditions", "getActive", { tokenId }, params]
-            : ["claimConditions", "getActive", params],
+            ? [
+                "claimConditions",
+                "getIneligibilityReasons",
+                { tokenId },
+                params,
+              ]
+            : ["claimConditions", "getIneligibilityReasons", params],
         ),
     },
 

@@ -28,10 +28,19 @@ import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContra
 
 a response object that includes the list of owned tokens
 
-## Example
+## Example 1
 
 
 ```javascript
-const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(NFTContract, <OwnerWalletAddress>);
+const nftDrop = useNFTDrop(<ContractAddress>);
+const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(nftDrop, <OwnerWalletAddress>);
+```
+
+## Example 2
+
+
+```javascript
+const { contract } = useContract(<ContractAddress>);
+const { data: ownedNFTs, isLoading, error } = useOwnedNFTs(contract?.nft, <OwnerWalletAddress>);
 ```
 

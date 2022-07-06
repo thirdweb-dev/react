@@ -7,6 +7,7 @@
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
+import { BaseContract } from 'ethers';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import { CallOverrides } from 'ethers';
@@ -250,7 +251,7 @@ export interface SharedMediaProps {
     width?: HTMLIFrameElement["width"];
 }
 
-// @public
+// @beta (undocumented)
 export const ThirdwebNftMedia: React_2.ForwardRefExoticComponent<ThirdwebNftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
 
 // @public
@@ -476,10 +477,10 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -507,21 +508,21 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: SmartContract<any> | null;
+    contract: SmartContract<BaseContract> | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -544,21 +545,21 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
 } | {
-    contract: SmartContract<any> | null;
+    contract: SmartContract<BaseContract> | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -581,10 +582,10 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -617,10 +618,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -648,10 +649,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -662,33 +663,33 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
         name: string;
         outputs: {
             [x: string]: any;
-            stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
                 type: string;
                 name: string;
             }[] | undefined;
+            stateMutability?: string | undefined;
             type: string;
             name: string;
         }[];
         inputs: {
             [x: string]: any;
-            stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
                 type: string;
                 name: string;
             }[] | undefined;
+            stateMutability?: string | undefined;
             type: string;
             name: string;
         }[];
     }[] | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -711,10 +712,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -725,33 +726,33 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
         name: string;
         outputs: {
             [x: string]: any;
-            stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
                 type: string;
                 name: string;
             }[] | undefined;
+            stateMutability?: string | undefined;
             type: string;
             name: string;
         }[];
         inputs: {
             [x: string]: any;
-            stateMutability?: string | undefined;
             components?: {
                 [x: string]: any;
                 type: string;
                 name: string;
             }[] | undefined;
+            stateMutability?: string | undefined;
             type: string;
             name: string;
         }[];
     }[] | null;
     data: {
         contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-        publishMetadata: null;
+        compilerMetadata: null;
     } | {
         contractType: "custom";
-        publishMetadata: PublishedMetadata | undefined;
+        compilerMetadata: PublishedMetadata | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -774,10 +775,10 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     isStale: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<    {
     contractType: "split" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined;
-    publishMetadata: null;
+    compilerMetadata: null;
     } | {
     contractType: "custom";
-    publishMetadata: PublishedMetadata | undefined;
+    compilerMetadata: PublishedMetadata | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -785,6 +786,9 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
 
 // @beta
 export function useContractCall(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>): UseMutationResult<any, unknown, unknown, unknown>;
+
+// @beta
+export function useContractCompilerMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
 export function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): UseQueryResult<any, unknown>;
@@ -808,9 +812,6 @@ image?: any;
 external_link?: string | undefined;
 name: string;
 }, unknown>;
-
-// @beta
-export function useContractPublishMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<PublishedMetadata | undefined, unknown>;
 
 // @beta
 export function useContractType(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<"split" | "custom" | "nft-drop" | "signature-drop" | "nft-collection" | "edition-drop" | "edition" | "token-drop" | "token" | "vote" | "marketplace" | "pack" | "multiwrap" | undefined, unknown>;
@@ -1180,9 +1181,9 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
-// dist/hooks/useNetwork.d.ts:77:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:127:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:133:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
+// dist/types.d.ts:148:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:154:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

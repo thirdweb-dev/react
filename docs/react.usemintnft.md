@@ -27,16 +27,44 @@ import("react-query").UseMutationResult&lt;[MintNFTReturnType](./react.mintnftre
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 
-## Example
+## Example 1
 
 
 ```jsx
 const Component = () => {
+  const nftDrop = useNFTDrop(<ContractAddress>);
   const {
     mutate: mintNft,
     isLoading,
     error,
-  } = useMintNFT(NFTContract);
+  } = useMintNFT(nftDrop);
+
+  if (error) {
+    console.error("failed to mint nft", error);
+  }
+
+  return (
+    <button
+      disabled={isLoading}
+      onClick={() => mintNft({ name: "My awesome NFT!" })}
+    >
+      Mint!
+    </button>
+  );
+};
+```
+
+## Example 2
+
+
+```jsx
+const Component = () => {
+ const { contract } = useContract(<ContractAddress>);
+  const {
+    mutate: mintNft,
+    isLoading,
+    error,
+  } = useMintNFT(contract?.nft);
 
   if (error) {
     console.error("failed to mint nft", error);
