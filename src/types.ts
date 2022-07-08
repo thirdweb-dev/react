@@ -9,6 +9,7 @@ import type {
   NFTDrop,
   NFTMetadata,
   Price,
+  SignatureDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish } from "ethers";
@@ -147,7 +148,7 @@ export type MintNFTReturnType<TContract> = TContract extends Erc721
  * The possible DROP contract types.
  * @beta
  */
-export type DropContract = NFTDrop | EditionDrop;
+export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
 
 /**
  * The params for the {@link useClaimNFT} hook mutation.

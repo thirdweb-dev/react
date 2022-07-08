@@ -15,6 +15,7 @@ import {
   Erc1155,
   NFTDrop,
   QueryAllParams,
+  SignatureDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
@@ -81,7 +82,9 @@ export function useClaimedNFTs(
  * @param contract - an instance of a {@link NFTDrop}
  * @returns a response object that includes the number of NFTs that are unclaimed
  */
-export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>) {
+export function useUnclaimedNFTSupply(
+  contract: RequiredParam<NFTDrop | SignatureDrop>,
+) {
   const contractAddress = contract?.getAddress();
   return useQueryWithNetwork(
     cacheKeys.contract.nft.drop.totalUnclaimedSupply(contractAddress),

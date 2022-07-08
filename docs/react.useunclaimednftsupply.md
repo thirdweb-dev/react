@@ -7,14 +7,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>): import("react-query").UseQueryResult<import("ethers").BigNumber, unknown>;
+export declare function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop | SignatureDrop>): import("react-query").UseQueryResult<import("ethers").BigNumber, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;NFTDrop&gt; | an instance of a  |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;NFTDrop \| SignatureDrop&gt; | an instance of a  |
 
 <b>Returns:</b>
 

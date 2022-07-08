@@ -149,7 +149,7 @@ export { defaultChains }
 export { defaultL2Chains }
 
 // @beta
-export type DropContract = NFTDrop | EditionDrop;
+export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -1570,7 +1570,7 @@ id: BigNumber;
 // Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop | SignatureDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @beta
 export function useUpdateMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<    {

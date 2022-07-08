@@ -12,5 +12,5 @@ The possible DROP contract types.
 <b>Signature:</b>
 
 ```typescript
-export declare type DropContract = NFTDrop | EditionDrop;
+export declare type DropContract = NFTDrop | EditionDrop | SignatureDrop;
 ```
