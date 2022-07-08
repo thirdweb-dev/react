@@ -1004,10 +1004,10 @@
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-2.4.3.tgz#23d277729b6e267ae7340bcdd991e66b7ef45d52"
   integrity sha512-4FdREGMxyfxBR1AJkMoeQooCwk1GKfGyvZJXvC/fVshrvxU+MbeyPcbDrCqjreJcJjsFPz1mV+mnYeRZrS6aeg==
 
-"@thirdweb-dev/sdk@^2.3.23":
-  version "2.3.23"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.3.23.tgz#26262c0c5a141add971f2d8c35a6ed39eace3aaf"
-  integrity sha512-UdU8U6DYvQLcBoyENxnrqaM/7o4TUW2Xr8apAFolbMN/1isq2WoLfSpmQilO9t7rHOTwTQsweIP+ZXjVYMm5kQ==
+"@thirdweb-dev/sdk@^2.3.25-3":
+  version "2.3.25-3"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.3.25-3.tgz#343e2619531f23b1db97054b785bf3eb36ee526d"
+  integrity sha512-lAbwAwv4s7vcWVFpbRFWzVs3815CoYE8tOW5gBcN+GlW2hzgSE08bqcwmC2WjUft+8Lvb6m9cM3zQGg7iOiq6Q==
   dependencies:
     "@thirdweb-dev/contracts" "2.4.3"
     "@web-std/file" "^3.0.0"
