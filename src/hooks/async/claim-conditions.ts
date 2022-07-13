@@ -2,10 +2,12 @@ import { RequiredParam, WalletAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import {
+  DropErc1155ClaimConditions,
   EditionDrop,
   Erc1155,
   NFTDrop,
   SignatureDrop,
+  SmartContract,
   TokenDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumberish } from "ethers";
@@ -42,29 +44,39 @@ type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
  * @beta
  */
 export function useActiveClaimCondition<
-  TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop,
+  TContract extends
+    | NFTDrop
+    | EditionDrop
+    | TokenDrop
+    | SignatureDrop
+    | SmartContract,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
+  const cc =
+    contract instanceof SmartContract
+      ? (contract as SmartContract).nft?.drop?.claim?.conditions
+      : contract?.claimConditions;
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getActive(contractAddress, tokenId),
     () => {
-      invariant(contract, "No Contract instance provided");
+      invariant(cc, "No claim conditions instance provided");
       invariant(
-        contract.claimConditions.getActive,
+        cc.getActive,
         "Contract instance does not support claimConditions.getActive",
       );
-      if (contract instanceof Erc1155) {
+      if (cc instanceof DropErc1155ClaimConditions) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
-        return contract.claimConditions.getActive(tokenId);
+        return cc.getActive(tokenId);
       }
-      return contract.claimConditions.getActive();
+      return cc.getActive();
     },
     {
       // Checks that happen here:
       // 1. if the contract is based on  ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
-      enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
+      enabled:
+        cc instanceof DropErc1155ClaimConditions ? tokenId !== undefined : !!cc,
     },
   );
 }
@@ -92,29 +104,39 @@ export function useActiveClaimCondition<
  * @beta
  */
 export function useClaimConditions<
-  TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop,
+  TContract extends
+    | NFTDrop
+    | EditionDrop
+    | TokenDrop
+    | SignatureDrop
+    | SmartContract,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
+  const cc =
+    contract instanceof SmartContract
+      ? (contract as SmartContract).nft?.drop?.claim?.conditions
+      : contract?.claimConditions;
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getAll(contractAddress, tokenId),
     () => {
-      invariant(contract, "No Contract instance provided");
+      invariant(cc, "No claim conditions instance provided");
       invariant(
-        contract.claimConditions.getAll,
+        cc.getAll,
         "Contract instance does not support claimConditions.getAll",
       );
-      if (contract instanceof Erc1155) {
+      if (cc instanceof DropErc1155ClaimConditions) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
-        return contract.claimConditions.getAll(tokenId);
+        return cc.getAll(tokenId);
       }
-      return contract.claimConditions.getAll();
+      return cc.getAll();
     },
     {
       // Checks that happen here:
       // 1. if the contract is based on  ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
-      enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
+      enabled:
+        cc instanceof DropErc1155ClaimConditions ? tokenId !== undefined : !!cc,
     },
   );
 }
@@ -165,9 +187,18 @@ type ClaimIneligibilityInputParams<TContract> = TContract extends Erc1155
  * @beta
  */
 export function useClaimIneligibilityReasons<
-  TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop,
+  TContract extends
+    | NFTDrop
+    | EditionDrop
+    | TokenDrop
+    | SignatureDrop
+    | SmartContract,
 >(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>) {
   const contractAddress = contract?.getAddress();
+  const cc =
+    contract instanceof SmartContract
+      ? (contract as SmartContract).nft?.drop?.claim?.conditions
+      : contract?.claimConditions;
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getClaimIneligibilityReasons(
@@ -176,23 +207,23 @@ export function useClaimIneligibilityReasons<
       tokenId,
     ),
     () => {
-      invariant(contract, "No Contract instance provided");
+      invariant(cc, "No claim conditions instance provided");
       invariant(
-        contract.claimConditions.getClaimIneligibilityReasons,
+        cc.getClaimIneligibilityReasons,
         "Contract instance does not support claimConditions.getClaimIneligibilityReasons",
       );
-      if (contract instanceof Erc1155) {
+      if (cc instanceof DropErc1155ClaimConditions) {
         invariant(
           tokenId,
           "tokenId is required for ERC1155 claim ineligibility reasons",
         );
-        return contract.claimConditions.getClaimIneligibilityReasons(
+        return cc.getClaimIneligibilityReasons(
           tokenId,
           params.quantity,
           params.walletAddress,
         );
       }
-      return contract.claimConditions.getClaimIneligibilityReasons(
+      return cc.getClaimIneligibilityReasons(
         params.quantity,
         params.walletAddress,
       );
@@ -204,7 +235,9 @@ export function useClaimIneligibilityReasons<
       // 3. has a params object been passed?
       // 4. does params have an address in it?
       enabled:
-        (contract instanceof Erc1155 ? tokenId !== undefined : !!contract) &&
+        (cc instanceof DropErc1155ClaimConditions
+          ? tokenId !== undefined
+          : !!cc) &&
         !!params &&
         !!params.walletAddress,
     },

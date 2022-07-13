@@ -304,7 +304,7 @@ export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 // Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop | SmartContract>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -383,7 +383,7 @@ type: ListingType.Auction;
 export function useChainId(): number | undefined;
 
 // @beta
-export function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+export function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop | SmartContract>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -418,7 +418,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>): UseQ
 // Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
+export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop | SmartContract>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
 // @beta
 export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
