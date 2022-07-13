@@ -5,6 +5,7 @@ import {
   EditionDrop,
   Erc1155,
   NFTDrop,
+  SignatureDrop,
   TokenDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumberish } from "ethers";
@@ -41,7 +42,7 @@ type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
  * @beta
  */
 export function useActiveClaimCondition<
-  TContract extends NFTDrop | EditionDrop | TokenDrop,
+  TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
@@ -91,7 +92,7 @@ export function useActiveClaimCondition<
  * @beta
  */
 export function useClaimConditions<
-  TContract extends NFTDrop | EditionDrop | TokenDrop,
+  TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
@@ -164,7 +165,7 @@ type ClaimIneligibilityInputParams<TContract> = TContract extends Erc1155
  * @beta
  */
 export function useClaimIneligibilityReasons<
-  TContract extends NFTDrop | EditionDrop | TokenDrop,
+  TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop,
 >(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>) {
   const contractAddress = contract?.getAddress();
 

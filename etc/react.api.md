@@ -4,7 +4,7 @@
 
 ```ts
 
-import { AbiFunction } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
+import { AbiFunction } from '@thirdweb-dev/sdk/dist/browser';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BaseContract } from 'ethers';
@@ -52,7 +52,6 @@ import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Offer } from '@thirdweb-dev/sdk/dist/browser';
 import { Pack } from '@thirdweb-dev/sdk/dist/browser';
 import type { Price } from '@thirdweb-dev/sdk/dist/browser';
-import type { PublishedMetadata } from '@thirdweb-dev/sdk/dist/src/schema/contracts/custom';
 import { QueryAllParams } from '@thirdweb-dev/sdk/dist/browser';
 import { QueryClient } from 'react-query';
 import { QueryObserverResult } from 'react-query';
@@ -150,7 +149,7 @@ export { defaultChains }
 export { defaultL2Chains }
 
 // @beta
-export type DropContract = NFTDrop | EditionDrop;
+export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -305,7 +304,7 @@ export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 // Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -384,7 +383,7 @@ type: ListingType.Auction;
 export function useChainId(): number | undefined;
 
 // @beta
-export function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+export function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -419,7 +418,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>): UseQ
 // Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
+export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
 // @beta
 export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
@@ -480,7 +479,44 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     compilerMetadata: null;
     } | {
     contractType: "custom";
-    compilerMetadata: PublishedMetadata | undefined;
+    compilerMetadata: {
+    name: string;
+    metadata: Record<string, any>;
+    abi: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    outputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    inputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    }[];
+    info: {
+    title?: string | undefined;
+    author?: string | undefined;
+    details?: string | undefined;
+    notice?: string | undefined;
+    };
+    licenses: string[];
+    } | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -511,7 +547,44 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     compilerMetadata: null;
     } | {
     contractType: "custom";
-    compilerMetadata: PublishedMetadata | undefined;
+    compilerMetadata: {
+    name: string;
+    metadata: Record<string, any>;
+    abi: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    outputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    inputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    }[];
+    info: {
+    title?: string | undefined;
+    author?: string | undefined;
+    details?: string | undefined;
+    notice?: string | undefined;
+    };
+    licenses: string[];
+    } | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -522,7 +595,44 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
         compilerMetadata: null;
     } | {
         contractType: "custom";
-        compilerMetadata: PublishedMetadata | undefined;
+        compilerMetadata: {
+            name: string;
+            metadata: Record<string, any>;
+            abi: {
+                [x: string]: any;
+                type: string;
+                name: string;
+                outputs: {
+                    [x: string]: any;
+                    components?: {
+                        [x: string]: any;
+                        type: string;
+                        name: string;
+                    }[] | undefined;
+                    stateMutability?: string | undefined;
+                    type: string;
+                    name: string;
+                }[];
+                inputs: {
+                    [x: string]: any;
+                    components?: {
+                        [x: string]: any;
+                        type: string;
+                        name: string;
+                    }[] | undefined;
+                    stateMutability?: string | undefined;
+                    type: string;
+                    name: string;
+                }[];
+            }[];
+            info: {
+                title?: string | undefined;
+                author?: string | undefined;
+                details?: string | undefined;
+                notice?: string | undefined;
+            };
+            licenses: string[];
+        } | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -548,7 +658,44 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     compilerMetadata: null;
     } | {
     contractType: "custom";
-    compilerMetadata: PublishedMetadata | undefined;
+    compilerMetadata: {
+    name: string;
+    metadata: Record<string, any>;
+    abi: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    outputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    inputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    }[];
+    info: {
+    title?: string | undefined;
+    author?: string | undefined;
+    details?: string | undefined;
+    notice?: string | undefined;
+    };
+    licenses: string[];
+    } | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -559,7 +706,44 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
         compilerMetadata: null;
     } | {
         contractType: "custom";
-        compilerMetadata: PublishedMetadata | undefined;
+        compilerMetadata: {
+            name: string;
+            metadata: Record<string, any>;
+            abi: {
+                [x: string]: any;
+                type: string;
+                name: string;
+                outputs: {
+                    [x: string]: any;
+                    components?: {
+                        [x: string]: any;
+                        type: string;
+                        name: string;
+                    }[] | undefined;
+                    stateMutability?: string | undefined;
+                    type: string;
+                    name: string;
+                }[];
+                inputs: {
+                    [x: string]: any;
+                    components?: {
+                        [x: string]: any;
+                        type: string;
+                        name: string;
+                    }[] | undefined;
+                    stateMutability?: string | undefined;
+                    type: string;
+                    name: string;
+                }[];
+            }[];
+            info: {
+                title?: string | undefined;
+                author?: string | undefined;
+                details?: string | undefined;
+                notice?: string | undefined;
+            };
+            licenses: string[];
+        } | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -585,7 +769,44 @@ export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     compilerMetadata: null;
     } | {
     contractType: "custom";
-    compilerMetadata: PublishedMetadata | undefined;
+    compilerMetadata: {
+    name: string;
+    metadata: Record<string, any>;
+    abi: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    outputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    inputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    }[];
+    info: {
+    title?: string | undefined;
+    author?: string | undefined;
+    details?: string | undefined;
+    notice?: string | undefined;
+    };
+    licenses: string[];
+    } | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -621,7 +842,44 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     compilerMetadata: null;
     } | {
     contractType: "custom";
-    compilerMetadata: PublishedMetadata | undefined;
+    compilerMetadata: {
+    name: string;
+    metadata: Record<string, any>;
+    abi: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    outputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    inputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    }[];
+    info: {
+    title?: string | undefined;
+    author?: string | undefined;
+    details?: string | undefined;
+    notice?: string | undefined;
+    };
+    licenses: string[];
+    } | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -652,7 +910,44 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     compilerMetadata: null;
     } | {
     contractType: "custom";
-    compilerMetadata: PublishedMetadata | undefined;
+    compilerMetadata: {
+    name: string;
+    metadata: Record<string, any>;
+    abi: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    outputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    inputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    }[];
+    info: {
+    title?: string | undefined;
+    author?: string | undefined;
+    details?: string | undefined;
+    notice?: string | undefined;
+    };
+    licenses: string[];
+    } | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -689,7 +984,44 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
         compilerMetadata: null;
     } | {
         contractType: "custom";
-        compilerMetadata: PublishedMetadata | undefined;
+        compilerMetadata: {
+            name: string;
+            metadata: Record<string, any>;
+            abi: {
+                [x: string]: any;
+                type: string;
+                name: string;
+                outputs: {
+                    [x: string]: any;
+                    components?: {
+                        [x: string]: any;
+                        type: string;
+                        name: string;
+                    }[] | undefined;
+                    stateMutability?: string | undefined;
+                    type: string;
+                    name: string;
+                }[];
+                inputs: {
+                    [x: string]: any;
+                    components?: {
+                        [x: string]: any;
+                        type: string;
+                        name: string;
+                    }[] | undefined;
+                    stateMutability?: string | undefined;
+                    type: string;
+                    name: string;
+                }[];
+            }[];
+            info: {
+                title?: string | undefined;
+                author?: string | undefined;
+                details?: string | undefined;
+                notice?: string | undefined;
+            };
+            licenses: string[];
+        } | undefined;
     } | undefined;
     error: unknown;
     isError: true;
@@ -715,7 +1047,44 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     compilerMetadata: null;
     } | {
     contractType: "custom";
-    compilerMetadata: PublishedMetadata | undefined;
+    compilerMetadata: {
+    name: string;
+    metadata: Record<string, any>;
+    abi: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    outputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    inputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    }[];
+    info: {
+    title?: string | undefined;
+    author?: string | undefined;
+    details?: string | undefined;
+    notice?: string | undefined;
+    };
+    licenses: string[];
+    } | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -752,7 +1121,44 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
         compilerMetadata: null;
     } | {
         contractType: "custom";
-        compilerMetadata: PublishedMetadata | undefined;
+        compilerMetadata: {
+            name: string;
+            metadata: Record<string, any>;
+            abi: {
+                [x: string]: any;
+                type: string;
+                name: string;
+                outputs: {
+                    [x: string]: any;
+                    components?: {
+                        [x: string]: any;
+                        type: string;
+                        name: string;
+                    }[] | undefined;
+                    stateMutability?: string | undefined;
+                    type: string;
+                    name: string;
+                }[];
+                inputs: {
+                    [x: string]: any;
+                    components?: {
+                        [x: string]: any;
+                        type: string;
+                        name: string;
+                    }[] | undefined;
+                    stateMutability?: string | undefined;
+                    type: string;
+                    name: string;
+                }[];
+            }[];
+            info: {
+                title?: string | undefined;
+                author?: string | undefined;
+                details?: string | undefined;
+                notice?: string | undefined;
+            };
+            licenses: string[];
+        } | undefined;
     } | undefined;
     error: null;
     isError: false;
@@ -778,7 +1184,44 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
     compilerMetadata: null;
     } | {
     contractType: "custom";
-    compilerMetadata: PublishedMetadata | undefined;
+    compilerMetadata: {
+    name: string;
+    metadata: Record<string, any>;
+    abi: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    outputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    inputs: {
+    [x: string]: any;
+    components?: {
+    [x: string]: any;
+    type: string;
+    name: string;
+    }[] | undefined;
+    stateMutability?: string | undefined;
+    type: string;
+    name: string;
+    }[];
+    }[];
+    info: {
+    title?: string | undefined;
+    author?: string | undefined;
+    details?: string | undefined;
+    notice?: string | undefined;
+    };
+    licenses: string[];
+    } | undefined;
     } | undefined, unknown>>;
     remove: () => void;
     fetchStatus: FetchStatus;
@@ -788,7 +1231,44 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
 export function useContractCall(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>): UseMutationResult<any, unknown, unknown, unknown>;
 
 // @beta
-export function useContractCompilerMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<PublishedMetadata | undefined, unknown>;
+export function useContractCompilerMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<    {
+name: string;
+metadata: Record<string, any>;
+abi: {
+[x: string]: any;
+type: string;
+name: string;
+outputs: {
+[x: string]: any;
+components?: {
+[x: string]: any;
+type: string;
+name: string;
+}[] | undefined;
+stateMutability?: string | undefined;
+type: string;
+name: string;
+}[];
+inputs: {
+[x: string]: any;
+components?: {
+[x: string]: any;
+type: string;
+name: string;
+}[] | undefined;
+stateMutability?: string | undefined;
+type: string;
+name: string;
+}[];
+}[];
+info: {
+title?: string | undefined;
+author?: string | undefined;
+details?: string | undefined;
+notice?: string | undefined;
+};
+licenses: string[];
+} | undefined, unknown>;
 
 // @beta
 export function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): UseQueryResult<any, unknown>;
@@ -1090,7 +1570,7 @@ id: BigNumber;
 // Warning: (ae-incompatible-release-tags) The symbol "useUnclaimedNFTSupply" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
 //
 // @public (undocumented)
-export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop>): UseQueryResult<BigNumber, unknown>;
+export function useUnclaimedNFTSupply(contract: RequiredParam<NFTDrop | SignatureDrop>): UseQueryResult<BigNumber, unknown>;
 
 // @beta
 export function useUpdateMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): UseMutationResult<    {
