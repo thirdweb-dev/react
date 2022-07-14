@@ -999,17 +999,17 @@
     "@swc/core-win32-ia32-msvc" "1.2.205"
     "@swc/core-win32-x64-msvc" "1.2.205"
 
-"@thirdweb-dev/contracts@2.4.3":
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-2.4.3.tgz#23d277729b6e267ae7340bcdd991e66b7ef45d52"
-  integrity sha512-4FdREGMxyfxBR1AJkMoeQooCwk1GKfGyvZJXvC/fVshrvxU+MbeyPcbDrCqjreJcJjsFPz1mV+mnYeRZrS6aeg==
+"@thirdweb-dev/contracts@^3.0.0-10":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-3.0.0.tgz#0849f9bc961d654e07bca78c85a4ce1e5294e039"
+  integrity sha512-9LCjLLE+JXuwMfxis77GtHawMOaUhUutTm/h2y7F7K95GRMVydCGHQ4r7hL3cXnYQCLxLdTzUtwBqjqWH2nOlw==
 
-"@thirdweb-dev/sdk@^2.3.25-3":
-  version "2.3.25-3"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.3.25-3.tgz#343e2619531f23b1db97054b785bf3eb36ee526d"
-  integrity sha512-lAbwAwv4s7vcWVFpbRFWzVs3815CoYE8tOW5gBcN+GlW2hzgSE08bqcwmC2WjUft+8Lvb6m9cM3zQGg7iOiq6Q==
+"@thirdweb-dev/sdk@^2.3.26":
+  version "2.3.26"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.3.26.tgz#a78be0f9b691745d9b780b719039f61c5852a356"
+  integrity sha512-fWCkSKGHu0w6td3oeNfVAUnmrcluCMuPv0KSN4LfIzu3Uwo3WQPRN+TaDg36S59bL2iwNcP9oFyT3tbJ/egkTQ==
   dependencies:
-    "@thirdweb-dev/contracts" "2.4.3"
+    "@thirdweb-dev/contracts" "^3.0.0-10"
     "@web-std/file" "^3.0.0"
     cbor "^8.1.0"
     cross-fetch "^3.1.5"
