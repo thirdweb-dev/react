@@ -12,14 +12,14 @@ Use this to get data from a contract read-function call.
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): import("react-query").UseQueryResult<any, unknown>;
+export declare function useContractData(contract: RequiredParam<SmartContractReturnType>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): import("react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;ReturnType&lt;typeof useContract&gt;\["contract"\]&gt; | the contract instance of the contract to call a function on |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[SmartContractReturnType](./react.smartcontractreturntype.md)<!-- -->&gt; | the contract instance of the contract to call a function on |
 |  functionName | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;string&gt; | the name of the function to call |
 |  args | unknown\[\] \| \[...unknown\[\], CallOverrides\] | The arguments to pass to the function (if any), with optional call arguments as the last parameter |
 
