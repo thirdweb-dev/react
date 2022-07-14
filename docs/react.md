@@ -157,6 +157,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [NFT](./react.nft.md) | <b><i>(BETA)</i></b> A single NFT token |
 |  [NFTContract](./react.nftcontract.md) | <b><i>(BETA)</i></b> The possible NFT contract types. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |
+|  [SmartContractReturnType](./react.smartcontractreturntype.md) |  |
 |  [TokenMintParams](./react.tokenmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the nft mint function. |
 |  [useNFTBalanceParams](./react.usenftbalanceparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useNftBalance</code>. |
 |  [useTotalCirculatingSupplyParams](./react.usetotalcirculatingsupplyparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTotalCirculatingSupply</code>. |

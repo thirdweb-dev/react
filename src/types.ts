@@ -1,3 +1,4 @@
+import type { SmartContractReturnType } from "./hooks/async/contracts";
 import type {
   Amount,
   EditionDrop,
@@ -10,7 +11,6 @@ import type {
   NFTMetadata,
   Price,
   SignatureDrop,
-  SmartContract,
 } from "@thirdweb-dev/sdk/dist/browser";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish } from "ethers";
@@ -156,31 +156,33 @@ export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
  *
  * @beta
  */
-export type ClaimNFTParams<TContract extends DropContract | SmartContract> =
-  TContract extends Erc1155
-    ? {
-        to: WalletAddress;
-        tokenId: BigNumberish;
-        quantity: BigNumberish;
-        checkERC20Allowance?: boolean;
-      }
-    : {
-        to: WalletAddress;
-        quantity: BigNumberish;
-        checkERC20Allowance?: boolean;
-      };
+export type ClaimNFTParams<
+  TContract extends DropContract | SmartContractReturnType,
+> = TContract extends Erc1155
+  ? {
+      to: WalletAddress;
+      tokenId: BigNumberish;
+      quantity: BigNumberish;
+      checkERC20Allowance?: boolean;
+    }
+  : {
+      to: WalletAddress;
+      quantity: BigNumberish;
+      checkERC20Allowance?: boolean;
+    };
 
 /**
  * The return type of the {@link useClaimNFT} hook.
  *
  * @beta
  */
-export type ClaimNFTReturnType<TContract extends DropContract | SmartContract> =
-  TContract extends Erc721
-    ? Awaited<ReturnType<TContract["claimTo"]>>
-    : TContract extends Erc1155
-    ? Awaited<ReturnType<TContract["claimTo"]>>
-    : never;
+export type ClaimNFTReturnType<
+  TContract extends DropContract | SmartContractReturnType,
+> = TContract extends Erc721
+  ? Awaited<ReturnType<TContract["claimTo"]>>
+  : TContract extends Erc1155
+  ? Awaited<ReturnType<TContract["claimTo"]>>
+  : never;
 
 // MARKETPLACE //
 

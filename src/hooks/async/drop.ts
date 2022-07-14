@@ -10,6 +10,7 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import type { SmartContractReturnType } from "./contracts";
 import { useNFTs } from "./nft";
 import {
   Erc721,
@@ -162,9 +163,9 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
  * @returns a mutation object that can be used to claim a NFT to the wallet specificed in the params
  * @beta
  */
-export function useClaimNFT<TContract extends DropContract | SmartContract>(
-  contract: RequiredParam<TContract>,
-) {
+export function useClaimNFT<
+  TContract extends DropContract | SmartContractReturnType,
+>(contract: RequiredParam<TContract>) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();

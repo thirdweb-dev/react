@@ -27,6 +27,10 @@ import {
 } from "react-query";
 import invariant from "tiny-invariant";
 
+export type SmartContractReturnType = ReturnType<
+  typeof useContract
+>["contract"];
+
 async function fetchContractType(
   contractAddress: RequiredParam<string>,
   sdk: RequiredParam<ThirdwebSDK>,
@@ -382,7 +386,7 @@ export function useContractFunctions(
  * @beta
  */
 export function useContractData(
-  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  contract: RequiredParam<SmartContractReturnType>,
   functionName: RequiredParam<string>,
   ...args: unknown[] | [...unknown[], CallOverrides]
 ) {
@@ -419,7 +423,7 @@ export function useContractData(
  * @beta
  */
 export function useContractCall(
-  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  contract: RequiredParam<SmartContractReturnType>,
   functionName: RequiredParam<string>,
 ) {
   const activeChainId = useActiveChainId();
@@ -456,7 +460,7 @@ export function useContractCall(
  * @beta
  */
 export function useAllContractEvents(
-  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  contract: RequiredParam<SmartContractReturnType>,
   options: { queryFilter?: EventQueryFilter; subscribe?: boolean } = {
     subscribe: true,
   },
@@ -533,7 +537,7 @@ export function useAllContractEvents(
  * @beta
  */
 export function useContractEvents(
-  contract: RequiredParam<ReturnType<typeof useContract>["contract"]>,
+  contract: RequiredParam<SmartContractReturnType>,
   eventName: string,
   options: { queryFilter?: EventQueryFilter; subscribe?: boolean } = {
     subscribe: true,

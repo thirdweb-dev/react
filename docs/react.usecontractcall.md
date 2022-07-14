@@ -12,14 +12,14 @@ Use this to get a function to make a write call to your contract
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractCall(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>): import("react-query").UseMutationResult<any, unknown, unknown, unknown>;
+export declare function useContractCall(contract: RequiredParam<SmartContractReturnType>, functionName: RequiredParam<string>): import("react-query").UseMutationResult<any, unknown, unknown, unknown>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;ReturnType&lt;typeof useContract&gt;\["contract"\]&gt; | the contract instance of the contract to call a function on |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[SmartContractReturnType](./react.smartcontractreturntype.md)<!-- -->&gt; | the contract instance of the contract to call a function on |
 |  functionName | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;string&gt; | the name of the function to call |
 
 <b>Returns:</b>

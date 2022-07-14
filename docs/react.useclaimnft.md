@@ -12,7 +12,7 @@ Use this to claim a NFT on your [DropContract](./react.dropcontract.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimNFT<TContract extends DropContract | SmartContract>(contract: RequiredParam<TContract>): import("react-query").UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
+export declare function useClaimNFT<TContract extends DropContract | SmartContractReturnType>(contract: RequiredParam<TContract>): import("react-query").UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
 ```
 
 ## Parameters

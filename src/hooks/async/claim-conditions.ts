@@ -1,6 +1,7 @@
 import { RequiredParam, WalletAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import type { SmartContractReturnType } from "./contracts";
 import {
   DropErc1155ClaimConditions,
   EditionDrop,
@@ -49,7 +50,7 @@ export function useActiveClaimCondition<
     | EditionDrop
     | TokenDrop
     | SignatureDrop
-    | SmartContract,
+    | SmartContractReturnType,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
   const cc =
@@ -109,7 +110,7 @@ export function useClaimConditions<
     | EditionDrop
     | TokenDrop
     | SignatureDrop
-    | SmartContract,
+    | SmartContractReturnType,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
   const cc =
@@ -192,7 +193,7 @@ export function useClaimIneligibilityReasons<
     | EditionDrop
     | TokenDrop
     | SignatureDrop
-    | SmartContract,
+    | SmartContractReturnType,
 >(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>) {
   const contractAddress = contract?.getAddress();
   const cc =
