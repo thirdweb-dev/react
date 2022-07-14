@@ -14,13 +14,13 @@ import type { SmartContractReturnType } from "./contracts";
 import { useNFTs } from "./nft";
 import {
   Erc721,
+  Erc721Claimable,
   Erc1155,
   NFTDrop,
   QueryAllParams,
   SignatureDrop,
   SmartContract,
 } from "@thirdweb-dev/sdk/dist/browser";
-import { Erc721Claimable } from "@thirdweb-dev/sdk/dist/src/core/classes/erc-721-claimable";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
