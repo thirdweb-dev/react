@@ -12,11 +12,14 @@ import {
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useNFTs } from "./nft";
 import {
+  Erc721,
   Erc1155,
   NFTDrop,
   QueryAllParams,
   SignatureDrop,
+  SmartContract,
 } from "@thirdweb-dev/sdk/dist/browser";
+import { Erc721Claimable } from "@thirdweb-dev/sdk/dist/src/core/classes/erc-721-claimable";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
@@ -159,32 +162,44 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
  * @returns a mutation object that can be used to claim a NFT to the wallet specificed in the params
  * @beta
  */
-export function useClaimNFT<TContract extends DropContract>(
+export function useClaimNFT<TContract extends DropContract | SmartContract>(
   contract: RequiredParam<TContract>,
 ) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
+  const claimable =
+    contract instanceof SmartContract ? contract?.nft?.drop?.claim : contract;
 
   return useMutation(
     async (data: ClaimNFTParams<TContract>) => {
       invariant(data.to, 'No "to" address provided');
-      invariant(contract?.claimTo, "contract does not support claimTo");
-      if (contract instanceof Erc1155) {
+      invariant(claimable, "contract does not support claimTo");
+      if (claimable instanceof Erc1155) {
         invariant("tokenId" in data, "tokenId not provided");
         const { to, tokenId, quantity } = data;
-        return (await contract.claimTo(
+        return (await claimable.claimTo(
           to,
           tokenId,
           quantity,
           data.checkERC20Allowance,
         )) as ClaimNFTReturnType<TContract>;
       }
-      return (await contract.claimTo(
-        data.to,
-        data.quantity,
-        data.checkERC20Allowance,
-      )) as ClaimNFTReturnType<TContract>;
+      if (claimable instanceof Erc721) {
+        return (await claimable.claimTo(
+          data.to,
+          data.quantity,
+          data.checkERC20Allowance,
+        )) as ClaimNFTReturnType<TContract>;
+      }
+      if (claimable instanceof Erc721Claimable) {
+        return (await claimable.to(
+          data.to,
+          data.quantity,
+          data.checkERC20Allowance,
+        )) as ClaimNFTReturnType<TContract>;
+      }
+      throw new Error("contract does not support claimTo");
     },
     {
       onSettled: () =>

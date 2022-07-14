@@ -106,7 +106,7 @@ export type ClaimIneligibilityParameters = {
 };
 
 // @beta
-export type ClaimNFTParams<TContract extends DropContract> = TContract extends Erc1155 ? {
+export type ClaimNFTParams<TContract extends DropContract | SmartContract> = TContract extends Erc1155 ? {
     to: WalletAddress;
     tokenId: BigNumberish;
     quantity: BigNumberish;
@@ -118,7 +118,7 @@ export type ClaimNFTParams<TContract extends DropContract> = TContract extends E
 };
 
 // @beta
-export type ClaimNFTReturnType<TContract extends DropContract> = TContract extends Erc721 ? Awaited<ReturnType<TContract["claimTo"]>> : TContract extends Erc1155 ? Awaited<ReturnType<TContract["claimTo"]>> : never;
+export type ClaimNFTReturnType<TContract extends DropContract | SmartContract> = TContract extends Erc721 ? Awaited<ReturnType<TContract["claimTo"]>> : TContract extends Erc1155 ? Awaited<ReturnType<TContract["claimTo"]>> : never;
 
 // @public (undocumented)
 export type ClaimTokenParams = {
@@ -421,7 +421,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>): UseQ
 export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop | SmartContract>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
 // @beta
-export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
+export function useClaimNFT<TContract extends DropContract | SmartContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
 
 // @beta
 export function useClaimToken<TContract extends TokenDrop>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{

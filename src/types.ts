@@ -10,6 +10,7 @@ import type {
   NFTMetadata,
   Price,
   SignatureDrop,
+  SmartContract,
 } from "@thirdweb-dev/sdk/dist/browser";
 import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish } from "ethers";
@@ -155,7 +156,7 @@ export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
  *
  * @beta
  */
-export type ClaimNFTParams<TContract extends DropContract> =
+export type ClaimNFTParams<TContract extends DropContract | SmartContract> =
   TContract extends Erc1155
     ? {
         to: WalletAddress;
@@ -174,7 +175,7 @@ export type ClaimNFTParams<TContract extends DropContract> =
  *
  * @beta
  */
-export type ClaimNFTReturnType<TContract extends DropContract> =
+export type ClaimNFTReturnType<TContract extends DropContract | SmartContract> =
   TContract extends Erc721
     ? Awaited<ReturnType<TContract["claimTo"]>>
     : TContract extends Erc1155

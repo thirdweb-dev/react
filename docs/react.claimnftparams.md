@@ -12,7 +12,7 @@ The params for the [useClaimNFT()](./react.useclaimnft.md) hook mutation.
 <b>Signature:</b>
 
 ```typescript
-export declare type ClaimNFTParams<TContract extends DropContract> = TContract extends Erc1155 ? {
+export declare type ClaimNFTParams<TContract extends DropContract | SmartContract> = TContract extends Erc1155 ? {
     to: WalletAddress;
     tokenId: BigNumberish;
     quantity: BigNumberish;
