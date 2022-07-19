@@ -12,10 +12,13 @@ import {
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useNFTs } from "./nft";
 import {
+  Erc721,
   Erc1155,
   NFTDrop,
+  NFTMetadataInput,
   QueryAllParams,
   SignatureDrop,
+  UploadProgressEvent,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
@@ -185,6 +188,47 @@ export function useClaimNFT<TContract extends DropContract>(
         data.quantity,
         data.checkERC20Allowance,
       )) as ClaimNFTReturnType<TContract>;
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to lazy mint a batch of NFTs on your {@link DropContract}
+ *
+ * @param contract - an instance of a {@link ERC721} with the drop extension
+ * @param onProgress - an optional callback that will be called with the progress of the upload
+ * @returns a mutation object that can be used to lazy mint a batch of NFTs
+ * @beta
+ */
+export function useLazyMint<TContract extends Erc721>(
+  contract: RequiredParam<TContract>,
+  onProgress?: (progress: UploadProgressEvent) => void,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (data: { metadatas: NFTMetadataInput[] }) => {
+      invariant(
+        contract?.drop?.lazyMint,
+        "contract does not support drop.lazyMint",
+      );
+      let options;
+      if (onProgress) {
+        options = {
+          onProgress,
+        };
+      }
+      return await contract.drop.lazyMint(data.metadatas, options);
     },
     {
       onSettled: () =>
