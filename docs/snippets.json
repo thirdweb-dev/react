@@ -228,7 +228,7 @@
       },
       {
         "name": "useClaimIneligibilityReasons",
-        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);",
+        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> }, <tokenId>);",
         "reference": "https://portal.thirdweb.com/react/react.useclaimineligibilityreasons"
       },
       {
@@ -413,7 +413,7 @@
       },
       {
         "name": "useClaimIneligibilityReasons",
-        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);",
+        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> }, <tokenId>);",
         "reference": "https://portal.thirdweb.com/react/react.useclaimineligibilityreasons"
       },
       {

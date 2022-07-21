@@ -103,7 +103,7 @@ export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupported
 
 // @beta
 export type ClaimIneligibilityParameters = {
-    walletAddress?: WalletAddress;
+    walletAddress: WalletAddress;
     quantity: string | number;
 };
 
