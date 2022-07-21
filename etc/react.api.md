@@ -29,7 +29,7 @@ import { EditionDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { Erc1155 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc1155Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc20 } from '@thirdweb-dev/sdk/dist/browser';
-import type { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
+import { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc721Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { EventQueryFilter } from '@thirdweb-dev/sdk/dist/browser';
 import { FetchStatus } from 'react-query';
@@ -48,6 +48,7 @@ import type { NewDirectListing } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTCollection } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTMetadata } from '@thirdweb-dev/sdk/dist/browser';
+import { NFTMetadataInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Offer } from '@thirdweb-dev/sdk/dist/browser';
 import { Pack } from '@thirdweb-dev/sdk/dist/browser';
@@ -71,6 +72,7 @@ import { Token } from '@thirdweb-dev/sdk/dist/browser';
 import { TokenDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { TransactionResultWithId } from '@thirdweb-dev/sdk/dist/browser';
+import { UploadProgressEvent } from '@thirdweb-dev/sdk/dist/browser';
 import { useAccount } from './hooks';
 import { UseMutationResult } from 'react-query';
 import { useProvider } from './hooks';
@@ -1340,6 +1342,20 @@ address: WalletAddress;
 //
 // @beta
 export function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>): boolean;
+
+// @beta
+export function useLazyMint<TContract extends Erc721>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): UseMutationResult<TransactionResultWithId<    {
+[x: string]: Json;
+name?: string | undefined;
+description?: string | null | undefined;
+image?: string | null | undefined;
+external_url?: string | null | undefined;
+animation_url?: string | null | undefined;
+uri: string;
+id: BigNumber;
+}>[], unknown, {
+metadatas: NFTMetadataInput[];
+}, unknown>;
 
 // @beta
 export function useListing(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<AuctionListing | DirectListing, unknown>;
