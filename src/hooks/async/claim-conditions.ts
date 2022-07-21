@@ -125,9 +125,9 @@ export function useClaimConditions<
  * @beta
  */
 export type ClaimIneligibilityParameters = {
-  // the wallet address to check claim elgibility for
-  walletAddress?: WalletAddress;
-  // the amount of tokens to check claim elibility for
+  // the wallet address to check claim eligibility for
+  walletAddress: WalletAddress;
+  // the amount of tokens to check claim eligibility for
   quantity: string | number;
 };
 
@@ -146,15 +146,15 @@ type ClaimIneligibilityInputParams<TContract> = TContract extends Erc1155
  * Use this to check for reasons that prevent claiming for either  ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
  * @example
  * ```javascript
- * const { data: activeClaimCondition, isLoading, error } = useClaimIneligibilityReasons(<YourERC20ContractInstance>);
+ * const { data: activeClaimCondition, isLoading, error } = useClaimIneligibilityReasons(<YourERC20ContractInstance>, { walletAddress: <walletAddress> });
  * ```
  * @example
  * ```javascript
- * const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC721ContractInstance>, {quantity: <quantity>});
+ * const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC721ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> });
  * ```
  * @example
  * ```javascript
- * const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);
+ * const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> }, <tokenId>);
  * ```
  *
  * @param contract - an instance of a contract that extends the  ERC20, ERC721 or ERC1155 spec and implements the `claimConditions` extension.
