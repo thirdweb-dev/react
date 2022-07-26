@@ -509,7 +509,7 @@ export const ThirdwebSDKProvider: React.FC<
  *
  * @returns {@link ThirdwebSDK}
  * Create an instance of the Thirdweb SDK that uses the connected wallet to sign transactions,
- * and the desiredChainId to determine the network to use.
+ * and the desiredChainId of the ThirdwebProvider context to determine the network to use.
  * @example
  * ```javascript
  * const sdk = useSDK();

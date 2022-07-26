@@ -12,8 +12,8 @@ export interface MediaType
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [mimeType?](./react.mediatype.mimetype.md) | string | <i>(Optional)</i> |
-|  [url?](./react.mediatype.url.md) | string | <i>(Optional)</i> |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [mimeType?](./react.mediatype.mimetype.md) |  | string | <i>(Optional)</i> |
+|  [url?](./react.mediatype.url.md) |  | string | <i>(Optional)</i> |
 

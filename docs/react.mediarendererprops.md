@@ -15,9 +15,9 @@ export interface MediaRendererProps extends SharedMediaProps
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [alt?](./react.mediarendererprops.alt.md) | string | <i>(Optional)</i> The alt text for the media. |
-|  [poster?](./react.mediarendererprops.poster.md) | string \| null | <i>(Optional)</i> The media poster image uri. (if applicable) |
-|  [src?](./react.mediarendererprops.src.md) | string \| null | <i>(Optional)</i> The media source uri. |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [alt?](./react.mediarendererprops.alt.md) |  | string | <i>(Optional)</i> The alt text for the media. |
+|  [poster?](./react.mediarendererprops.poster.md) |  | string \| null | <i>(Optional)</i> The media poster image uri. (if applicable) |
+|  [src?](./react.mediarendererprops.src.md) |  | string \| null | <i>(Optional)</i> The media source uri. |
 

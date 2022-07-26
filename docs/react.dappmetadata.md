@@ -18,11 +18,11 @@ this is only used for wallet connect and wallet link, metamask does not support 
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [description?](./react.dappmetadata.description.md) | string | <i>(Optional)</i> optional - a description of your app |
-|  [isDarkMode?](./react.dappmetadata.isdarkmode.md) | boolean | <i>(Optional)</i> optional - whether to show the connect dialog in darkmode or not |
-|  [logoUrl?](./react.dappmetadata.logourl.md) | string | <i>(Optional)</i> optional - a url that points to a logo (or favicon) of your app |
-|  [name](./react.dappmetadata.name.md) | string | the name of your app |
-|  [url?](./react.dappmetadata.url.md) | string | <i>(Optional)</i> optional - the url where your app is hosted |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [description?](./react.dappmetadata.description.md) |  | string | <i>(Optional)</i> optional - a description of your app |
+|  [isDarkMode?](./react.dappmetadata.isdarkmode.md) |  | boolean | <i>(Optional)</i> optional - whether to show the connect dialog in darkmode or not |
+|  [logoUrl?](./react.dappmetadata.logourl.md) |  | string | <i>(Optional)</i> optional - a url that points to a logo (or favicon) of your app |
+|  [name](./react.dappmetadata.name.md) |  | string | the name of your app |
+|  [url?](./react.dappmetadata.url.md) |  | string | <i>(Optional)</i> optional - the url where your app is hosted |
 

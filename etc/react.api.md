@@ -1514,9 +1514,7 @@ seller_fee_basis_points: number;
 fee_recipient: string;
 }, unknown>;
 
-// Warning: (ae-internal-missing-underscore) The name "useSDK" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
+// @public (undocumented)
 export function useSDK(): ThirdwebSDK | undefined;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useSetAllRoleMembers" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
