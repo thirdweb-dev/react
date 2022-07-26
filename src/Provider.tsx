@@ -508,8 +508,8 @@ export const ThirdwebSDKProvider: React.FC<
 /**
  *
  * @returns {@link ThirdwebSDK}
- * Access the instance of the thirdweb SDK created by the ThirdwebProvider, that uses the connected wallet to sign transactions,
- * on the desiredChainId
+ * Access the instance of the thirdweb SDK created by the ThirdwebProvider
+ * to call methods using the connected wallet on the desiredChainId.
  * @example
  * ```javascript
  * const sdk = useSDK();
