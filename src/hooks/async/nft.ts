@@ -361,7 +361,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => mintNft({ name: "My awesome NFT!", to: "0x..." })}
  *     >
  *       Mint!
  *     </button>
@@ -371,7 +371,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  * @example
  * ```jsx
  * const Component = () => {
- *  const { contract } = useContract(<ContractAddress>);
+ *   const { contract } = useContract(<ContractAddress>);
  *   const {
  *     mutate: mintNft,
  *     isLoading,
@@ -385,7 +385,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => mintNft({ name: "My awesome NFT!", to: "0x..." })}
  *     >
  *       Mint!
  *     </button>
