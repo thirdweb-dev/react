@@ -450,7 +450,7 @@ const ThirdwebSDKProviderWagmiWrapper: React.FC<
 interface SDKContext {
   sdk?: ThirdwebSDK;
   _inProvider?: true;
-  desiredChainId: number;
+  desiredChainId: number | string;
 }
 
 const ThirdwebSDKContext = createContext<SDKContext>({ desiredChainId: -1 });
@@ -477,6 +477,9 @@ export const ThirdwebSDKProvider: React.FC<
   const sdk = useMemo(() => {
     if (!desiredChainId || typeof window === "undefined") {
       return undefined;
+    }
+    if (typeof desiredChainId === "string") {
+      desiredChainId = getChainIdFromNetwork(desiredChainId);
     }
     const _sdk = new ThirdwebSDK(provider, sdkOptions, storageInterface);
     (_sdk as any)._chainId = desiredChainId;
@@ -534,7 +537,7 @@ export function useDesiredChainId(): number {
     ctx._inProvider,
     "useDesiredChainId must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
   );
-  return ctx.desiredChainId;
+  return ctx.desiredChainId as number;
 }
 
 /**
