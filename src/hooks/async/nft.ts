@@ -14,11 +14,11 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
 // eslint-disable-next-line no-duplicate-imports
 import { Erc721, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
+import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /**
@@ -361,7 +361,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => mintNft({ name: "My awesome NFT!", to: "0x..." })}
  *     >
  *       Mint!
  *     </button>
@@ -371,7 +371,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  * @example
  * ```jsx
  * const Component = () => {
- *  const { contract } = useContract(<ContractAddress>);
+ *   const { contract } = useContract(<ContractAddress>);
  *   const {
  *     mutate: mintNft,
  *     isLoading,
@@ -385,7 +385,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => mintNft({ name: "My awesome NFT!", to: "0x..." })}
  *     >
  *       Mint!
  *     </button>
