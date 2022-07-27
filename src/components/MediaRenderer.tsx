@@ -7,9 +7,9 @@ import {
   CarbonPauseFilled,
   CarbonPlayFilledAlt,
 } from "./Icons";
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import useDimensions from "react-cool-dimensions";
-import { useQuery } from "react-query";
 
 export interface SharedMediaProps {
   className?: string;

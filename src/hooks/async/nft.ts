@@ -14,11 +14,11 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
 // eslint-disable-next-line no-duplicate-imports
 import { Erc721, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
-import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /**

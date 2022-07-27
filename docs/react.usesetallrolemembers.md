@@ -12,7 +12,7 @@ Use this to OVERWRITE the list of addresses that are members of specific roles
 <b>Signature:</b>
 
 ```typescript
-export declare function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): import("react-query").UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
+export declare function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): import("@tanstack/react-query").UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function useSetAllRoleMembers<TContract extends ContractWithRoles
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;void, unknown, { \[role in RolesForContract&lt;TContract&gt;\]: string\[\]; }, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;void, unknown, { \[role in RolesForContract&lt;TContract&gt;\]: string\[\]; }, unknown&gt;
 
 a mutation object that can be used to overwrite all roles on the contract
 

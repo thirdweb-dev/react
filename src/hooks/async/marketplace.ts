@@ -6,6 +6,7 @@ import {
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useAddress } from "../useAddress";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
   Marketplace,
   MarketplaceFilter,
@@ -15,7 +16,6 @@ import type {
 // eslint-disable-next-line no-duplicate-imports
 import { ListingType } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
-import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/

@@ -12,7 +12,7 @@ Use this to get a list of NFT tokens of your [NFTContract](./react.nftcontract.m
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
+export declare function useNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, queryParams?: QueryAllParams): import("@tanstack/react-query").UseQueryResult<NFT<TContract>[], unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useNFTs<TContract extends NFTContract>(contract: Require
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;\[\], unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;\[\], unknown&gt;
 
 a response object that includes an array of NFTs
 

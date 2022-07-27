@@ -12,7 +12,7 @@ Use this to get the platform fees settings of your
 <b>Signature:</b>
 
 ```typescript
-export declare function usePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseQueryResult<{
+export declare function usePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): import("@tanstack/react-query").UseQueryResult<{
     platform_fee_basis_points: number;
     platform_fee_recipient: string;
 }, unknown>;
@@ -26,7 +26,7 @@ export declare function usePlatformFees(contract: RequiredParam<SmartContract | 
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ platform\_fee\_basis\_points: number; platform\_fee\_recipient: string; }, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;{ platform\_fee\_basis\_points: number; platform\_fee\_recipient: string; }, unknown&gt;
 
 an object containing the platform fee basis points and the fee recipient address
 

@@ -12,7 +12,7 @@ Use this to get a list of \*claimed\* (minted) NFT tokens of your ERC721 Drop co
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimedNFTs(contract: RequiredParam<DropContract>, queryParams?: QueryAllParams): import("react-query").UseQueryResult<import("../../types").NFT<DropContract>[], unknown>;
+export declare function useClaimedNFTs(contract: RequiredParam<DropContract>, queryParams?: QueryAllParams): import("@tanstack/react-query").UseQueryResult<import("../../types").NFT<DropContract>[], unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useClaimedNFTs(contract: RequiredParam<DropContract>, qu
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("../../types").[NFT](./react.nft.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt;\[\], unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;import("../../types").[NFT](./react.nft.md)<!-- -->&lt;[DropContract](./react.dropcontract.md)<!-- -->&gt;\[\], unknown&gt;
 
 a response object that includes an array of NFTs that are claimed
 

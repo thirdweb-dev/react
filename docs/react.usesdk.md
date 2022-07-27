@@ -13,7 +13,7 @@ export declare function useSDK(): ThirdwebSDK | undefined;
 
 ThirdwebSDK \| undefined
 
- Create an instance of the Thirdweb SDK that uses the connected wallet to sign transactions, and the desiredChainId of the ThirdwebProvider context to determine the network to use.
+ Access the instance of the thirdweb SDK created by the ThirdwebProvider to call methods using the connected wallet on the desiredChainId.
 
 ## Example
 

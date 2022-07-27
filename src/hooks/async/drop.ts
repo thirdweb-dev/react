@@ -11,6 +11,7 @@ import {
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useNFTs } from "./nft";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Erc721,
   Erc1155,
@@ -20,7 +21,6 @@ import {
   SignatureDrop,
   UploadProgressEvent,
 } from "@thirdweb-dev/sdk/dist/browser";
-import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/

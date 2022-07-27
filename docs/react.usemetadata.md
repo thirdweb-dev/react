@@ -12,7 +12,7 @@ Use this to get the metadata of your
 <b>Signature:</b>
 
 ```typescript
-export declare function useMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseQueryResult<{
+export declare function useMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): import("@tanstack/react-query").UseQueryResult<{
     [x: string]: import("@thirdweb-dev/sdk/dist/browser").Json;
     description?: string | undefined;
     image?: any;
@@ -29,7 +29,7 @@ export declare function useMetadata(contract: RequiredParam<SmartContract | Vali
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
 
 a  object containing the metadata
 
