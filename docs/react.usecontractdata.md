@@ -12,7 +12,7 @@ Use this to get data from a contract read-function call.
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): import("react-query").UseQueryResult<any, unknown>;
+export declare function useContractData(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>, ...args: unknown[] | [...unknown[], CallOverrides]): import("@tanstack/react-query").UseQueryResult<any, unknown>;
 ```
 
 ## Parameters
@@ -25,7 +25,7 @@ export declare function useContractData(contract: RequiredParam<ReturnType<typeo
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;any, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;any, unknown&gt;
 
 a response object that includes the data returned by the function call
 

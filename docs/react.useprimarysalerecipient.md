@@ -10,7 +10,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function usePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseQueryResult<string, unknown>;
+export declare function usePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): import("@tanstack/react-query").UseQueryResult<string, unknown>;
 ```
 
 ## Parameters
@@ -21,7 +21,7 @@ export declare function usePrimarySaleRecipient(contract: RequiredParam<SmartCon
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;string, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;string, unknown&gt;
 
 the wallet address of the primary sales recipient
 

@@ -15,7 +15,7 @@ Use this to query (and subscribe) to a specific event on a contract.
 export declare function useContractEvents(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, eventName: string, options?: {
     queryFilter?: EventQueryFilter;
     subscribe?: boolean;
-}): import("react-query").UseQueryResult<ContractEvent[], unknown>;
+}): import("@tanstack/react-query").UseQueryResult<ContractEvent[], unknown>;
 ```
 
 ## Parameters
@@ -28,7 +28,7 @@ export declare function useContractEvents(contract: RequiredParam<ReturnType<typ
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;ContractEvent\[\], unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;ContractEvent\[\], unknown&gt;
 
 a response object that includes the contract events
 

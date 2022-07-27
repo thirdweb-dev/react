@@ -12,7 +12,7 @@ Use this to update the metadata of your
 <b>Signature:</b>
 
 ```typescript
-export declare function useUpdateMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseMutationResult<{
+export declare function useUpdateMetadata(contract: RequiredParam<SmartContract | ValidContractInstance>): import("@tanstack/react-query").UseMutationResult<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<any>;
 }, unknown, {
@@ -32,7 +32,7 @@ export declare function useUpdateMetadata(contract: RequiredParam<SmartContract 
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;any&gt;; }, unknown, { \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;any&gt;; }, unknown, { \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
 
 a mutation object that can be used to update the metadata
 

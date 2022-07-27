@@ -12,7 +12,7 @@ Use this to get a the total balance of a [NFTContract](./react.nftcontract.md) a
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFTBalance<TContract extends NFTContract>(...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>): import("react-query").UseQueryResult<BigNumber, unknown>;
+export declare function useNFTBalance<TContract extends NFTContract>(...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>): import("@tanstack/react-query").UseQueryResult<BigNumber, unknown>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function useNFTBalance<TContract extends NFTContract>(...[contrac
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;BigNumber, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;BigNumber, unknown&gt;
 
 a response object that includes the total balance of the owner
 

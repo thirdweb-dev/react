@@ -6,6 +6,12 @@ import {
   createContractCacheKey,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import type {
   ContractEvent,
   EventQueryFilter,
@@ -19,12 +25,6 @@ import type {
 } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
 import { CallOverrides } from "ethers";
 import { useEffect, useMemo } from "react";
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
 import invariant from "tiny-invariant";
 
 async function fetchContractType(
