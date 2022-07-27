@@ -1,12 +1,12 @@
 import { SupportedChainId } from "../constants/chain";
 import { ContractAddress, RequiredParam, WalletAddress } from "../types";
+import { QueryClient, QueryKey } from "@tanstack/react-query";
 import type {
   MarketplaceFilter,
   QueryAllParams,
   SUPPORTED_CHAIN_ID,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumberish, constants } from "ethers";
-import { QueryClient, QueryKey } from "react-query";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
 

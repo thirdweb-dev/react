@@ -12,7 +12,7 @@ Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useMintNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): import("react-query").UseMutationResult<MintNFTReturnType<TContract>, unknown, MintNFTParams<TContract>, unknown>;
+export declare function useMintNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): import("@tanstack/react-query").UseMutationResult<MintNFTReturnType<TContract>, unknown, MintNFTParams<TContract>, unknown>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function useMintNFT<TContract extends NFTContract>(contract: Requ
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;[MintNFTReturnType](./react.mintnftreturntype.md)<!-- -->&lt;TContract&gt;, unknown, [MintNFTParams](./react.mintnftparams.md)<!-- -->&lt;TContract&gt;, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;[MintNFTReturnType](./react.mintnftreturntype.md)<!-- -->&lt;TContract&gt;, unknown, [MintNFTParams](./react.mintnftparams.md)<!-- -->&lt;TContract&gt;, unknown&gt;
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 

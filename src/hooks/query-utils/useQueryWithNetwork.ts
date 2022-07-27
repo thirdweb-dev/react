@@ -6,7 +6,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
   useQuery,
-} from "react-query";
+} from "@tanstack/react-query";
 
 /** @internal */
 export function useQueryWithNetwork<

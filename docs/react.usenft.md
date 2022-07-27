@@ -12,7 +12,7 @@ Use this to get an individual NFT token of your [NFTContract](./react.nftcontrac
 <b>Signature:</b>
 
 ```typescript
-export declare function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<NFT<TContract>, unknown>;
+export declare function useNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>): import("@tanstack/react-query").UseQueryResult<NFT<TContract>, unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useNFT<TContract extends NFTContract>(contract: Required
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;, unknown&gt;
 
 a response object that includes the metadata for the given tokenId
 

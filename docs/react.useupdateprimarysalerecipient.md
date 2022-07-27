@@ -12,7 +12,7 @@ Use this to update the primary sales recipient of your
 <b>Signature:</b>
 
 ```typescript
-export declare function useUpdatePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseMutationResult<Omit<{
+export declare function useUpdatePrimarySaleRecipient(contract: RequiredParam<SmartContract | ValidContractInstance>): import("@tanstack/react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
 }, "data">, unknown, string, unknown>;
@@ -26,7 +26,7 @@ export declare function useUpdatePrimarySaleRecipient(contract: RequiredParam<Sm
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, string, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, string, unknown&gt;
 
 a mutation object that can be used to update the primary sales recipient
 

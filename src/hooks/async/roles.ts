@@ -5,6 +5,7 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
   Multiwrap,
   Role,
@@ -14,7 +15,6 @@ import type {
   Vote,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { constants } from "ethers";
-import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/

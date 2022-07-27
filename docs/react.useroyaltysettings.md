@@ -12,7 +12,7 @@ Use this to get the royalty settings of your
 <b>Signature:</b>
 
 ```typescript
-export declare function useRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseQueryResult<{
+export declare function useRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): import("@tanstack/react-query").UseQueryResult<{
     seller_fee_basis_points: number;
     fee_recipient: string;
 }, unknown>;
@@ -26,7 +26,7 @@ export declare function useRoyaltySettings(contract: RequiredParam<SmartContract
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ seller\_fee\_basis\_points: number; fee\_recipient: string; }, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;{ seller\_fee\_basis\_points: number; fee\_recipient: string; }, unknown&gt;
 
 an object containing recipient address and the royalty basis points
 

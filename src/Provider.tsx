@@ -13,6 +13,7 @@ import {
   defaultChainRpc,
 } from "./contexts/thirdweb-config";
 import { useSigner } from "./hooks/useSigner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   ChainOrRpc,
   IStorage,
@@ -25,7 +26,6 @@ import {
 import { SDKOptionsOutput } from "@thirdweb-dev/sdk/dist/src/schema";
 import { Signer } from "ethers";
 import React, { createContext, useEffect, useMemo } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import invariant from "tiny-invariant";
 import {
   WagmiProvider,
@@ -508,7 +508,12 @@ export const ThirdwebSDKProvider: React.FC<
 /**
  *
  * @returns {@link ThirdwebSDK}
- * @internal
+ * Access the instance of the thirdweb SDK created by the ThirdwebProvider
+ * to call methods using the connected wallet on the desiredChainId.
+ * @example
+ * ```javascript
+ * const sdk = useSDK();
+ * ```
  */
 export function useSDK(): ThirdwebSDK | undefined {
   const ctx = React.useContext(ThirdwebSDKContext);

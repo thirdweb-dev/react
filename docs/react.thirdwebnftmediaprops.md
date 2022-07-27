@@ -15,7 +15,7 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [metadata](./react.thirdwebnftmediaprops.metadata.md) | NFTMetadata | The NFT metadata of the NFT returned by the thirdweb sdk. |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [metadata](./react.thirdwebnftmediaprops.metadata.md) |  | NFTMetadata | The NFT metadata of the NFT returned by the thirdweb sdk. |
 

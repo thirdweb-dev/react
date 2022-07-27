@@ -10,8 +10,8 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Erc20, TokenDrop } from "@thirdweb-dev/sdk/dist/browser";
-import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
