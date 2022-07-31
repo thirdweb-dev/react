@@ -21,6 +21,7 @@ export { ChainId, IpfsStorage } from "@thirdweb-dev/sdk/dist/browser";
 // ui components
 export * from "./components/MediaRenderer";
 export * from "./components/NftMedia";
+export * from "./components/Web3Button";
 
 // async hooks
 export * from "./hooks/async/contracts";

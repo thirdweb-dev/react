@@ -132,6 +132,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [ThirdwebNftMediaProps](./react.thirdwebnftmediaprops.md) | The props for the [ThirdwebNftMedia](./react.thirdwebnftmedia.md) component. |
 |  [ThirdwebProviderProps](./react.thirdwebproviderprops.md) | The possible props for the ThirdwebProvider. |
 |  [ThirdwebSDKProviderProps](./react.thirdwebsdkproviderprops.md) |  |
+|  [Web3ButtonType](./react.web3buttontype.md) |  |
 
 ## Variables
 
@@ -141,6 +142,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [ThirdwebNftMedia](./react.thirdwebnftmedia.md) | <b><i>(BETA)</i></b> |
 |  [ThirdwebProvider](./react.thirdwebprovider.md) | The <code>&lt;ThirdwebProvider /&gt;</code> component lets you control what networks you want users to connect to, what types of wallets can connect to your app, and the settings for the \[Typescript SDK\](https://docs.thirdweb.com/typescript). |
 |  [ThirdwebSDKProvider](./react.thirdwebsdkprovider.md) | <p><b><i>(BETA)</i></b> A barebones wrapper around the Thirdweb SDK.</p><p>You can use this in order to be able to pass a provider &amp; signer directly to the SDK.</p> |
+|  [Web3Button](./react.web3button.md) |  |
 
 ## Type Aliases
 

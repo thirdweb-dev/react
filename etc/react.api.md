@@ -1669,6 +1669,21 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
     options: CoinbaseWalletConnector["options"];
 };
 
+// @public (undocumented)
+export const Web3Button: React_2.FC<Web3ButtonType>;
+
+// @public (undocumented)
+export interface Web3ButtonType {
+    // (undocumented)
+    args: any[];
+    // (undocumented)
+    buttonText: string;
+    // (undocumented)
+    contractAddress: string;
+    // (undocumented)
+    funcName: string;
+}
+
 // Warnings were encountered during analysis:
 //
 // dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
