@@ -2,7 +2,7 @@ import { useActiveChainId } from "../../Provider";
 import {
   ClaimTokenParams,
   RequiredParam,
-  TokenMintParams,
+  TokenParams,
   WalletAddress,
 } from "../../types";
 import {
@@ -115,10 +115,10 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data: TokenMintParams) => {
-      const { to, amount } = data;
+    (data: TokenParams) => {
+      const { toAddress, amount } = data;
       invariant(contract?.mint?.to, "contract does not support mint.to");
-      return contract.mint.to(to, amount);
+      return contract.mint.to(toAddress, amount);
     },
     {
       onSettled: () =>
@@ -178,6 +178,114 @@ export function useClaimToken<TContract extends TokenDrop>(
         data.amount,
         data.checkERC20Allowance,
       );
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to mint a new NFT on your ERC20 contract
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: mintNft,
+ *     isLoading,
+ *     error,
+ *   } = useMintToken(">>YourERC20ContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to mint nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *     >
+ *       Mint!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
+ * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @beta
+ */
+export function useTransferToken(contract: RequiredParam<Erc20>) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: TokenParams) => {
+      const { toAddress, amount } = data;
+      invariant(contract?.transfer, "contract does not support transfer");
+      return contract.transfer(toAddress, amount);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to mint a new NFT on your ERC20 contract
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: mintNft,
+ *     isLoading,
+ *     error,
+ *   } = useMintToken(">>YourERC20ContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to mint nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *     >
+ *       Mint!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
+ * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @beta
+ */
+export function useTransferBatchToken(contract: RequiredParam<Erc20>) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: TokenParams[]) => {
+      invariant(
+        contract?.transferBatch,
+        "contract does not support transferBatch",
+      );
+      return contract.transferBatch(data);
     },
     {
       onSettled: () =>
