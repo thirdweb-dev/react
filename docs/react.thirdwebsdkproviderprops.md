@@ -16,5 +16,6 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
 |  [provider](./react.thirdwebsdkproviderprops.provider.md) |  | ChainOrRpc \| SignerOrProvider |  |
+|  [queryClient](./react.thirdwebsdkproviderprops.queryclient.md) |  | QueryClient |  |
 |  [signer?](./react.thirdwebsdkproviderprops.signer.md) |  | Signer | <i>(Optional)</i> |
 

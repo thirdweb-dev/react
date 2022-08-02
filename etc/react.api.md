@@ -287,6 +287,8 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
     // (undocumented)
     provider: ChainOrRpc | SignerOrProvider;
     // (undocumented)
+    queryClient: QueryClient;
+    // (undocumented)
     signer?: Signer;
 }
 
