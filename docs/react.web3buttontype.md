@@ -15,7 +15,6 @@ export interface Web3ButtonType
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
 |  [args](./react.web3buttontype.args.md) |  | any\[\] |  |
-|  [buttonText](./react.web3buttontype.buttontext.md) |  | string |  |
 |  [contractAddress](./react.web3buttontype.contractaddress.md) |  | string |  |
 |  [funcName](./react.web3buttontype.funcname.md) |  | string |  |
 

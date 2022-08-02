@@ -1677,8 +1677,6 @@ export interface Web3ButtonType {
     // (undocumented)
     args: any[];
     // (undocumented)
-    buttonText: string;
-    // (undocumented)
     contractAddress: string;
     // (undocumented)
     funcName: string;

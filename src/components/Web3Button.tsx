@@ -2,14 +2,13 @@ import { useContract } from "../hooks/async/contracts";
 import React, { useCallback } from "react";
 
 export interface Web3ButtonType {
-  buttonText: string;
   contractAddress: string;
   funcName: string;
   args: any[];
 }
 
 /**
- * @param Web3ButtonType - buttonText, contractAddress, funcName, args
+ * @param Web3ButtonType - contractAddress, funcName, args
  * @returns button that calls smart contract function
  *
  * @example
@@ -18,12 +17,10 @@ export interface Web3ButtonType {
  * <Web3Button contractAddress="0x..." funcName="foo" args={[1, 2, 3]} />
  * ```
  */
-export const Web3Button: React.FC<Web3ButtonType> = ({
-  buttonText,
-  contractAddress,
-  funcName,
-  args,
-}) => {
+export const Web3Button: React.FC<Web3ButtonType> = (
+  { contractAddress, funcName, args },
+  props,
+) => {
   const { contract } = useContract(contractAddress);
 
   const buttonClick = useCallback(() => {
@@ -32,5 +29,9 @@ export const Web3Button: React.FC<Web3ButtonType> = ({
     }
   }, [contract]);
 
-  return <button onClick={buttonClick}>{buttonText}</button>;
+  return (
+    <button onClick={buttonClick} {...props}>
+      {props.children}
+    </button>
+  );
 };
