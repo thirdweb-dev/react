@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to mint a new NFT on your ERC20 contract
+Use this to mint new tokens on your  contract
 
 <b>Signature:</b>
 
@@ -15,7 +15,7 @@ Use this to mint a new NFT on your ERC20 contract
 export declare function useMintToken(contract: RequiredParam<Erc20>): import("@tanstack/react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
-}, "data">, unknown, TokenParams, unknown>;
+}, "data">, unknown, TokenMintParams, unknown>;
 ```
 
 ## Parameters
@@ -26,7 +26,7 @@ export declare function useMintToken(contract: RequiredParam<Erc20>): import("@t
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [TokenParams](./react.tokenparams.md)<!-- -->, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [TokenMintParams](./react.tokenmintparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 
@@ -36,19 +36,19 @@ a mutation object that can be used to mint a new NFT token to the connected wall
 ```jsx
 const Component = () => {
   const {
-    mutate: mintNft,
+    mutate: mintTokens,
     isLoading,
     error,
   } = useMintToken(">>YourERC20ContractInstance<<");
 
   if (error) {
-    console.error("failed to mint nft", error);
+    console.error("failed to mint tokens", error);
   }
 
   return (
     <button
       disabled={isLoading}
-      onClick={() => mintNft({ name: "My awesome NFT!" })}
+      onClick={() => mintTokens({ to: "0x...", amount: 1000 })}
     >
       Mint!
     </button>

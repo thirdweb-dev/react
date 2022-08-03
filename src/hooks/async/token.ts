@@ -2,6 +2,7 @@ import { useActiveChainId } from "../../Provider";
 import {
   ClaimTokenParams,
   RequiredParam,
+  TokenMintParams,
   TokenParams,
   WalletAddress,
 } from "../../types";
@@ -19,7 +20,7 @@ import invariant from "tiny-invariant";
 /** **********************/
 
 /**
- * Use this to get a the total supply of your Token contract.
+ * Use this to get a the total supply of your {@link Erc20} contract.
  *
  * @example
  * ```javascript
@@ -45,7 +46,7 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
 }
 
 /**
- * Use this to get the balance of your Token contract for a given address.
+ * Use this to get the balance of your {@link Erc20} contract for a given address.
  *
  * @example
  * ```javascript
@@ -79,25 +80,25 @@ export function useTokenBalance(
 /** **********************/
 
 /**
- * Use this to mint a new NFT on your ERC20 contract
+ * Use this to mint new tokens on your {@link Erc20} contract
  *
  * @example
  * ```jsx
  * const Component = () => {
  *   const {
- *     mutate: mintNft,
+ *     mutate: mintTokens,
  *     isLoading,
  *     error,
  *   } = useMintToken(">>YourERC20ContractInstance<<");
  *
  *   if (error) {
- *     console.error("failed to mint nft", error);
+ *     console.error("failed to mint tokens", error);
  *   }
  *
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => mintTokens({ to: "0x...", amount: 1000 })}
  *     >
  *       Mint!
  *     </button>
@@ -115,10 +116,10 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data: TokenParams) => {
-      const { toAddress, amount } = data;
+    (data: TokenMintParams) => {
+      const { to, amount } = data;
       invariant(contract?.mint?.to, "contract does not support mint.to");
-      return contract.mint.to(toAddress, amount);
+      return contract.mint.to(to, amount);
     },
     {
       onSettled: () =>
@@ -150,7 +151,7 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => claimTokens({to: "0x...", amount: 100})}
+ *       onClick={() => claimTokens({ to: "0x...", amount: 100 })}
  *     >
  *       Claim Tokens!
  *     </button>
@@ -191,27 +192,27 @@ export function useClaimToken<TContract extends TokenDrop>(
 }
 
 /**
- * Use this to mint a new NFT on your ERC20 contract
+ * Use this to transfer tokens on your {@link Erc20} contract
  *
  * @example
  * ```jsx
  * const Component = () => {
  *   const {
- *     mutate: mintNft,
+ *     mutate: transferTokens,
  *     isLoading,
  *     error,
- *   } = useMintToken(">>YourERC20ContractInstance<<");
+ *   } = useTransferToken(">>YourERC20ContractInstance<<");
  *
  *   if (error) {
- *     console.error("failed to mint nft", error);
+ *     console.error("failed to transfer tokens", error);
  *   }
  *
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => transferTokens({ toAddress: "0x...", amount: 1000 })}
  *     >
- *       Mint!
+ *       Transfer
  *     </button>
  *   );
  * };
@@ -244,27 +245,27 @@ export function useTransferToken(contract: RequiredParam<Erc20>) {
 }
 
 /**
- * Use this to mint a new NFT on your ERC20 contract
+ * Use this to transfer batch tokens on your {@link Erc20} contract
  *
  * @example
  * ```jsx
  * const Component = () => {
  *   const {
- *     mutate: mintNft,
+ *     mutate: transferBatchTokens,
  *     isLoading,
  *     error,
- *   } = useMintToken(">>YourERC20ContractInstance<<");
+ *   } = useTransferToken(">>YourERC20ContractInstance<<");
  *
  *   if (error) {
- *     console.error("failed to mint nft", error);
+ *     console.error("failed to transfer batch tokens", error);
  *   }
  *
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => transferBatchTokens([{ toAddress: "0x...", amount: 1000 }, { toAddress: "0x...", amount: 2000 }])}
  *     >
- *       Mint!
+ *       Transfer Batch
  *     </button>
  *   );
  * };

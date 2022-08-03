@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to mint a new NFT on your ERC20 contract
+Use this to transfer tokens on your  contract
 
 <b>Signature:</b>
 
@@ -36,21 +36,21 @@ a mutation object that can be used to mint a new NFT token to the connected wall
 ```jsx
 const Component = () => {
   const {
-    mutate: mintNft,
+    mutate: transferTokens,
     isLoading,
     error,
-  } = useMintToken(">>YourERC20ContractInstance<<");
+  } = useTransferToken(">>YourERC20ContractInstance<<");
 
   if (error) {
-    console.error("failed to mint nft", error);
+    console.error("failed to transfer tokens", error);
   }
 
   return (
     <button
       disabled={isLoading}
-      onClick={() => mintNft({ name: "My awesome NFT!" })}
+      onClick={() => transferTokens({ toAddress: "0x...", amount: 1000 })}
     >
-      Mint!
+      Transfer
     </button>
   );
 };
