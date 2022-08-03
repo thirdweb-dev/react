@@ -5,6 +5,7 @@
 ```ts
 
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/browser';
+import type { AirdropInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BaseContract } from 'ethers';
@@ -1572,7 +1573,36 @@ export type useTotalCirculatingSupplyParams<TContract> = TContract extends Erc11
 export function useTotalCount(contract: RequiredParam<NFTContract>): UseQueryResult<BigNumber, unknown>;
 
 // @beta
+export function useTransferBatchNFT(contract: Erc1155): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, useTransferBatchNFTParams, unknown>;
+
+// @beta
+export type useTransferBatchNFTParams = {
+    tokenId: BigNumberish;
+    addresses: AirdropInput;
+};
+
+// @beta
 export function useTransferBatchToken(contract: RequiredParam<Erc20>): UseMutationResult<void, unknown, TokenParams[], unknown>;
+
+// @beta
+export function useTransferNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, useTransferNFTParams<TContract>, unknown>;
+
+// @beta
+export type useTransferNFTParams<TContract> = TContract extends Erc1155 ? {
+    to: string;
+    tokenId: BigNumberish;
+    amount: string | number;
+} : {
+    to: string;
+    tokenId: BigNumberish;
+    amount?: never;
+};
 
 // @beta
 export function useTransferToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
@@ -1687,8 +1717,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:148:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:154:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:169:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:175:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

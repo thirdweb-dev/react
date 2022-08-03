@@ -107,7 +107,9 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your  contract. |
 |  [useTotalCirculatingSupply(\[contract, tokenId\])](./react.usetotalcirculatingsupply.md) | <p><b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your [NFTContract](./react.nftcontract.md)<!-- -->.</p><p>\*</p> |
 |  [useTotalCount(contract)](./react.usetotalcount.md) | <b><i>(BETA)</i></b> Use this to get a the number of tokens in your [NFTContract](./react.nftcontract.md)<!-- -->. |
+|  [useTransferBatchNFT(contract)](./react.usetransferbatchnft.md) | <b><i>(BETA)</i></b> Use this to transfer tokens on your  |
 |  [useTransferBatchToken(contract)](./react.usetransferbatchtoken.md) | <b><i>(BETA)</i></b> Use this to transfer batch tokens on your  contract |
+|  [useTransferNFT(contract)](./react.usetransfernft.md) | <b><i>(BETA)</i></b> Use this to transfer tokens on your [NFTContract](./react.nftcontract.md) |
 |  [useTransferToken(contract)](./react.usetransfertoken.md) | <b><i>(BETA)</i></b> Use this to transfer tokens on your  contract |
 |  [useUnclaimedNFTs(contract, queryParams)](./react.useunclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*unclaimed\* NFT tokens of your ERC721 Drop contract. |
 |  [useUnclaimedNFTSupply(contract)](./react.useunclaimednftsupply.md) |  |
@@ -164,5 +166,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [TokenParams](./react.tokenparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the mint and transfer functions. |
 |  [useNFTBalanceParams](./react.usenftbalanceparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useNftBalance</code>. |
 |  [useTotalCirculatingSupplyParams](./react.usetotalcirculatingsupplyparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTotalCirculatingSupply</code>. |
+|  [useTransferBatchNFTParams](./react.usetransferbatchnftparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTransferBatchNFT</code>. |
+|  [useTransferNFTParams](./react.usetransfernftparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTransferNFT</code>. |
 |  [WalletAddress](./react.walletaddress.md) | <b><i>(BETA)</i></b> A wallet address. |
 
