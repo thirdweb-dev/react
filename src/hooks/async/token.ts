@@ -2,7 +2,7 @@ import { useActiveChainId } from "../../Provider";
 import {
   ClaimTokenParams,
   RequiredParam,
-  TokenMintParams,
+  TokenParams,
   WalletAddress,
 } from "../../types";
 import {
@@ -19,7 +19,7 @@ import invariant from "tiny-invariant";
 /** **********************/
 
 /**
- * Use this to get a the total supply of your Token contract.
+ * Use this to get a the total supply of your {@link Erc20} contract.
  *
  * @example
  * ```javascript
@@ -45,7 +45,7 @@ export function useTokenSupply(contract: RequiredParam<Erc20>) {
 }
 
 /**
- * Use this to get the balance of your Token contract for a given address.
+ * Use this to get the balance of your {@link Erc20} contract for a given address.
  *
  * @example
  * ```javascript
@@ -79,25 +79,25 @@ export function useTokenBalance(
 /** **********************/
 
 /**
- * Use this to mint a new NFT on your ERC20 contract
+ * Use this to mint new tokens on your {@link Erc20} contract
  *
  * @example
  * ```jsx
  * const Component = () => {
  *   const {
- *     mutate: mintNft,
+ *     mutate: mintTokens,
  *     isLoading,
  *     error,
  *   } = useMintToken(">>YourERC20ContractInstance<<");
  *
  *   if (error) {
- *     console.error("failed to mint nft", error);
+ *     console.error("failed to mint tokens", error);
  *   }
  *
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => mintTokens({ to: "0x...", amount: 1000 })}
  *     >
  *       Mint!
  *     </button>
@@ -115,7 +115,7 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data: TokenMintParams) => {
+    (data: TokenParams) => {
       const { to, amount } = data;
       invariant(contract?.mint?.to, "contract does not support mint.to");
       return contract.mint.to(to, amount);
@@ -150,7 +150,7 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => claimTokens({to: "0x...", amount: 100})}
+ *       onClick={() => claimTokens({ to: "0x...", amount: 100 })}
  *     >
  *       Claim Tokens!
  *     </button>
@@ -178,6 +178,119 @@ export function useClaimToken<TContract extends TokenDrop>(
         data.amount,
         data.checkERC20Allowance,
       );
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to transfer tokens on your {@link Erc20} contract
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: transferTokens,
+ *     isLoading,
+ *     error,
+ *   } = useTransferToken(">>YourERC20ContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to transfer tokens", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => transferTokens({ to: "0x...", amount: 1000 })}
+ *     >
+ *       Transfer
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
+ * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @beta
+ */
+export function useTransferToken(contract: RequiredParam<Erc20>) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: TokenParams) => {
+      const { to, amount } = data;
+      invariant(contract?.transfer, "contract does not support transfer");
+      return contract.transfer(to, amount);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to transfer batch tokens on your {@link Erc20} contract
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: transferBatchTokens,
+ *     isLoading,
+ *     error,
+ *   } = useTransferToken(">>YourERC20ContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to transfer batch tokens", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => transferBatchTokens([{ to: "0x...", amount: 1000 }, { to: "0x...", amount: 2000 }])}
+ *     >
+ *       Transfer Batch
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
+ * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @beta
+ */
+export function useTransferBatchToken(contract: RequiredParam<Erc20>) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: TokenParams[]) => {
+      invariant(
+        contract?.transferBatch,
+        "contract does not support transferBatch",
+      );
+      const convertedData = data.map((token) => ({
+        toAddress: token.to,
+        amount: token.amount,
+      }));
+
+      return contract.transferBatch(convertedData);
     },
     {
       onSettled: () =>
