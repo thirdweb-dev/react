@@ -48,7 +48,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => transferTokens({ toAddress: "0x...", amount: 1000 })}
+      onClick={() => transferTokens({ to: "0x...", amount: 1000 })}
     >
       Transfer
     </button>

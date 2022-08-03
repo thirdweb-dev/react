@@ -293,14 +293,8 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
 }
 
 // @beta
-export type TokenMintParams = {
-    to: WalletAddress;
-    amount: string | number;
-};
-
-// @beta
 export type TokenParams = {
-    toAddress: WalletAddress;
+    to: WalletAddress;
     amount: string | number;
 };
 
@@ -1410,7 +1404,7 @@ export function useMintNFT<TContract extends NFTContract>(contract: RequiredPara
 export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
-}, "data">, unknown, TokenMintParams, unknown>;
+}, "data">, unknown, TokenParams, unknown>;
 
 // @public
 export function useMultiwrap(contractAddress?: string): Multiwrap | undefined;
@@ -1693,8 +1687,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:157:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:163:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:148:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:154:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

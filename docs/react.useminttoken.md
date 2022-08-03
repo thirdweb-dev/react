@@ -15,7 +15,7 @@ Use this to mint new tokens on your  contract
 export declare function useMintToken(contract: RequiredParam<Erc20>): import("@tanstack/react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
-}, "data">, unknown, TokenMintParams, unknown>;
+}, "data">, unknown, TokenParams, unknown>;
 ```
 
 ## Parameters
@@ -26,7 +26,7 @@ export declare function useMintToken(contract: RequiredParam<Erc20>): import("@t
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [TokenMintParams](./react.tokenmintparams.md)<!-- -->, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [TokenParams](./react.tokenparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to mint a new NFT token to the connected wallet
 

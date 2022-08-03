@@ -7,13 +7,13 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-The parameters to pass to the NFT transfer functions.
+The parameters to pass to the mint and transfer functions.
 
 <b>Signature:</b>
 
 ```typescript
 export declare type TokenParams = {
-    toAddress: WalletAddress;
+    to: WalletAddress;
     amount: string | number;
 };
 ```

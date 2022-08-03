@@ -45,7 +45,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => transferBatchTokens([{ toAddress: "0x...", amount: 1000 }, { toAddress: "0x...", amount: 2000 }])}
+      onClick={() => transferBatchTokens([{ to: "0x...", amount: 1000 }, { to: "0x...", amount: 2000 }])}
     >
       Transfer Batch
     </button>

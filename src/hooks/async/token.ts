@@ -2,7 +2,6 @@ import { useActiveChainId } from "../../Provider";
 import {
   ClaimTokenParams,
   RequiredParam,
-  TokenMintParams,
   TokenParams,
   WalletAddress,
 } from "../../types";
@@ -116,7 +115,7 @@ export function useMintToken(contract: RequiredParam<Erc20>) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data: TokenMintParams) => {
+    (data: TokenParams) => {
       const { to, amount } = data;
       invariant(contract?.mint?.to, "contract does not support mint.to");
       return contract.mint.to(to, amount);
@@ -210,7 +209,7 @@ export function useClaimToken<TContract extends TokenDrop>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => transferTokens({ toAddress: "0x...", amount: 1000 })}
+ *       onClick={() => transferTokens({ to: "0x...", amount: 1000 })}
  *     >
  *       Transfer
  *     </button>
@@ -229,9 +228,9 @@ export function useTransferToken(contract: RequiredParam<Erc20>) {
 
   return useMutation(
     (data: TokenParams) => {
-      const { toAddress, amount } = data;
+      const { to, amount } = data;
       invariant(contract?.transfer, "contract does not support transfer");
-      return contract.transfer(toAddress, amount);
+      return contract.transfer(to, amount);
     },
     {
       onSettled: () =>
@@ -263,7 +262,7 @@ export function useTransferToken(contract: RequiredParam<Erc20>) {
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => transferBatchTokens([{ toAddress: "0x...", amount: 1000 }, { toAddress: "0x...", amount: 2000 }])}
+ *       onClick={() => transferBatchTokens([{ to: "0x...", amount: 1000 }, { to: "0x...", amount: 2000 }])}
  *     >
  *       Transfer Batch
  *     </button>
@@ -286,7 +285,12 @@ export function useTransferBatchToken(contract: RequiredParam<Erc20>) {
         contract?.transferBatch,
         "contract does not support transferBatch",
       );
-      return contract.transferBatch(data);
+      const convertedData = data.map((token) => ({
+        toAddress: token.to,
+        amount: token.amount,
+      }));
+
+      return contract.transferBatch(convertedData);
     },
     {
       onSettled: () =>
