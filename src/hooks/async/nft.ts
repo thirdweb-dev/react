@@ -8,14 +8,16 @@ import {
   WalletAddress,
   useNFTBalanceParams,
   useTotalCirculatingSupplyParams,
+  useTransferBatchNFTParams,
+  useTransferNFTParams,
 } from "../../types";
 import {
   cacheKeys,
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
+import { Mutation, useMutation, useQueryClient } from "@tanstack/react-query";
+import { AirdropInput, QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
 // eslint-disable-next-line no-duplicate-imports
 import { Erc721, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
@@ -420,6 +422,173 @@ export function useMintNFT<TContract extends NFTContract>(
         data.to,
         data.metadata,
       )) as MintNFTReturnType<TContract>;
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to transfer tokens on your {@link NFTContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const nftDrop = useNFTDrop(<ContractAddress>);
+ *   const {
+ *     mutate: transferNFT,
+ *     isLoading,
+ *     error,
+ *   } = useTransferNFT(nftDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to transfer nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => transferNFT({ to: "0x...", tokenId: 2 })}
+ *     >
+ *       Transfer NFT!
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: transferNFT,
+ *     isLoading,
+ *     error,
+ *   } = useTransferNFT(contract?.nft);
+ *
+ *   if (error) {
+ *     console.error("failed to transfer nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => transferNFT({ to: "0x...", tokenId: 2 })}
+ *     >
+ *       Transfer
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link NFTContract}
+ * @returns a mutation object that can be used to transfer NFTs
+ * @beta
+ */
+export function useTransferNFT<TContract extends NFTContract>(
+  contract: RequiredParam<TContract>,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: useTransferNFTParams<TContract>) => {
+      invariant(contract?.transfer, "contract does not support transfer");
+      if (contract instanceof Erc1155) {
+        invariant(data.amount, "amount not provided");
+        return contract.transfer(data.to, data.tokenId, data.amount);
+      }
+
+      return contract.transfer(data.to, data.tokenId);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to transfer tokens on your {@link Erc1155}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const editionDrop = useEditionDrop(<ContractAddress>);
+ *   const {
+ *     mutate: transferBatchNFTs,
+ *     isLoading,
+ *     error,
+ *   } = useTransferBatchNFT(editionDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to transfer batch NFTs", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => transferBatchNFTs({
+ *          tokenId: 2,
+ *          addresses: [{ address: "0x...", quantity: 2 }, { address: "0x...", quantity: 4 } }]
+ *       )}
+ *     >
+ *       Transfer Batch
+ *     </button>
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: transferBatchNFTs,
+ *     isLoading,
+ *     error,
+ *   } = useTransferBatchNFT(contract?.nft);
+ *
+ *   if (error) {
+ *     console.error("failed to transfer batch NFTs", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => transferBatchNFTs({
+ *          tokenId: 2,
+ *          addresses: [{ address: "0x...", quantity: 2 }, { address: "0x...", quantity: 4 } }]
+ *       )}
+ *     >
+ *       Transfer Batch
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link Erc1155}
+ * @returns a mutation object that can be used to transfer batch NFTs
+ * @beta
+ */
+export function useTransferBatchNFT(contract: Erc1155) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    ({ tokenId, addresses }: useTransferBatchNFTParams) => {
+      invariant(contract?.airdrop, "contract does not support transferBatch");
+
+      return contract.airdrop(tokenId, addresses);
     },
     {
       onSettled: () =>

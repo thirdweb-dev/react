@@ -1,4 +1,5 @@
 import type {
+  AirdropInput,
   Amount,
   EditionDrop,
   Erc721,
@@ -105,6 +106,23 @@ export type useTotalCirculatingSupplyParams<TContract> =
   TContract extends Erc1155
     ? [contract: RequiredParam<TContract>, tokenId: BigNumberish]
     : [contract: RequiredParam<TContract>];
+
+/**
+ * The params to pass to `useTransferNFT`.
+ * @beta
+ */
+export type useTransferNFTParams<TContract> = TContract extends Erc1155
+  ? { to: string; tokenId: BigNumberish; amount: string | number }
+  : { to: string; tokenId: BigNumberish; amount?: never };
+
+/**
+ * The params to pass to `useTransferBatchNFT`.
+ * @beta
+ */
+export type useTransferBatchNFTParams = {
+  tokenId: BigNumberish;
+  addresses: AirdropInput;
+};
 
 /**
  * The params to pass to `useNftBalance`.
