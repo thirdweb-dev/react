@@ -1,15 +1,15 @@
 import { useActiveChainId } from "../../Provider";
 import {
+  AirdropNFTParams,
   MintNFTParams,
   MintNFTReturnType,
   NFT,
   NFTContract,
   RequiredParam,
+  TransferNFTParams,
   WalletAddress,
-  useAirdropNFTParams,
   useNFTBalanceParams,
   useTotalCirculatingSupplyParams,
-  useTransferNFTParams,
 } from "../../types";
 import {
   cacheKeys,
@@ -500,10 +500,10 @@ export function useTransferNFT<TContract extends NFTContract>(
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data: useTransferNFTParams<TContract>) => {
+    (data: TransferNFTParams<TContract>) => {
       invariant(contract?.transfer, "contract does not support transfer");
       if (contract instanceof Erc1155) {
-        invariant(data.amount, "amount not provided");
+        invariant("amount" in data, "amount not provided");
         return contract.transfer(data.to, data.tokenId, data.amount);
       }
 
@@ -587,7 +587,7 @@ export function useAirdropNFT(contract: Erc1155) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ({ tokenId, addresses }: useAirdropNFTParams) => {
+    ({ tokenId, addresses }: AirdropNFTParams) => {
       invariant(contract?.airdrop, "contract does not support airdrop");
 
       return contract.airdrop(tokenId, addresses);

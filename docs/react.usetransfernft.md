@@ -15,7 +15,7 @@ Use this to transfer tokens on your [NFTContract](./react.nftcontract.md)
 export declare function useTransferNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): import("@tanstack/react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
-}, "data">, unknown, useTransferNFTParams<TContract>, unknown>;
+}, "data">, unknown, TransferNFTParams<TContract>, unknown>;
 ```
 
 ## Parameters
@@ -26,7 +26,7 @@ export declare function useTransferNFT<TContract extends NFTContract>(contract: 
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [useTransferNFTParams](./react.usetransfernftparams.md)<!-- -->&lt;TContract&gt;, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [TransferNFTParams](./react.transfernftparams.md)<!-- -->&lt;TContract&gt;, unknown&gt;
 
 a mutation object that can be used to transfer NFTs
 

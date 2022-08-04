@@ -15,7 +15,7 @@ Use this to transfer tokens on your
 export declare function useAirdropNFT(contract: Erc1155): import("@tanstack/react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
-}, "data">, unknown, useAirdropNFTParams, unknown>;
+}, "data">, unknown, AirdropNFTParams, unknown>;
 ```
 
 ## Parameters
@@ -26,7 +26,7 @@ export declare function useAirdropNFT(contract: Erc1155): import("@tanstack/reac
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [useAirdropNFTParams](./react.useairdropnftparams.md)<!-- -->, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [AirdropNFTParams](./react.airdropnftparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to transfer batch NFTs
 

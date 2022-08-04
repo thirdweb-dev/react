@@ -41,7 +41,7 @@ export type ContractAddress = string;
  */
 export type TokenParams = {
   to: WalletAddress;
-  amount: string | number;
+  amount: Amount;
 };
 
 // NFTS //
@@ -108,23 +108,6 @@ export type useTotalCirculatingSupplyParams<TContract> =
     : [contract: RequiredParam<TContract>];
 
 /**
- * The params to pass to `useTransferNFT`.
- * @beta
- */
-export type useTransferNFTParams<TContract> = TContract extends Erc1155
-  ? { to: string; tokenId: BigNumberish; amount: string | number }
-  : { to: string; tokenId: BigNumberish; amount?: never };
-
-/**
- * The params to pass to `useTransferBatchNFT`.
- * @beta
- */
-export type useAirdropNFTParams = {
-  tokenId: BigNumberish;
-  addresses: AirdropInput;
-};
-
-/**
  * The params to pass to `useNftBalance`.
  * @beta
  */
@@ -138,6 +121,23 @@ export type useNFTBalanceParams<TContract> = TContract extends Erc1155
       contract: RequiredParam<TContract>,
       ownerWalletAddress: RequiredParam<WalletAddress>,
     ];
+
+/**
+ * The params to pass to `useTransferNFT`.
+ * @beta
+ */
+export type TransferNFTParams<TContract> = TContract extends Erc1155
+  ? { to: WalletAddress; tokenId: BigNumberish; amount: Amount }
+  : { to: WalletAddress; tokenId: BigNumberish };
+
+/**
+ * The params to pass to `useTransferBatchNFT`.
+ * @beta
+ */
+export type AirdropNFTParams = {
+  tokenId: BigNumberish;
+  addresses: AirdropInput;
+};
 
 /**
  * The params for the {@link useMintNFT} hook mutation.

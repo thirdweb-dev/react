@@ -14,7 +14,7 @@ The parameters to pass to the mint and transfer functions.
 ```typescript
 export declare type TokenParams = {
     to: WalletAddress;
-    amount: string | number;
+    amount: Amount;
 };
 ```
 <b>References:</b> [WalletAddress](./react.walletaddress.md)
