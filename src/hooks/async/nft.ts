@@ -6,9 +6,9 @@ import {
   NFTContract,
   RequiredParam,
   WalletAddress,
+  useAirdropNFTParams,
   useNFTBalanceParams,
   useTotalCirculatingSupplyParams,
-  useTransferBatchNFTParams,
   useTransferNFTParams,
 } from "../../types";
 import {
@@ -17,9 +17,11 @@ import {
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
-// eslint-disable-next-line no-duplicate-imports
-import { Erc721, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
+import {
+  Erc721,
+  Erc1155,
+  QueryAllParams,
+} from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 
@@ -526,10 +528,10 @@ export function useTransferNFT<TContract extends NFTContract>(
  * const Component = () => {
  *   const editionDrop = useEditionDrop(<ContractAddress>);
  *   const {
- *     mutate: transferBatchNFTs,
+ *     mutate: airdropNFT,
  *     isLoading,
  *     error,
- *   } = useTransferBatchNFT(editionDrop);
+ *   } = useAirdropNFT(editionDrop);
  *
  *   if (error) {
  *     console.error("failed to transfer batch NFTs", error);
@@ -538,12 +540,12 @@ export function useTransferNFT<TContract extends NFTContract>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => transferBatchNFTs({
+ *       onClick={() => airdropNFT({
  *          tokenId: 2,
  *          addresses: [{ address: "0x...", quantity: 2 }, { address: "0x...", quantity: 4 } }]
  *       )}
  *     >
- *       Transfer Batch
+ *       Airdrop NFT
  *     </button>
  * };
  * ```
@@ -552,10 +554,10 @@ export function useTransferNFT<TContract extends NFTContract>(
  * const Component = () => {
  *   const { contract } = useContract(<ContractAddress>);
  *   const {
- *     mutate: transferBatchNFTs,
+ *     mutate: airdropNFT,
  *     isLoading,
  *     error,
- *   } = useTransferBatchNFT(contract?.nft);
+ *   } = useAirdropNFT(contract?.nft);
  *
  *   if (error) {
  *     console.error("failed to transfer batch NFTs", error);
@@ -564,12 +566,12 @@ export function useTransferNFT<TContract extends NFTContract>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => transferBatchNFTs({
+ *       onClick={() => airdropNFT({
  *          tokenId: 2,
  *          addresses: [{ address: "0x...", quantity: 2 }, { address: "0x...", quantity: 4 } }]
  *       )}
  *     >
- *       Transfer Batch
+ *       Airdrop NFT
  *     </button>
  *   );
  * };
@@ -579,14 +581,14 @@ export function useTransferNFT<TContract extends NFTContract>(
  * @returns a mutation object that can be used to transfer batch NFTs
  * @beta
  */
-export function useTransferBatchNFT(contract: Erc1155) {
+export function useAirdropNFT(contract: Erc1155) {
   const activeChainId = useActiveChainId();
   const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
 
   return useMutation(
-    ({ tokenId, addresses }: useTransferBatchNFTParams) => {
-      invariant(contract?.airdrop, "contract does not support transferBatch");
+    ({ tokenId, addresses }: useAirdropNFTParams) => {
+      invariant(contract?.airdrop, "contract does not support airdrop");
 
       return contract.airdrop(tokenId, addresses);
     },

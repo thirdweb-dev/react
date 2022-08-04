@@ -339,6 +339,18 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 export function useAddress(): string | undefined;
 
 // @beta
+export function useAirdropNFT(contract: Erc1155): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, useAirdropNFTParams, unknown>;
+
+// @beta
+export type useAirdropNFTParams = {
+    tokenId: BigNumberish;
+    addresses: AirdropInput;
+};
+
+// @beta
 export function useAllContractEvents(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, options?: {
     queryFilter?: EventQueryFilter;
     subscribe?: boolean;
@@ -1571,18 +1583,6 @@ export type useTotalCirculatingSupplyParams<TContract> = TContract extends Erc11
 
 // @beta
 export function useTotalCount(contract: RequiredParam<NFTContract>): UseQueryResult<BigNumber, unknown>;
-
-// @beta
-export function useTransferBatchNFT(contract: Erc1155): UseMutationResult<Omit<{
-receipt: TransactionReceipt;
-data: () => Promise<unknown>;
-}, "data">, unknown, useTransferBatchNFTParams, unknown>;
-
-// @beta
-export type useTransferBatchNFTParams = {
-    tokenId: BigNumberish;
-    addresses: AirdropInput;
-};
 
 // @beta
 export function useTransferBatchToken(contract: RequiredParam<Erc20>): UseMutationResult<void, unknown, TokenParams[], unknown>;

@@ -119,7 +119,7 @@ export type useTransferNFTParams<TContract> = TContract extends Erc1155
  * The params to pass to `useTransferBatchNFT`.
  * @beta
  */
-export type useTransferBatchNFTParams = {
+export type useAirdropNFTParams = {
   tokenId: BigNumberish;
   addresses: AirdropInput;
 };
