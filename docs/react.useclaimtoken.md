@@ -48,7 +48,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => claimTokens({to: "0x...", amount: 100})}
+      onClick={() => claimTokens({ to: "0x...", amount: 100 })}
     >
       Claim Tokens!
     </button>

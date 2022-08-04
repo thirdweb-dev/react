@@ -287,11 +287,13 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
     // (undocumented)
     provider: ChainOrRpc | SignerOrProvider;
     // (undocumented)
+    queryClient: QueryClient;
+    // (undocumented)
     signer?: Signer;
 }
 
 // @beta
-export type TokenMintParams = {
+export type TokenParams = {
     to: WalletAddress;
     amount: string | number;
 };
@@ -1402,7 +1404,7 @@ export function useMintNFT<TContract extends NFTContract>(contract: RequiredPara
 export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
-}, "data">, unknown, TokenMintParams, unknown>;
+}, "data">, unknown, TokenParams, unknown>;
 
 // @public
 export function useMultiwrap(contractAddress?: string): Multiwrap | undefined;
@@ -1568,6 +1570,15 @@ export type useTotalCirculatingSupplyParams<TContract> = TContract extends Erc11
 
 // @beta
 export function useTotalCount(contract: RequiredParam<NFTContract>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export function useTransferBatchToken(contract: RequiredParam<Erc20>): UseMutationResult<void, unknown, TokenParams[], unknown>;
+
+// @beta
+export function useTransferToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, TokenParams, unknown>;
 
 // @beta
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {

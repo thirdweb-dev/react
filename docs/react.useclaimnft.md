@@ -45,7 +45,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => claimNft({to: "0x...", quantity: 1})}
+      onClick={() => claimNft({ to: "0x...", quantity: 1 })}
     >
       Claim NFT!
     </button>

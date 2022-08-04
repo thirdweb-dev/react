@@ -77,7 +77,7 @@ import { useMetamask } from "@thirdweb-dev/react"
 ```
  |
 |  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md) |
-|  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC20 contract |
+|  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint new tokens on your  contract |
 |  [useMultiwrap(contractAddress)](./react.usemultiwrap.md) | Hook for getting an instance of an <code>Multiwrap</code> contract. This contract is an ERC721 in which you can wrap ERC721, ERC1155 and ERC20 tokens. |
 |  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks |
 |  [useNetworkMismatch()](./react.usenetworkmismatch.md) | <p>Hook for checking whether the connected wallet is on the correct network specified by the <code>desiredChainId</code> passed to the <code>&lt;ThirdwebProvider /&gt;</code>.</p>
@@ -103,10 +103,12 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useSignatureDrop(contractAddress)](./react.usesignaturedrop.md) | Hook for getting an instance of an <code>SignatureDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
-|  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |
-|  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your Token contract. |
+|  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your  contract for a given address. |
+|  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your  contract. |
 |  [useTotalCirculatingSupply(\[contract, tokenId\])](./react.usetotalcirculatingsupply.md) | <p><b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your [NFTContract](./react.nftcontract.md)<!-- -->.</p><p>\*</p> |
 |  [useTotalCount(contract)](./react.usetotalcount.md) | <b><i>(BETA)</i></b> Use this to get a the number of tokens in your [NFTContract](./react.nftcontract.md)<!-- -->. |
+|  [useTransferBatchToken(contract)](./react.usetransferbatchtoken.md) | <b><i>(BETA)</i></b> Use this to transfer batch tokens on your  contract |
+|  [useTransferToken(contract)](./react.usetransfertoken.md) | <b><i>(BETA)</i></b> Use this to transfer tokens on your  contract |
 |  [useUnclaimedNFTs(contract, queryParams)](./react.useunclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*unclaimed\* NFT tokens of your ERC721 Drop contract. |
 |  [useUnclaimedNFTSupply(contract)](./react.useunclaimednftsupply.md) |  |
 |  [useUpdateMetadata(contract)](./react.useupdatemetadata.md) | <b><i>(BETA)</i></b> Use this to update the metadata of your  |
@@ -161,7 +163,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [NFT](./react.nft.md) | <b><i>(BETA)</i></b> A single NFT token |
 |  [NFTContract](./react.nftcontract.md) | <b><i>(BETA)</i></b> The possible NFT contract types. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |
-|  [TokenMintParams](./react.tokenmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the nft mint function. |
+|  [TokenParams](./react.tokenparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the mint and transfer functions. |
 |  [useNFTBalanceParams](./react.usenftbalanceparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useNftBalance</code>. |
 |  [useTotalCirculatingSupplyParams](./react.usetotalcirculatingsupplyparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTotalCirculatingSupply</code>. |
 |  [WalletAddress](./react.walletaddress.md) | <b><i>(BETA)</i></b> A wallet address. |

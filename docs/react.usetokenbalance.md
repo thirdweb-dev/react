@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Use this to get the balance of your Token contract for a given address.
+Use this to get the balance of your  contract for a given address.
 
 <b>Signature:</b>
 

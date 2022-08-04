@@ -34,11 +34,11 @@ export type WalletAddress = string;
 export type ContractAddress = string;
 
 /**
- * The parameters to pass to the nft mint function.
+ * The parameters to pass to the mint and transfer functions.
  *
  * @beta
  */
-export type TokenMintParams = {
+export type TokenParams = {
   to: WalletAddress;
   amount: string | number;
 };

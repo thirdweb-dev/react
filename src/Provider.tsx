@@ -411,17 +411,16 @@ export const ThirdwebProvider = <
     <ThirdwebConfigProvider
       value={{ rpcUrlMap: _rpcUrlMap, supportedChains: _supporrtedChains }}
     >
-      <QueryClientProvider client={queryClientWithDefault}>
-        <WagmiProvider {...wagmiProps}>
-          <ThirdwebSDKProviderWagmiWrapper
-            desiredChainId={desiredChainId}
-            sdkOptions={sdkOptionsWithDefaults}
-            storageInterface={storageInterface}
-          >
-            {children}
-          </ThirdwebSDKProviderWagmiWrapper>
-        </WagmiProvider>
-      </QueryClientProvider>
+      <WagmiProvider {...wagmiProps}>
+        <ThirdwebSDKProviderWagmiWrapper
+          queryClient={queryClientWithDefault}
+          desiredChainId={desiredChainId}
+          sdkOptions={sdkOptionsWithDefaults}
+          storageInterface={storageInterface}
+        >
+          {children}
+        </ThirdwebSDKProviderWagmiWrapper>
+      </WagmiProvider>
     </ThirdwebConfigProvider>
   );
 };
@@ -433,6 +432,7 @@ export interface ThirdwebSDKProviderProps
   > {
   signer?: Signer;
   provider: ChainOrRpc | SignerOrProvider;
+  queryClient: QueryClient;
 }
 
 const ThirdwebSDKProviderWagmiWrapper: React.FC<
@@ -472,6 +472,7 @@ export const ThirdwebSDKProvider: React.FC<
   storageInterface,
   provider,
   signer,
+  queryClient,
   children,
 }) => {
   const sdk = useMemo(() => {
@@ -499,9 +500,11 @@ export const ThirdwebSDKProvider: React.FC<
   );
 
   return (
-    <ThirdwebSDKContext.Provider value={ctxValue}>
-      {children}
-    </ThirdwebSDKContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <ThirdwebSDKContext.Provider value={ctxValue}>
+        {children}
+      </ThirdwebSDKContext.Provider>
+    </QueryClientProvider>
   );
 };
 
