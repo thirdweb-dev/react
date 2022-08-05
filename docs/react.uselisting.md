@@ -12,7 +12,7 @@ Use this to get a specific listing from the marketplace.
 <b>Signature:</b>
 
 ```typescript
-export declare function useListing(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk/dist/browser").AuctionListing | import("@thirdweb-dev/sdk/dist/browser").DirectListing, unknown>;
+export declare function useListing(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): import("@tanstack/react-query").UseQueryResult<import("@thirdweb-dev/sdk/dist/browser").AuctionListing | import("@thirdweb-dev/sdk/dist/browser").DirectListing, unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useListing(contract: RequiredParam<Marketplace>, listing
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk/dist/browser").AuctionListing \| import("@thirdweb-dev/sdk/dist/browser").DirectListing, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk/dist/browser").AuctionListing \| import("@thirdweb-dev/sdk/dist/browser").DirectListing, unknown&gt;
 
 a response object that includes an array of listings
 

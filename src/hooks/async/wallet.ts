@@ -5,9 +5,9 @@ import { cacheKeys } from "../../utils/cache-keys";
 import { useAddress } from "../useAddress";
 import { useChainId } from "../useChainId";
 import { useSigner } from "../useSigner";
+import { useQuery } from "@tanstack/react-query";
 import { UserWallet } from "@thirdweb-dev/sdk/dist/browser";
 import { useMemo } from "react";
-import { useQuery } from "react-query";
 
 /**
  * A hook to get the native or (optional) ERC20 token balance of the connected wallet.

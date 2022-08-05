@@ -12,7 +12,7 @@ Use this to get a the owned NFTs for a specific [NFTContract](./react.nftcontrac
 <b>Signature:</b>
 
 ```typescript
-export declare function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>): import("react-query").UseQueryResult<NFT<TContract>[], unknown>;
+export declare function useOwnedNFTs<TContract extends NFTContract>(contract: RequiredParam<TContract>, ownerWalletAddress: RequiredParam<WalletAddress>): import("@tanstack/react-query").UseQueryResult<NFT<TContract>[], unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useOwnedNFTs<TContract extends NFTContract>(contract: Re
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;\[\], unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;[NFT](./react.nft.md)<!-- -->&lt;TContract&gt;\[\], unknown&gt;
 
 a response object that includes the list of owned tokens
 

@@ -12,7 +12,7 @@ Use this to get the buffer in basis points between offers from your marketplace 
 <b>Signature:</b>
 
 ```typescript
-export declare function useBidBuffer(contract: RequiredParam<Marketplace>): import("react-query").UseQueryResult<BigNumber, unknown>;
+export declare function useBidBuffer(contract: RequiredParam<Marketplace>): import("@tanstack/react-query").UseQueryResult<BigNumber, unknown>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function useBidBuffer(contract: RequiredParam<Marketplace>): impo
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;BigNumber, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;BigNumber, unknown&gt;
 
 a response object that includes an array of listings
 

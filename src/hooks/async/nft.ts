@@ -1,10 +1,12 @@
 import { useActiveChainId } from "../../Provider";
 import {
+  AirdropNFTParams,
   MintNFTParams,
   MintNFTReturnType,
   NFT,
   NFTContract,
   RequiredParam,
+  TransferNFTParams,
   WalletAddress,
   useNFTBalanceParams,
   useTotalCirculatingSupplyParams,
@@ -14,11 +16,13 @@ import {
   invalidateContractAndBalances,
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { QueryAllParams } from "@thirdweb-dev/sdk/dist/browser";
-// eslint-disable-next-line no-duplicate-imports
-import { Erc721, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  Erc721,
+  Erc1155,
+  QueryAllParams,
+} from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumber, BigNumberish } from "ethers";
-import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /**
@@ -361,7 +365,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => mintNft({ name: "My awesome NFT!", to: "0x..." })}
  *     >
  *       Mint!
  *     </button>
@@ -371,7 +375,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  * @example
  * ```jsx
  * const Component = () => {
- *  const { contract } = useContract(<ContractAddress>);
+ *   const { contract } = useContract(<ContractAddress>);
  *   const {
  *     mutate: mintNft,
  *     isLoading,
@@ -385,7 +389,7 @@ export function useNFTBalance<TContract extends NFTContract>(
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => mintNft({ name: "My awesome NFT!" })}
+ *       onClick={() => mintNft({ name: "My awesome NFT!", to: "0x..." })}
  *     >
  *       Mint!
  *     </button>
@@ -420,6 +424,173 @@ export function useMintNFT<TContract extends NFTContract>(
         data.to,
         data.metadata,
       )) as MintNFTReturnType<TContract>;
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to transfer tokens on your {@link NFTContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const nftDrop = useNFTDrop(<ContractAddress>);
+ *   const {
+ *     mutate: transferNFT,
+ *     isLoading,
+ *     error,
+ *   } = useTransferNFT(nftDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to transfer nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => transferNFT({ to: "0x...", tokenId: 2 })}
+ *     >
+ *       Transfer NFT!
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: transferNFT,
+ *     isLoading,
+ *     error,
+ *   } = useTransferNFT(contract?.nft);
+ *
+ *   if (error) {
+ *     console.error("failed to transfer nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => transferNFT({ to: "0x...", tokenId: 2 })}
+ *     >
+ *       Transfer
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link NFTContract}
+ * @returns a mutation object that can be used to transfer NFTs
+ * @beta
+ */
+export function useTransferNFT<TContract extends NFTContract>(
+  contract: RequiredParam<TContract>,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: TransferNFTParams<TContract>) => {
+      invariant(contract?.transfer, "contract does not support transfer");
+      if (contract instanceof Erc1155) {
+        invariant("amount" in data, "amount not provided");
+        return contract.transfer(data.to, data.tokenId, data.amount);
+      }
+
+      return contract.transfer(data.to, data.tokenId);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to transfer tokens on your {@link Erc1155}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const editionDrop = useEditionDrop(<ContractAddress>);
+ *   const {
+ *     mutate: airdropNFT,
+ *     isLoading,
+ *     error,
+ *   } = useAirdropNFT(editionDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to transfer batch NFTs", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => airdropNFT({
+ *          tokenId: 2,
+ *          addresses: [{ address: "0x...", quantity: 2 }, { address: "0x...", quantity: 4 } }]
+ *       )}
+ *     >
+ *       Airdrop NFT
+ *     </button>
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: airdropNFT,
+ *     isLoading,
+ *     error,
+ *   } = useAirdropNFT(contract?.nft);
+ *
+ *   if (error) {
+ *     console.error("failed to transfer batch NFTs", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => airdropNFT({
+ *          tokenId: 2,
+ *          addresses: [{ address: "0x...", quantity: 2 }, { address: "0x...", quantity: 4 } }]
+ *       )}
+ *     >
+ *       Airdrop NFT
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link Erc1155}
+ * @returns a mutation object that can be used to transfer batch NFTs
+ * @beta
+ */
+export function useAirdropNFT(contract: Erc1155) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    ({ tokenId, addresses }: AirdropNFTParams) => {
+      invariant(contract?.airdrop, "contract does not support airdrop");
+
+      return contract.airdrop(tokenId, addresses);
     },
     {
       onSettled: () =>

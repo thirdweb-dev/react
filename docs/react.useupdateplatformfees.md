@@ -12,7 +12,7 @@ Use this to update the platform fees settings of your
 <b>Signature:</b>
 
 ```typescript
-export declare function useUpdatePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseMutationResult<Omit<{
+export declare function useUpdatePlatformFees(contract: RequiredParam<SmartContract | ValidContractInstance>): import("@tanstack/react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
 }, "data">, unknown, {
@@ -29,7 +29,7 @@ export declare function useUpdatePlatformFees(contract: RequiredParam<SmartContr
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, { platform\_fee\_basis\_points?: number \| undefined; fee\_recipient?: string \| undefined; }, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, { platform\_fee\_basis\_points?: number \| undefined; fee\_recipient?: string \| undefined; }, unknown&gt;
 
 a mutation object that can be used to update the platform fees settings
 

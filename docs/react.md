@@ -10,18 +10,19 @@
 |  --- | --- |
 |  [useActiveClaimCondition(\[contract, tokenId\])](./react.useactiveclaimcondition.md) | <b><i>(BETA)</i></b> Use this to get the active claim conditon for ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useActiveListings(contract, filter)](./react.useactivelistings.md) | <b><i>(BETA)</i></b> Use this to get a list active listings from your marketplace contract. |
-|  [useAddress()](./react.useaddress.md) | Hook for accessing the address of the connected wallet
+|  [useAddress()](./react.useaddress.md) | <p>Hook for accessing the address of the connected wallet</p>
 ```javascript
 import { useAddress } from "@thirdweb-dev/react"
 ```
  |
+|  [useAirdropNFT(contract)](./react.useairdropnft.md) | <b><i>(BETA)</i></b> Use this to transfer tokens on your  |
 |  [useAllContractEvents(contract, options)](./react.useallcontractevents.md) | <b><i>(BETA)</i></b> Use this to query (and subscribe) to all events on a contract. |
 |  [useAllRoleMembers(contract)](./react.useallrolemembers.md) | <b><i>(BETA)</i></b> Use this to get the roles of a  |
 |  [useAuctionWinner(contract, listingId)](./react.useauctionwinner.md) | <b><i>(BETA)</i></b> Use this to get the winner of an auction listing from your marketplace contract. |
 |  [useBalance(tokenAddress)](./react.usebalance.md) | <b><i>(BETA)</i></b> A hook to get the native or (optional) ERC20 token balance of the connected wallet. |
 |  [useBidBuffer(contract)](./react.usebidbuffer.md) | <b><i>(BETA)</i></b> Use this to get the buffer in basis points between offers from your marketplace contract. |
 |  [useBuyNow(contract)](./react.usebuynow.md) | <b><i>(BETA)</i></b> Use this to buy out an auction listing from your marketplace contract. |
-|  [useChainId()](./react.usechainid.md) | Hook for accessing the chain ID of the network the current wallet is connected to
+|  [useChainId()](./react.usechainid.md) | <p>Hook for accessing the chain ID of the network the current wallet is connected to</p>
 ```javascript
 import { useChainId } from "@thirdweb-dev/react"
 ```
@@ -32,7 +33,7 @@ import { useChainId } from "@thirdweb-dev/react"
 |  [useClaimIneligibilityReasons(\[contract, params, tokenId\])](./react.useclaimineligibilityreasons.md) | <b><i>(BETA)</i></b> Use this to check for reasons that prevent claiming for either ERC20, ERC721 or ERC1155 based contracts. They need to extend the <code>claimCondition</code> extension for this hook to work. |
 |  [useClaimNFT(contract)](./react.useclaimnft.md) | <b><i>(BETA)</i></b> Use this to claim a NFT on your [DropContract](./react.dropcontract.md) |
 |  [useClaimToken(contract)](./react.useclaimtoken.md) | <b><i>(BETA)</i></b> Use this to claim tokens on your  |
-|  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | Hook for connecting to a Coinbase wallet.
+|  [useCoinbaseWallet()](./react.usecoinbasewallet.md) | <p>Hook for connecting to a Coinbase wallet.</p>
 ```javascript
 import { useCoinbaseWallet } from "@thirdweb-dev/react"
 ```
@@ -46,23 +47,24 @@ import { useCoinbaseWallet } from "@thirdweb-dev/react"
 |  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
 |  [useCreateAuctionListing(contract)](./react.usecreateauctionlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Auction Listing on your marketplace contract. |
 |  [useCreateDirectListing(contract)](./react.usecreatedirectlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Direct Listing on your marketplace contract. |
-|  [useDisconnect(options)](./react.usedisconnect.md) | Hook for disconnecting the currently connected wallet
+|  [useDisconnect(options)](./react.usedisconnect.md) | <p>Hook for disconnecting the currently connected wallet</p>
 ```javascript
 import { useDisconnect } from "@thirdweb-dev/react"
 ```
  |
 |  [useEdition(contractAddress)](./react.useedition.md) | Hook for getting an instance of an <code>Edition</code> contract. This contract is used to interface with ERC1155 compliant NFTs. |
 |  [useEditionDrop(contractAddress)](./react.useeditiondrop.md) | Hook for getting an instance of an <code>EditionDrop</code> contract. This conract is used to interface with ERC1155 compliant NFTs that can be lazily minted. |
-|  [useGnosis()](./react.usegnosis.md) | Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.
+|  [useGnosis()](./react.usegnosis.md) | <p>Hook for connecting to a Gnosis Safe. This enables multisig wallets to connect to your application and sing transactions.</p>
 ```javascript
 import { useGnosis } from "@thirdweb-dev/react"
 ```
  |
 |  [useGrantRole(contract)](./react.usegrantrole.md) | <b><i>(BETA)</i></b> Use this to grant a [WalletAddress](./react.walletaddress.md) a specific role on a  |
 |  [useIsAddressRole(contract, role, walletAddress)](./react.useisaddressrole.md) | <b><i>(BETA)</i></b> Use this to check if a [WalletAddress](./react.walletaddress.md) is a member of a role on a  |
+|  [useLazyMint(contract, onProgress)](./react.uselazymint.md) | <b><i>(BETA)</i></b> Use this to lazy mint a batch of NFTs on your [DropContract](./react.dropcontract.md) |
 |  [useListing(contract, listingId)](./react.uselisting.md) | <b><i>(BETA)</i></b> Use this to get a specific listing from the marketplace. |
 |  [useListings(contract, filter)](./react.uselistings.md) | <b><i>(BETA)</i></b> Use this to get a list all listings from your marketplace contract. |
-|  [useMagic()](./react.usemagic.md) | Hook for connecting to an email wallet using magic link. This enables users without their own wallets to connect to your application and sign transactions securely using their email.
+|  [useMagic()](./react.usemagic.md) | <p>Hook for connecting to an email wallet using magic link. This enables users without their own wallets to connect to your application and sign transactions securely using their email.</p>
 ```javascript
 import { useMagic } from "@thirdweb-dev/react"
 ```
@@ -70,16 +72,16 @@ import { useMagic } from "@thirdweb-dev/react"
 |  [useMakeBid(contract)](./react.usemakebid.md) | <b><i>(BETA)</i></b> Use this to place a bid on an auction listing from your marketplace contract. |
 |  [useMarketplace(contractAddress)](./react.usemarketplace.md) | Hook for getting an instance of a <code>Marketplace</code> contract. This contract is used to support marketplace for purchase and sale of on-chain assets. |
 |  [useMetadata(contract)](./react.usemetadata.md) | <b><i>(BETA)</i></b> Use this to get the metadata of your  |
-|  [useMetamask()](./react.usemetamask.md) | Hook for connecting to a Metamask wallet.
+|  [useMetamask()](./react.usemetamask.md) | <p>Hook for connecting to a Metamask wallet.</p>
 ```javascript
 import { useMetamask } from "@thirdweb-dev/react"
 ```
  |
 |  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md) |
-|  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your ERC20 contract |
+|  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint new tokens on your  contract |
 |  [useMultiwrap(contractAddress)](./react.usemultiwrap.md) | Hook for getting an instance of an <code>Multiwrap</code> contract. This contract is an ERC721 in which you can wrap ERC721, ERC1155 and ERC20 tokens. |
 |  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks |
-|  [useNetworkMismatch()](./react.usenetworkmismatch.md) | Hook for checking whether the connected wallet is on the correct network specified by the <code>desiredChainId</code> passed to the <code>&lt;ThirdwebProvider /&gt;</code>.
+|  [useNetworkMismatch()](./react.usenetworkmismatch.md) | <p>Hook for checking whether the connected wallet is on the correct network specified by the <code>desiredChainId</code> passed to the <code>&lt;ThirdwebProvider /&gt;</code>.</p>
 ```javascript
 import { useNetworkMistmatch } from "@thirdweb-dev/react"
 ```
@@ -97,14 +99,18 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useRevokeRole(contract)](./react.userevokerole.md) | <b><i>(BETA)</i></b> Use this to revoke a [WalletAddress](./react.walletaddress.md) a specific role on a  |
 |  [useRoleMembers(contract, role)](./react.userolemembers.md) | <b><i>(BETA)</i></b> Use this to get the members of a role on a  |
 |  [useRoyaltySettings(contract)](./react.useroyaltysettings.md) | <b><i>(BETA)</i></b> Use this to get the royalty settings of your  |
+|  [useSDK()](./react.usesdk.md) |  |
 |  [useSetAllRoleMembers(contract)](./react.usesetallrolemembers.md) | <b><i>(BETA)</i></b> Use this to OVERWRITE the list of addresses that are members of specific roles |
 |  [useSignatureDrop(contractAddress)](./react.usesignaturedrop.md) | Hook for getting an instance of an <code>SignatureDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
-|  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your Token contract for a given address. |
-|  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your Token contract. |
-|  [useTotalCirculatingSupply(\[contract, tokenId\])](./react.usetotalcirculatingsupply.md) | <b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your [NFTContract](./react.nftcontract.md)<!-- -->.<!-- -->\* |
+|  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your  contract for a given address. |
+|  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your  contract. |
+|  [useTotalCirculatingSupply(\[contract, tokenId\])](./react.usetotalcirculatingsupply.md) | <p><b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your [NFTContract](./react.nftcontract.md)<!-- -->.</p><p>\*</p> |
 |  [useTotalCount(contract)](./react.usetotalcount.md) | <b><i>(BETA)</i></b> Use this to get a the number of tokens in your [NFTContract](./react.nftcontract.md)<!-- -->. |
+|  [useTransferBatchToken(contract)](./react.usetransferbatchtoken.md) | <b><i>(BETA)</i></b> Use this to transfer batch tokens on your  contract |
+|  [useTransferNFT(contract)](./react.usetransfernft.md) | <b><i>(BETA)</i></b> Use this to transfer tokens on your [NFTContract](./react.nftcontract.md) |
+|  [useTransferToken(contract)](./react.usetransfertoken.md) | <b><i>(BETA)</i></b> Use this to transfer tokens on your  contract |
 |  [useUnclaimedNFTs(contract, queryParams)](./react.useunclaimednfts.md) | <b><i>(BETA)</i></b> Use this to get a list of \*unclaimed\* NFT tokens of your ERC721 Drop contract. |
 |  [useUnclaimedNFTSupply(contract)](./react.useunclaimednftsupply.md) |  |
 |  [useUpdateMetadata(contract)](./react.useupdatemetadata.md) | <b><i>(BETA)</i></b> Use this to update the metadata of your  |
@@ -112,7 +118,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useUpdatePrimarySaleRecipient(contract)](./react.useupdateprimarysalerecipient.md) | <b><i>(BETA)</i></b> Use this to update the primary sales recipient of your  |
 |  [useUpdateRoyaltySettings(contract)](./react.useupdateroyaltysettings.md) | <b><i>(BETA)</i></b> Use this to update the royalty settings of your  |
 |  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
-|  [useWalletConnect()](./react.usewalletconnect.md) | Hook for connecting to a mobile wallet with Wallet Connect
+|  [useWalletConnect()](./react.usewalletconnect.md) | <p>Hook for connecting to a mobile wallet with Wallet Connect</p>
 ```javascript
 import { useWalletConnect } from "@thirdweb-dev/react"
 ```
@@ -135,15 +141,16 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 
 |  Variable | Description |
 |  --- | --- |
-|  [MediaRenderer](./react.mediarenderer.md) | This component can be used to render any media type, including image, audio, video, and html files. Its convenient for rendering NFT media files, as these can be a variety of different types. The component falls back to a external link if the media type is not supported.<!-- -->Props: [MediaRendererProps](./react.mediarendererprops.md) |
+|  [MediaRenderer](./react.mediarenderer.md) | <p>This component can be used to render any media type, including image, audio, video, and html files. Its convenient for rendering NFT media files, as these can be a variety of different types. The component falls back to a external link if the media type is not supported.</p><p>Props: [MediaRendererProps](./react.mediarendererprops.md)</p> |
 |  [ThirdwebNftMedia](./react.thirdwebnftmedia.md) | <b><i>(BETA)</i></b> |
 |  [ThirdwebProvider](./react.thirdwebprovider.md) | The <code>&lt;ThirdwebProvider /&gt;</code> component lets you control what networks you want users to connect to, what types of wallets can connect to your app, and the settings for the \[Typescript SDK\](https://docs.thirdweb.com/typescript). |
-|  [ThirdwebSDKProvider](./react.thirdwebsdkprovider.md) | <b><i>(BETA)</i></b> A barebones wrapper around the Thirdweb SDK.<!-- -->You can use this in order to be able to pass a provider &amp; signer directly to the SDK. |
+|  [ThirdwebSDKProvider](./react.thirdwebsdkprovider.md) | <p><b><i>(BETA)</i></b> A barebones wrapper around the Thirdweb SDK.</p><p>You can use this in order to be able to pass a provider &amp; signer directly to the SDK.</p> |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [AirdropNFTParams](./react.airdropnftparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTransferBatchNFT</code>. |
 |  [BuyNowParams](./react.buynowparams.md) |  |
 |  [ClaimIneligibilityParameters](./react.claimineligibilityparameters.md) | <b><i>(BETA)</i></b> The options to be passed as the second parameter to the <code>useClaimIneligibilityReasons</code> hook. |
 |  [ClaimNFTParams](./react.claimnftparams.md) | <b><i>(BETA)</i></b> The params for the [useClaimNFT()](./react.useclaimnft.md) hook mutation. |
@@ -158,7 +165,8 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [NFTContract](./react.nftcontract.md) | <b><i>(BETA)</i></b> The possible NFT contract types. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |
 |  [SmartContractReturnType](./react.smartcontractreturntype.md) |  |
-|  [TokenMintParams](./react.tokenmintparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the nft mint function. |
+|  [TokenParams](./react.tokenparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the mint and transfer functions. |
+|  [TransferNFTParams](./react.transfernftparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTransferNFT</code>. |
 |  [useNFTBalanceParams](./react.usenftbalanceparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useNftBalance</code>. |
 |  [useTotalCirculatingSupplyParams](./react.usetotalcirculatingsupplyparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTotalCirculatingSupply</code>. |
 |  [WalletAddress](./react.walletaddress.md) | <b><i>(BETA)</i></b> A wallet address. |

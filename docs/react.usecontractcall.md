@@ -12,7 +12,7 @@ Use this to get a function to make a write call to your contract
 <b>Signature:</b>
 
 ```typescript
-export declare function useContractCall(contract: RequiredParam<SmartContractReturnType>, functionName: RequiredParam<string>): import("react-query").UseMutationResult<any, unknown, unknown, unknown>;
+export declare function useContractCall(contract: RequiredParam<SmartContractReturnType>, functionName: RequiredParam<string>): import("@tanstack/react-query").UseMutationResult<any, unknown, unknown, unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useContractCall(contract: RequiredParam<SmartContractRet
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;any, unknown, unknown, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;any, unknown, unknown, unknown&gt;
 
 a response object that includes the write function to call
 

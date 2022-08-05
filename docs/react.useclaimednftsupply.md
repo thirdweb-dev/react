@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimedNFTSupply(contract: RequiredParam<DropContract>): import("react-query").UseQueryResult<import("ethers").BigNumber, unknown>;
+export declare function useClaimedNFTSupply(contract: RequiredParam<DropContract>): import("@tanstack/react-query").UseQueryResult<import("ethers").BigNumber, unknown>;
 ```
 
 ## Parameters
@@ -18,7 +18,7 @@ export declare function useClaimedNFTSupply(contract: RequiredParam<DropContract
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("ethers").BigNumber, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;import("ethers").BigNumber, unknown&gt;
 
 a response object that includes the number of NFTs that are claimed
 

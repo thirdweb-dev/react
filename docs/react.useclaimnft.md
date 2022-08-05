@@ -12,7 +12,7 @@ Use this to claim a NFT on your [DropContract](./react.dropcontract.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimNFT<TContract extends DropContract | SmartContractReturnType>(contract: RequiredParam<TContract>): import("react-query").UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
+export declare function useClaimNFT<TContract extends DropContract | SmartContractReturnType>(contract: RequiredParam<TContract>): import("@tanstack/react-query").UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function useClaimNFT<TContract extends DropContract | SmartContra
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;[ClaimNFTReturnType](./react.claimnftreturntype.md)<!-- -->&lt;TContract&gt;, unknown, [ClaimNFTParams](./react.claimnftparams.md)<!-- -->&lt;TContract&gt;, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;[ClaimNFTReturnType](./react.claimnftreturntype.md)<!-- -->&lt;TContract&gt;, unknown, [ClaimNFTParams](./react.claimnftparams.md)<!-- -->&lt;TContract&gt;, unknown&gt;
 
 a mutation object that can be used to claim a NFT to the wallet specificed in the params
 
@@ -45,7 +45,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => claimNft({to: "0x...", quantity: 1})}
+      onClick={() => claimNft({ to: "0x...", quantity: 1 })}
     >
       Claim NFT!
     </button>

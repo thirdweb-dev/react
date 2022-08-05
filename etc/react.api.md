@@ -5,6 +5,7 @@
 ```ts
 
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/browser';
+import type { AirdropInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BaseContract } from 'ethers';
@@ -29,10 +30,10 @@ import { EditionDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { Erc1155 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc1155Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc20 } from '@thirdweb-dev/sdk/dist/browser';
-import type { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
+import { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc721Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { EventQueryFilter } from '@thirdweb-dev/sdk/dist/browser';
-import { FetchStatus } from 'react-query';
+import { FetchStatus } from '@tanstack/react-query';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { IpfsStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { IStorage } from '@thirdweb-dev/sdk/dist/browser';
@@ -48,16 +49,17 @@ import type { NewDirectListing } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTCollection } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTMetadata } from '@thirdweb-dev/sdk/dist/browser';
+import { NFTMetadataInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Offer } from '@thirdweb-dev/sdk/dist/browser';
 import { Pack } from '@thirdweb-dev/sdk/dist/browser';
 import type { Price } from '@thirdweb-dev/sdk/dist/browser';
 import { QueryAllParams } from '@thirdweb-dev/sdk/dist/browser';
-import { QueryClient } from 'react-query';
-import { QueryObserverResult } from 'react-query';
+import { QueryClient } from '@tanstack/react-query';
+import { QueryObserverResult } from '@tanstack/react-query';
 import { default as React_2 } from 'react';
-import { RefetchOptions } from 'react-query';
-import { RefetchQueryFilters } from 'react-query';
+import { RefetchOptions } from '@tanstack/react-query';
+import { RefetchQueryFilters } from '@tanstack/react-query';
 import type { Role } from '@thirdweb-dev/sdk/dist/browser';
 import { SDKOptions } from '@thirdweb-dev/sdk/dist/browser';
 import { SignatureDrop } from '@thirdweb-dev/sdk/dist/browser';
@@ -71,13 +73,20 @@ import { Token } from '@thirdweb-dev/sdk/dist/browser';
 import { TokenDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { TransactionResultWithId } from '@thirdweb-dev/sdk/dist/browser';
+import { UploadProgressEvent } from '@thirdweb-dev/sdk/dist/browser';
 import { useAccount } from './hooks';
-import { UseMutationResult } from 'react-query';
+import { UseMutationResult } from '@tanstack/react-query';
 import { useProvider } from './hooks';
-import { UseQueryResult } from 'react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 import type { ValidContractInstance } from '@thirdweb-dev/sdk/dist/browser';
 import { Vote } from '@thirdweb-dev/sdk/dist/browser';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+
+// @beta
+export type AirdropNFTParams = {
+    tokenId: BigNumberish;
+    addresses: AirdropInput;
+};
 
 // @public (undocumented)
 export type BuyNowParams<TListingType = ListingType> = TListingType extends ListingType.Direct ? {
@@ -101,7 +110,7 @@ export type ChainRpc<TSupportedChain extends SupportedChain> = Record<TSupported
 
 // @beta
 export type ClaimIneligibilityParameters = {
-    walletAddress?: WalletAddress;
+    walletAddress: WalletAddress;
     quantity: string | number;
 };
 
@@ -290,13 +299,25 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
     // (undocumented)
     provider: ChainOrRpc | SignerOrProvider;
     // (undocumented)
+    queryClient: QueryClient;
+    // (undocumented)
     signer?: Signer;
 }
 
 // @beta
-export type TokenMintParams = {
+export type TokenParams = {
     to: WalletAddress;
-    amount: string | number;
+    amount: Amount;
+};
+
+// @beta
+export type TransferNFTParams<TContract> = TContract extends Erc1155 ? {
+    to: WalletAddress;
+    tokenId: BigNumberish;
+    amount: Amount;
+} : {
+    to: WalletAddress;
+    tokenId: BigNumberish;
 };
 
 export { useAccount }
@@ -337,6 +358,12 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 
 // @public
 export function useAddress(): string | undefined;
+
+// @beta
+export function useAirdropNFT(contract: Erc1155): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, AirdropNFTParams, unknown>;
 
 // @beta
 export function useAllContractEvents(contract: RequiredParam<SmartContractReturnType>, options?: {
@@ -1347,6 +1374,20 @@ address: WalletAddress;
 export function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>): boolean;
 
 // @beta
+export function useLazyMint<TContract extends Erc721>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): UseMutationResult<TransactionResultWithId<    {
+[x: string]: Json;
+name?: string | undefined;
+description?: string | null | undefined;
+image?: string | null | undefined;
+external_url?: string | null | undefined;
+animation_url?: string | null | undefined;
+uri: string;
+id: BigNumber;
+}>[], unknown, {
+metadatas: NFTMetadataInput[];
+}, unknown>;
+
+// @beta
 export function useListing(contract: RequiredParam<Marketplace>, listingId: RequiredParam<BigNumberish>): UseQueryResult<AuctionListing | DirectListing, unknown>;
 
 // @beta
@@ -1391,7 +1432,7 @@ export function useMintNFT<TContract extends NFTContract>(contract: RequiredPara
 export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
-}, "data">, unknown, TokenMintParams, unknown>;
+}, "data">, unknown, TokenParams, unknown>;
 
 // @public
 export function useMultiwrap(contractAddress?: string): Multiwrap | undefined;
@@ -1503,9 +1544,7 @@ seller_fee_basis_points: number;
 fee_recipient: string;
 }, unknown>;
 
-// Warning: (ae-internal-missing-underscore) The name "useSDK" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
+// @public (undocumented)
 export function useSDK(): ThirdwebSDK | undefined;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useSetAllRoleMembers" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
@@ -1559,6 +1598,21 @@ export type useTotalCirculatingSupplyParams<TContract> = TContract extends Erc11
 
 // @beta
 export function useTotalCount(contract: RequiredParam<NFTContract>): UseQueryResult<BigNumber, unknown>;
+
+// @beta
+export function useTransferBatchToken(contract: RequiredParam<Erc20>): UseMutationResult<void, unknown, TokenParams[], unknown>;
+
+// @beta
+export function useTransferNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, TransferNFTParams<TContract>, unknown>;
+
+// @beta
+export function useTransferToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, TokenParams, unknown>;
 
 // @beta
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {
@@ -1667,8 +1721,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:149:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:155:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:169:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:175:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

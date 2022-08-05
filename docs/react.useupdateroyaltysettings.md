@@ -12,7 +12,7 @@ Use this to update the royalty settings of your
 <b>Signature:</b>
 
 ```typescript
-export declare function useUpdateRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): import("react-query").UseMutationResult<{
+export declare function useUpdateRoyaltySettings(contract: RequiredParam<SmartContract | ValidContractInstance>): import("@tanstack/react-query").UseMutationResult<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<{
         seller_fee_basis_points: number;
@@ -32,7 +32,7 @@ export declare function useUpdateRoyaltySettings(contract: RequiredParam<SmartCo
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;{ seller\_fee\_basis\_points: number; fee\_recipient: string; }&gt;; }, unknown, { seller\_fee\_basis\_points?: number \| undefined; fee\_recipient?: string \| undefined; }, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;{ seller\_fee\_basis\_points: number; fee\_recipient: string; }&gt;; }, unknown, { seller\_fee\_basis\_points?: number \| undefined; fee\_recipient?: string \| undefined; }, unknown&gt;
 
 a mutation object that can be used to update the royalty settings
 

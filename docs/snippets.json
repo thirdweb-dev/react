@@ -168,7 +168,7 @@
     "subhooks": [
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\", to: \"0x...\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
@@ -228,22 +228,22 @@
       },
       {
         "name": "useClaimIneligibilityReasons",
-        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);",
+        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> }, <tokenId>);",
         "reference": "https://portal.thirdweb.com/react/react.useclaimineligibilityreasons"
       },
       {
         "name": "useClaimNFT",
-        "example": "const Component = () => {\n  const {\n    mutate: claimNft,\n    isLoading,\n    error,\n  } = useClaimNFT(DropContract);\n\n  if (error) {\n    console.error(\"failed to claim nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimNft({to: \"0x...\", quantity: 1})}\n    >\n      Claim NFT!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const {\n    mutate: claimNft,\n    isLoading,\n    error,\n  } = useClaimNFT(DropContract);\n\n  if (error) {\n    console.error(\"failed to claim nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimNft({ to: \"0x...\", quantity: 1 })}\n    >\n      Claim NFT!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.useclaimnft"
       },
       {
         "name": "useClaimToken",
-        "example": "const Component = () => {\n  const {\n    mutate: claimTokens,\n    isLoading,\n    error,\n  } = useClaimToken(TokenDropContract);\n\n  if (error) {\n    console.error(\"failed to claim tokens\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimTokens({to: \"0x...\", amount: 100})}\n    >\n      Claim Tokens!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const {\n    mutate: claimTokens,\n    isLoading,\n    error,\n  } = useClaimToken(TokenDropContract);\n\n  if (error) {\n    console.error(\"failed to claim tokens\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimTokens({ to: \"0x...\", amount: 100 })}\n    >\n      Claim Tokens!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.useclaimtoken"
       },
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\", to: \"0x...\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
@@ -353,7 +353,7 @@
     "subhooks": [
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\", to: \"0x...\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
@@ -413,22 +413,22 @@
       },
       {
         "name": "useClaimIneligibilityReasons",
-        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);",
+        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> }, <tokenId>);",
         "reference": "https://portal.thirdweb.com/react/react.useclaimineligibilityreasons"
       },
       {
         "name": "useClaimNFT",
-        "example": "const Component = () => {\n  const {\n    mutate: claimNft,\n    isLoading,\n    error,\n  } = useClaimNFT(DropContract);\n\n  if (error) {\n    console.error(\"failed to claim nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimNft({to: \"0x...\", quantity: 1})}\n    >\n      Claim NFT!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const {\n    mutate: claimNft,\n    isLoading,\n    error,\n  } = useClaimNFT(DropContract);\n\n  if (error) {\n    console.error(\"failed to claim nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimNft({ to: \"0x...\", quantity: 1 })}\n    >\n      Claim NFT!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.useclaimnft"
       },
       {
         "name": "useClaimToken",
-        "example": "const Component = () => {\n  const {\n    mutate: claimTokens,\n    isLoading,\n    error,\n  } = useClaimToken(TokenDropContract);\n\n  if (error) {\n    console.error(\"failed to claim tokens\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimTokens({to: \"0x...\", amount: 100})}\n    >\n      Claim Tokens!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const {\n    mutate: claimTokens,\n    isLoading,\n    error,\n  } = useClaimToken(TokenDropContract);\n\n  if (error) {\n    console.error(\"failed to claim tokens\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimTokens({ to: \"0x...\", amount: 100 })}\n    >\n      Claim Tokens!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.useclaimtoken"
       },
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\", to: \"0x...\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
@@ -478,7 +478,7 @@
     "subhooks": [
       {
         "name": "useMintNFT",
-        "example": "const Component = () => {\n const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const { contract } = useContract(<ContractAddress>);\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintNFT(contract?.nft);\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\", to: \"0x...\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.usemintnft"
       },
       {
@@ -527,7 +527,7 @@
     "subhooks": [
       {
         "name": "useMintToken",
-        "example": "const Component = () => {\n  const {\n    mutate: mintNft,\n    isLoading,\n    error,\n  } = useMintToken(\">>YourERC20ContractInstance<<\");\n\n  if (error) {\n    console.error(\"failed to mint nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintNft({ name: \"My awesome NFT!\" })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "example": "const Component = () => {\n  const {\n    mutate: mintTokens,\n    isLoading,\n    error,\n  } = useMintToken(\">>YourERC20ContractInstance<<\");\n\n  if (error) {\n    console.error(\"failed to mint tokens\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintTokens({ to: \"0x...\", amount: 1000 })}\n    >\n      Mint!\n    </button>\n  );\n};",
         "reference": "https://portal.thirdweb.com/react/react.useminttoken"
       },
       {

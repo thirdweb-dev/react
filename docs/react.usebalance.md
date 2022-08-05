@@ -12,7 +12,7 @@ A hook to get the native or (optional) ERC20 token balance of the connected wall
 <b>Signature:</b>
 
 ```typescript
-export declare function useBalance(tokenAddress?: ContractAddress): import("react-query").UseQueryResult<{
+export declare function useBalance(tokenAddress?: ContractAddress): import("@tanstack/react-query").UseQueryResult<{
     symbol: string;
     value: import("ethers").BigNumber;
     name: string;
@@ -29,7 +29,7 @@ export declare function useBalance(tokenAddress?: ContractAddress): import("reac
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;{ symbol: string; value: import("ethers").BigNumber; name: string; decimals: number; displayValue: string; } \| undefined, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;{ symbol: string; value: import("ethers").BigNumber; name: string; decimals: number; displayValue: string; } \| undefined, unknown&gt;
 
 the balance of the connected wallet (native or ERC20)
 

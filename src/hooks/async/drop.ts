@@ -12,16 +12,18 @@ import {
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import type { SmartContractReturnType } from "./contracts";
 import { useNFTs } from "./nft";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Erc721,
   Erc721Claimable,
   Erc1155,
   NFTDrop,
+  NFTMetadataInput,
   QueryAllParams,
   SignatureDrop,
   SmartContract,
+  UploadProgressEvent,
 } from "@thirdweb-dev/sdk/dist/browser";
-import { useMutation, useQueryClient } from "react-query";
 import invariant from "tiny-invariant";
 
 /** **********************/
@@ -151,7 +153,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
  *   return (
  *     <button
  *       disabled={isLoading}
- *       onClick={() => claimNft({to: "0x...", quantity: 1})}
+ *       onClick={() => claimNft({ to: "0x...", quantity: 1 })}
  *     >
  *       Claim NFT!
  *     </button>
@@ -201,6 +203,47 @@ export function useClaimNFT<
         )) as ClaimNFTReturnType<TContract>;
       }
       throw new Error("contract does not support claimTo");
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to lazy mint a batch of NFTs on your {@link DropContract}
+ *
+ * @param contract - an instance of a {@link ERC721} with the drop extension
+ * @param onProgress - an optional callback that will be called with the progress of the upload
+ * @returns a mutation object that can be used to lazy mint a batch of NFTs
+ * @beta
+ */
+export function useLazyMint<TContract extends Erc721>(
+  contract: RequiredParam<TContract>,
+  onProgress?: (progress: UploadProgressEvent) => void,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (data: { metadatas: NFTMetadataInput[] }) => {
+      invariant(
+        contract?.drop?.lazyMint,
+        "contract does not support drop.lazyMint",
+      );
+      let options;
+      if (onProgress) {
+        options = {
+          onProgress,
+        };
+      }
+      return await contract.drop.lazyMint(data.metadatas, options);
     },
     {
       onSettled: () =>

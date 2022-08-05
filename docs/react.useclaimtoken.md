@@ -12,7 +12,7 @@ Use this to claim tokens on your
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimToken<TContract extends TokenDrop>(contract: RequiredParam<TContract>): import("react-query").UseMutationResult<Omit<{
+export declare function useClaimToken<TContract extends TokenDrop>(contract: RequiredParam<TContract>): import("@tanstack/react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
 }, "data">, unknown, ClaimTokenParams, unknown>;
@@ -26,7 +26,7 @@ export declare function useClaimToken<TContract extends TokenDrop>(contract: Req
 
 <b>Returns:</b>
 
-import("react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [ClaimTokenParams](./react.claimtokenparams.md)<!-- -->, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt;, unknown, [ClaimTokenParams](./react.claimtokenparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to tokens to the wallet specificed in the params
 
@@ -48,7 +48,7 @@ const Component = () => {
   return (
     <button
       disabled={isLoading}
-      onClick={() => claimTokens({to: "0x...", amount: 100})}
+      onClick={() => claimTokens({ to: "0x...", amount: 100 })}
     >
       Claim Tokens!
     </button>

@@ -12,7 +12,7 @@ Use this to check for reasons that prevent claiming for either ERC20, ERC721 or 
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop | SmartContractReturnType>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): import("react-query").UseQueryResult<import("@thirdweb-dev/sdk/dist/browser").ClaimEligibility[], unknown>;
+export declare function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop | SmartContractReturnType>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): import("@tanstack/react-query").UseQueryResult<import("@thirdweb-dev/sdk/dist/browser").ClaimEligibility[], unknown>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function useClaimIneligibilityReasons<TContract extends NFTDrop |
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk/dist/browser").ClaimEligibility\[\], unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk/dist/browser").ClaimEligibility\[\], unknown&gt;
 
 a response object with the resons for the claim ineligibility
 
@@ -31,20 +31,20 @@ a response object with the resons for the claim ineligibility
 
 
 ```javascript
-const { data: activeClaimCondition, isLoading, error } = useClaimIneligibilityReasons(<YourERC20ContractInstance>);
+const { data: activeClaimCondition, isLoading, error } = useClaimIneligibilityReasons(<YourERC20ContractInstance>, { walletAddress: <walletAddress> });
 ```
 
 ## Example 2
 
 
 ```javascript
-const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC721ContractInstance>, {quantity: <quantity>});
+const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC721ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> });
 ```
 
 ## Example 3
 
 
 ```javascript
-const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, {quantity: <quantity>}, <tokenId>);
+const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> }, <tokenId>);
 ```
 

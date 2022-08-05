@@ -14,7 +14,7 @@ Use this to get a the total (minted) supply of your [NFTContract](./react.nftcon
 <b>Signature:</b>
 
 ```typescript
-export declare function useTotalCirculatingSupply<TContract extends NFTContract>(...[contract, tokenId]: useTotalCirculatingSupplyParams<TContract>): import("react-query").UseQueryResult<BigNumber, unknown>;
+export declare function useTotalCirculatingSupply<TContract extends NFTContract>(...[contract, tokenId]: useTotalCirculatingSupplyParams<TContract>): import("@tanstack/react-query").UseQueryResult<BigNumber, unknown>;
 ```
 
 ## Parameters
@@ -25,7 +25,7 @@ export declare function useTotalCirculatingSupply<TContract extends NFTContract>
 
 <b>Returns:</b>
 
-import("react-query").UseQueryResult&lt;BigNumber, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;BigNumber, unknown&gt;
 
 a response object that incudes the total minted supply
 
