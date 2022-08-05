@@ -409,7 +409,7 @@ export function useContractData(
  * const { mutate: myFunction, isLoading, error } = useContractCall(contract, "myFunction");
  *
  * // the function can be called as follows:
- * // myFunction(...args)
+ * // myFunction(["param 1", "param 2", ...])
  *```
  *
  * @param contract - the contract instance of the contract to call a function on
@@ -427,13 +427,13 @@ export function useContractCall(
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (...args: unknown[] | [...unknown[], CallOverrides]) => {
+    async (callParams?: unknown[] | [...unknown[], CallOverrides]) => {
       invariant(contract, "contract must be defined");
       invariant(functionName, "function name must be provided");
-      if (!args.length) {
+      if (!callParams?.length) {
         return contract.call(functionName);
       }
-      return contract.call(functionName, ...args);
+      return contract.call(functionName, ...callParams);
     },
     {
       onSettled: () =>

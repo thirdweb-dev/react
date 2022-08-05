@@ -1255,7 +1255,7 @@ export function useContractAbi(contractAddress: RequiredParam<ContractAddress>):
 };
 
 // @beta
-export function useContractCall(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>): UseMutationResult<any, unknown, unknown, unknown>;
+export function useContractCall(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, functionName: RequiredParam<string>): UseMutationResult<any, unknown, unknown[] | [...unknown[], CallOverrides] | undefined, unknown>;
 
 // @beta
 export function useContractCompilerMetadata(contractAddress: RequiredParam<ContractAddress>): UseQueryResult<    {
