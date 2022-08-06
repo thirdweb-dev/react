@@ -5,6 +5,7 @@
 ```ts
 
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/browser';
+import type { AirdropInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BaseContract } from 'ethers';
@@ -80,6 +81,12 @@ import { UseQueryResult } from '@tanstack/react-query';
 import type { ValidContractInstance } from '@thirdweb-dev/sdk/dist/browser';
 import { Vote } from '@thirdweb-dev/sdk/dist/browser';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+
+// @beta
+export type AirdropNFTParams = {
+    tokenId: BigNumberish;
+    addresses: AirdropInput;
+};
 
 // @public (undocumented)
 export type BuyNowParams<TListingType = ListingType> = TListingType extends ListingType.Direct ? {
@@ -295,7 +302,17 @@ export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "d
 // @beta
 export type TokenParams = {
     to: WalletAddress;
-    amount: string | number;
+    amount: Amount;
+};
+
+// @beta
+export type TransferNFTParams<TContract> = TContract extends Erc1155 ? {
+    to: WalletAddress;
+    tokenId: BigNumberish;
+    amount: Amount;
+} : {
+    to: WalletAddress;
+    tokenId: BigNumberish;
 };
 
 export { useAccount }
@@ -336,6 +353,12 @@ export function useActiveListings(contract: RequiredParam<Marketplace>, filter?:
 
 // @public
 export function useAddress(): string | undefined;
+
+// @beta
+export function useAirdropNFT(contract: Erc1155): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, AirdropNFTParams, unknown>;
 
 // @beta
 export function useAllContractEvents(contract: RequiredParam<ReturnType<typeof useContract>["contract"]>, options?: {
@@ -1575,6 +1598,12 @@ export function useTotalCount(contract: RequiredParam<NFTContract>): UseQueryRes
 export function useTransferBatchToken(contract: RequiredParam<Erc20>): UseMutationResult<void, unknown, TokenParams[], unknown>;
 
 // @beta
+export function useTransferNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, TransferNFTParams<TContract>, unknown>;
+
+// @beta
 export function useTransferToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
@@ -1700,8 +1729,8 @@ export interface Web3ButtonType {
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:148:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:154:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:168:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:174:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 
