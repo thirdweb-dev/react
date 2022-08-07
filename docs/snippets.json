@@ -38,7 +38,7 @@
       },
       {
         "name": "useContractCall",
-        "example": "const { contract } = useContract(\"{{contract_address}}\");\nconst { mutate: myFunction, isLoading, error } = useContractCall(contract, \"myFunction\");\n\n// the function can be called as follows:\n// myFunction(...args)",
+        "example": "const { contract } = useContract(\"{{contract_address}}\");\nconst { mutate: myFunction, isLoading, error } = useContractCall(contract, \"myFunction\");\n\n// the function can be called as follows:\n// myFunction([\"param 1\", \"param 2\", ...])",
         "reference": "https://portal.thirdweb.com/react/react.usecontractcall"
       },
       {
