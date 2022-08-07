@@ -15,6 +15,6 @@ Web3Button: React.FC<Web3ButtonType>
 Usage with a contract:
 
 ```jsx
-<Web3Button contractAddress="0x..." funcName="foo" args={[1, 2, 3]} />
+<Web3Button contractAddress="0x..." funcName="foo" params={[1, 2, 3]} />
 ```
 

@@ -1715,11 +1715,19 @@ export const Web3Button: React_2.FC<Web3ButtonType>;
 // @public (undocumented)
 export interface Web3ButtonType {
     // (undocumented)
-    args: any[];
+    buttonText?: string;
     // (undocumented)
     contractAddress: string;
     // (undocumented)
     funcName: string;
+    // (undocumented)
+    onError?: (error: any) => void;
+    // (undocumented)
+    onSuccess?: (result: any) => void;
+    // (undocumented)
+    params: any[];
+    // (undocumented)
+    props?: any;
 }
 
 // Warnings were encountered during analysis:

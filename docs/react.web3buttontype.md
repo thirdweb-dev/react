@@ -14,7 +14,11 @@ export interface Web3ButtonType
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [args](./react.web3buttontype.args.md) |  | any\[\] |  |
+|  [buttonText?](./react.web3buttontype.buttontext.md) |  | string | <i>(Optional)</i> |
 |  [contractAddress](./react.web3buttontype.contractaddress.md) |  | string |  |
 |  [funcName](./react.web3buttontype.funcname.md) |  | string |  |
+|  [onError?](./react.web3buttontype.onerror.md) |  | (error: any) =&gt; void | <i>(Optional)</i> |
+|  [onSuccess?](./react.web3buttontype.onsuccess.md) |  | (result: any) =&gt; void | <i>(Optional)</i> |
+|  [params](./react.web3buttontype.params.md) |  | any\[\] |  |
+|  [props?](./react.web3buttontype.props.md) |  | any | <i>(Optional)</i> |
 

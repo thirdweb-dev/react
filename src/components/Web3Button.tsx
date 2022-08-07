@@ -5,7 +5,10 @@ export interface Web3ButtonType {
   contractAddress: string;
   funcName: string;
   params: any[];
-  props: string;
+  props?: any;
+  buttonText?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: any) => void;
 }
 
 /**
@@ -18,21 +21,40 @@ export interface Web3ButtonType {
  * <Web3Button contractAddress="0x..." funcName="foo" params={[1, 2, 3]} />
  * ```
  */
-export const Web3Button: React.FC<Web3ButtonType> = (
-  { contractAddress, funcName, params },
+export const Web3Button: React.FC<Web3ButtonType> = ({
+  contractAddress,
+  funcName,
+  params,
   props,
-) => {
+  onSuccess,
+  onError,
+  buttonText = "Click",
+}) => {
   const { contract } = useContract(contractAddress);
 
-  const buttonClick = useCallback(() => {
+  const buttonClick = useCallback(async () => {
+    console.log("buttonClick", { contract });
     if (contract) {
-      contract.call(funcName, ...params).then(console.log);
+      try {
+        const result = await contract.call(funcName, ...params);
+        if (onSuccess) {
+          onSuccess(result);
+        }
+      } catch (err) {
+        if (onError) {
+          onError(err);
+        }
+      }
+    } else {
+      if (onError) {
+        onError(new Error("No contract found"));
+      }
     }
   }, [contract]);
 
   return (
     <button onClick={buttonClick} {...props}>
-      {props.children}
+      {buttonText}
     </button>
   );
 };
