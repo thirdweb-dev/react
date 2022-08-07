@@ -7,8 +7,9 @@ export interface Web3ButtonType {
   params: any[];
   props?: any;
   buttonText?: string;
-  onSuccess?: (result: any) => void;
+  onSuccess?: (result: any) => Promise<any>;
   onError?: (error: any) => void;
+  onBeforeSend?: () => Promise<any>;
 }
 
 /**
@@ -26,19 +27,22 @@ export const Web3Button: React.FC<Web3ButtonType> = ({
   funcName,
   params,
   props,
+  buttonText = "Click",
   onSuccess,
   onError,
-  buttonText = "Click",
+  onBeforeSend,
 }) => {
   const { contract } = useContract(contractAddress);
 
   const buttonClick = useCallback(async () => {
-    console.log("buttonClick", { contract });
+    if (onBeforeSend) {
+      await onBeforeSend();
+    }
     if (contract) {
       try {
         const result = await contract.call(funcName, ...params);
         if (onSuccess) {
-          onSuccess(result);
+          await onSuccess(result);
         }
       } catch (err) {
         if (onError) {

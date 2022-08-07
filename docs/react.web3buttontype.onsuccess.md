@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-onSuccess?: (result: any) => void;
+onSuccess?: (result: any) => Promise<any>;
 ```

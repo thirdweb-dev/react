@@ -1721,9 +1721,11 @@ export interface Web3ButtonType {
     // (undocumented)
     funcName: string;
     // (undocumented)
+    onBeforeSend?: () => Promise<any>;
+    // (undocumented)
     onError?: (error: any) => void;
     // (undocumented)
-    onSuccess?: (result: any) => void;
+    onSuccess?: (result: any) => Promise<any>;
     // (undocumented)
     params: any[];
     // (undocumented)
