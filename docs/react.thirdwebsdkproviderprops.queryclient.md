@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-queryClient: QueryClient;
+queryClient?: QueryClient;
 ```

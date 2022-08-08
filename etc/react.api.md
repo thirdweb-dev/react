@@ -290,11 +290,17 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
 export const ThirdwebSDKProvider: React_2.FC<React_2.PropsWithChildren<ThirdwebSDKProviderProps>>;
 
 // @public (undocumented)
-export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> {
+export interface ThirdwebSDKProviderProps extends Omit<ThirdwebSDKProviderWagmiWrapper, "queryClient"> {
+    // (undocumented)
+    queryClient?: QueryClient;
+}
+
+// @public (undocumented)
+export interface ThirdwebSDKProviderWagmiWrapper extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> {
     // (undocumented)
     provider: ChainOrRpc | SignerOrProvider;
     // (undocumented)
-    queryClient: QueryClient;
+    queryClient?: QueryClient;
     // (undocumented)
     signer?: Signer;
 }

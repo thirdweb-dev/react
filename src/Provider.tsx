@@ -403,17 +403,13 @@ export const ThirdwebProvider = <
     };
   }, [sdkOptions, readonlySettings]);
 
-  const queryClientWithDefault: QueryClient = useMemo(() => {
-    return queryClient ? queryClient : new QueryClient();
-  }, [queryClient]);
-
   return (
     <ThirdwebConfigProvider
       value={{ rpcUrlMap: _rpcUrlMap, supportedChains: _supporrtedChains }}
     >
       <WagmiProvider {...wagmiProps}>
         <ThirdwebSDKProviderWagmiWrapper
-          queryClient={queryClientWithDefault}
+          queryClient={queryClient}
           desiredChainId={desiredChainId}
           sdkOptions={sdkOptionsWithDefaults}
           storageInterface={storageInterface}
@@ -425,18 +421,20 @@ export const ThirdwebProvider = <
   );
 };
 
-export interface ThirdwebSDKProviderProps
+export interface ThirdwebSDKProviderWagmiWrapper
   extends Pick<
     ThirdwebProviderProps,
     "desiredChainId" | "sdkOptions" | "storageInterface"
   > {
   signer?: Signer;
   provider: ChainOrRpc | SignerOrProvider;
-  queryClient: QueryClient;
+  queryClient?: QueryClient;
 }
 
 const ThirdwebSDKProviderWagmiWrapper: React.FC<
-  React.PropsWithChildren<Omit<ThirdwebSDKProviderProps, "signer" | "provider">>
+  React.PropsWithChildren<
+    Omit<ThirdwebSDKProviderWagmiWrapper, "signer" | "provider">
+  >
 > = ({ children, ...props }) => {
   const provider = useProvider();
   const signer = useSigner();
@@ -454,6 +452,11 @@ interface SDKContext {
 }
 
 const ThirdwebSDKContext = createContext<SDKContext>({ desiredChainId: -1 });
+
+export interface ThirdwebSDKProviderProps
+  extends Omit<ThirdwebSDKProviderWagmiWrapper, "queryClient"> {
+  queryClient?: QueryClient;
+}
 
 /**
  * A barebones wrapper around the Thirdweb SDK.
@@ -475,6 +478,10 @@ export const ThirdwebSDKProvider: React.FC<
   queryClient,
   children,
 }) => {
+  const queryClientWithDefault: QueryClient = useMemo(() => {
+    return queryClient ? queryClient : new QueryClient();
+  }, [queryClient]);
+
   const sdk = useMemo(() => {
     if (!desiredChainId || typeof window === "undefined") {
       return undefined;
@@ -500,7 +507,7 @@ export const ThirdwebSDKProvider: React.FC<
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClientWithDefault}>
       <ThirdwebSDKContext.Provider value={ctxValue}>
         {children}
       </ThirdwebSDKContext.Provider>

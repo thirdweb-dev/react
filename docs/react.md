@@ -136,6 +136,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [ThirdwebNftMediaProps](./react.thirdwebnftmediaprops.md) | The props for the [ThirdwebNftMedia](./react.thirdwebnftmedia.md) component. |
 |  [ThirdwebProviderProps](./react.thirdwebproviderprops.md) | The possible props for the ThirdwebProvider. |
 |  [ThirdwebSDKProviderProps](./react.thirdwebsdkproviderprops.md) |  |
+|  [ThirdwebSDKProviderWagmiWrapper](./react.thirdwebsdkproviderwagmiwrapper.md) |  |
 
 ## Variables
 
