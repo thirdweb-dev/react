@@ -47,15 +47,18 @@ function languageNameToKey(languageName) {
 }
 
 const CONTRACT_HOOKS = [
-  "useNFTCollection",
-  "useEdition",
-  "useToken",
-  "useMarketplace",
+  "useSignatureDrop",
   "useNFTDrop",
   "useEditionDrop",
+  "useNFTCollection",
+  "useEdition",
+  "useTokenDrop",
+  "useToken",
+  "useMarketplace",
   "useSplit",
   "useVote",
   "usePack",
+  "useMultiwrap",
   "useContract",
 ];
 
@@ -139,15 +142,18 @@ const CONTRACT_SETTINGS_HOOKS = [
 ];
 
 const CONTRACT_SUBHOOKS = {
+  useSignatureDrop: [...NFT_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
+  useNFTDrop: [...NFT_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
+  useEditionDrop: [...NFT_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
   useNFTCollection: [...NFT_HOOKS],
   useEdition: [...NFT_HOOKS],
+  useTokenDrop: [...TOKEN_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
   useToken: [...TOKEN_HOOKS],
-  useNFTDrop: [...NFT_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
   useMarketplace: [...MARKETPLACE_HOOKS],
-  useEditionDrop: [...NFT_HOOKS, ...DROP_HOOKS, ...CLAIM_CONDITIONS_HOOKS],
   useSplit: [],
   useVote: [],
   usePack: [...NFT_HOOKS],
+  useMultiwrap: [...NFT_HOOKS],
   useContract: [
     ...WALLET_CONNECTION_HOOKS,
     ...NETWORK_INFO_HOOKS,
