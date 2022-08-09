@@ -7,15 +7,13 @@
 <b>Signature:</b>
 
 ```typescript
-export interface ThirdwebSDKProviderProps extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> 
+export interface ThirdwebSDKProviderProps extends Omit<ThirdwebSDKProviderWagmiWrapper, "queryClient"> 
 ```
-<b>Extends:</b> Pick&lt;[ThirdwebProviderProps](./react.thirdwebproviderprops.md)
+<b>Extends:</b> Omit&lt;[ThirdwebSDKProviderWagmiWrapper](./react.thirdwebsdkproviderwagmiwrapper.md)
 
 ## Properties
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [provider](./react.thirdwebsdkproviderprops.provider.md) |  | ChainOrRpc \| SignerOrProvider |  |
-|  [queryClient](./react.thirdwebsdkproviderprops.queryclient.md) |  | QueryClient |  |
-|  [signer?](./react.thirdwebsdkproviderprops.signer.md) |  | Signer | <i>(Optional)</i> |
+|  [queryClient?](./react.thirdwebsdkproviderprops.queryclient.md) |  | QueryClient | <i>(Optional)</i> |
 
