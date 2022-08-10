@@ -14,7 +14,6 @@ import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useNFTs } from "./nft";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Erc721,
   Erc1155,
   NFTDrop,
   NFTMetadataInput,

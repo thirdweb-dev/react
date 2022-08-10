@@ -30,7 +30,7 @@ import { EditionDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { Erc1155 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc1155Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc20 } from '@thirdweb-dev/sdk/dist/browser';
-import { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
+import type { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc721Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { EventQueryFilter } from '@thirdweb-dev/sdk/dist/browser';
 import { FetchStatus } from '@tanstack/react-query';
@@ -1375,7 +1375,7 @@ address: WalletAddress;
 export function useIsAddressRole<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>, role: RolesForContract<TContract>, walletAddress: RequiredParam<WalletAddress>): boolean;
 
 // @beta
-export function useLazyMint<TContract extends Erc721>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): UseMutationResult<TransactionResultWithId<    {
+export function useLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): UseMutationResult<TransactionResultWithId<    {
 [x: string]: Json;
 name?: string | undefined;
 description?: string | null | undefined;
