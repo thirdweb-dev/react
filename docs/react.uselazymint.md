@@ -12,7 +12,7 @@ Use this to lazy mint a batch of NFTs on your [DropContract](./react.dropcontrac
 <b>Signature:</b>
 
 ```typescript
-export declare function useLazyMint<TContract extends Erc721>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): import("@tanstack/react-query").UseMutationResult<import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId<{
+export declare function useLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): import("@tanstack/react-query").UseMutationResult<import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId<{
     [x: string]: import("@thirdweb-dev/sdk/dist/browser").Json;
     name?: string | undefined;
     description?: string | null | undefined;
@@ -30,7 +30,7 @@ export declare function useLazyMint<TContract extends Erc721>(contract: Required
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a  with the drop extension |
+|  contract | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;TContract&gt; | an instance of a [NFTContract](./react.nftcontract.md) with the drop extension |
 |  onProgress | (progress: UploadProgressEvent) =&gt; void | <i>(Optional)</i> an optional callback that will be called with the progress of the upload |
 
 <b>Returns:</b>
