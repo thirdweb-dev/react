@@ -3,6 +3,7 @@ import {
   ClaimNFTParams,
   ClaimNFTReturnType,
   DropContract,
+  NFTContract,
   RequiredParam,
 } from "../../types";
 import {
@@ -203,12 +204,12 @@ export function useClaimNFT<TContract extends DropContract>(
 /**
  * Use this to lazy mint a batch of NFTs on your {@link DropContract}
  *
- * @param contract - an instance of a {@link ERC721} with the drop extension
+ * @param contract - an instance of a {@link NFTContract} with the drop extension
  * @param onProgress - an optional callback that will be called with the progress of the upload
  * @returns a mutation object that can be used to lazy mint a batch of NFTs
  * @beta
  */
-export function useLazyMint<TContract extends Erc721>(
+export function useLazyMint<TContract extends NFTContract>(
   contract: RequiredParam<TContract>,
   onProgress?: (progress: UploadProgressEvent) => void,
 ) {
