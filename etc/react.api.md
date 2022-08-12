@@ -4,6 +4,8 @@
 
 ```ts
 
+/// <reference types="react" />
+
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/browser';
 import type { AirdropInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
@@ -101,8 +103,8 @@ export type BuyNowParams<TListingType = ListingType> = TListingType extends List
 
 export { ChainId }
 
-// Warning: (ae-forgotten-export) The symbol "SupportedChain" needs to be exported by the entry point index.d.ts
-// Warning: (ae-forgotten-export) The symbol "Chain" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "SupportedChain" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// Warning: (ae-forgotten-export) The symbol "Chain" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 // Warning: (ae-internal-missing-underscore) The name "ChainRpc" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -135,6 +137,11 @@ export type ClaimTokenParams = {
     amount: Amount;
     checkERC20Allowance?: boolean;
 };
+
+// Warning: (ae-forgotten-export) The symbol "ConnectWalletProps" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+//
+// @public (undocumented)
+export const ConnectWallet: React.FC<ConnectWalletProps>;
 
 // @beta
 export type ContractAddress = string;
@@ -328,7 +335,7 @@ export { useAccount }
 // @internal (undocumented)
 export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
 export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
@@ -448,7 +455,7 @@ export function useClaimedNFTs(contract: RequiredParam<DropContract>, queryParam
 // @public (undocumented)
 export function useClaimedNFTSupply(contract: RequiredParam<DropContract>): UseQueryResult<BigNumber, unknown>;
 
-// Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
 export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
@@ -1717,13 +1724,13 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
-// dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
-// dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:168:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:174:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/declarations/dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// dist/declarations/dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// dist/declarations/dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+// dist/declarations/dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+// dist/declarations/dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// dist/declarations/dist/types.d.ts:168:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/declarations/dist/types.d.ts:174:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 
