@@ -10,6 +10,19 @@ export interface LoginConfig {
   onError: (error: string) => void;
 }
 
+/**
+ * Hook to securely login to a backend with the connected wallet. The backend
+ * authentication URL must be configured on the ThirdwebProvider.
+ *
+ * @param config Configuration for the login.
+ * @param config.domain - The domain of the website the user is logging into, used to prevent phishing attacks
+ * Must match the domain specified in the backend endpoints.
+ * @param config.redirectTo - The URL to redirect to after login.
+ * @param config.onError - A callback to invoke when an error occurs.
+ * @returns - A function to invoke to login with the connected wallet.
+ *
+ * @public
+ */
 export function useLogin({ domain, redirectTo, onError }: LoginConfig) {
   const sdk = useSDK();
   const { authUrl } = useThirdwebConfigContext();
