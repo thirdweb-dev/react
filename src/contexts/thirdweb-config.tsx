@@ -9,6 +9,7 @@ import React, { PropsWithChildren, createContext, useContext } from "react";
 interface ThirdwebConfigContext {
   rpcUrlMap: Record<SupportedChainId | number, string>;
   supportedChains: Chain[];
+  authUrl?: string;
 }
 
 export const defaultChainRpc: Record<SupportedChainId | number, string> = {
