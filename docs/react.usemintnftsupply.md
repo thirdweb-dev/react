@@ -37,7 +37,7 @@ export declare function useMintNFTSupply(contract: Erc1155): import("@tanstack/r
 
 import("@tanstack/react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; name?: string \| undefined; description?: string \| null \| undefined; image?: string \| null \| undefined; external\_url?: string \| null \| undefined; animation\_url?: string \| null \| undefined; uri: string; id: BigNumber; }; supply: BigNumber; }&gt;, unknown, [MintNFTSupplyParams](./react.mintnftsupplyparams.md)<!-- -->, unknown&gt;
 
-a mutation object that can be used to mint a more supply of a token id to the connected wallet
+a mutation object that can be used to mint a more supply of a token id to the provided wallet
 
 ## Example 1
 

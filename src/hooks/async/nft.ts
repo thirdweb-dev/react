@@ -491,7 +491,7 @@ export function useMintNFT<TContract extends NFTContract>(
  * ```
  *
  * @param contract - an instance of a {@link Erc1155}
- * @returns a mutation object that can be used to mint a more supply of a token id to the connected wallet
+ * @returns a mutation object that can be used to mint a more supply of a token id to the provided wallet
  * @beta
  */
 export function useMintNFTSupply(contract: Erc1155) {
