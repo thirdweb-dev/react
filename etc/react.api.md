@@ -234,6 +234,13 @@ export type MintNFTParams<TContract extends NFTContract> = TContract extends Erc
 export type MintNFTReturnType<TContract> = TContract extends Erc721 ? Awaited<ReturnType<Erc721Mintable["to"]>> : TContract extends Erc1155 ? Awaited<ReturnType<Erc1155Mintable["to"]>> : never;
 
 // @beta
+export type MintNFTSupplyParams = {
+    tokenId: BigNumberish;
+    additionalSupply: Amount;
+    to: WalletAddress;
+};
+
+// @beta
 export type NFT<TContract extends NFTContract> = {
     metadata: NFTMetadata;
     owner: string;
@@ -1455,6 +1462,21 @@ export function useMetamask(): () => Promise<{
 export function useMintNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<MintNFTReturnType<TContract>, unknown, MintNFTParams<TContract>, unknown>;
 
 // @beta
+export function useMintNFTSupply(contract: Erc1155): UseMutationResult<TransactionResultWithId<    {
+metadata: {
+[x: string]: Json;
+name?: string | undefined;
+description?: string | null | undefined;
+image?: string | null | undefined;
+external_url?: string | null | undefined;
+animation_url?: string | null | undefined;
+uri: string;
+id: BigNumber;
+};
+supply: BigNumber;
+}>, unknown, MintNFTSupplyParams, unknown>;
+
+// @beta
 export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
@@ -1747,8 +1769,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:187:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:193:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:196:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:202:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 
