@@ -91,7 +91,7 @@ export type AirdropNFTParams = {
 // @beta
 export type BurnNFTParams<TContract extends NFTContract> = TContract extends Erc1155 ? {
     tokenId: BigNumberish;
-    amount: BigNumberish;
+    amount: Amount;
 } : {
     tokenId: BigNumberish;
 };
