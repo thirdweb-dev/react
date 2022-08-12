@@ -39,6 +39,7 @@ import { IpfsStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { IStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { Json } from '@thirdweb-dev/sdk/dist/browser';
 import { ListingType } from '@thirdweb-dev/sdk/dist/browser';
+import { LoginOptions } from '@thirdweb-dev/sdk/dist/src/schema';
 import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import type { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk/dist/browser';
@@ -186,6 +187,16 @@ export type InjectedConnectorType = "injected" | "metamask" | {
 
 export { IpfsStorage }
 
+// @public (undocumented)
+export interface LoginConfig {
+    // (undocumented)
+    domain: string;
+    // (undocumented)
+    onError: (error: string) => void;
+    // (undocumented)
+    redirectTo: string;
+}
+
 // Warning: (ae-internal-missing-underscore) The name "MagicConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -276,10 +287,11 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps {
 }
 
 // @public
-export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
+export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, authUrl, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
+    authUrl?: string;
     autoConnect?: boolean;
     // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
@@ -1418,6 +1430,12 @@ export function useListing(contract: RequiredParam<Marketplace>, listingId: Requ
 
 // @beta
 export function useListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
+
+// @public
+export function useLogin({ domain, redirectTo, onError }: LoginConfig): (options?: LoginOptions) => Promise<void>;
+
+// @public
+export function useLogout(): () => void;
 
 // @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
