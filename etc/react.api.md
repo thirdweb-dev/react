@@ -88,6 +88,14 @@ export type AirdropNFTParams = {
     addresses: AirdropInput;
 };
 
+// @beta
+export type BurnNFTParams<TContract extends NFTContract> = TContract extends Erc1155 ? {
+    tokenId: BigNumberish;
+    amount: BigNumberish;
+} : {
+    tokenId: BigNumberish;
+};
+
 // @public (undocumented)
 export type BuyNowParams<TListingType = ListingType> = TListingType extends ListingType.Direct ? {
     id: BigNumberish;
@@ -306,6 +314,11 @@ export interface ThirdwebSDKProviderWagmiWrapper extends Pick<ThirdwebProviderPr
 }
 
 // @beta
+export type TokenBurnParams = {
+    amount: Amount;
+};
+
+// @beta
 export type TokenParams = {
     to: WalletAddress;
     amount: Amount;
@@ -397,6 +410,18 @@ export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResu
 //
 // @internal (undocumented)
 export function useBuiltinContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
+
+// @beta
+export function useBurnNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, BurnNFTParams<TContract>, unknown>;
+
+// @beta
+export function useBurnToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, TokenBurnParams, unknown>;
 
 // @beta
 export function useBuyNow(contract: RequiredParam<Marketplace>): UseMutationResult<Omit<{
@@ -1722,8 +1747,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:168:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:174:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:187:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:193:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 
