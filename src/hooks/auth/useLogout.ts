@@ -1,4 +1,5 @@
 import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
+import React from "react";
 import invariant from "tiny-invariant";
 
 /**
@@ -12,10 +13,10 @@ import invariant from "tiny-invariant";
 export function useLogout() {
   const { authUrl } = useThirdwebConfigContext();
 
-  function logout() {
+  const logout = React.useCallback(() => {
     invariant(authUrl, "Please specify an authUrl in the ThirdwebProvider");
     window.location.href = `${authUrl}/logout`;
-  }
+  }, [authUrl]);
 
   return logout;
 }

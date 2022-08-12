@@ -31,20 +31,23 @@ export function useLogin({ domain, redirectTo, onError }: LoginConfig) {
     const queryParams = new URLSearchParams(window.location.search);
     const error = queryParams.get("error");
 
-    if (error) {
+    if (error && onError) {
       // If there is an error, parse it and trigger the onError callback
       onError(decodeURI(error));
     }
-  }, []);
+  }, [onError]);
 
-  async function login(options?: LoginOptions) {
-    invariant(authUrl, "Please specify an authUrl in the ThirdwebProvider");
-    const payload = await sdk?.auth.login(domain, options);
-    const encodedPayload = encodeURIComponent(JSON.stringify(payload));
+  const login = React.useCallback(
+    async (options?: LoginOptions) => {
+      invariant(authUrl, "Please specify an authUrl in the ThirdwebProvider");
+      const payload = await sdk?.auth.login(domain, options);
+      const encodedPayload = encodeURIComponent(JSON.stringify(payload));
 
-    // Redirect to the login URL with the encoded payload
-    window.location.href = `${authUrl}/login?payload=${encodedPayload}&redirectTo=${redirectTo}`;
-  }
+      // Redirect to the login URL with the encoded payload
+      window.location.href = `${authUrl}/login?payload=${encodedPayload}&redirectTo=${redirectTo}`;
+    },
+    [authUrl, domain, redirectTo],
+  );
 
   return login;
 }

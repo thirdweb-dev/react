@@ -171,6 +171,7 @@ export interface ThirdwebProviderProps<
   /**
    * The base URL of the backend endpoints for wallet authentication.
    * These endpoints should include /login and /logout route.
+   * @beta
    */
   authUrl?: string;
 
