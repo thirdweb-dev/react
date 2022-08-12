@@ -176,7 +176,7 @@ export type MintNFTReturnType<TContract> = TContract extends Erc721
  */
 export type BurnNFTParams<TContract extends NFTContract> =
   TContract extends Erc1155
-    ? { tokenId: BigNumberish; amount: BigNumberish }
+    ? { tokenId: BigNumberish; amount: Amount }
     : { tokenId: BigNumberish };
 
 // DROPS //
