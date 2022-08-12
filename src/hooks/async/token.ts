@@ -2,6 +2,7 @@ import { useActiveChainId } from "../../Provider";
 import {
   ClaimTokenParams,
   RequiredParam,
+  TokenBurnParams,
   TokenParams,
   WalletAddress,
 } from "../../types";
@@ -106,7 +107,7 @@ export function useTokenBalance(
  * ```
  *
  * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
- * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @returns a mutation object that can be used to mint new tokens to the connected wallet
  * @beta
  */
 export function useMintToken(contract: RequiredParam<Erc20>) {
@@ -218,7 +219,7 @@ export function useClaimToken<TContract extends TokenDrop>(
  * ```
  *
  * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
- * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @returns a mutation object that can be used to transfer tokens
  * @beta
  */
 export function useTransferToken(contract: RequiredParam<Erc20>) {
@@ -271,7 +272,7 @@ export function useTransferToken(contract: RequiredParam<Erc20>) {
  * ```
  *
  * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
- * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
+ * @returns a mutation object that can be used to transfer batch tokens
  * @beta
  */
 export function useTransferBatchToken(contract: RequiredParam<Erc20>) {
@@ -291,6 +292,59 @@ export function useTransferBatchToken(contract: RequiredParam<Erc20>) {
       }));
 
       return contract.transferBatch(convertedData);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to burn tokens on your {@link Erc20} contract
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const {
+ *     mutate: burnTokens,
+ *     isLoading,
+ *     error,
+ *   } = useBurnToken(">>YourERC20ContractInstance<<");
+ *
+ *   if (error) {
+ *     console.error("failed to burn tokens", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => burnTokens({ amount: 1000 })}
+ *     >
+ *       Burn!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a contract that extends the ERC20 spec (token, token drop, custom contract that follows the ERC20 spec)
+ * @returns a mutation object that can be used to burn tokens from the connected wallet
+ * @beta
+ */
+export function useBurnToken(contract: RequiredParam<Erc20>) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: TokenBurnParams) => {
+      const { amount } = data;
+      invariant(contract?.burn, "contract does not support burn");
+      return contract.burn.tokens(amount);
     },
     {
       onSettled: () =>

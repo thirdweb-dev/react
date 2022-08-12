@@ -25,7 +25,7 @@ export declare function useTransferBatchToken(contract: RequiredParam<Erc20>): i
 
 import("@tanstack/react-query").UseMutationResult&lt;void, unknown, [TokenParams](./react.tokenparams.md)<!-- -->\[\], unknown&gt;
 
-a mutation object that can be used to mint a new NFT token to the connected wallet
+a mutation object that can be used to transfer batch tokens
 
 ## Example
 

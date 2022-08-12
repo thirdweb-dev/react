@@ -21,6 +21,8 @@ import { useAddress } from "@thirdweb-dev/react"
 |  [useAuctionWinner(contract, listingId)](./react.useauctionwinner.md) | <b><i>(BETA)</i></b> Use this to get the winner of an auction listing from your marketplace contract. |
 |  [useBalance(tokenAddress)](./react.usebalance.md) | <b><i>(BETA)</i></b> A hook to get the native or (optional) ERC20 token balance of the connected wallet. |
 |  [useBidBuffer(contract)](./react.usebidbuffer.md) | <b><i>(BETA)</i></b> Use this to get the buffer in basis points between offers from your marketplace contract. |
+|  [useBurnNFT(contract)](./react.useburnnft.md) | <b><i>(BETA)</i></b> Use this to burn an NFT on your [NFTContract](./react.nftcontract.md) |
+|  [useBurnToken(contract)](./react.useburntoken.md) | <b><i>(BETA)</i></b> Use this to burn tokens on your  contract |
 |  [useBuyNow(contract)](./react.usebuynow.md) | <b><i>(BETA)</i></b> Use this to buy out an auction listing from your marketplace contract. |
 |  [useChainId()](./react.usechainid.md) | <p>Hook for accessing the chain ID of the network the current wallet is connected to</p>
 ```javascript
@@ -152,6 +154,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  Type Alias | Description |
 |  --- | --- |
 |  [AirdropNFTParams](./react.airdropnftparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTransferBatchNFT</code>. |
+|  [BurnNFTParams](./react.burnnftparams.md) | <b><i>(BETA)</i></b> The params for the [useBurnNFT()](./react.useburnnft.md) hook mutation. |
 |  [BuyNowParams](./react.buynowparams.md) |  |
 |  [ClaimIneligibilityParameters](./react.claimineligibilityparameters.md) | <b><i>(BETA)</i></b> The options to be passed as the second parameter to the <code>useClaimIneligibilityReasons</code> hook. |
 |  [ClaimNFTParams](./react.claimnftparams.md) | <b><i>(BETA)</i></b> The params for the [useClaimNFT()](./react.useclaimnft.md) hook mutation. |
@@ -165,6 +168,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [NFT](./react.nft.md) | <b><i>(BETA)</i></b> A single NFT token |
 |  [NFTContract](./react.nftcontract.md) | <b><i>(BETA)</i></b> The possible NFT contract types. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |
+|  [TokenBurnParams](./react.tokenburnparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the burn function. |
 |  [TokenParams](./react.tokenparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the mint and transfer functions. |
 |  [TransferNFTParams](./react.transfernftparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTransferNFT</code>. |
 |  [useNFTBalanceParams](./react.usenftbalanceparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useNftBalance</code>. |

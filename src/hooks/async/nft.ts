@@ -1,6 +1,7 @@
 import { useActiveChainId } from "../../Provider";
 import {
   AirdropNFTParams,
+  BurnNFTParams,
   MintNFTParams,
   MintNFTReturnType,
   NFT,
@@ -591,6 +592,96 @@ export function useAirdropNFT(contract: Erc1155) {
       invariant(contract?.airdrop, "contract does not support airdrop");
 
       return contract.airdrop(tokenId, addresses);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/** **********************/
+/**     WRITE HOOKS     **/
+/** **********************/
+
+/**
+ * Use this to burn an NFT on your {@link NFTContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const nftDrop = useNFTDrop(<ContractAddress>);
+ *   const {
+ *     mutate: burnNft,
+ *     isLoading,
+ *     error,
+ *   } = useBurnNFT(nftDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to burn nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => burnNft({ tokenId: 0 })}
+ *     >
+ *       Mint!
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: burnNft,
+ *     isLoading,
+ *     error,
+ *   } = useBurnNFT(contract?.nft);
+ *
+ *   if (error) {
+ *     console.error("failed to burn nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => burnNft({ tokenId: 0 })}
+ *     >
+ *       Burn!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link NFTContract}
+ * @returns a mutation object that can be used to burn an NFT token from the connected wallet
+ * @beta
+ */
+export function useBurnNFT<TContract extends NFTContract>(
+  contract: RequiredParam<TContract>,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (data: BurnNFTParams<TContract>) => {
+      invariant(data.tokenId, "No tokenId provided");
+      invariant(contract?.burn, "contract does not support burn");
+      if (contract instanceof Erc1155) {
+        invariant("amount" in data, "amount not provided");
+        const { tokenId, amount } = data;
+        return await contract.burn.tokens(tokenId, amount);
+      }
+      const { tokenId } = data;
+      return await contract.burn.token(tokenId);
     },
     {
       onSettled: () =>
