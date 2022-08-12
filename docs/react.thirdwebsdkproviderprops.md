@@ -9,7 +9,7 @@
 ```typescript
 export interface ThirdwebSDKProviderProps extends Omit<ThirdwebSDKProviderWagmiWrapper, "queryClient"> 
 ```
-<b>Extends:</b> Omit&lt;[ThirdwebSDKProviderWagmiWrapper](./react.thirdwebsdkproviderwagmiwrapper.md)
+<b>Extends:</b> Omit&lt;[ThirdwebSDKProviderWagmiWrapper](./react.thirdwebsdkproviderwagmiwrapper.md)<!-- -->, "queryClient"&gt;
 
 ## Properties
 
