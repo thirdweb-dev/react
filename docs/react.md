@@ -80,6 +80,7 @@ import { useMetamask } from "@thirdweb-dev/react"
 ```
  |
 |  [useMintNFT(contract)](./react.usemintnft.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md) |
+|  [useMintNFTSupply(contract)](./react.usemintnftsupply.md) | <b><i>(BETA)</i></b> Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md) |
 |  [useMintToken(contract)](./react.useminttoken.md) | <b><i>(BETA)</i></b> Use this to mint new tokens on your  contract |
 |  [useMultiwrap(contractAddress)](./react.usemultiwrap.md) | Hook for getting an instance of an <code>Multiwrap</code> contract. This contract is an ERC721 in which you can wrap ERC721, ERC1155 and ERC20 tokens. |
 |  [useNetwork()](./react.usenetwork.md) | Hook for getting metadata about the network the current wallet is connected to and switching networks |
@@ -165,6 +166,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [MakeBidParams](./react.makebidparams.md) |  |
 |  [MintNFTParams](./react.mintnftparams.md) | <b><i>(BETA)</i></b> The params for the [useMintNFT()](./react.usemintnft.md) hook mutation. |
 |  [MintNFTReturnType](./react.mintnftreturntype.md) | <b><i>(BETA)</i></b> The return type of the [useMintNFT()](./react.usemintnft.md) hook. |
+|  [MintNFTSupplyParams](./react.mintnftsupplyparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useMintNFTSupply</code>. |
 |  [NFT](./react.nft.md) | <b><i>(BETA)</i></b> A single NFT token |
 |  [NFTContract](./react.nftcontract.md) | <b><i>(BETA)</i></b> The possible NFT contract types. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |

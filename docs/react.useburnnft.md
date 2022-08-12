@@ -51,7 +51,7 @@ const Component = () => {
       disabled={isLoading}
       onClick={() => burnNft({ tokenId: 0 })}
     >
-      Mint!
+      Burn!
     </button>
   );
 };
