@@ -76,6 +76,7 @@ import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { TransactionResultWithId } from '@thirdweb-dev/sdk/dist/browser';
 import { UploadProgressEvent } from '@thirdweb-dev/sdk/dist/browser';
 import { useAccount } from './hooks';
+import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { UseMutationResult } from '@tanstack/react-query';
 import { useProvider } from './hooks';
 import { UseQueryResult } from '@tanstack/react-query';
@@ -192,9 +193,9 @@ export interface LoginConfig {
     // (undocumented)
     domain: string;
     // (undocumented)
-    onError: (error: string) => void;
+    onError?: (error: string) => void;
     // (undocumented)
-    redirectTo: string;
+    redirectTo?: string;
 }
 
 // Warning: (ae-internal-missing-underscore) The name "MagicConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
@@ -1440,10 +1441,22 @@ export function useListing(contract: RequiredParam<Marketplace>, listingId: Requ
 export function useListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
 
 // @public
-export function useLogin({ domain, redirectTo, onError }: LoginConfig): (options?: LoginOptions) => Promise<void>;
+export function useLoggedIn(): {
+    isLoggedIn: boolean | undefined;
+    isLoading: boolean;
+};
 
 // @public
-export function useLogout(): () => void;
+export function useLogin({ domain, redirectTo, onError }: LoginConfig): {
+    login: (options?: LoginOptions) => Promise<void>;
+    isLoading: boolean;
+};
+
+// @public
+export function useLogout(): {
+    logout: UseMutateAsyncFunction<void, unknown, void, unknown>;
+    isLoading: boolean;
+};
 
 // @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{

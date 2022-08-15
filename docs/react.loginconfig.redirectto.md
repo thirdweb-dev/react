@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-redirectTo: string;
+redirectTo?: string;
 ```

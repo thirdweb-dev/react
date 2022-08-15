@@ -66,6 +66,7 @@ import { useGnosis } from "@thirdweb-dev/react"
 |  [useLazyMint(contract, onProgress)](./react.uselazymint.md) | <b><i>(BETA)</i></b> Use this to lazy mint a batch of NFTs on your [DropContract](./react.dropcontract.md) |
 |  [useListing(contract, listingId)](./react.uselisting.md) | <b><i>(BETA)</i></b> Use this to get a specific listing from the marketplace. |
 |  [useListings(contract, filter)](./react.uselistings.md) | <b><i>(BETA)</i></b> Use this to get a list all listings from your marketplace contract. |
+|  [useLoggedIn()](./react.useloggedin.md) | Hook to get whether the current user is logged in. |
 |  [useLogin({ domain, redirectTo, onError })](./react.uselogin.md) | Hook to securely login to a backend with the connected wallet. The backend authentication URL must be configured on the ThirdwebProvider. |
 |  [useLogout()](./react.uselogout.md) | Hook to logout the connected wallet from the backend. The backend logout URL must be configured on the ThirdwebProvider. |
 |  [useMagic()](./react.usemagic.md) | <p>Hook for connecting to an email wallet using magic link. This enables users without their own wallets to connect to your application and sign transactions securely using their email.</p>

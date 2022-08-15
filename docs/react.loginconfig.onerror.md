@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-onError: (error: string) => void;
+onError?: (error: string) => void;
 ```

@@ -1,5 +1,7 @@
 import { useSDK } from "../../Provider";
 import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
+import { createCachekey } from "../../utils/cache-keys";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoginOptions } from "@thirdweb-dev/sdk/dist/src/schema";
 import React from "react";
 import invariant from "tiny-invariant";
@@ -25,6 +27,7 @@ export interface LoginConfig {
  */
 export function useLogin({ domain, redirectTo, onError }: LoginConfig) {
   const sdk = useSDK();
+  const queryClient = useQueryClient();
   const { authUrl } = useThirdwebConfigContext();
 
   React.useEffect(() => {
@@ -37,17 +40,24 @@ export function useLogin({ domain, redirectTo, onError }: LoginConfig) {
     }
   }, [onError]);
 
-  async function login(options?: LoginOptions) {
-    invariant(authUrl, "Please specify an authUrl in the ThirdwebProvider");
-    const payload = await sdk?.auth.login(domain, options);
-    const encodedPayload = encodeURIComponent(JSON.stringify(payload));
-    const encodedRedirectTo = encodeURIComponent(
-      redirectTo || window.location.href,
-    );
+  const { mutateAsync: login, isLoading } = useMutation(
+    async (cfg?: LoginOptions) => {
+      invariant(authUrl, "Please specify an authUrl in the ThirdwebProvider");
+      const payload = await sdk?.auth.login(domain, cfg);
+      const encodedPayload = encodeURIComponent(JSON.stringify(payload));
+      const encodedRedirectTo = encodeURIComponent(
+        redirectTo || window.location.href,
+      );
 
-    // Redirect to the login URL with the encoded payload
-    window.location.href = `${authUrl}/login?payload=${encodedPayload}&redirectTo=${encodedRedirectTo}`;
-  }
+      // Redirect to the login URL with the encoded payload
+      window.location.href = `${authUrl}/login?payload=${encodedPayload}&redirectTo=${encodedRedirectTo}`;
+    },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(createCachekey(["user"]));
+      },
+    },
+  );
 
-  return login;
+  return { login: (options?: LoginOptions) => login(options), isLoading };
 }

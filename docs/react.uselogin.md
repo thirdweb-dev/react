@@ -9,7 +9,10 @@ Hook to securely login to a backend with the connected wallet. The backend authe
 <b>Signature:</b>
 
 ```typescript
-export declare function useLogin({ domain, redirectTo, onError }: LoginConfig): (options?: LoginOptions) => Promise<void>;
+export declare function useLogin({ domain, redirectTo, onError }: LoginConfig): {
+    login: (options?: LoginOptions) => Promise<void>;
+    isLoading: boolean;
+};
 ```
 
 ## Parameters
@@ -20,7 +23,7 @@ export declare function useLogin({ domain, redirectTo, onError }: LoginConfig): 
 
 <b>Returns:</b>
 
-(options?: LoginOptions) =&gt; Promise&lt;void&gt;
+{ login: (options?: LoginOptions) =&gt; Promise&lt;void&gt;; isLoading: boolean; }
 
 - A function to invoke to login with the connected wallet.
 

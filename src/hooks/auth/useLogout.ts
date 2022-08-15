@@ -1,5 +1,6 @@
 import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
-import React from "react";
+import { createCachekey } from "../../utils/cache-keys";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 
 /**
@@ -11,12 +12,20 @@ import invariant from "tiny-invariant";
  * @public
  */
 export function useLogout() {
+  const queryClient = useQueryClient();
   const { authUrl } = useThirdwebConfigContext();
 
-  const logout = React.useCallback(() => {
-    invariant(authUrl, "Please specify an authUrl in the ThirdwebProvider");
-    window.location.href = `${authUrl}/logout`;
-  }, [authUrl]);
+  const { mutateAsync: logout, isLoading } = useMutation(
+    async () => {
+      invariant(authUrl, "Please specify an authUrl in the ThirdwebProvider");
+      window.location.href = `${authUrl}/logout`;
+    },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(createCachekey(["user"]));
+      },
+    },
+  );
 
-  return logout;
+  return { logout: () => logout(), isLoading };
 }

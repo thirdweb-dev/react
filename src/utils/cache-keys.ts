@@ -10,7 +10,10 @@ import { BigNumberish, constants } from "ethers";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
 
-function createCachekey(input: QueryKey): QueryKey {
+/**
+ * @internal
+ */
+export function createCachekey(input: QueryKey): QueryKey {
   if (input[0] === TW_CACHE_KEY_PREFIX) {
     return input;
   }
