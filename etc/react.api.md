@@ -291,6 +291,7 @@ export const ThirdwebProvider: <TSupportedChain extends SupportedChain = Support
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
+    // @beta
     authUrl?: string;
     autoConnect?: boolean;
     // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
