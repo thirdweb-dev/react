@@ -149,6 +149,16 @@ export type AirdropNFTParams = {
 };
 
 /**
+ * The params to pass to `useMintNFTSupply`.
+ * @beta
+ */
+export type MintNFTSupplyParams = {
+  tokenId: BigNumberish;
+  additionalSupply: Amount;
+  to: WalletAddress;
+};
+
+/**
  * The params for the {@link useMintNFT} hook mutation.
  *
  * @beta
