@@ -66,6 +66,8 @@ import { useGnosis } from "@thirdweb-dev/react"
 |  [useLazyMint(contract, onProgress)](./react.uselazymint.md) | <b><i>(BETA)</i></b> Use this to lazy mint a batch of NFTs on your [DropContract](./react.dropcontract.md) |
 |  [useListing(contract, listingId)](./react.uselisting.md) | <b><i>(BETA)</i></b> Use this to get a specific listing from the marketplace. |
 |  [useListings(contract, filter)](./react.uselistings.md) | <b><i>(BETA)</i></b> Use this to get a list all listings from your marketplace contract. |
+|  [useLogin(config)](./react.uselogin.md) | Hook to securely login to a backend with the connected wallet. The backend authentication URL must be configured on the ThirdwebProvider. |
+|  [useLogout()](./react.uselogout.md) | Hook to logout the connected wallet from the backend. The backend logout URL must be configured on the ThirdwebProvider. |
 |  [useMagic()](./react.usemagic.md) | <p>Hook for connecting to an email wallet using magic link. This enables users without their own wallets to connect to your application and sign transactions securely using their email.</p>
 ```javascript
 import { useMagic } from "@thirdweb-dev/react"
@@ -120,6 +122,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useUpdatePlatformFees(contract)](./react.useupdateplatformfees.md) | <b><i>(BETA)</i></b> Use this to update the platform fees settings of your  |
 |  [useUpdatePrimarySaleRecipient(contract)](./react.useupdateprimarysalerecipient.md) | <b><i>(BETA)</i></b> Use this to update the primary sales recipient of your  |
 |  [useUpdateRoyaltySettings(contract)](./react.useupdateroyaltysettings.md) | <b><i>(BETA)</i></b> Use this to update the royalty settings of your  |
+|  [useUser()](./react.useuser.md) | Hook to get the currently logged in user. |
 |  [useVote(contractAddress)](./react.usevote.md) | Hook for getting an instance of an <code>Vote</code> contract. This contract enables fully featured voting-based decentralized governance systems. |
 |  [useWalletConnect()](./react.usewalletconnect.md) | <p>Hook for connecting to a mobile wallet with Wallet Connect</p>
 ```javascript
@@ -133,9 +136,11 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  Interface | Description |
 |  --- | --- |
 |  [DAppMetaData](./react.dappmetadata.md) | the metadata to pass to wallet connection dialog (may show up during the wallet-connection process) |
+|  [LoginConfig](./react.loginconfig.md) |  |
 |  [MediaRendererProps](./react.mediarendererprops.md) | The props for the [MediaRenderer](./react.mediarenderer.md) component. |
 |  [MediaType](./react.mediatype.md) |  |
 |  [SharedMediaProps](./react.sharedmediaprops.md) |  |
+|  [ThirdwebAuthConfig](./react.thirdwebauthconfig.md) |  |
 |  [ThirdwebNftMediaProps](./react.thirdwebnftmediaprops.md) | The props for the [ThirdwebNftMedia](./react.thirdwebnftmedia.md) component. |
 |  [ThirdwebProviderProps](./react.thirdwebproviderprops.md) | The possible props for the ThirdwebProvider. |
 |  [ThirdwebSDKProviderProps](./react.thirdwebsdkproviderprops.md) |  |

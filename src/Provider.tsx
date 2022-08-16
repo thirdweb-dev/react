@@ -100,6 +100,25 @@ export type ChainRpc<TSupportedChain extends SupportedChain> = Record<
   string
 >;
 
+export interface ThirdwebAuthConfig {
+  /**
+   * The backend URL of the authentication endoints. For example, if your endpoints are
+   * at /api/auth/login, /api/auth/logout, etc. then this should be set to "/api/auth".
+   */
+  authUrl: string;
+
+  /**
+   * The frontend domain used to generate the login payload.
+   * This domain should match the domain used on your auth backend.
+   */
+  domain: string;
+
+  /**
+   * The URL to redirect to after a succesful login.
+   */
+  loginRedirect?: string;
+}
+
 /**
  * the metadata to pass to wallet connection dialog (may show up during the wallet-connection process)
  * @remarks this is only used for wallet connect and wallet link, metamask does not support it
@@ -169,6 +188,13 @@ export interface ThirdwebProviderProps<
     : TSupportedChain | undefined;
 
   /**
+   * The configuration used for thirdweb auth usage. Enables users to login
+   * to backends with their wallet.
+   * @beta
+   */
+  authConfig?: ThirdwebAuthConfig;
+
+  /**
    * The storage interface to use with the sdk.
    */
   storageInterface?: IStorage;
@@ -228,6 +254,7 @@ export const ThirdwebProvider = <
   walletConnectors = defaultWalletConnectors,
   dAppMeta = defaultdAppMeta,
   desiredChainId,
+  authConfig,
   storageInterface,
   queryClient,
   autoConnect = true,
@@ -258,6 +285,14 @@ export const ThirdwebProvider = <
       return prev;
     }, {} as Record<number, string>);
   }, [chainRpc, _supporrtedChains]);
+
+  // Remove trailing slash from URL if present
+  const _authConfig = authConfig
+    ? {
+        ...authConfig,
+        authUrl: authConfig.authUrl.replace(/\/$/, ""),
+      }
+    : undefined;
 
   const wagmiProps: WagmiproviderProps = useMemo(() => {
     const walletConnectClientMeta = {
@@ -405,7 +440,11 @@ export const ThirdwebProvider = <
 
   return (
     <ThirdwebConfigProvider
-      value={{ rpcUrlMap: _rpcUrlMap, supportedChains: _supporrtedChains }}
+      value={{
+        rpcUrlMap: _rpcUrlMap,
+        supportedChains: _supporrtedChains,
+        authConfig: _authConfig,
+      }}
     >
       <WagmiProvider {...wagmiProps}>
         <ThirdwebSDKProviderWagmiWrapper
@@ -516,6 +555,18 @@ export const ThirdwebSDKProvider: React.FC<
 };
 
 /**
+ * @internal
+ */
+function useSDKContext(): SDKContext {
+  const ctx = React.useContext(ThirdwebSDKContext);
+  invariant(
+    ctx._inProvider,
+    "useSDK must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
+  );
+  return ctx;
+}
+
+/**
  *
  * @returns {@link ThirdwebSDK}
  * Access the instance of the thirdweb SDK created by the ThirdwebProvider
@@ -526,36 +577,22 @@ export const ThirdwebSDKProvider: React.FC<
  * ```
  */
 export function useSDK(): ThirdwebSDK | undefined {
-  const ctx = React.useContext(ThirdwebSDKContext);
-  invariant(
-    ctx._inProvider,
-    "useSDK must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
-  );
-  return ctx.sdk;
+  const { sdk } = useSDKContext();
+  return sdk;
 }
 
 /**
- *
  * @internal
  */
 export function useDesiredChainId(): number {
-  const ctx = React.useContext(ThirdwebSDKContext);
-  invariant(
-    ctx._inProvider,
-    "useDesiredChainId must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
-  );
-  return ctx.desiredChainId;
+  const { desiredChainId } = useSDKContext();
+  return desiredChainId;
 }
 
 /**
- *
  * @internal
  */
 export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined {
-  const ctx = React.useContext(ThirdwebSDKContext);
-  invariant(
-    ctx._inProvider,
-    "useActiveChainId must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
-  );
-  return (ctx.sdk as any)?._chainId;
+  const sdk = useSDK();
+  return (sdk as any)?._chainId;
 }

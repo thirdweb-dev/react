@@ -39,6 +39,7 @@ import { IpfsStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { IStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { Json } from '@thirdweb-dev/sdk/dist/browser';
 import { ListingType } from '@thirdweb-dev/sdk/dist/browser';
+import { LoginOptions } from '@thirdweb-dev/sdk/dist/src/schema';
 import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import type { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk/dist/browser';
@@ -186,6 +187,12 @@ export type InjectedConnectorType = "injected" | "metamask" | {
 
 export { IpfsStorage }
 
+// @public (undocumented)
+export interface LoginConfig {
+    onError?: (error: string) => void;
+    redirectTo?: string;
+}
+
 // Warning: (ae-internal-missing-underscore) The name "MagicConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -274,6 +281,13 @@ export interface SharedMediaProps {
     width?: HTMLIFrameElement["width"];
 }
 
+// @public (undocumented)
+export interface ThirdwebAuthConfig {
+    authUrl: string;
+    domain: string;
+    loginRedirect?: string;
+}
+
 // @beta (undocumented)
 export const ThirdwebNftMedia: React_2.ForwardRefExoticComponent<ThirdwebNftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
 
@@ -283,10 +297,12 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps {
 }
 
 // @public
-export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
+export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, authConfig, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
+    // @beta
+    authConfig?: ThirdwebAuthConfig;
     autoConnect?: boolean;
     // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
@@ -1427,6 +1443,12 @@ export function useListing(contract: RequiredParam<Marketplace>, listingId: Requ
 export function useListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
 
 // @public
+export function useLogin(config?: LoginConfig): (cfg?: LoginOptions) => Promise<void>;
+
+// @public
+export function useLogout(): () => void;
+
+// @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
     data?: ConnectorData<any> | undefined;
     error?: Error | undefined;
@@ -1719,6 +1741,12 @@ fee_recipient?: string | undefined;
 }, unknown>;
 
 // @public
+export function useUser(): {
+    user: ThirdwebAuthUser | undefined;
+    isLoading: boolean;
+};
+
+// @public
 export function useVote(contractAddress?: string): Vote | undefined;
 
 // @public
@@ -1768,6 +1796,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+// dist/hooks/auth/useUser.d.ts:12:5 - (ae-forgotten-export) The symbol "ThirdwebAuthUser" needs to be exported by the entry point index.d.ts
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
 // dist/types.d.ts:196:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 // dist/types.d.ts:202:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
