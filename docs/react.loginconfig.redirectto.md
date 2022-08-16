@@ -4,6 +4,8 @@
 
 ## LoginConfig.redirectTo property
 
+The URL to redirect to on login.
+
 <b>Signature:</b>
 
 ```typescript

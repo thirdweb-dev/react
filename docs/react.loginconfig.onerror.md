@@ -4,6 +4,8 @@
 
 ## LoginConfig.onError property
 
+Function to run on error.
+
 <b>Signature:</b>
 
 ```typescript

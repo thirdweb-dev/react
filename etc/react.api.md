@@ -76,7 +76,6 @@ import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { TransactionResultWithId } from '@thirdweb-dev/sdk/dist/browser';
 import { UploadProgressEvent } from '@thirdweb-dev/sdk/dist/browser';
 import { useAccount } from './hooks';
-import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { UseMutationResult } from '@tanstack/react-query';
 import { useProvider } from './hooks';
 import { UseQueryResult } from '@tanstack/react-query';
@@ -190,11 +189,7 @@ export { IpfsStorage }
 
 // @public (undocumented)
 export interface LoginConfig {
-    // (undocumented)
-    domain: string;
-    // (undocumented)
     onError?: (error: string) => void;
-    // (undocumented)
     redirectTo?: string;
 }
 
@@ -286,6 +281,13 @@ export interface SharedMediaProps {
     width?: HTMLIFrameElement["width"];
 }
 
+// @public (undocumented)
+export interface ThirdwebAuthConfig {
+    authUrl: string;
+    domain: string;
+    loginRedirect?: string;
+}
+
 // @beta (undocumented)
 export const ThirdwebNftMedia: React_2.ForwardRefExoticComponent<ThirdwebNftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
 
@@ -295,12 +297,12 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps {
 }
 
 // @public
-export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, authUrl, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
+export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, authConfig, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
     // @beta
-    authUrl?: string;
+    authConfig?: ThirdwebAuthConfig;
     autoConnect?: boolean;
     // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
@@ -1441,22 +1443,10 @@ export function useListing(contract: RequiredParam<Marketplace>, listingId: Requ
 export function useListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
 
 // @public
-export function useLoggedIn(): {
-    isLoggedIn: boolean | undefined;
-    isLoading: boolean;
-};
+export function useLogin(config?: LoginConfig): (cfg?: LoginOptions) => Promise<void>;
 
 // @public
-export function useLogin({ domain, redirectTo, onError }: LoginConfig): {
-    login: (options?: LoginOptions) => Promise<void>;
-    isLoading: boolean;
-};
-
-// @public
-export function useLogout(): {
-    logout: UseMutateAsyncFunction<void, unknown, void, unknown>;
-    isLoading: boolean;
-};
+export function useLogout(): () => void;
 
 // @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
@@ -1749,6 +1739,12 @@ fee_recipient: string;
 seller_fee_basis_points?: number | undefined;
 fee_recipient?: string | undefined;
 }, unknown>;
+
+// @public
+export function useUser(): {
+    user: any;
+    isLoading: boolean;
+};
 
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;

@@ -100,6 +100,25 @@ export type ChainRpc<TSupportedChain extends SupportedChain> = Record<
   string
 >;
 
+export interface ThirdwebAuthConfig {
+  /**
+   * The backend URL of the authentication endoints. For example, if your endpoints are
+   * at /api/auth/login, /api/auth/logout, etc. then this should be set to "/api/auth".
+   */
+  authUrl: string;
+
+  /**
+   * The frontend domain used to generate the login payload.
+   * This domain should match the domain used on your auth backend.
+   */
+  domain: string;
+
+  /**
+   * The URL to redirect to after a succesful login.
+   */
+  loginRedirect?: string;
+}
+
 /**
  * the metadata to pass to wallet connection dialog (may show up during the wallet-connection process)
  * @remarks this is only used for wallet connect and wallet link, metamask does not support it
@@ -169,11 +188,11 @@ export interface ThirdwebProviderProps<
     : TSupportedChain | undefined;
 
   /**
-   * The base URL of the backend endpoints for wallet authentication.
-   * These endpoints should include /login and /logout route.
+   * The configuration used for thirdweb auth usage. Enables users to login
+   * to backends with their wallet.
    * @beta
    */
-  authUrl?: string;
+  authConfig?: ThirdwebAuthConfig;
 
   /**
    * The storage interface to use with the sdk.
@@ -235,7 +254,7 @@ export const ThirdwebProvider = <
   walletConnectors = defaultWalletConnectors,
   dAppMeta = defaultdAppMeta,
   desiredChainId,
-  authUrl,
+  authConfig,
   storageInterface,
   queryClient,
   autoConnect = true,
@@ -268,7 +287,12 @@ export const ThirdwebProvider = <
   }, [chainRpc, _supporrtedChains]);
 
   // Remove trailing slash from URL if present
-  const _authUrl = authUrl?.replace(/\/$/, "");
+  const _authConfig = authConfig
+    ? {
+        ...authConfig,
+        authUrl: authConfig.authUrl.replace(/\/$/, ""),
+      }
+    : undefined;
 
   const wagmiProps: WagmiproviderProps = useMemo(() => {
     const walletConnectClientMeta = {
@@ -419,7 +443,7 @@ export const ThirdwebProvider = <
       value={{
         rpcUrlMap: _rpcUrlMap,
         supportedChains: _supporrtedChains,
-        authUrl: _authUrl,
+        authConfig: _authConfig,
       }}
     >
       <WagmiProvider {...wagmiProps}>

@@ -14,7 +14,6 @@ export interface LoginConfig
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [domain](./react.loginconfig.domain.md) |  | string |  |
-|  [onError?](./react.loginconfig.onerror.md) |  | (error: string) =&gt; void | <i>(Optional)</i> |
-|  [redirectTo?](./react.loginconfig.redirectto.md) |  | string | <i>(Optional)</i> |
+|  [onError?](./react.loginconfig.onerror.md) |  | (error: string) =&gt; void | <i>(Optional)</i> Function to run on error. |
+|  [redirectTo?](./react.loginconfig.redirectto.md) |  | string | <i>(Optional)</i> The URL to redirect to on login. |
 

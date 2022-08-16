@@ -9,14 +9,11 @@ Hook to logout the connected wallet from the backend. The backend logout URL mus
 <b>Signature:</b>
 
 ```typescript
-export declare function useLogout(): {
-    logout: import("@tanstack/react-query").UseMutateAsyncFunction<void, unknown, void, unknown>;
-    isLoading: boolean;
-};
+export declare function useLogout(): () => void;
 ```
 <b>Returns:</b>
 
-{ logout: import("@tanstack/react-query").UseMutateAsyncFunction&lt;void, unknown, void, unknown&gt;; isLoading: boolean; }
+() =&gt; void
 
 - A function to invoke to logout.
 
