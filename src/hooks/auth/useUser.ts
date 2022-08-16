@@ -1,7 +1,11 @@
 import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
-import { createCachekey } from "../../utils/cache-keys";
+import { cacheKeys } from "../../utils/cache-keys";
 import { useQuery } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
+
+interface ThirdwebAuthUser {
+  address: string;
+}
 
 /**
  * Hook to get the currently logged in user.
@@ -14,14 +18,14 @@ export function useUser() {
   const { authConfig } = useThirdwebConfigContext();
 
   const { data: user, isLoading } = useQuery(
-    createCachekey(["user"]),
+    cacheKeys.auth.user(),
     async () => {
       invariant(
         authConfig,
         "Please specify an authConfig in the ThirdwebProvider",
       );
       const res = await fetch(`${authConfig.authUrl}/user`);
-      return await res.json();
+      return (await res.json()) as ThirdwebAuthUser;
     },
   );
 

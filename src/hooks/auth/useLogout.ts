@@ -1,5 +1,5 @@
 import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
-import { createCachekey } from "../../utils/cache-keys";
+import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 
@@ -20,7 +20,7 @@ export function useLogout() {
       authConfig,
       "Please specify an authConfig in the ThirdwebProvider",
     );
-    queryClient.invalidateQueries(createCachekey(["user"]));
+    queryClient.invalidateQueries(cacheKeys.auth.user());
     window.location.href = `${authConfig.authUrl}/logout`;
   }
 

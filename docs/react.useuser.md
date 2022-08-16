@@ -10,13 +10,13 @@ Hook to get the currently logged in user.
 
 ```typescript
 export declare function useUser(): {
-    user: any;
+    user: ThirdwebAuthUser | undefined;
     isLoading: boolean;
 };
 ```
 <b>Returns:</b>
 
-{ user: any; isLoading: boolean; }
+{ user: ThirdwebAuthUser \| undefined; isLoading: boolean; }
 
 - The currently logged in user or null if not logged in, as well as a loading state.
 

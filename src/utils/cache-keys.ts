@@ -13,7 +13,7 @@ const TW_CACHE_KEY_PREFIX = "tw-cache";
 /**
  * @internal
  */
-export function createCachekey(input: QueryKey): QueryKey {
+function createCachekey(input: QueryKey): QueryKey {
   if (input[0] === TW_CACHE_KEY_PREFIX) {
     return input;
   }
@@ -65,6 +65,9 @@ export function invalidateContractAndBalances(
  @internal
  */
 export const cacheKeys = {
+  auth: {
+    user: () => createCachekey(["user"]),
+  },
   network: {
     active: (chainId: RequiredParam<SUPPORTED_CHAIN_ID>) =>
       createCachekey(["chainId", chainId]),

@@ -1,6 +1,6 @@
 import { useSDK } from "../../Provider";
 import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
-import { createCachekey } from "../../utils/cache-keys";
+import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import { LoginOptions } from "@thirdweb-dev/sdk/dist/src/schema";
 import React from "react";
@@ -47,15 +47,16 @@ export function useLogin(config?: LoginConfig) {
       "Please specify an authConfig in the ThirdwebProvider",
     );
     const payload = await sdk?.auth.login(authConfig.domain, cfg);
-    const encodedPayload = encodeURIComponent(JSON.stringify(payload));
+
+    const encodedPayload = encodeURIComponent(btoa(JSON.stringify(payload)));
     const encodedRedirectTo = encodeURIComponent(
       config?.redirectTo || authConfig.loginRedirect || window.location.href,
     );
 
-    queryClient.invalidateQueries(createCachekey(["user"]));
+    queryClient.invalidateQueries(cacheKeys.auth.user());
 
     // Redirect to the login URL with the encoded payload
-    window.location.href = `${authConfig.authUrl}/login?payload=${encodedPayload}&redirectTo=${encodedRedirectTo}`;
+    window.location.href = `${authConfig.authUrl}/login?payload=${encodedPayload}&redirect=${encodedRedirectTo}`;
   }
 
   return login;

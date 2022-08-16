@@ -1742,7 +1742,7 @@ fee_recipient?: string | undefined;
 
 // @public
 export function useUser(): {
-    user: any;
+    user: ThirdwebAuthUser | undefined;
     isLoading: boolean;
 };
 
@@ -1796,6 +1796,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+// dist/hooks/auth/useUser.d.ts:12:5 - (ae-forgotten-export) The symbol "ThirdwebAuthUser" needs to be exported by the entry point index.d.ts
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
 // dist/types.d.ts:196:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 // dist/types.d.ts:202:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
