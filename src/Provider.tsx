@@ -9,6 +9,7 @@ import {
   defaultSupportedChains,
 } from "./constants/chain";
 import {
+  ThirdwebAuthConfig,
   ThirdwebConfigProvider,
   defaultChainRpc,
 } from "./contexts/thirdweb-config";
@@ -99,26 +100,6 @@ export type ChainRpc<TSupportedChain extends SupportedChain> = Record<
   TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain,
   string
 >;
-
-export interface ThirdwebAuthConfig {
-  /**
-   * The backend URL of the authentication endoints. For example, if your endpoints are
-   * at /api/auth/login, /api/auth/logout, etc. then this should be set to "/api/auth".
-   */
-  authUrl: string;
-
-  /**
-   * The frontend domain used to generate the login payload.
-   * This domain should match the domain used on your auth backend.
-   */
-  domain: string;
-
-  /**
-   * The URL to redirect to after a succesful login.
-   */
-  loginRedirect?: string;
-}
-
 /**
  * the metadata to pass to wallet connection dialog (may show up during the wallet-connection process)
  * @remarks this is only used for wallet connect and wallet link, metamask does not support it

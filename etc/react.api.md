@@ -281,13 +281,6 @@ export interface SharedMediaProps {
     width?: HTMLIFrameElement["width"];
 }
 
-// @public (undocumented)
-export interface ThirdwebAuthConfig {
-    authUrl: string;
-    domain: string;
-    loginRedirect?: string;
-}
-
 // @beta (undocumented)
 export const ThirdwebNftMedia: React_2.ForwardRefExoticComponent<ThirdwebNftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
 
@@ -301,6 +294,8 @@ export const ThirdwebProvider: <TSupportedChain extends SupportedChain = Support
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
+    // Warning: (ae-forgotten-export) The symbol "ThirdwebAuthConfig" needs to be exported by the entry point index.d.ts
+    //
     // @beta
     authConfig?: ThirdwebAuthConfig;
     autoConnect?: boolean;
@@ -1442,10 +1437,10 @@ export function useListing(contract: RequiredParam<Marketplace>, listingId: Requ
 // @beta
 export function useListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
 
-// @public
+// @beta
 export function useLogin(config?: LoginConfig): (cfg?: LoginOptions) => Promise<void>;
 
-// @public
+// @beta
 export function useLogout(): () => void;
 
 // @public
@@ -1740,7 +1735,7 @@ seller_fee_basis_points?: number | undefined;
 fee_recipient?: string | undefined;
 }, unknown>;
 
-// @public
+// @beta
 export function useUser(): {
     user: ThirdwebAuthUser | undefined;
     isLoading: boolean;
@@ -1792,8 +1787,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
-// dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/Provider.d.ts:38:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point index.d.ts
+// dist/Provider.d.ts:45:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point index.d.ts
 // dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/auth/useUser.d.ts:12:5 - (ae-forgotten-export) The symbol "ThirdwebAuthUser" needs to be exported by the entry point index.d.ts

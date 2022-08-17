@@ -16,7 +16,7 @@ export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = 
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [authConfig?](./react.thirdwebproviderprops.authconfig.md) |  | [ThirdwebAuthConfig](./react.thirdwebauthconfig.md) | <b><i>(BETA)</i></b> <i>(Optional)</i> The configuration used for thirdweb auth usage. Enables users to login to backends with their wallet. |
+|  [authConfig?](./react.thirdwebproviderprops.authconfig.md) |  | ThirdwebAuthConfig | <b><i>(BETA)</i></b> <i>(Optional)</i> The configuration used for thirdweb auth usage. Enables users to login to backends with their wallet. |
 |  [autoConnect?](./react.thirdwebproviderprops.autoconnect.md) |  | boolean | <i>(Optional)</i> Whether or not to attempt auto-connect to a wallet. |
 |  [chainRpc?](./react.thirdwebproviderprops.chainrpc.md) |  | Partial&lt;ChainRpc&lt;TSupportedChain&gt;&gt; | <i>(Optional)</i> A partial map of chainIds to rpc urls to use for certain chains If not provided, will default to the rpcUrls of the chain objects for the supported chains |
 |  [dAppMeta?](./react.thirdwebproviderprops.dappmeta.md) |  | [DAppMetaData](./react.dappmetadata.md) | <i>(Optional)</i> Metadata to pass to wallet connect and walletlink wallet connect. (Used to show \*which\* dApp is being connected to in mobile wallets that support it) Defaults to just the name being passed as <code>thirdweb powered dApp</code>. |

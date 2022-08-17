@@ -4,6 +4,9 @@
 
 ## useLogin() function
 
+> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+> 
+
 Hook to securely login to a backend with the connected wallet. The backend authentication URL must be configured on the ThirdwebProvider.
 
 <b>Signature:</b>

@@ -9,7 +9,7 @@ import invariant from "tiny-invariant";
  *
  * @returns - A function to invoke to logout.
  *
- * @public
+ * @beta
  */
 export function useLogout() {
   const queryClient = useQueryClient();

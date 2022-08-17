@@ -12,7 +12,7 @@ interface ThirdwebAuthUser {
  *
  * @returns - The currently logged in user or null if not logged in, as well as a loading state.
  *
- * @public
+ * @beta
  */
 export function useUser() {
   const { authConfig } = useThirdwebConfigContext();

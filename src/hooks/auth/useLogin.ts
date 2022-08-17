@@ -24,7 +24,7 @@ export interface LoginConfig {
  * @param config - Configuration for the login.
  * @returns - A function to invoke to login with the connected wallet.
  *
- * @public
+ * @beta
  */
 export function useLogin(config?: LoginConfig) {
   const sdk = useSDK();
@@ -50,7 +50,9 @@ export function useLogin(config?: LoginConfig) {
 
     const encodedPayload = encodeURIComponent(btoa(JSON.stringify(payload)));
     const encodedRedirectTo = encodeURIComponent(
-      config?.redirectTo || authConfig.loginRedirect || window.location.href,
+      config?.redirectTo ||
+        authConfig.loginRedirect ||
+        window.location.toString(),
     );
 
     queryClient.invalidateQueries(cacheKeys.auth.user());
