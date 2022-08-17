@@ -1,5 +1,5 @@
 import { useSDK } from "../../Provider";
-import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
+import { useThirdwebAuthConfig } from "../../contexts/thirdweb-auth";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import { LoginOptions } from "@thirdweb-dev/sdk/dist/src/schema";
@@ -24,12 +24,12 @@ export interface LoginConfig {
  * @param config - Configuration for the login.
  * @returns - A function to invoke to login with the connected wallet.
  *
- * @public
+ * @beta
  */
 export function useLogin(config?: LoginConfig) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
-  const { authConfig } = useThirdwebConfigContext();
+  const authConfig = useThirdwebAuthConfig();
 
   React.useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -50,7 +50,9 @@ export function useLogin(config?: LoginConfig) {
 
     const encodedPayload = encodeURIComponent(btoa(JSON.stringify(payload)));
     const encodedRedirectTo = encodeURIComponent(
-      config?.redirectTo || authConfig.loginRedirect || window.location.href,
+      config?.redirectTo ||
+        authConfig.loginRedirect ||
+        window.location.toString(),
     );
 
     queryClient.invalidateQueries(cacheKeys.auth.user());

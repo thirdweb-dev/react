@@ -1,4 +1,3 @@
-import { ThirdwebAuthConfig } from "../Provider";
 import {
   Chain,
   SupportedChainId,
@@ -10,7 +9,6 @@ import React, { PropsWithChildren, createContext, useContext } from "react";
 interface ThirdwebConfigContext {
   rpcUrlMap: Record<SupportedChainId | number, string>;
   supportedChains: Chain[];
-  authConfig?: ThirdwebAuthConfig;
 }
 
 export const defaultChainRpc: Record<SupportedChainId | number, string> = {
@@ -23,7 +21,7 @@ export const defaultChainRpc: Record<SupportedChainId | number, string> = {
   [ChainId.Avalanche]: "avalanche",
 };
 
-export const ThirdwebConfigContext = createContext<ThirdwebConfigContext>({
+const ThirdwebConfigContext = createContext<ThirdwebConfigContext>({
   rpcUrlMap: defaultChainRpc,
   supportedChains: defaultSupportedChains,
 });

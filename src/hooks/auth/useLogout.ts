@@ -1,4 +1,4 @@
-import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
+import { useThirdwebAuthConfig } from "../../contexts/thirdweb-auth";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
@@ -9,11 +9,11 @@ import invariant from "tiny-invariant";
  *
  * @returns - A function to invoke to logout.
  *
- * @public
+ * @beta
  */
 export function useLogout() {
   const queryClient = useQueryClient();
-  const { authConfig } = useThirdwebConfigContext();
+  const authConfig = useThirdwebAuthConfig();
 
   function logout() {
     invariant(

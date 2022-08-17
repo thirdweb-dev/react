@@ -9,6 +9,10 @@ import {
   defaultSupportedChains,
 } from "./constants/chain";
 import {
+  ThirdwebAuthConfig,
+  ThirdwebAuthConfigProvider,
+} from "./contexts/thirdweb-auth";
+import {
   ThirdwebConfigProvider,
   defaultChainRpc,
 } from "./contexts/thirdweb-config";
@@ -99,26 +103,6 @@ export type ChainRpc<TSupportedChain extends SupportedChain> = Record<
   TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain,
   string
 >;
-
-export interface ThirdwebAuthConfig {
-  /**
-   * The backend URL of the authentication endoints. For example, if your endpoints are
-   * at /api/auth/login, /api/auth/logout, etc. then this should be set to "/api/auth".
-   */
-  authUrl: string;
-
-  /**
-   * The frontend domain used to generate the login payload.
-   * This domain should match the domain used on your auth backend.
-   */
-  domain: string;
-
-  /**
-   * The URL to redirect to after a succesful login.
-   */
-  loginRedirect?: string;
-}
-
 /**
  * the metadata to pass to wallet connection dialog (may show up during the wallet-connection process)
  * @remarks this is only used for wallet connect and wallet link, metamask does not support it
@@ -286,14 +270,6 @@ export const ThirdwebProvider = <
     }, {} as Record<number, string>);
   }, [chainRpc, _supporrtedChains]);
 
-  // Remove trailing slash from URL if present
-  const _authConfig = authConfig
-    ? {
-        ...authConfig,
-        authUrl: authConfig.authUrl.replace(/\/$/, ""),
-      }
-    : undefined;
-
   const wagmiProps: WagmiproviderProps = useMemo(() => {
     const walletConnectClientMeta = {
       name: dAppMeta.name,
@@ -443,7 +419,6 @@ export const ThirdwebProvider = <
       value={{
         rpcUrlMap: _rpcUrlMap,
         supportedChains: _supporrtedChains,
-        authConfig: _authConfig,
       }}
     >
       <WagmiProvider {...wagmiProps}>
@@ -452,6 +427,7 @@ export const ThirdwebProvider = <
           desiredChainId={desiredChainId}
           sdkOptions={sdkOptionsWithDefaults}
           storageInterface={storageInterface}
+          authConfig={authConfig}
         >
           {children}
         </ThirdwebSDKProviderWagmiWrapper>
@@ -463,7 +439,7 @@ export const ThirdwebProvider = <
 export interface ThirdwebSDKProviderWagmiWrapper
   extends Pick<
     ThirdwebProviderProps,
-    "desiredChainId" | "sdkOptions" | "storageInterface"
+    "desiredChainId" | "sdkOptions" | "storageInterface" | "authConfig"
   > {
   signer?: Signer;
   provider: ChainOrRpc | SignerOrProvider;
@@ -515,6 +491,7 @@ export const ThirdwebSDKProvider: React.FC<
   provider,
   signer,
   queryClient,
+  authConfig,
   children,
 }) => {
   const queryClientWithDefault: QueryClient = useMemo(() => {
@@ -546,11 +523,13 @@ export const ThirdwebSDKProvider: React.FC<
   );
 
   return (
-    <QueryClientProvider client={queryClientWithDefault}>
-      <ThirdwebSDKContext.Provider value={ctxValue}>
-        {children}
-      </ThirdwebSDKContext.Provider>
-    </QueryClientProvider>
+    <ThirdwebAuthConfigProvider value={authConfig}>
+      <QueryClientProvider client={queryClientWithDefault}>
+        <ThirdwebSDKContext.Provider value={ctxValue}>
+          {children}
+        </ThirdwebSDKContext.Provider>
+      </QueryClientProvider>
+    </ThirdwebAuthConfigProvider>
   );
 };
 

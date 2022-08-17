@@ -4,6 +4,11 @@
 
 ## ThirdwebAuthConfig interface
 
+> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+> 
+
+The configuration to use the react SDK with an \[auth\](https://portal.thirdweb.com/auth) server.
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +19,7 @@ export interface ThirdwebAuthConfig
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [authUrl](./react.thirdwebauthconfig.authurl.md) |  | string | The backend URL of the authentication endoints. For example, if your endpoints are at /api/auth/login, /api/auth/logout, etc. then this should be set to "/api/auth". |
-|  [domain](./react.thirdwebauthconfig.domain.md) |  | string | The frontend domain used to generate the login payload. This domain should match the domain used on your auth backend. |
-|  [loginRedirect?](./react.thirdwebauthconfig.loginredirect.md) |  | string | <i>(Optional)</i> The URL to redirect to after a succesful login. |
+|  [authUrl](./react.thirdwebauthconfig.authurl.md) |  | string | <b><i>(BETA)</i></b> The backend URL of the authentication endoints. For example, if your endpoints are at <code>/api/auth/login</code>, <code>/api/auth/logout</code>, etc. then this should be set to <code>/api/auth</code>. |
+|  [domain](./react.thirdwebauthconfig.domain.md) |  | string | <b><i>(BETA)</i></b> The frontend domain used to generate the login payload. This domain should match the domain used on your auth backend. |
+|  [loginRedirect?](./react.thirdwebauthconfig.loginredirect.md) |  | string | <b><i>(BETA)</i></b> <i>(Optional)</i> The URL to redirect to after a succesful login. |
 
