@@ -1,5 +1,5 @@
 import { useSDK } from "../../Provider";
-import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
+import { useThirdwebAuthConfig } from "../../contexts/thirdweb-auth";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import { LoginOptions } from "@thirdweb-dev/sdk/dist/src/schema";
@@ -29,7 +29,7 @@ export interface LoginConfig {
 export function useLogin(config?: LoginConfig) {
   const sdk = useSDK();
   const queryClient = useQueryClient();
-  const { authConfig } = useThirdwebConfigContext();
+  const authConfig = useThirdwebAuthConfig();
 
   React.useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);

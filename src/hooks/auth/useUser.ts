@@ -1,4 +1,4 @@
-import { useThirdwebConfigContext } from "../../contexts/thirdweb-config";
+import { useThirdwebAuthConfig } from "../../contexts/thirdweb-auth";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQuery } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
@@ -15,7 +15,7 @@ interface ThirdwebAuthUser {
  * @beta
  */
 export function useUser() {
-  const { authConfig } = useThirdwebConfigContext();
+  const authConfig = useThirdwebAuthConfig();
 
   const { data: user, isLoading } = useQuery(
     cacheKeys.auth.user(),

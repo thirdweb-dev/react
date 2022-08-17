@@ -10,6 +10,9 @@ import {
 } from "./constants/chain";
 import {
   ThirdwebAuthConfig,
+  ThirdwebAuthConfigProvider,
+} from "./contexts/thirdweb-auth";
+import {
   ThirdwebConfigProvider,
   defaultChainRpc,
 } from "./contexts/thirdweb-config";
@@ -267,14 +270,6 @@ export const ThirdwebProvider = <
     }, {} as Record<number, string>);
   }, [chainRpc, _supporrtedChains]);
 
-  // Remove trailing slash from URL if present
-  const _authConfig = authConfig
-    ? {
-        ...authConfig,
-        authUrl: authConfig.authUrl.replace(/\/$/, ""),
-      }
-    : undefined;
-
   const wagmiProps: WagmiproviderProps = useMemo(() => {
     const walletConnectClientMeta = {
       name: dAppMeta.name,
@@ -424,7 +419,6 @@ export const ThirdwebProvider = <
       value={{
         rpcUrlMap: _rpcUrlMap,
         supportedChains: _supporrtedChains,
-        authConfig: _authConfig,
       }}
     >
       <WagmiProvider {...wagmiProps}>
@@ -433,6 +427,7 @@ export const ThirdwebProvider = <
           desiredChainId={desiredChainId}
           sdkOptions={sdkOptionsWithDefaults}
           storageInterface={storageInterface}
+          authConfig={authConfig}
         >
           {children}
         </ThirdwebSDKProviderWagmiWrapper>
@@ -444,7 +439,7 @@ export const ThirdwebProvider = <
 export interface ThirdwebSDKProviderWagmiWrapper
   extends Pick<
     ThirdwebProviderProps,
-    "desiredChainId" | "sdkOptions" | "storageInterface"
+    "desiredChainId" | "sdkOptions" | "storageInterface" | "authConfig"
   > {
   signer?: Signer;
   provider: ChainOrRpc | SignerOrProvider;
@@ -496,6 +491,7 @@ export const ThirdwebSDKProvider: React.FC<
   provider,
   signer,
   queryClient,
+  authConfig,
   children,
 }) => {
   const queryClientWithDefault: QueryClient = useMemo(() => {
@@ -527,11 +523,13 @@ export const ThirdwebSDKProvider: React.FC<
   );
 
   return (
-    <QueryClientProvider client={queryClientWithDefault}>
-      <ThirdwebSDKContext.Provider value={ctxValue}>
-        {children}
-      </ThirdwebSDKContext.Provider>
-    </QueryClientProvider>
+    <ThirdwebAuthConfigProvider value={authConfig}>
+      <QueryClientProvider client={queryClientWithDefault}>
+        <ThirdwebSDKContext.Provider value={ctxValue}>
+          {children}
+        </ThirdwebSDKContext.Provider>
+      </QueryClientProvider>
+    </ThirdwebAuthConfigProvider>
   );
 };
 

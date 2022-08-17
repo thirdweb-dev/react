@@ -322,7 +322,7 @@ export interface ThirdwebSDKProviderProps extends Omit<ThirdwebSDKProviderWagmiW
 }
 
 // @public (undocumented)
-export interface ThirdwebSDKProviderWagmiWrapper extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> {
+export interface ThirdwebSDKProviderWagmiWrapper extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface" | "authConfig"> {
     // (undocumented)
     provider: ChainOrRpc | SignerOrProvider;
     // (undocumented)
