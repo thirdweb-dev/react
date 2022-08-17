@@ -281,6 +281,13 @@ export interface SharedMediaProps {
     width?: HTMLIFrameElement["width"];
 }
 
+// @beta
+export interface ThirdwebAuthConfig {
+    authUrl: string;
+    domain: string;
+    loginRedirect?: string;
+}
+
 // @beta (undocumented)
 export const ThirdwebNftMedia: React_2.ForwardRefExoticComponent<ThirdwebNftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
 
@@ -294,8 +301,6 @@ export const ThirdwebProvider: <TSupportedChain extends SupportedChain = Support
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
-    // Warning: (ae-forgotten-export) The symbol "ThirdwebAuthConfig" needs to be exported by the entry point index.d.ts
-    //
     // @beta
     authConfig?: ThirdwebAuthConfig;
     autoConnect?: boolean;

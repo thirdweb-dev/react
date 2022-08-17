@@ -36,3 +36,4 @@ export * from "./hooks/async/roles";
 
 // types
 export * from "./types";
+export type { ThirdwebAuthConfig } from "./contexts/thirdweb-auth";

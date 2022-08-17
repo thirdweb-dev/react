@@ -1,9 +1,14 @@
 import { PropsWithChildren, createContext, useContext, useMemo } from "react";
 
+/**
+ * The configuration to use the react SDK with an [auth](https://portal.thirdweb.com/auth) server.
+ *
+ * @beta
+ */
 export interface ThirdwebAuthConfig {
   /**
    * The backend URL of the authentication endoints. For example, if your endpoints are
-   * at /api/auth/login, /api/auth/logout, etc. then this should be set to "/api/auth".
+   * at `/api/auth/login`, `/api/auth/logout`, etc. then this should be set to `/api/auth`.
    */
   authUrl: string;
 
