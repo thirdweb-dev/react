@@ -27,6 +27,10 @@ import { CallOverrides } from "ethers";
 import { useEffect, useMemo } from "react";
 import invariant from "tiny-invariant";
 
+export type SmartContractReturnType = ReturnType<
+  typeof useContract
+>["contract"];
+
 async function fetchContractType(
   contractAddress: RequiredParam<string>,
   sdk: RequiredParam<ThirdwebSDK>,

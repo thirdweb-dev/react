@@ -1,11 +1,14 @@
 import { RequiredParam, WalletAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
+import { SmartContractReturnType } from "./contracts";
 import {
+  DropErc1155ClaimConditions,
   EditionDrop,
   Erc1155,
   NFTDrop,
   SignatureDrop,
+  SmartContract,
   TokenDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumberish } from "ethers";
@@ -14,6 +17,8 @@ import invariant from "tiny-invariant";
 type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
   ? [contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>]
   : [contract: RequiredParam<TContract>];
+
+type DropContract = NFTDrop | EditionDrop | TokenDrop | SignatureDrop;
 
 /** **********************/
 /**     READ  HOOKS     **/
@@ -42,23 +47,28 @@ type ActiveClaimConditionParams<TContract> = TContract extends Erc1155
  * @beta
  */
 export function useActiveClaimCondition<
-  TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop,
+  TContract extends DropContract | SmartContractReturnType,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
+
+  const claimConditions =
+    contract instanceof SmartContract
+      ? (contract as SmartContract).nft?.drop?.claim?.conditions
+      : contract?.claimConditions;
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getActive(contractAddress, tokenId),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
-        contract.claimConditions.getActive,
+        claimConditions?.getActive,
         "Contract instance does not support claimConditions.getActive",
       );
-      if (contract instanceof Erc1155) {
+      if (claimConditions instanceof DropErc1155ClaimConditions) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
-        return contract.claimConditions.getActive(tokenId);
+        return claimConditions?.getActive(tokenId);
       }
-      return contract.claimConditions.getActive();
+      return claimConditions?.getActive();
     },
     {
       // Checks that happen here:
@@ -92,27 +102,32 @@ export function useActiveClaimCondition<
  * @beta
  */
 export function useClaimConditions<
-  TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop,
+  TContract extends DropContract | SmartContractReturnType,
 >(...[contract, tokenId]: ActiveClaimConditionParams<TContract>) {
   const contractAddress = contract?.getAddress();
+
+  const claimConditions =
+    contract instanceof SmartContract
+      ? (contract as SmartContract).nft?.drop?.claim?.conditions
+      : contract?.claimConditions;
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getAll(contractAddress, tokenId),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
-        contract.claimConditions.getAll,
+        claimConditions?.getAll,
         "Contract instance does not support claimConditions.getAll",
       );
-      if (contract instanceof Erc1155) {
+      if (claimConditions instanceof DropErc1155ClaimConditions) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
-        return contract.claimConditions.getAll(tokenId);
+        return claimConditions?.getAll(tokenId);
       }
-      return contract.claimConditions.getAll();
+      return claimConditions?.getAll();
     },
     {
       // Checks that happen here:
-      // 1. if the contract is based on  ERC1155 contract => tokenId cannot be `undefined`
+      // 1. if the contract is based on ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
       enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
     },
