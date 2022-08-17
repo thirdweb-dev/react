@@ -44,6 +44,15 @@ export type TokenParams = {
   amount: Amount;
 };
 
+/**
+ * The parameters to pass to the burn function.
+ *
+ * @beta
+ */
+export type TokenBurnParams = {
+  amount: Amount;
+};
+
 // NFTS //
 
 /**
@@ -140,6 +149,16 @@ export type AirdropNFTParams = {
 };
 
 /**
+ * The params to pass to `useMintNFTSupply`.
+ * @beta
+ */
+export type MintNFTSupplyParams = {
+  tokenId: BigNumberish;
+  additionalSupply: Amount;
+  to: WalletAddress;
+};
+
+/**
  * The params for the {@link useMintNFT} hook mutation.
  *
  * @beta
@@ -159,6 +178,16 @@ export type MintNFTReturnType<TContract> = TContract extends Erc721
   : TContract extends Erc1155
   ? Awaited<ReturnType<Erc1155Mintable["to"]>>
   : never;
+
+/**
+ * The params for the {@link useBurnNFT} hook mutation.
+ *
+ * @beta
+ */
+export type BurnNFTParams<TContract extends NFTContract> =
+  TContract extends Erc1155
+    ? { tokenId: BigNumberish; amount: Amount }
+    : { tokenId: BigNumberish };
 
 // DROPS //
 

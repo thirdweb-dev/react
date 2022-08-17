@@ -1,5 +1,6 @@
 // contract hooks
 export * from "./Provider";
+export * from "./hooks/auth";
 export * from "./hooks/contracts";
 export * from "./hooks/useDisconnect";
 export * from "./hooks/useConnect";
@@ -32,6 +33,7 @@ export * from "./hooks/async/roles";
 
 // types
 export * from "./types";
+export type { ThirdwebAuthConfig } from "./contexts/thirdweb-auth";
 
 // ui components
 export * from "./components/MediaRenderer";

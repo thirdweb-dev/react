@@ -41,6 +41,7 @@ import { IpfsStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { IStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { Json } from '@thirdweb-dev/sdk/dist/browser';
 import { ListingType } from '@thirdweb-dev/sdk/dist/browser';
+import { LoginOptions } from '@thirdweb-dev/sdk/dist/src/schema';
 import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import type { MagicSDKAdditionalConfiguration } from 'magic-sdk';
 import { Marketplace } from '@thirdweb-dev/sdk/dist/browser';
@@ -88,6 +89,14 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 export type AirdropNFTParams = {
     tokenId: BigNumberish;
     addresses: AirdropInput;
+};
+
+// @beta
+export type BurnNFTParams<TContract extends NFTContract> = TContract extends Erc1155 ? {
+    tokenId: BigNumberish;
+    amount: Amount;
+} : {
+    tokenId: BigNumberish;
 };
 
 // @public (undocumented)
@@ -185,6 +194,12 @@ export type InjectedConnectorType = "injected" | "metamask" | {
 
 export { IpfsStorage }
 
+// @public (undocumented)
+export interface LoginConfig {
+    onError?: (error: string) => void;
+    redirectTo?: string;
+}
+
 // Warning: (ae-internal-missing-underscore) The name "MagicConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -233,6 +248,13 @@ export type MintNFTParams<TContract extends NFTContract> = TContract extends Erc
 export type MintNFTReturnType<TContract> = TContract extends Erc721 ? Awaited<ReturnType<Erc721Mintable["to"]>> : TContract extends Erc1155 ? Awaited<ReturnType<Erc1155Mintable["to"]>> : never;
 
 // @beta
+export type MintNFTSupplyParams = {
+    tokenId: BigNumberish;
+    additionalSupply: Amount;
+    to: WalletAddress;
+};
+
+// @beta
 export type NFT<TContract extends NFTContract> = {
     metadata: NFTMetadata;
     owner: string;
@@ -266,6 +288,13 @@ export interface SharedMediaProps {
     width?: HTMLIFrameElement["width"];
 }
 
+// @beta
+export interface ThirdwebAuthConfig {
+    authUrl: string;
+    domain: string;
+    loginRedirect?: string;
+}
+
 // @beta (undocumented)
 export const ThirdwebNftMedia: React_2.ForwardRefExoticComponent<ThirdwebNftMediaProps & React_2.RefAttributes<HTMLMediaElement>>;
 
@@ -275,10 +304,12 @@ export interface ThirdwebNftMediaProps extends SharedMediaProps {
 }
 
 // @public
-export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
+export const ThirdwebProvider: <TSupportedChain extends SupportedChain = SupportedChain>({ sdkOptions, chainRpc, supportedChains, walletConnectors, dAppMeta, desiredChainId, authConfig, storageInterface, queryClient, autoConnect, children, }: React_2.PropsWithChildren<ThirdwebProviderProps<TSupportedChain>>) => JSX.Element;
 
 // @public
 export interface ThirdwebProviderProps<TSupportedChain extends SupportedChain = SupportedChain> {
+    // @beta
+    authConfig?: ThirdwebAuthConfig;
     autoConnect?: boolean;
     // Warning: (ae-incompatible-release-tags) The symbol "chainRpc" is marked as @public, but its signature references "ChainRpc" which is marked as @internal
     chainRpc?: Partial<ChainRpc<TSupportedChain>>;
@@ -303,7 +334,7 @@ export interface ThirdwebSDKProviderProps extends Omit<ThirdwebSDKProviderWagmiW
 }
 
 // @public (undocumented)
-export interface ThirdwebSDKProviderWagmiWrapper extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface"> {
+export interface ThirdwebSDKProviderWagmiWrapper extends Pick<ThirdwebProviderProps, "desiredChainId" | "sdkOptions" | "storageInterface" | "authConfig"> {
     // (undocumented)
     provider: ChainOrRpc | SignerOrProvider;
     // (undocumented)
@@ -311,6 +342,11 @@ export interface ThirdwebSDKProviderWagmiWrapper extends Pick<ThirdwebProviderPr
     // (undocumented)
     signer?: Signer;
 }
+
+// @beta
+export type TokenBurnParams = {
+    amount: Amount;
+};
 
 // @beta
 export type TokenParams = {
@@ -404,6 +440,18 @@ export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResu
 //
 // @internal (undocumented)
 export function useBuiltinContract<TContractType extends ContractType>(contractType?: TContractType, contractAddress?: string): ContractForContractType<TContractType> | undefined;
+
+// @beta
+export function useBurnNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, BurnNFTParams<TContract>, unknown>;
+
+// @beta
+export function useBurnToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, TokenBurnParams, unknown>;
 
 // @beta
 export function useBuyNow(contract: RequiredParam<Marketplace>): UseMutationResult<Omit<{
@@ -1401,6 +1449,12 @@ export function useListing(contract: RequiredParam<Marketplace>, listingId: Requ
 // @beta
 export function useListings(contract: RequiredParam<Marketplace>, filter?: MarketplaceFilter): UseQueryResult<(AuctionListing | DirectListing)[], unknown>;
 
+// @beta
+export function useLogin(config?: LoginConfig): (cfg?: LoginOptions) => Promise<void>;
+
+// @beta
+export function useLogout(): () => void;
+
 // @public
 export function useMagic(): (configuration: LoginWithMagicLinkConfiguration) => Promise<{
     data?: ConnectorData<any> | undefined;
@@ -1435,6 +1489,21 @@ export function useMetamask(): () => Promise<{
 
 // @beta
 export function useMintNFT<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<MintNFTReturnType<TContract>, unknown, MintNFTParams<TContract>, unknown>;
+
+// @beta
+export function useMintNFTSupply(contract: Erc1155): UseMutationResult<TransactionResultWithId<    {
+metadata: {
+[x: string]: Json;
+name?: string | undefined;
+description?: string | null | undefined;
+image?: string | null | undefined;
+external_url?: string | null | undefined;
+animation_url?: string | null | undefined;
+uri: string;
+id: BigNumber;
+};
+supply: BigNumber;
+}>, unknown, MintNFTSupplyParams, unknown>;
 
 // @beta
 export function useMintToken(contract: RequiredParam<Erc20>): UseMutationResult<Omit<{
@@ -1678,6 +1747,12 @@ seller_fee_basis_points?: number | undefined;
 fee_recipient?: string | undefined;
 }, unknown>;
 
+// @beta
+export function useUser(): {
+    user: ThirdwebAuthUser | undefined;
+    isLoading: boolean;
+};
+
 // @public
 export function useVote(contractAddress?: string): Vote | undefined;
 
@@ -1724,13 +1799,14 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warnings were encountered during analysis:
 //
-// dist/declarations/dist/Provider.d.ts:37:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-// dist/declarations/dist/Provider.d.ts:44:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// dist/declarations/dist/Provider.d.ts:38:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// dist/declarations/dist/Provider.d.ts:45:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 // dist/declarations/dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/declarations/dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
+// dist/declarations/dist/hooks/auth/useUser.d.ts:12:5 - (ae-forgotten-export) The symbol "ThirdwebAuthUser" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 // dist/declarations/dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-// dist/declarations/dist/types.d.ts:168:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/declarations/dist/types.d.ts:174:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/declarations/dist/types.d.ts:196:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/declarations/dist/types.d.ts:202:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

@@ -9,6 +9,10 @@ import {
   defaultSupportedChains,
 } from "./constants/chain";
 import {
+  ThirdwebAuthConfig,
+  ThirdwebAuthConfigProvider,
+} from "./contexts/thirdweb-auth";
+import {
   ThirdwebConfigProvider,
   defaultChainRpc,
 } from "./contexts/thirdweb-config";
@@ -99,7 +103,6 @@ export type ChainRpc<TSupportedChain extends SupportedChain> = Record<
   TSupportedChain extends Chain ? TSupportedChain["id"] : TSupportedChain,
   string
 >;
-
 /**
  * the metadata to pass to wallet connection dialog (may show up during the wallet-connection process)
  * @remarks this is only used for wallet connect and wallet link, metamask does not support it
@@ -169,6 +172,13 @@ export interface ThirdwebProviderProps<
     : TSupportedChain | undefined;
 
   /**
+   * The configuration used for thirdweb auth usage. Enables users to login
+   * to backends with their wallet.
+   * @beta
+   */
+  authConfig?: ThirdwebAuthConfig;
+
+  /**
    * The storage interface to use with the sdk.
    */
   storageInterface?: IStorage;
@@ -228,6 +238,7 @@ export const ThirdwebProvider = <
   walletConnectors = defaultWalletConnectors,
   dAppMeta = defaultdAppMeta,
   desiredChainId,
+  authConfig,
   storageInterface,
   queryClient,
   autoConnect = true,
@@ -405,7 +416,10 @@ export const ThirdwebProvider = <
 
   return (
     <ThirdwebConfigProvider
-      value={{ rpcUrlMap: _rpcUrlMap, supportedChains: _supporrtedChains }}
+      value={{
+        rpcUrlMap: _rpcUrlMap,
+        supportedChains: _supporrtedChains,
+      }}
     >
       <WagmiProvider {...wagmiProps}>
         <ThirdwebSDKProviderWagmiWrapper
@@ -413,6 +427,7 @@ export const ThirdwebProvider = <
           desiredChainId={desiredChainId}
           sdkOptions={sdkOptionsWithDefaults}
           storageInterface={storageInterface}
+          authConfig={authConfig}
         >
           {children}
         </ThirdwebSDKProviderWagmiWrapper>
@@ -424,7 +439,7 @@ export const ThirdwebProvider = <
 export interface ThirdwebSDKProviderWagmiWrapper
   extends Pick<
     ThirdwebProviderProps,
-    "desiredChainId" | "sdkOptions" | "storageInterface"
+    "desiredChainId" | "sdkOptions" | "storageInterface" | "authConfig"
   > {
   signer?: Signer;
   provider: ChainOrRpc | SignerOrProvider;
@@ -476,6 +491,7 @@ export const ThirdwebSDKProvider: React.FC<
   provider,
   signer,
   queryClient,
+  authConfig,
   children,
 }) => {
   const queryClientWithDefault: QueryClient = useMemo(() => {
@@ -507,13 +523,27 @@ export const ThirdwebSDKProvider: React.FC<
   );
 
   return (
-    <QueryClientProvider client={queryClientWithDefault}>
-      <ThirdwebSDKContext.Provider value={ctxValue}>
-        {children}
-      </ThirdwebSDKContext.Provider>
-    </QueryClientProvider>
+    <ThirdwebAuthConfigProvider value={authConfig}>
+      <QueryClientProvider client={queryClientWithDefault}>
+        <ThirdwebSDKContext.Provider value={ctxValue}>
+          {children}
+        </ThirdwebSDKContext.Provider>
+      </QueryClientProvider>
+    </ThirdwebAuthConfigProvider>
   );
 };
+
+/**
+ * @internal
+ */
+function useSDKContext(): SDKContext {
+  const ctx = React.useContext(ThirdwebSDKContext);
+  invariant(
+    ctx._inProvider,
+    "useSDK must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
+  );
+  return ctx;
+}
 
 /**
  *
@@ -526,36 +556,22 @@ export const ThirdwebSDKProvider: React.FC<
  * ```
  */
 export function useSDK(): ThirdwebSDK | undefined {
-  const ctx = React.useContext(ThirdwebSDKContext);
-  invariant(
-    ctx._inProvider,
-    "useSDK must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
-  );
-  return ctx.sdk;
+  const { sdk } = useSDKContext();
+  return sdk;
 }
 
 /**
- *
  * @internal
  */
 export function useDesiredChainId(): number {
-  const ctx = React.useContext(ThirdwebSDKContext);
-  invariant(
-    ctx._inProvider,
-    "useDesiredChainId must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
-  );
-  return ctx.desiredChainId;
+  const { desiredChainId } = useSDKContext();
+  return desiredChainId;
 }
 
 /**
- *
  * @internal
  */
 export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined {
-  const ctx = React.useContext(ThirdwebSDKContext);
-  invariant(
-    ctx._inProvider,
-    "useActiveChainId must be called from within a ThirdwebProvider, did you forget to wrap your app in a <ThirdwebProvider />?",
-  );
-  return (ctx.sdk as any)?._chainId;
+  const sdk = useSDK();
+  return (sdk as any)?._chainId;
 }

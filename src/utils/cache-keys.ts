@@ -10,6 +10,9 @@ import { BigNumberish, constants } from "ethers";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";
 
+/**
+ * @internal
+ */
 function createCachekey(input: QueryKey): QueryKey {
   if (input[0] === TW_CACHE_KEY_PREFIX) {
     return input;
@@ -62,6 +65,9 @@ export function invalidateContractAndBalances(
  @internal
  */
 export const cacheKeys = {
+  auth: {
+    user: () => createCachekey(["user"]),
+  },
   network: {
     active: (chainId: RequiredParam<SUPPORTED_CHAIN_ID>) =>
       createCachekey(["chainId", chainId]),

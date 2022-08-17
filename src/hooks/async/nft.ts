@@ -1,8 +1,10 @@
 import { useActiveChainId } from "../../Provider";
 import {
   AirdropNFTParams,
+  BurnNFTParams,
   MintNFTParams,
   MintNFTReturnType,
+  MintNFTSupplyParams,
   NFT,
   NFTContract,
   RequiredParam,
@@ -437,6 +439,95 @@ export function useMintNFT<TContract extends NFTContract>(
 }
 
 /**
+ * Use this to mint a new NFT on your {@link NFTContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const nftDrop = useNFTDrop(<ContractAddress>);
+ *   const {
+ *     mutate: mintNftSupply,
+ *     isLoading,
+ *     error,
+ *   } = useMintNFTSupply(nftDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to mint additional supply", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNftSupply({ tokenId: 0, additionalSupply: 100, to: "0x..."})}
+ *     >
+ *       Mint Additional Supply!
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: mintNftSupply,
+ *     isLoading,
+ *     error,
+ *   } = useMintNFTSupply(contract?.nft);
+ *
+ *   if (error) {
+ *     console.error("failed to mint additional supply", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNftSupply({ tokenId: 0, additionalSupply: 100, to: "0x..."})}
+ *     >
+ *       Mint Additional Supply!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link Erc1155}
+ * @returns a mutation object that can be used to mint a more supply of a token id to the provided wallet
+ * @beta
+ */
+export function useMintNFTSupply(contract: Erc1155) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (data: MintNFTSupplyParams) => {
+      invariant(data.to, 'No "to" address provided');
+      invariant(
+        contract?.mint?.additionalSupplyTo,
+        "contract does not support mint.additionalSupplyTo",
+      );
+
+      invariant("tokenId" in data, "tokenId not provided");
+      invariant("additionalSupply" in data, "additionalSupply not provided");
+      const { to, tokenId, additionalSupply } = data;
+      return await contract.mint.additionalSupplyTo(
+        to,
+        tokenId,
+        additionalSupply,
+      );
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
  * Use this to transfer tokens on your {@link NFTContract}
  *
  * @example
@@ -591,6 +682,96 @@ export function useAirdropNFT(contract: Erc1155) {
       invariant(contract?.airdrop, "contract does not support airdrop");
 
       return contract.airdrop(tokenId, addresses);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/** **********************/
+/**     WRITE HOOKS     **/
+/** **********************/
+
+/**
+ * Use this to burn an NFT on your {@link NFTContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const nftDrop = useNFTDrop(<ContractAddress>);
+ *   const {
+ *     mutate: burnNft,
+ *     isLoading,
+ *     error,
+ *   } = useBurnNFT(nftDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to burn nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => burnNft({ tokenId: 0 })}
+ *     >
+ *       Burn!
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: burnNft,
+ *     isLoading,
+ *     error,
+ *   } = useBurnNFT(contract?.nft);
+ *
+ *   if (error) {
+ *     console.error("failed to burn nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => burnNft({ tokenId: 0 })}
+ *     >
+ *       Burn!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link NFTContract}
+ * @returns a mutation object that can be used to burn an NFT token from the connected wallet
+ * @beta
+ */
+export function useBurnNFT<TContract extends NFTContract>(
+  contract: RequiredParam<TContract>,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (data: BurnNFTParams<TContract>) => {
+      invariant(data.tokenId, "No tokenId provided");
+      invariant(contract?.burn, "contract does not support burn");
+      if (contract instanceof Erc1155) {
+        invariant("amount" in data, "amount not provided");
+        const { tokenId, amount } = data;
+        return await contract.burn.tokens(tokenId, amount);
+      }
+      const { tokenId } = data;
+      return await contract.burn.token(tokenId);
     },
     {
       onSettled: () =>
