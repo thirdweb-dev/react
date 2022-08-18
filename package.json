@@ -34,7 +34,7 @@
     "@microsoft/api-extractor": "^7.19.4",
     "@microsoft/tsdoc": "^0.14.1",
     "@swc/core": "^1.2.177",
-    "@thirdweb-dev/sdk": "^2.3.36",
+    "@thirdweb-dev/sdk": "file:.yalc/@thirdweb-dev/sdk",
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/mime": "^2.0.3",
     "@types/react": "^18.0.5",
