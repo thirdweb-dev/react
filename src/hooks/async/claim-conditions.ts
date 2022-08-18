@@ -1,7 +1,8 @@
 import { NFTContract, RequiredParam, WalletAddress } from "../../types";
 import { cacheKeys } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
-import { Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
+import { useMutation } from "@tanstack/react-query";
+import { ClaimConditionInput, Erc1155 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 
@@ -56,7 +57,7 @@ export function useActiveClaimCondition<TContract extends NFTContract>(
     },
     {
       // Checks that happen here:
-      // 1. if the contract is based on  ERC1155 contract => tokenId cannot be `undefined`
+      // 1. if the contract is based on ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
       enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
     },
@@ -136,6 +137,20 @@ type ClaimIneligibilityInputParams<TContract> = TContract extends Erc1155
       eligibilityParams: ClaimIneligibilityParameters,
     ];
 
+type SetClaimConditionsInputParams<TContract> = TContract extends Erc1155
+  ? [contract: RequiredParam<TContract>, tokenId: RequiredParam<BigNumberish>]
+  : [contract: RequiredParam<TContract>];
+
+/**
+ * The params for the {@link useSetClaimConditions} hook mutation.
+ *
+ * @beta
+ */
+export type SetClaimConditionsParams = {
+  phases: ClaimConditionInput[];
+  reset?: boolean;
+};
+
 /**
  * Use this to check for reasons that prevent claiming for either  ERC20, ERC721 or ERC1155 based contracts. They need to extend the `claimCondition` extension for this hook to work.
  * @example
@@ -193,7 +208,7 @@ export function useClaimIneligibilityReasons<TContract extends NFTContract>(
     },
     {
       // Checks that happen here:
-      // 1. if the contract is based on  ERC1155 contract => tokenId cannot be `undefined`
+      // 1. if the contract is based on ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
       // 3. has a params object been passed?
       // 4. does params have an address in it?
@@ -201,6 +216,87 @@ export function useClaimIneligibilityReasons<TContract extends NFTContract>(
         (contract instanceof Erc1155 ? tokenId !== undefined : !!contract) &&
         !!params &&
         !!params.walletAddress,
+    },
+  );
+}
+
+/** **********************/
+/**     WRITE HOOKS     **/
+/** **********************/
+
+/**
+ * Use this to mint a new NFT on your {@link NFTContract}
+ *
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const nftDrop = useNFTDrop(<ContractAddress>);
+ *   const {
+ *     mutate: mintNft,
+ *     isLoading,
+ *     error,
+ *   } = useMintNFT(nftDrop);
+ *
+ *   if (error) {
+ *     console.error("failed to mint nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNft({ name: "My awesome NFT!", to: "0x..." })}
+ *     >
+ *       Mint!
+ *     </button>
+ *   );
+ * };
+ * ```
+ * @example
+ * ```jsx
+ * const Component = () => {
+ *   const { contract } = useContract(<ContractAddress>);
+ *   const {
+ *     mutate: mintNft,
+ *     isLoading,
+ *     error,
+ *   } = useMintNFT(contract?.nft);
+ *
+ *   if (error) {
+ *     console.error("failed to mint nft", error);
+ *   }
+ *
+ *   return (
+ *     <button
+ *       disabled={isLoading}
+ *       onClick={() => mintNft({ name: "My awesome NFT!", to: "0x..." })}
+ *     >
+ *       Mint!
+ *     </button>
+ *   );
+ * };
+ * ```
+ *
+ * @param contract - an instance of a {@link NFTContract}
+ * @returns a mutation object that can be used to set claim conditions
+ * @beta
+ */
+export function useSetClaimConditions<TContract extends NFTContract>(
+  ...[contract, tokenId]: SetClaimConditionsInputParams<TContract>
+) {
+  return useMutation(
+    async (data: SetClaimConditionsParams) => {
+      const { phases, reset = false } = data;
+      invariant(phases, 'No "phases" provided');
+      if (contract instanceof Erc1155) {
+        invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
+        return contract?.drop?.claim?.conditions.set(tokenId, phases, reset);
+      }
+      return contract?.drop?.claim?.conditions.set(phases, reset);
+    },
+    {
+      onSettled: () => {
+        // TODO: fix cache
+      },
     },
   );
 }
