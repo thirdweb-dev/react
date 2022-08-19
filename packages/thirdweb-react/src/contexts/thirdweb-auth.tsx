@@ -1,4 +1,9 @@
-import { PropsWithChildren, createContext, useContext, useMemo } from "react";
+import React, {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useMemo,
+} from "react";
 
 /**
  * The configuration to use the react SDK with an [auth](https://portal.thirdweb.com/auth) server.

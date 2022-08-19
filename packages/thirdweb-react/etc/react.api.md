@@ -9,12 +9,14 @@ import type { AirdropInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BaseContract } from 'ethers';
+import { BatchToReveal } from '@thirdweb-dev/sdk/dist/browser';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import { CallOverrides } from 'ethers';
 import { Chain } from './types';
 import { ChainId } from '@thirdweb-dev/sdk/dist/browser';
 import { ChainOrRpc } from '@thirdweb-dev/sdk/dist/browser';
+import { ClaimConditionInput } from '@thirdweb-dev/sdk/dist/browser';
 import { ClaimEligibility } from '@thirdweb-dev/sdk/dist/browser';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from './connectors';
@@ -51,6 +53,7 @@ import { NFTCollection } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTMetadata } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTMetadataInput } from '@thirdweb-dev/sdk/dist/browser';
+import type { NFTMetadataInput as NFTMetadataInput_2 } from '@thirdweb-dev/sdk/dist/src/schema';
 import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Offer } from '@thirdweb-dev/sdk/dist/browser';
 import { Pack } from '@thirdweb-dev/sdk/dist/browser';
@@ -172,6 +175,13 @@ export { defaultChains }
 export { defaultL2Chains }
 
 // @beta
+export type DelayedRevealLazyMintInput = {
+    placeholder: NFTMetadataInput_2;
+    metadatas: NFTMetadataInput_2[];
+    password: string;
+};
+
+// @beta
 export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
@@ -267,10 +277,22 @@ export type NFTContract = Erc721 | Erc1155;
 // @beta
 export type RequiredParam<T> = T | undefined;
 
+// @beta
+export type RevealLazyMintInput = {
+    batchId: BigNumberish;
+    password: string;
+};
+
 // Warning: (ae-internal-missing-underscore) The name "RolesForContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export type RolesForContract<TContract extends ContractWithRoles> = TContract extends SmartContract ? Role | (string & {}) : NonNullable<TContract["roles"]>["roles"][number];
+
+// @beta
+export type SetClaimConditionsParams = {
+    phases: ClaimConditionInput[];
+    reset?: boolean;
+};
 
 // @public (undocumented)
 export interface SharedMediaProps {
@@ -369,10 +391,10 @@ export { useAccount }
 // @internal (undocumented)
 export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// Warning: (ae-forgotten-export) The symbol "ClaimConditionsInputParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
-export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+export function useActiveClaimCondition<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -431,6 +453,12 @@ decimals: number;
 displayValue: string;
 } | undefined, unknown>;
 
+// Warning: (ae-incompatible-release-tags) The symbol "useBatchesToReveal" is marked as @public, but its signature references "NFTContract" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useBatchesToReveal" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
+// @public (undocumented)
+export function useBatchesToReveal<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseQueryResult<BatchToReveal[], unknown>;
+
 // @beta
 export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResult<BigNumber, unknown>;
 
@@ -469,7 +497,7 @@ type: ListingType.Auction;
 export function useChainId(): number | undefined;
 
 // @beta
-export function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+export function useClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -504,7 +532,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>): UseQ
 // Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
-export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
+export function useClaimIneligibilityReasons<TContract extends NFTContract>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
 // @beta
 export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
@@ -1388,6 +1416,9 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>): U
 // @beta
 export function useCreateDirectListing(contract: RequiredParam<Marketplace>): UseMutationResult<TransactionResultWithId<never>, unknown, NewDirectListing, unknown>;
 
+// @beta
+export function useDelayedRevealLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): UseMutationResult<TransactionResultWithId<never>[], unknown, DelayedRevealLazyMintInput, unknown>;
+
 // Warning: (ae-internal-missing-underscore) The name "useDesiredChainId" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -1593,11 +1624,23 @@ export { useProvider }
 // @internal (undocumented)
 export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage): ThirdwebSDK;
 
+// @beta
+export function useResetClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data"> | undefined, unknown, void, unknown>;
+
 // @public (undocumented)
 export function useResolvedMediaType(uri?: string): {
     url: string | undefined;
     mimeType: string | undefined;
 };
+
+// @beta
+export function useRevealLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, RevealLazyMintInput, unknown>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "useRevokeRole" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
 //
@@ -1627,6 +1670,12 @@ export function useSDK(): ThirdwebSDK | undefined;
 //
 // @beta
 export function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
+
+// @beta
+export function useSetClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data"> | undefined, unknown, SetClaimConditionsParams, unknown>;
 
 // @public
 export function useSignatureDrop(contractAddress?: string): SignatureDrop | undefined;
@@ -1803,8 +1852,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/declarations/dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/declarations/dist/hooks/auth/useUser.d.ts:12:5 - (ae-forgotten-export) The symbol "ThirdwebAuthUser" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 // dist/declarations/dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-// dist/declarations/dist/types.d.ts:196:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/declarations/dist/types.d.ts:202:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/declarations/dist/types.d.ts:215:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/declarations/dist/types.d.ts:221:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 
