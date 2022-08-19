@@ -51,6 +51,7 @@ import { NFTCollection } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTMetadata } from '@thirdweb-dev/sdk/dist/browser';
 import { NFTMetadataInput } from '@thirdweb-dev/sdk/dist/browser';
+import type { NFTMetadataInput as NFTMetadataInput_2 } from '@thirdweb-dev/sdk/dist/src/schema';
 import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Offer } from '@thirdweb-dev/sdk/dist/browser';
 import { Pack } from '@thirdweb-dev/sdk/dist/browser';
@@ -165,6 +166,13 @@ export interface DAppMetaData {
 export { defaultChains }
 
 export { defaultL2Chains }
+
+// @beta
+export type DelayedRevealLazyMintInput = {
+    placeholder: NFTMetadataInput_2;
+    metadatas: NFTMetadataInput_2[];
+    password: string;
+};
 
 // @beta
 export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
@@ -1383,6 +1391,9 @@ export function useCreateAuctionListing(contract: RequiredParam<Marketplace>): U
 // @beta
 export function useCreateDirectListing(contract: RequiredParam<Marketplace>): UseMutationResult<TransactionResultWithId<never>, unknown, NewDirectListing, unknown>;
 
+// @beta
+export function useDelayedRevealLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): UseMutationResult<TransactionResultWithId<never>[], unknown, DelayedRevealLazyMintInput, unknown>;
+
 // Warning: (ae-internal-missing-underscore) The name "useDesiredChainId" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -1798,8 +1809,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/auth/useUser.d.ts:12:5 - (ae-forgotten-export) The symbol "ThirdwebAuthUser" needs to be exported by the entry point index.d.ts
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:196:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:202:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:206:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:212:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

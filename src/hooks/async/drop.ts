@@ -2,6 +2,7 @@ import { useActiveChainId } from "../../Provider";
 import {
   ClaimNFTParams,
   ClaimNFTReturnType,
+  DelayedRevealLazyMintInput,
   DropContract,
   NFTContract,
   RequiredParam,
@@ -229,6 +230,52 @@ export function useLazyMint<TContract extends NFTContract>(
         };
       }
       return await contract.drop.lazyMint(data.metadatas, options);
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to lazy mint a batch of delayed reveal NFTs on your {@link DropContract}
+ *
+ * @param contract - an instance of a {@link NFTContract} with the drop extension
+ * @param onProgress - an optional callback that will be called with the progress of the upload
+ * @returns a mutation object that can be used to lazy mint a batch of NFTs
+ * @beta
+ */
+export function useDelayedRevealLazyMint<TContract extends NFTContract>(
+  contract: RequiredParam<TContract>,
+  onProgress?: (progress: UploadProgressEvent) => void,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (data: DelayedRevealLazyMintInput) => {
+      invariant(
+        contract?.drop?.revealer?.createDelayedRevealBatch,
+        "contract does not support drop.revealer.createDelayedRevealBatch",
+      );
+      let options;
+      if (onProgress) {
+        options = {
+          onProgress,
+        };
+      }
+      return await contract.drop.revealer.createDelayedRevealBatch(
+        data.placeholder,
+        data.metadatas,
+        data.password,
+        options,
+      );
     },
     {
       onSettled: () =>

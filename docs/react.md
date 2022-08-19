@@ -49,6 +49,7 @@ import { useCoinbaseWallet } from "@thirdweb-dev/react"
 |  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
 |  [useCreateAuctionListing(contract)](./react.usecreateauctionlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Auction Listing on your marketplace contract. |
 |  [useCreateDirectListing(contract)](./react.usecreatedirectlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Direct Listing on your marketplace contract. |
+|  [useDelayedRevealLazyMint(contract, onProgress)](./react.usedelayedreveallazymint.md) | <b><i>(BETA)</i></b> Use this to lazy mint a batch of delayed reveal NFTs on your [DropContract](./react.dropcontract.md) |
 |  [useDisconnect(options)](./react.usedisconnect.md) | <p>Hook for disconnecting the currently connected wallet</p>
 ```javascript
 import { useDisconnect } from "@thirdweb-dev/react"
@@ -167,6 +168,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [ClaimNFTReturnType](./react.claimnftreturntype.md) | <b><i>(BETA)</i></b> The return type of the [useClaimNFT()](./react.useclaimnft.md) hook. |
 |  [ClaimTokenParams](./react.claimtokenparams.md) |  |
 |  [ContractAddress](./react.contractaddress.md) | <b><i>(BETA)</i></b> A contract address. |
+|  [DelayedRevealLazyMintInput](./react.delayedreveallazymintinput.md) | <b><i>(BETA)</i></b> The params for the [useDelayedRevealLazyMint()](./react.usedelayedreveallazymint.md) hook mutation. |
 |  [DropContract](./react.dropcontract.md) | <b><i>(BETA)</i></b> The possible DROP contract types. |
 |  [MakeBidParams](./react.makebidparams.md) |  |
 |  [MintNFTParams](./react.mintnftparams.md) | <b><i>(BETA)</i></b> The params for the [useMintNFT()](./react.usemintnft.md) hook mutation. |
