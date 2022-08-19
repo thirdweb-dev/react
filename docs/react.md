@@ -20,6 +20,7 @@ import { useAddress } from "@thirdweb-dev/react"
 |  [useAllRoleMembers(contract)](./react.useallrolemembers.md) | <b><i>(BETA)</i></b> Use this to get the roles of a  |
 |  [useAuctionWinner(contract, listingId)](./react.useauctionwinner.md) | <b><i>(BETA)</i></b> Use this to get the winner of an auction listing from your marketplace contract. |
 |  [useBalance(tokenAddress)](./react.usebalance.md) | <b><i>(BETA)</i></b> A hook to get the native or (optional) ERC20 token balance of the connected wallet. |
+|  [useBatchesToReveal(contract)](./react.usebatchestoreveal.md) |  |
 |  [useBidBuffer(contract)](./react.usebidbuffer.md) | <b><i>(BETA)</i></b> Use this to get the buffer in basis points between offers from your marketplace contract. |
 |  [useBurnNFT(contract)](./react.useburnnft.md) | <b><i>(BETA)</i></b> Use this to burn an NFT on your [NFTContract](./react.nftcontract.md) |
 |  [useBurnToken(contract)](./react.useburntoken.md) | <b><i>(BETA)</i></b> Use this to burn tokens on your  contract |
@@ -49,6 +50,7 @@ import { useCoinbaseWallet } from "@thirdweb-dev/react"
 |  [useContractType(contractAddress)](./react.usecontracttype.md) | <b><i>(BETA)</i></b> Use this to get the contract type for a (built-in or custom) contract. |
 |  [useCreateAuctionListing(contract)](./react.usecreateauctionlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Auction Listing on your marketplace contract. |
 |  [useCreateDirectListing(contract)](./react.usecreatedirectlisting.md) | <b><i>(BETA)</i></b> Use this to create a new Direct Listing on your marketplace contract. |
+|  [useDelayedRevealLazyMint(contract, onProgress)](./react.usedelayedreveallazymint.md) | <b><i>(BETA)</i></b> Use this to lazy mint a batch of delayed reveal NFTs on your [DropContract](./react.dropcontract.md) |
 |  [useDisconnect(options)](./react.usedisconnect.md) | <p>Hook for disconnecting the currently connected wallet</p>
 ```javascript
 import { useDisconnect } from "@thirdweb-dev/react"
@@ -102,6 +104,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [usePrimarySaleRecipient(contract)](./react.useprimarysalerecipient.md) | <b><i>(BETA)</i></b> |
 |  [useResetClaimConditions(\[contract, tokenId\])](./react.useresetclaimconditions.md) | <b><i>(BETA)</i></b> Use this to reset claim conditions on your [NFTContract](./react.nftcontract.md) |
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
+|  [useRevealLazyMint(contract)](./react.usereveallazymint.md) | <b><i>(BETA)</i></b> Use this to reveal a batch of delayed reveal NFTs on your [DropContract](./react.dropcontract.md) |
 |  [useRevokeRole(contract)](./react.userevokerole.md) | <b><i>(BETA)</i></b> Use this to revoke a [WalletAddress](./react.walletaddress.md) a specific role on a  |
 |  [useRoleMembers(contract, role)](./react.userolemembers.md) | <b><i>(BETA)</i></b> Use this to get the members of a role on a  |
 |  [useRoyaltySettings(contract)](./react.useroyaltysettings.md) | <b><i>(BETA)</i></b> Use this to get the royalty settings of your  |
@@ -169,6 +172,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [ClaimNFTReturnType](./react.claimnftreturntype.md) | <b><i>(BETA)</i></b> The return type of the [useClaimNFT()](./react.useclaimnft.md) hook. |
 |  [ClaimTokenParams](./react.claimtokenparams.md) |  |
 |  [ContractAddress](./react.contractaddress.md) | <b><i>(BETA)</i></b> A contract address. |
+|  [DelayedRevealLazyMintInput](./react.delayedreveallazymintinput.md) | <b><i>(BETA)</i></b> The params for the [useDelayedRevealLazyMint()](./react.usedelayedreveallazymint.md) hook mutation. |
 |  [DropContract](./react.dropcontract.md) | <b><i>(BETA)</i></b> The possible DROP contract types. |
 |  [MakeBidParams](./react.makebidparams.md) |  |
 |  [MintNFTParams](./react.mintnftparams.md) | <b><i>(BETA)</i></b> The params for the [useMintNFT()](./react.usemintnft.md) hook mutation. |
@@ -177,6 +181,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [NFT](./react.nft.md) | <b><i>(BETA)</i></b> A single NFT token |
 |  [NFTContract](./react.nftcontract.md) | <b><i>(BETA)</i></b> The possible NFT contract types. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |
+|  [RevealLazyMintInput](./react.reveallazymintinput.md) | <b><i>(BETA)</i></b> The params for the [useRevealLazyMint()](./react.usereveallazymint.md) hook mutation. |
 |  [SetClaimConditionsParams](./react.setclaimconditionsparams.md) | <b><i>(BETA)</i></b> The params for the [useSetClaimConditions()](./react.usesetclaimconditions.md) hook mutation. |
 |  [TokenBurnParams](./react.tokenburnparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the burn function. |
 |  [TokenParams](./react.tokenparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the mint and transfer functions. |

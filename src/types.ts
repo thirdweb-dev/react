@@ -12,7 +12,10 @@ import type {
   Price,
   SignatureDrop,
 } from "@thirdweb-dev/sdk/dist/browser";
-import type { NFTMetadataOrUri } from "@thirdweb-dev/sdk/dist/src/schema";
+import type {
+  NFTMetadataInput,
+  NFTMetadataOrUri,
+} from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish } from "ethers";
 
 /**
@@ -196,6 +199,27 @@ export type BurnNFTParams<TContract extends NFTContract> =
  * @beta
  */
 export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
+
+/**
+ * The params for the {@link useDelayedRevealLazyMint} hook mutation.
+ *
+ * @beta
+ */
+export type DelayedRevealLazyMintInput = {
+  placeholder: NFTMetadataInput;
+  metadatas: NFTMetadataInput[];
+  password: string;
+};
+
+/**
+ * The params for the {@link useRevealLazyMint} hook mutation.
+ *
+ * @beta
+ */
+export type RevealLazyMintInput = {
+  batchId: BigNumberish;
+  password: string;
+};
 
 /**
  * The params for the {@link useClaimNFT} hook mutation.

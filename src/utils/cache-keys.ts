@@ -176,6 +176,16 @@ export const cacheKeys = {
         ) => createContractCacheKey(contractAddress, ["totalUnclaimedSupply"]),
         totalClaimedSupply: (contractAddress: RequiredParam<ContractAddress>) =>
           createContractCacheKey(contractAddress, ["totalClaimedSupply"]),
+        revealer: {
+          getBatchesToReveal: (
+            contractAddress: RequiredParam<ContractAddress>,
+            params?: QueryAllParams,
+          ) =>
+            createContractCacheKey(
+              contractAddress,
+              params ? ["getBatchesToReveal", params] : ["getBatchesToReveal"],
+            ),
+        },
       },
     },
 
