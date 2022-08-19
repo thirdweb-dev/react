@@ -4,8 +4,6 @@
 
 ```ts
 
-/// <reference types="react" />
-
 import { AbiFunction } from '@thirdweb-dev/sdk/dist/browser';
 import type { AirdropInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
@@ -150,7 +148,7 @@ export type ClaimTokenParams = {
 // Warning: (ae-forgotten-export) The symbol "ConnectWalletProps" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @public (undocumented)
-export const ConnectWallet: React.FC<ConnectWalletProps>;
+export const ConnectWallet: React_2.FC<ConnectWalletProps>;
 
 // @beta
 export type ContractAddress = string;

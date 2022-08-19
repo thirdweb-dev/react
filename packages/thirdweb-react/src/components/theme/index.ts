@@ -18,4 +18,4 @@ export type TwUiTheme = typeof lightModeTheme;
 
 export type ColorMode = "light" | "dark";
 
-export type AccentColor = `#${string}` | `rgb(${number}, ${number}, ${number})`;
+export type AccentColor = string;

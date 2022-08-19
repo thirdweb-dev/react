@@ -32,9 +32,6 @@ import invariant from "tiny-invariant";
  */
 export function useMetamask() {
   const [connectors, connect] = useConnect();
-  if (connectors.loading) {
-    return () => Promise.reject("Metamask connector not ready to be used, yet");
-  }
 
   const isMetaMaskInjected =
     typeof window !== "undefined" && window.ethereum?.isMetaMask;
