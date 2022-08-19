@@ -1,4 +1,5 @@
 import { TwUiTheme } from "../../theme";
+import { Spinner } from "../Spinner";
 import { PropsOf } from "@emotion/react";
 import styled from "@emotion/styled";
 import color from "color";
@@ -7,9 +8,11 @@ import { PropsWithChildren } from "react";
 interface BaseButtonProps {
   hasRightElement?: boolean;
   hasLeftElement?: boolean;
+  isLoading?: boolean;
 }
 
 const BaseButton = styled.button<BaseButtonProps>`
+  position: relative;
   border-radius: 0.5em;
   padding: 0.75em 1.25em;
   padding-right: ${(props) => (props.hasRightElement ? "0.75em" : "1.25em")};
@@ -20,10 +23,10 @@ const BaseButton = styled.button<BaseButtonProps>`
   display: flex;
   gap: 0.5em;
   align-items: center;
-  color: ${(props) => {
-    const theme = props.theme as TwUiTheme;
-    return color(theme.colors.accent).isDark() ? "#fff" : "#000";
-  }};
+  color: ${(props) =>
+    computeTextColorBasedOnBackground(
+      (props.theme as TwUiTheme).colors.accent,
+    )};
   border: 2px solid ${(props) => (props.theme as TwUiTheme).colors.accent};
   &:hover {
     cursor: pointer;
@@ -37,26 +40,56 @@ const BaseButton = styled.button<BaseButtonProps>`
   }
 `;
 
+function computeHoverColor(c: string) {
+  const col = color(c);
+
+  if (col.hex() === "#000000") {
+    return "#262627";
+  }
+  if (col.luminosity() < 0.2) {
+    return col.lighten(0.1).hex();
+  }
+  return col.darken(0.1).hex();
+}
+
+function computeDisabledColor(c: string) {
+  const col = color(c);
+
+  if (col.hex() === "#000000") {
+    return "#262627";
+  }
+  if (col.luminosity() < 0.2) {
+    return col.lighten(0.5).hex();
+  }
+  return col.darken(0.5).hex();
+}
+
+function computeTextColorBasedOnBackground(c: string) {
+  const col = color(c);
+
+  if (col.isDark()) {
+    return "#fff";
+  }
+  return "#000";
+}
+
 const SolidButton = styled(BaseButton)`
   background: ${(props) => (props.theme as TwUiTheme).colors.accent};
   &:hover {
-    background: ${(props) => {
-      const col = color((props.theme as TwUiTheme).colors.accent);
-
-      if (col.hex() === "#000000") {
-        return "#262627";
-      }
-      if (col.luminosity() < 0.2) {
-        return col.lighten(0.1).hex();
-      }
-      return col.darken(0.1).hex();
-    }};
+    background: ${(props) =>
+      computeHoverColor((props.theme as TwUiTheme).colors.accent)};
+    border-color: ${(props) =>
+      computeHoverColor((props.theme as TwUiTheme).colors.accent)};
   }
   &:disabled {
     background: ${(props) =>
-      color((props.theme as TwUiTheme).colors.accent)
-        .darken(0.1)
-        .hex()};
+      computeDisabledColor((props.theme as TwUiTheme).colors.accent)};
+    border-color: ${(props) =>
+      computeDisabledColor((props.theme as TwUiTheme).colors.accent)};
+    color: ${(props) =>
+      computeTextColorBasedOnBackground(
+        computeDisabledColor((props.theme as TwUiTheme).colors.accent),
+      )};
   }
 `;
 
@@ -85,6 +118,8 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   variant,
   rightElement,
   leftElement,
+  isLoading,
+  disabled,
   ...restProps
 }) => {
   const Btn = variant === "outline" ? OutlineButton : SolidButton;
@@ -92,12 +127,30 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   return (
     <Btn
       {...restProps}
+      disabled={disabled || isLoading}
       hasRightElement={!!rightElement}
       hasLeftElement={!!leftElement}
     >
-      {leftElement}
-      {children}
-      {rightElement}
+      {isLoading ? (
+        <Spinner
+          style={{
+            position: "absolute",
+            left: "calc(50% - 0.75em / 2)",
+          }}
+        />
+      ) : null}
+      <span
+        style={{
+          opacity: isLoading ? 0 : 1,
+          display: "inherit",
+          gap: "inherit",
+          alignItems: "inherit",
+        }}
+      >
+        {leftElement}
+        {children}
+        {rightElement}
+      </span>
     </Btn>
   );
 };

@@ -58,6 +58,7 @@ import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
 import { Offer } from '@thirdweb-dev/sdk/dist/browser';
 import { Pack } from '@thirdweb-dev/sdk/dist/browser';
 import type { Price } from '@thirdweb-dev/sdk/dist/browser';
+import { PropsWithChildren } from 'react';
 import { QueryAllParams } from '@thirdweb-dev/sdk/dist/browser';
 import { QueryClient } from '@tanstack/react-query';
 import { QueryObserverResult } from '@tanstack/react-query';
@@ -75,7 +76,9 @@ import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk/dist/browser';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk/dist/browser';
 import { Token } from '@thirdweb-dev/sdk/dist/browser';
 import { TokenDrop } from '@thirdweb-dev/sdk/dist/browser';
+import { TransactionError } from '@thirdweb-dev/sdk';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
+import { TransactionResult } from '@thirdweb-dev/sdk';
 import { TransactionResultWithId } from '@thirdweb-dev/sdk/dist/browser';
 import { UploadProgressEvent } from '@thirdweb-dev/sdk/dist/browser';
 import { useAccount } from './hooks';
@@ -1700,9 +1703,7 @@ decimals: number;
 displayValue: string;
 }, unknown>;
 
-// Warning: (ae-internal-missing-underscore) The name "useTokenDrop" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal
+// @public
 export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 
 // @beta
@@ -1843,6 +1844,11 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
     name: "walletLink" | "coinbase";
     options: CoinbaseWalletConnector["options"];
 };
+
+// Warning: (ae-forgotten-export) The symbol "Web3ButtonProps" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+//
+// @public (undocumented)
+export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>>;
 
 // Warnings were encountered during analysis:
 //

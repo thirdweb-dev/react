@@ -135,7 +135,6 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
       <div
         style={{
           position: "relative",
-          fontFamily,
         }}
       >
         <Button

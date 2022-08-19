@@ -2,6 +2,7 @@ import {
   AccentColor,
   ColorMode,
   darkModeTheme,
+  fontFamily,
   lightModeTheme,
 } from "../../theme";
 import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
@@ -26,5 +27,9 @@ export const ThemeProvider: React.FC<PropsWithChildren<ThemeProviderProps>> = ({
     };
   }, [accentColor, colorMode]);
 
-  return <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>;
+  return (
+    <EmotionThemeProvider theme={theme}>
+      <span style={{ fontFamily }}>{children}</span>
+    </EmotionThemeProvider>
+  );
 };
