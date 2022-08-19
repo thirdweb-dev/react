@@ -24,11 +24,14 @@ export function useBalance(tokenAddress?: ContractAddress) {
 
   const walletSDK = useMemo(() => {
     if (signer) {
+      const rpcUrl = rpcUrlMap[chainId];
       return new UserWallet(signer, {
-        readonlySettings: {
-          rpcUrl: rpcUrlMap[chainId],
-          chainId,
-        },
+        readonlySettings: rpcUrl
+          ? {
+              rpcUrl,
+              chainId,
+            }
+          : undefined,
       });
     }
     return undefined;

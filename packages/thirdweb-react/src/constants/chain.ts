@@ -1,4 +1,4 @@
-import { NATIVE_TOKENS } from "@thirdweb-dev/sdk";
+import { NATIVE_TOKENS, SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
 import { ChainId } from "@thirdweb-dev/sdk/dist/browser";
 import type { Chain as WagmiChain } from "wagmi";
 
@@ -131,7 +131,7 @@ const chain: Record<string, Chain> = {
         url: "https://testnet.ftmscan.com/",
       },
     ],
-    testnet: false,
+    testnet: true,
   },
   optimism: {
     id: ChainId.Optimism,
@@ -192,3 +192,7 @@ export const defaultSupportedChains = Object.values(chain) as Chain[];
 export type SupportedChainId = typeof defaultSupportedChains[number]["id"];
 
 export type SupportedChain = SupportedChainId | Chain;
+
+export function getChainFromChainId(chainId: SUPPORTED_CHAIN_ID) {
+  return defaultSupportedChains.find((c) => c.id === chainId) as Chain;
+}

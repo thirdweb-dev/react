@@ -13,4 +13,5 @@ export const Menu = styled.ul<MenuProps>`
   outline-offset: 0px;
   list-style: none;
   border-radius: 0.5em;
+  overflow: hidden;
 `;

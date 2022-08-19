@@ -1,6 +1,6 @@
 export const lightModeTheme = {
   colors: {
-    accent: "#A855F7",
+    accent: "#fff",
     background: "#fff",
     text: "#000",
   },
@@ -8,11 +8,14 @@ export const lightModeTheme = {
 
 export const darkModeTheme: TwUiTheme = {
   colors: {
-    accent: "#A855F7",
+    accent: "#000",
     background: "#000",
     text: "#fff",
   },
 };
+
+export const fontFamily = `SFRounded, ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
 
 export type TwUiTheme = typeof lightModeTheme;
 

@@ -4,24 +4,30 @@ import styled from "@emotion/styled";
 import color from "color";
 import { PropsWithChildren } from "react";
 
-const MenuItemBase = styled.li`
+export interface MenuItemBaseProps {
+  isSelectable?: boolean;
+}
+
+const MenuItemBase = styled.li<MenuItemBaseProps>`
   display: flex;
-  padding: 0.5em 1em;
+  padding: 0.75em 1em;
   align-items: center;
   gap: 0.5em;
-  &:hover,
+  font-size: 1em;
+
+  ${(props) =>
+    props.isSelectable
+      ? `&:hover,
   &[data-focus] {
     cursor: pointer;
-    background: ${(props) =>
-      color((props.theme as TwUiTheme).colors.text)
-        .alpha(0.15)
-        .hexa()};
-  }
-  font-family: sans-serif;
+    background: ${color((props.theme as TwUiTheme).colors.text)
+      .alpha(0.15)
+      .hexa()};
+  }`
+      : ``}
+
   > svg {
     flex-shrink: 0;
-    height: 1.5em;
-    width: 1.5em;
   }
 `;
 
@@ -34,10 +40,16 @@ export const MenuItem: React.FC<PropsWithChildren<MenuItemProps>> = ({
   children,
   leftElement,
   rightElement,
+  isSelectable = true,
+  onClick,
   ...restProps
 }) => {
   return (
-    <MenuItemBase {...restProps}>
+    <MenuItemBase
+      {...restProps}
+      onClick={isSelectable ? onClick : undefined}
+      isSelectable={isSelectable}
+    >
       {leftElement}
       {children}
       {rightElement}

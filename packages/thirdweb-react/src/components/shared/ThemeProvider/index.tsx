@@ -4,11 +4,8 @@ import {
   darkModeTheme,
   lightModeTheme,
 } from "../../theme";
-import {
-  ThemeProvider as EmotionThemeProvider,
-  useTheme,
-} from "@emotion/react";
-import { PropsWithChildren } from "react";
+import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
+import { PropsWithChildren, useMemo } from "react";
 
 export interface ThemeProviderProps {
   colorMode?: ColorMode;
@@ -20,16 +17,14 @@ export const ThemeProvider: React.FC<PropsWithChildren<ThemeProviderProps>> = ({
   accentColor,
   children,
 }) => {
-  const prevTheme = useTheme();
+  const theme = useMemo(() => {
+    const t = colorMode === "light" ? lightModeTheme : darkModeTheme;
 
-  const theme = colorMode === "light" ? lightModeTheme : darkModeTheme;
-  if (accentColor) {
-    theme.colors.accent = accentColor;
-  }
+    return {
+      ...t,
+      colors: { ...t.colors, accent: accentColor || t.colors.accent },
+    };
+  }, [accentColor, colorMode]);
 
-  return (
-    <EmotionThemeProvider theme={{ ...prevTheme, ...theme }}>
-      {children}
-    </EmotionThemeProvider>
-  );
+  return <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>;
 };
