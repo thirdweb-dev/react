@@ -212,6 +212,16 @@ export type DelayedRevealLazyMintInput = {
 };
 
 /**
+ * The params for the {@link useRevealLazyMint} hook mutation.
+ *
+ * @beta
+ */
+export type RevealLazyMintInput = {
+  batchId: BigNumberish;
+  password: string;
+};
+
+/**
  * The params for the {@link useClaimNFT} hook mutation.
  *
  * @beta

@@ -9,6 +9,7 @@ import type { AirdropInput } from '@thirdweb-dev/sdk/dist/browser';
 import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
 import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
 import { BaseContract } from 'ethers';
+import { BatchToReveal } from '@thirdweb-dev/sdk/dist/browser';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import { CallOverrides } from 'ethers';
@@ -270,6 +271,12 @@ export type NFTContract = Erc721 | Erc1155;
 // @beta
 export type RequiredParam<T> = T | undefined;
 
+// @beta
+export type RevealLazyMintInput = {
+    batchId: BigNumberish;
+    password: string;
+};
+
 // Warning: (ae-internal-missing-underscore) The name "RolesForContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
@@ -433,6 +440,12 @@ name: string;
 decimals: number;
 displayValue: string;
 } | undefined, unknown>;
+
+// Warning: (ae-incompatible-release-tags) The symbol "useBatchesToReveal" is marked as @public, but its signature references "NFTContract" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useBatchesToReveal" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+//
+// @public (undocumented)
+export function useBatchesToReveal<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseQueryResult<BatchToReveal[], unknown>;
 
 // @beta
 export function useBidBuffer(contract: RequiredParam<Marketplace>): UseQueryResult<BigNumber, unknown>;
@@ -1605,6 +1618,12 @@ export function useResolvedMediaType(uri?: string): {
     mimeType: string | undefined;
 };
 
+// @beta
+export function useRevealLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data">, unknown, RevealLazyMintInput, unknown>;
+
 // Warning: (ae-incompatible-release-tags) The symbol "useRevokeRole" is marked as @beta, but its signature references "ContractWithRoles" which is marked as @internal
 //
 // @beta
@@ -1809,8 +1828,8 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/hooks/auth/useUser.d.ts:12:5 - (ae-forgotten-export) The symbol "ThirdwebAuthUser" needs to be exported by the entry point index.d.ts
 // dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point index.d.ts
-// dist/types.d.ts:206:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
-// dist/types.d.ts:212:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:215:5 - (ae-incompatible-release-tags) The symbol "buyForWallet" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
+// dist/types.d.ts:221:5 - (ae-incompatible-release-tags) The symbol "to" is marked as @public, but its signature references "WalletAddress" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

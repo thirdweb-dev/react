@@ -6,6 +6,7 @@ import {
   DropContract,
   NFTContract,
   RequiredParam,
+  RevealLazyMintInput,
 } from "../../types";
 import {
   cacheKeys,
@@ -124,6 +125,29 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
         "Contract instance does not support totalClaimedSupply",
       );
       return contract.totalClaimedSupply();
+    },
+    { enabled: !!contract },
+  );
+}
+
+/**
+ *
+ * @param contract - an instance of a {@link NFTContract}
+ * @returns a response object that gets the batches to still be revealed
+ */
+export function useBatchesToReveal<TContract extends NFTContract>(
+  contract: RequiredParam<TContract>,
+) {
+  const contractAddress = contract?.getAddress();
+  return useQueryWithNetwork(
+    cacheKeys.contract.nft.drop.revealer.getBatchesToReveal(contractAddress),
+    () => {
+      invariant(contract, "No Contract instance provided");
+      invariant(
+        contract.drop?.revealer?.getBatchesToReveal,
+        "Contract instance does not support drop.revealer.getBatchesToReveal",
+      );
+      return contract.drop.revealer.getBatchesToReveal();
     },
     { enabled: !!contract },
   );
@@ -276,6 +300,39 @@ export function useDelayedRevealLazyMint<TContract extends NFTContract>(
         data.password,
         options,
       );
+    },
+    {
+      onSettled: () =>
+        invalidateContractAndBalances(
+          queryClient,
+          contractAddress,
+          activeChainId,
+        ),
+    },
+  );
+}
+
+/**
+ * Use this to reveal a batch of delayed reveal NFTs on your {@link DropContract}
+ *
+ * @param contract - an instance of a {@link NFTContract} with the drop extension
+ * @returns a mutation object that can be used to reveal a batch of delayed reveal NFTs
+ * @beta
+ */
+export function useRevealLazyMint<TContract extends NFTContract>(
+  contract: RequiredParam<TContract>,
+) {
+  const activeChainId = useActiveChainId();
+  const contractAddress = contract?.getAddress();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (data: RevealLazyMintInput) => {
+      invariant(
+        contract?.drop?.revealer?.reveal,
+        "contract does not support drop.revealer.reveal",
+      );
+      return await contract.drop.revealer.reveal(data.batchId, data.password);
     },
     {
       onSettled: () =>
