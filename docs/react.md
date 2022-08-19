@@ -113,8 +113,9 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useSetClaimConditions(\[contract, tokenId\])](./react.usesetclaimconditions.md) | <b><i>(BETA)</i></b> Use this to set claim conditions on your [NFTContract](./react.nftcontract.md) |
 |  [useSignatureDrop(contractAddress)](./react.usesignaturedrop.md) | Hook for getting an instance of an <code>SignatureDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
-|  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
+|  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of a <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
 |  [useTokenBalance(contract, walletAddress)](./react.usetokenbalance.md) | <b><i>(BETA)</i></b> Use this to get the balance of your  contract for a given address. |
+|  [useTokenDrop(contractAddress)](./react.usetokendrop.md) | Hook for getting an instance of a <code>Token Drop</code> contract. |
 |  [useTokenSupply(contract)](./react.usetokensupply.md) | <b><i>(BETA)</i></b> Use this to get a the total supply of your  contract. |
 |  [useTotalCirculatingSupply(\[contract, tokenId\])](./react.usetotalcirculatingsupply.md) | <p><b><i>(BETA)</i></b> Use this to get a the total (minted) supply of your [NFTContract](./react.nftcontract.md)<!-- -->.</p><p>\*</p> |
 |  [useTotalCount(contract)](./react.usetotalcount.md) | <b><i>(BETA)</i></b> Use this to get a the number of tokens in your [NFTContract](./react.nftcontract.md)<!-- -->. |
