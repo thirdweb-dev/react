@@ -1695,9 +1695,7 @@ decimals: number;
 displayValue: string;
 }, unknown>;
 
-// Warning: (ae-internal-missing-underscore) The name "useTokenDrop" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal
+// @public
 export function useTokenDrop(contractAddress?: string): TokenDrop | undefined;
 
 // @beta

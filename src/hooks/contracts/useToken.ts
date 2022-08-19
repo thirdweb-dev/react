@@ -2,7 +2,7 @@ import { useBuiltinContract } from "./useBuiltinContract";
 import { Token } from "@thirdweb-dev/sdk/dist/browser";
 
 /**
- * Hook for getting an instance of an `Token` contract. This contract supports ERC20 compliant tokens.
+ * Hook for getting an instance of a `Token` contract. This contract supports ERC20 compliant tokens.
  * @param contractAddress - the address of the Token contract, found in your thirdweb dashboard
  *
  * @example

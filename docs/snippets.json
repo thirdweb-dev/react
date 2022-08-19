@@ -645,7 +645,7 @@
   },
   "useToken": {
     "name": "useToken",
-    "summary": "Hook for getting an instance of an `Token` contract. This contract supports ERC20 compliant tokens.\n\n",
+    "summary": "Hook for getting an instance of a `Token` contract. This contract supports ERC20 compliant tokens.\n\n",
     "examples": {
       "javascript": "import { useToken } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const token = useToken(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the token contract in the rest of the component\n}"
     },
@@ -667,6 +667,76 @@
       }
     ],
     "reference": "https://docs.thirdweb.com/typescript/react.useToken"
+  },
+  "useTokenDrop": {
+    "name": "useTokenDrop",
+    "summary": "Hook for getting an instance of a `Token Drop` contract.\n\n",
+    "examples": {
+      "javascript": "import { useTokenDrop } from '@thirdweb-dev/react'\n\nexport default function Component() {\n  const tokenDrop = useTokenDrop(\"<YOUR-CONTRACT-ADDRESS>\")\n\n  // Now you can use the token drop contract in the rest of the component\n}"
+    },
+    "subhooks": [
+      {
+        "name": "useActiveClaimCondition",
+        "example": "const { data: activeClaimCondition, isLoading, error } = useActiveClaimCondition(<YourERC1155ContractInstance>, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.useactiveclaimcondition"
+      },
+      {
+        "name": "useClaimConditions",
+        "example": "const { data: claimConditions, isLoading, error } = useClaimConditions(<YourERC1155ContractInstance>, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimconditions"
+      },
+      {
+        "name": "useClaimedNFTs",
+        "example": "const { data: claimedNFTs, isLoading, error } = useClaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimednfts"
+      },
+      {
+        "name": "useClaimedNFTSupply",
+        "example": "",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimednftsupply"
+      },
+      {
+        "name": "useClaimIneligibilityReasons",
+        "example": "const { data: claimIneligibilityReasons, isLoading, error } = useClaimIneligibilityReasons(<YourERC1155ContractInstance>, { quantity: <quantity>, walletAddress: <walletAddress> }, <tokenId>);",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimineligibilityreasons"
+      },
+      {
+        "name": "useClaimNFT",
+        "example": "const Component = () => {\n  const {\n    mutate: claimNft,\n    isLoading,\n    error,\n  } = useClaimNFT(DropContract);\n\n  if (error) {\n    console.error(\"failed to claim nft\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimNft({ to: \"0x...\", quantity: 1 })}\n    >\n      Claim NFT!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimnft"
+      },
+      {
+        "name": "useClaimToken",
+        "example": "const Component = () => {\n  const {\n    mutate: claimTokens,\n    isLoading,\n    error,\n  } = useClaimToken(TokenDropContract);\n\n  if (error) {\n    console.error(\"failed to claim tokens\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => claimTokens({ to: \"0x...\", amount: 100 })}\n    >\n      Claim Tokens!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.useclaimtoken"
+      },
+      {
+        "name": "useMintToken",
+        "example": "const Component = () => {\n  const {\n    mutate: mintTokens,\n    isLoading,\n    error,\n  } = useMintToken(\">>YourERC20ContractInstance<<\");\n\n  if (error) {\n    console.error(\"failed to mint tokens\", error);\n  }\n\n  return (\n    <button\n      disabled={isLoading}\n      onClick={() => mintTokens({ to: \"0x...\", amount: 1000 })}\n    >\n      Mint!\n    </button>\n  );\n};",
+        "reference": "https://portal.thirdweb.com/react/react.useminttoken"
+      },
+      {
+        "name": "useTokenBalance",
+        "example": "const { data: balance, isLoading, error } = useTokenBalance(<YourTokenContractInstance>);",
+        "reference": "https://portal.thirdweb.com/react/react.usetokenbalance"
+      },
+      {
+        "name": "useTokenSupply",
+        "example": "const { data: totalSupply, isLoading, error } = useTokenSupply(<YourTokenContractInstance>);",
+        "reference": "https://portal.thirdweb.com/react/react.usetokensupply"
+      },
+      {
+        "name": "useUnclaimedNFTs",
+        "example": "const { data: unclaimedNfts, isLoading, error } = useUnclaimedNFTs(<YourERC721DropContractInstance>, { start: 0, count: 100 });",
+        "reference": "https://portal.thirdweb.com/react/react.useunclaimednfts"
+      },
+      {
+        "name": "useUnclaimedNFTSupply",
+        "example": "",
+        "reference": "https://portal.thirdweb.com/react/react.useunclaimednftsupply"
+      }
+    ],
+    "reference": "https://docs.thirdweb.com/typescript/react.useTokenDrop"
   },
   "useVote": {
     "name": "useVote",
