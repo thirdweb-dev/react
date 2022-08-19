@@ -16,6 +16,7 @@ import { CallOverrides } from 'ethers';
 import { Chain } from './types';
 import { ChainId } from '@thirdweb-dev/sdk/dist/browser';
 import { ChainOrRpc } from '@thirdweb-dev/sdk/dist/browser';
+import { ClaimConditionInput } from '@thirdweb-dev/sdk/dist/browser';
 import { ClaimEligibility } from '@thirdweb-dev/sdk/dist/browser';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from './connectors';
@@ -282,6 +283,12 @@ export type RevealLazyMintInput = {
 // @internal (undocumented)
 export type RolesForContract<TContract extends ContractWithRoles> = TContract extends SmartContract ? Role | (string & {}) : NonNullable<TContract["roles"]>["roles"][number];
 
+// @beta
+export type SetClaimConditionsParams = {
+    phases: ClaimConditionInput[];
+    reset?: boolean;
+};
+
 // @public (undocumented)
 export interface SharedMediaProps {
     // (undocumented)
@@ -379,10 +386,10 @@ export { useAccount }
 // @internal (undocumented)
 export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "ActiveClaimConditionParams" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "ClaimConditionsInputParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useActiveClaimCondition<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+export function useActiveClaimCondition<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -485,7 +492,7 @@ type: ListingType.Auction;
 export function useChainId(): number | undefined;
 
 // @beta
-export function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): UseQueryResult<    {
+export function useClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -520,7 +527,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>): UseQ
 // Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point index.d.ts
 //
 // @beta
-export function useClaimIneligibilityReasons<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
+export function useClaimIneligibilityReasons<TContract extends NFTContract>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
 // @beta
 export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
@@ -1612,6 +1619,12 @@ export { useProvider }
 // @internal (undocumented)
 export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage): ThirdwebSDK;
 
+// @beta
+export function useResetClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data"> | undefined, unknown, void, unknown>;
+
 // @public (undocumented)
 export function useResolvedMediaType(uri?: string): {
     url: string | undefined;
@@ -1652,6 +1665,12 @@ export function useSDK(): ThirdwebSDK | undefined;
 //
 // @beta
 export function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
+
+// @beta
+export function useSetClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
+receipt: TransactionReceipt;
+data: () => Promise<unknown>;
+}, "data"> | undefined, unknown, SetClaimConditionsParams, unknown>;
 
 // @public
 export function useSignatureDrop(contractAddress?: string): SignatureDrop | undefined;

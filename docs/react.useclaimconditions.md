@@ -12,7 +12,7 @@ Use this to get all claim conditons for ERC20, ERC721 or ERC1155 based contracts
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimConditions<TContract extends NFTDrop | EditionDrop | TokenDrop | SignatureDrop>(...[contract, tokenId]: ActiveClaimConditionParams<TContract>): import("@tanstack/react-query").UseQueryResult<{
+export declare function useClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseQueryResult<{
     snapshot?: {
         address: string;
         maxClaimable: string;
@@ -40,7 +40,7 @@ export declare function useClaimConditions<TContract extends NFTDrop | EditionDr
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  \[contract, tokenId\] | ActiveClaimConditionParams&lt;TContract&gt; |  |
+|  \[contract, tokenId\] | ClaimConditionsInputParams&lt;TContract&gt; |  |
 
 <b>Returns:</b>
 

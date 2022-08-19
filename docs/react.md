@@ -102,6 +102,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [usePack(contractAddress)](./react.usepack.md) | Hook for getting an instance of a <code>Pack</code> contract. This contract supports the creation of on-chain luck-based lootboxes. |
 |  [usePlatformFees(contract)](./react.useplatformfees.md) | <b><i>(BETA)</i></b> Use this to get the platform fees settings of your  |
 |  [usePrimarySaleRecipient(contract)](./react.useprimarysalerecipient.md) | <b><i>(BETA)</i></b> |
+|  [useResetClaimConditions(\[contract, tokenId\])](./react.useresetclaimconditions.md) | <b><i>(BETA)</i></b> Use this to reset claim conditions on your [NFTContract](./react.nftcontract.md) |
 |  [useResolvedMediaType(uri)](./react.useresolvedmediatype.md) |  |
 |  [useRevealLazyMint(contract)](./react.usereveallazymint.md) | <b><i>(BETA)</i></b> Use this to reveal a batch of delayed reveal NFTs on your [DropContract](./react.dropcontract.md) |
 |  [useRevokeRole(contract)](./react.userevokerole.md) | <b><i>(BETA)</i></b> Use this to revoke a [WalletAddress](./react.walletaddress.md) a specific role on a  |
@@ -109,6 +110,7 @@ import { useNetworkMistmatch } from "@thirdweb-dev/react"
 |  [useRoyaltySettings(contract)](./react.useroyaltysettings.md) | <b><i>(BETA)</i></b> Use this to get the royalty settings of your  |
 |  [useSDK()](./react.usesdk.md) |  |
 |  [useSetAllRoleMembers(contract)](./react.usesetallrolemembers.md) | <b><i>(BETA)</i></b> Use this to OVERWRITE the list of addresses that are members of specific roles |
+|  [useSetClaimConditions(\[contract, tokenId\])](./react.usesetclaimconditions.md) | <b><i>(BETA)</i></b> Use this to set claim conditions on your [NFTContract](./react.nftcontract.md) |
 |  [useSignatureDrop(contractAddress)](./react.usesignaturedrop.md) | Hook for getting an instance of an <code>SignatureDrop</code> contract. This contract is meant to interface with ERC721 compliant NFTs that can be lazily minted. |
 |  [useSplit(contractAddress)](./react.usesplit.md) | Hook for getting an instance of a <code>Split</code> contract. This contract supports fund distribution to multiple parties. |
 |  [useToken(contractAddress)](./react.usetoken.md) | Hook for getting an instance of an <code>Token</code> contract. This contract supports ERC20 compliant tokens. |
@@ -180,6 +182,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [NFTContract](./react.nftcontract.md) | <b><i>(BETA)</i></b> The possible NFT contract types. |
 |  [RequiredParam](./react.requiredparam.md) | <b><i>(BETA)</i></b> Makes a parameter required to be passed, but still allowes it to be undefined. |
 |  [RevealLazyMintInput](./react.reveallazymintinput.md) | <b><i>(BETA)</i></b> The params for the [useRevealLazyMint()](./react.usereveallazymint.md) hook mutation. |
+|  [SetClaimConditionsParams](./react.setclaimconditionsparams.md) | <b><i>(BETA)</i></b> The params for the [useSetClaimConditions()](./react.usesetclaimconditions.md) hook mutation. |
 |  [TokenBurnParams](./react.tokenburnparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the burn function. |
 |  [TokenParams](./react.tokenparams.md) | <b><i>(BETA)</i></b> The parameters to pass to the mint and transfer functions. |
 |  [TransferNFTParams](./react.transfernftparams.md) | <b><i>(BETA)</i></b> The params to pass to <code>useTransferNFT</code>. |
