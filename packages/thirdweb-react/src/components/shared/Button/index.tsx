@@ -27,7 +27,8 @@ const BaseButton = styled.button<BaseButtonProps>`
     computeTextColorBasedOnBackground(
       (props.theme as TwUiTheme).colors.accent,
     )};
-  border: 2px solid ${(props) => (props.theme as TwUiTheme).colors.accent};
+  border: 2px solid
+    ${(props) => computeHoverColor((props.theme as TwUiTheme).colors.accent)};
   &:hover {
     cursor: pointer;
   }
@@ -109,6 +110,7 @@ export interface ButtonProps
     "hasRightElement" | "hasLeftElement"
   > {
   variant?: "solid" | "outline";
+  isDisabled?: boolean;
   leftElement?: JSX.Element;
   rightElement?: JSX.Element;
 }
@@ -119,6 +121,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   rightElement,
   leftElement,
   isLoading,
+  isDisabled,
   disabled,
   ...restProps
 }) => {
@@ -127,7 +130,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   return (
     <Btn
       {...restProps}
-      disabled={disabled || isLoading}
+      disabled={isDisabled || disabled || isLoading}
       hasRightElement={!!rightElement}
       hasLeftElement={!!leftElement}
     >

@@ -7,27 +7,34 @@ import { ConnectWallet } from "../ConnectWallet";
 import { Button } from "../shared/Button";
 import { ThemeProvider, ThemeProviderProps } from "../shared/ThemeProvider";
 import { TransactionError, TransactionResult } from "@thirdweb-dev/sdk";
-import { PropsWithChildren, useCallback, useMemo } from "react";
+import type { CallOverrides } from "ethers";
+import { PropsWithChildren, useMemo } from "react";
 
 interface Web3ButtonProps extends ThemeProviderProps {
   contractAddress: `0x${string}` | `${string}.eth`;
   functionName: string;
   params?: unknown[] | (() => Promise<unknown[]>);
-
+  overrides?: CallOverrides;
   // called with the result
   onSuccess?: (result: TransactionResult) => void;
   // called with any error that might happen
   onError?: (error: TransactionError) => void;
+  // called when the function is called
+  onSubmit?: () => void;
+  // disabled state
+  isDisabled?: boolean;
 }
 
 export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>> = ({
-  children,
   contractAddress,
   functionName,
   params,
-
+  overrides,
   onSuccess,
   onError,
+  onSubmit,
+  isDisabled,
+  children,
   ...themeProps
 }) => {
   const address = useAddress();
@@ -45,10 +52,12 @@ export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>> = ({
   const contractQuery = useContract(contractAddress);
 
   const mutation = useContractCall(contractQuery.contract, functionName);
-  const handleClick = useCallback(async () => {
+
+  const handleClick = async () => {
     if (switchToChainId) {
       if (switchNetwork) {
         await switchNetwork(switchToChainId);
+        await new Promise((resolve) => setTimeout(resolve, 500));
       } else {
         console.warn(
           "need to switch chain but connected wallet does not support switching",
@@ -57,8 +66,10 @@ export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>> = ({
       }
     }
     const vars = typeof params === "function" ? await params() : params;
+    const withOverrides =
+      vars && overrides ? [...vars, overrides] : overrides ? [overrides] : vars;
     try {
-      const result = await mutation.mutateAsync(vars);
+      const result = await mutation.mutateAsync(withOverrides);
       if (onSuccess) {
         onSuccess(result);
       }
@@ -68,7 +79,7 @@ export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>> = ({
         onError(error as TransactionError);
       }
     }
-  }, [mutation, onSuccess, onError, switchToChainId, switchNetwork]);
+  };
 
   if (!address) {
     return <ConnectWallet {...themeProps} />;
@@ -80,6 +91,7 @@ export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>> = ({
         style={{ height: "50px" }}
         isLoading={mutation.isLoading || !contractQuery.contract}
         onClick={handleClick}
+        isDisabled={isDisabled}
       >
         {children}
       </Button>
