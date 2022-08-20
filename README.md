@@ -57,7 +57,7 @@ Now you'll be able to use all the hooks provided by the React SDK! Let's take a 
 
 **Let Users Connect Wallets**
 
-Next, we'll add a button to our app which will let users conect their wallets. For now, we'll make it so that users with metamask wallets can connect.
+Next, we'll add a button to our app which will let users connect their wallets. For now, we'll make it so that users with MetaMask wallets can connect.
 
 ```jsx title="ConnectMetamaskButton.jsx"
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
