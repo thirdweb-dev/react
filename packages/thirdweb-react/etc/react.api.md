@@ -71,6 +71,7 @@ import { SignatureDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { Signer } from 'ethers';
 import { SignerOrProvider } from '@thirdweb-dev/sdk/dist/browser';
 import { SmartContract } from '@thirdweb-dev/sdk/dist/browser';
+import { SmartContract as SmartContract_2 } from '@thirdweb-dev/sdk';
 import { Split } from '@thirdweb-dev/sdk/dist/browser';
 import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk/dist/browser';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk/dist/browser';
@@ -186,6 +187,13 @@ export type DelayedRevealLazyMintInput = {
 
 // @beta
 export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
+
+// @beta (undocumented)
+export function experimental_useContract(address: string): {
+    contract: SmartContract_2<BaseContract> | null;
+    useQuery: <TFn extends (...args: any) => any>(fn?: TFn | undefined, ...params: Parameters<TFn>) => UseQueryResult<Awaited<ReturnType<TFn>>, unknown>;
+    useMutation: <TFn_1 extends (...args: any) => any>(fn?: TFn_1 | undefined) => UseMutationResult<Awaited<ReturnType<TFn_1>>, unknown, Parameters<TFn_1>, unknown>;
+};
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
 //

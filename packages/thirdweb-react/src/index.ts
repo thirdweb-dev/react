@@ -40,3 +40,6 @@ export * from "./components/MediaRenderer";
 export * from "./components/NftMedia";
 export * from "./components/ConnectWallet";
 export * from "./components/Web3Button";
+
+// experimental
+export * from "./hooks/experimental/useContract";
