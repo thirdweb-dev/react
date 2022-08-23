@@ -159,7 +159,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
         }}
       >
         <Button
-          style={{ height: "50px" }}
+          style={{ height: "50px", minWidth: "200px" }}
           {...api.triggerProps}
           leftElement={
             mountedAddress && chainId && chainId in chainIdToCurrencyMap ? (
