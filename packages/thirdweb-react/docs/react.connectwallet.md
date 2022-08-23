@@ -4,8 +4,31 @@
 
 ## ConnectWallet variable
 
+> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+> 
+
+A component that allows the user to connect their wallet.
+
+The button has to be wrapped in a `ThirdwebProvider` in order to function.
+
 <b>Signature:</b>
 
 ```typescript
 ConnectWallet: React.FC<ConnectWalletProps>
 ```
+
+## Example
+
+
+```javascript
+import { ConnectWallet } from '@thirdweb-dev/react';
+
+const App = () => {
+ return (
+  <div>
+    <ConnectWallet />
+  </div>
+)
+}
+```
+

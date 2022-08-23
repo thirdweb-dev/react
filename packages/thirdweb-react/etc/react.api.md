@@ -153,7 +153,7 @@ export type ClaimTokenParams = {
 
 // Warning: (ae-forgotten-export) The symbol "ConnectWalletProps" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
-// @public (undocumented)
+// @beta
 export const ConnectWallet: React_2.FC<ConnectWalletProps>;
 
 // @beta
@@ -1847,7 +1847,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 
 // Warning: (ae-forgotten-export) The symbol "Web3ButtonProps" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
-// @public (undocumented)
+// @beta
 export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>>;
 
 // Warnings were encountered during analysis:

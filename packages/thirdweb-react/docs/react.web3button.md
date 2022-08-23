@@ -4,8 +4,31 @@
 
 ## Web3Button variable
 
+> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+> 
+
+A component that allows the user to call an on-chain function on a contract.
+
+The button has to be wrapped in a `ThirdwebProvider` in order to function.
+
 <b>Signature:</b>
 
 ```typescript
 Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>>
 ```
+
+## Example
+
+
+```javascript
+import { Web3Button } from '@thirdweb-dev/react';
+
+const App = () => {
+ return (
+  <div>
+    <Web3Button contractAddress="0x..." functionName="mint" />
+  </div>
+)
+}
+```
+
