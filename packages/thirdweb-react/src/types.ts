@@ -1,22 +1,34 @@
 import type {
+  NFTContract,
+  NFTContractInput,
+} from "./contract-utils/nft-contracts";
+import type { useContract } from "./hooks/async/contracts";
+import {
   AirdropInput,
   Amount,
   EditionDrop,
+  Erc20,
   Erc721,
   Erc721Mintable,
   Erc1155,
   Erc1155Mintable,
   ListingType,
+  NFTCollection,
   NFTDrop,
   NFTMetadata,
   Price,
   SignatureDrop,
+  SmartContract,
+  Token,
+  ValidContractInstance,
 } from "@thirdweb-dev/sdk/dist/browser";
 import type {
   NFTMetadataInput,
   NFTMetadataOrUri,
 } from "@thirdweb-dev/sdk/dist/src/schema";
 import type { BigNumberish } from "ethers";
+
+export type UseContractReturnType = ReturnType<typeof useContract>["contract"];
 
 /**
  * Makes a parameter required to be passed, but still allowes it to be undefined.
@@ -57,58 +69,33 @@ export type TokenBurnParams = {
 };
 
 // NFTS //
-
-/**
- * The possible NFT contract types.
- * @example
- * ```javascript
- * const nftDrop = useNFTDrop(<ContractAddress>);
- * ```
- * @example
- * ```javascript
- * const editionDrop = useEditionDrop(<ContractAddress>);
- * ```
- * @example
- * ```javascript
- * const nftCollection = useNFTCollection(<ContractAddress>);
- * ```
- * @example
- * ```javascript
- * const edition = useEdition(<ContractAddress>);
- * ```
- * @example
- * ```javascript
- * const { contract } = useContract(<ContractAddress>);
- * const nftContract = contract?.nft;
- * ```
- * @beta
- */
-export type NFTContract = Erc721 | Erc1155;
-
 /**
  * A single NFT token
  * @beta
  */
-export type NFT<TContract extends NFTContract> = {
-  /**
-   * The actual metadata of the NFT (name, image, etc)
-   */
-  metadata: NFTMetadata;
-  /**
-   * The owner of the nft (this will be an empty string for ERC1155 tokens)
-   */
-  owner: string;
-  /**
-   * The type of the NFT (ERC721 or ERC1155)
-   */
-  type: TContract extends Erc721 ? "ERC721" : "ERC1155";
-  /**
-   * The total supply of the NFT (this will *always* be 1 for ERC721 tokens)
-   */
-  supply: TContract extends Erc721 ? 1 : number;
+export type NFT<TContract extends NFTContractInput> =
+  TContract extends NFTContract
+    ? {
+        /**
+         * The actual metadata of the NFT (name, image, etc)
+         */
+        metadata: NFTMetadata;
+        /**
+         * The owner of the nft (this will be an empty string for ERC1155 tokens)
+         */
+        owner: string;
+        /**
+         * The type of the NFT (ERC721 or ERC1155)
+         */
+        type: TContract extends Erc721 ? "ERC721" : "ERC1155";
+        /**
+         * The total supply of the NFT (this will *always* be 1 for ERC721 tokens)
+         */
+        supply: TContract extends Erc721 ? 1 : number;
 
-  [key: string]: unknown;
-};
+        [key: string]: unknown;
+      }
+    : never;
 
 /**
  * The params to pass to `useTotalCirculatingSupply`.
@@ -166,10 +153,12 @@ export type MintNFTSupplyParams = {
  *
  * @beta
  */
-export type MintNFTParams<TContract extends NFTContract> =
-  TContract extends Erc1155
-    ? { metadata: NFTMetadataOrUri; supply: BigNumberish; to: WalletAddress }
-    : { metadata: NFTMetadataOrUri; to: WalletAddress };
+export type MintNFTParams<TContract extends RequiredParam<NFTContractInput>> =
+  TContract extends NFTContract
+    ? TContract extends Erc1155
+      ? { metadata: NFTMetadataOrUri; supply: BigNumberish; to: WalletAddress }
+      : { metadata: NFTMetadataOrUri; to: WalletAddress }
+    : never;
 
 /**
  * The return type of the {@link useMintNFT} hook.

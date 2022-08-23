@@ -1,5 +1,9 @@
 import { useActiveChainId } from "../../Provider";
-import { NFTContract, RequiredParam, WalletAddress } from "../../types";
+import {
+  NFTContractInput,
+  getNftContract,
+} from "../../contract-utils/nft-contracts";
+import { RequiredParam, WalletAddress } from "../../types";
 import {
   cacheKeys,
   invalidateContractAndBalances,
@@ -77,30 +81,32 @@ export type SetClaimConditionsParams = {
  *
  * @beta
  */
-export function useActiveClaimCondition<TContract extends NFTContract>(
+export function useActiveClaimCondition<TContract extends NFTContractInput>(
   ...[contract, tokenId]: ClaimConditionsInputParams<TContract>
 ) {
-  const contractAddress = contract?.getAddress();
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getActive(contractAddress, tokenId),
     () => {
-      invariant(contract, "No Contract instance provided");
+      invariant(nftContract, "No Contract instance provided");
       invariant(
-        contract?.drop?.claim?.conditions?.getActive,
+        nftContract?.drop?.claim?.conditions?.getActive,
         "Contract instance does not support contract?.drop?.claim?.conditions.getActive",
       );
-      if (contract instanceof Erc1155) {
+      if (nftContract instanceof Erc1155) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
-        return contract?.drop?.claim?.conditions?.getActive(tokenId);
+        return nftContract?.drop?.claim?.conditions?.getActive(tokenId);
       }
-      return contract?.drop?.claim?.conditions?.getActive();
+      return nftContract?.drop?.claim?.conditions?.getActive();
     },
     {
       // Checks that happen here:
       // 1. if the contract is based on ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
-      enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
+      enabled:
+        nftContract instanceof Erc1155 ? tokenId !== undefined : !!nftContract,
     },
   );
 }
@@ -127,30 +133,32 @@ export function useActiveClaimCondition<TContract extends NFTContract>(
  *
  * @beta
  */
-export function useClaimConditions<TContract extends NFTContract>(
+export function useClaimConditions<TContract extends NFTContractInput>(
   ...[contract, tokenId]: ClaimConditionsInputParams<TContract>
 ) {
-  const contractAddress = contract?.getAddress();
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getAll(contractAddress, tokenId),
     () => {
       invariant(contract, "No Contract instance provided");
       invariant(
-        contract?.drop?.claim?.conditions?.getAll,
+        nftContract?.drop?.claim?.conditions?.getAll,
         "Contract instance does not support drop.claim.conditions.getAll",
       );
-      if (contract instanceof Erc1155) {
+      if (nftContract instanceof Erc1155) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
-        return contract?.drop?.claim?.conditions?.getAll(tokenId);
+        return nftContract?.drop?.claim?.conditions?.getAll(tokenId);
       }
-      return contract?.drop?.claim?.conditions?.getAll();
+      return nftContract?.drop?.claim?.conditions?.getAll();
     },
     {
       // Checks that happen here:
       // 1. if the contract is based on ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
-      enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
+      enabled:
+        nftContract instanceof Erc1155 ? tokenId !== undefined : !!nftContract,
     },
   );
 }
@@ -177,10 +185,11 @@ export function useClaimConditions<TContract extends NFTContract>(
  *
  * @beta
  */
-export function useClaimIneligibilityReasons<TContract extends NFTContract>(
-  ...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>
-) {
-  const contractAddress = contract?.getAddress();
+export function useClaimIneligibilityReasons<
+  TContract extends NFTContractInput,
+>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>) {
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
 
   return useQueryWithNetwork(
     cacheKeys.extensions.claimConditions.getClaimIneligibilityReasons(
@@ -189,23 +198,23 @@ export function useClaimIneligibilityReasons<TContract extends NFTContract>(
       tokenId,
     ),
     () => {
-      invariant(contract, "No Contract instance provided");
+      invariant(nftContract, "No Contract instance provided");
       invariant(
-        contract?.drop?.claim?.conditions.getClaimIneligibilityReasons,
+        nftContract?.drop?.claim?.conditions.getClaimIneligibilityReasons,
         "Contract instance does not support claimConditions.getClaimIneligibilityReasons",
       );
-      if (contract instanceof Erc1155) {
+      if (nftContract instanceof Erc1155) {
         invariant(
           tokenId,
           "tokenId is required for ERC1155 claim ineligibility reasons",
         );
-        return contract?.drop?.claim?.conditions.getClaimIneligibilityReasons(
+        return nftContract?.drop?.claim?.conditions.getClaimIneligibilityReasons(
           tokenId,
           params.quantity,
           params.walletAddress,
         );
       }
-      return contract?.drop?.claim?.conditions.getClaimIneligibilityReasons(
+      return nftContract?.drop?.claim?.conditions.getClaimIneligibilityReasons(
         params.quantity,
         params.walletAddress,
       );
@@ -217,7 +226,9 @@ export function useClaimIneligibilityReasons<TContract extends NFTContract>(
       // 3. has a params object been passed?
       // 4. does params have an address in it?
       enabled:
-        (contract instanceof Erc1155 ? tokenId !== undefined : !!contract) &&
+        (nftContract instanceof Erc1155
+          ? tokenId !== undefined
+          : !!nftContract) &&
         !!params &&
         !!params.walletAddress,
     },
@@ -284,23 +295,25 @@ export function useClaimIneligibilityReasons<TContract extends NFTContract>(
  * @returns a mutation object that can be used to set claim conditions
  * @beta
  */
-export function useSetClaimConditions<TContract extends NFTContract>(
+export function useSetClaimConditions<TContract extends NFTContractInput>(
   ...[contract, tokenId]: ClaimConditionsInputParams<TContract>
 ) {
   const activeChainId = useActiveChainId();
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
+
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
 
   return useMutation(
     async (data: SetClaimConditionsParams) => {
       invariant(contract, "No Contract instance provided");
       const { phases, reset = false } = data;
       invariant(phases, 'No "phases" provided');
-      if (contract instanceof Erc1155) {
+      if (nftContract instanceof Erc1155) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
-        return contract?.drop?.claim?.conditions.set(tokenId, phases, reset);
+        return nftContract?.drop?.claim?.conditions.set(tokenId, phases, reset);
       }
-      return contract?.drop?.claim?.conditions.set(phases, reset);
+      return nftContract?.drop?.claim?.conditions.set(phases, reset);
     },
     {
       onSettled: () => {
@@ -370,16 +383,18 @@ export function useSetClaimConditions<TContract extends NFTContract>(
  * @returns a mutation object that can be used to reset claim conditions
  * @beta
  */
-export function useResetClaimConditions<TContract extends NFTContract>(
+export function useResetClaimConditions<TContract extends NFTContractInput>(
   ...[contract, tokenId]: ClaimConditionsInputParams<TContract>
 ) {
   const activeChainId = useActiveChainId();
-  const contractAddress = contract?.getAddress();
   const queryClient = useQueryClient();
+
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
 
   return useMutation(
     async () => {
-      invariant(contract, "No Contract instance provided");
+      invariant(nftContract, "No Contract instance provided");
 
       const cleanConditions = (conditions: ClaimCondition[]) => {
         return conditions.map((c) => ({
@@ -390,20 +405,20 @@ export function useResetClaimConditions<TContract extends NFTContract>(
         }));
       };
 
-      if (contract instanceof Erc1155) {
+      if (nftContract instanceof Erc1155) {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
-        const claimConditions = await contract?.drop?.claim?.conditions.getAll(
-          tokenId,
-        );
-        return contract?.drop?.claim?.conditions.set(
+        const claimConditions =
+          await nftContract?.drop?.claim?.conditions.getAll(tokenId);
+        return nftContract?.drop?.claim?.conditions.set(
           tokenId,
           cleanConditions(claimConditions || []),
           true,
         );
       }
 
-      const claimConditions = await contract?.drop?.claim?.conditions.getAll();
-      return await contract?.drop?.claim?.conditions.set(
+      const claimConditions =
+        await nftContract?.drop?.claim?.conditions.getAll();
+      return await nftContract?.drop?.claim?.conditions.set(
         cleanConditions(claimConditions || []),
         true,
       );

@@ -1,5 +1,9 @@
 import { useActiveChainId } from "../../Provider";
 import {
+  NFTContractInput,
+  getNftContract,
+} from "../../contract-utils/nft-contracts";
+import {
   AirdropNFTParams,
   BurnNFTParams,
   MintNFTParams,
@@ -54,10 +58,10 @@ function convertResponseToNFTType(
  * @internal
  */
 function convertResponseToNFTTypeArray(
-  contract: NFTContract,
-  metadata: Awaited<ReturnType<typeof contract["get"]>>[],
+  contract?: NFTContract,
+  metadata?: Awaited<ReturnType<typeof contract["get"]>>[],
 ): NFT<typeof contract>[] {
-  return metadata.map((m) => convertResponseToNFTType(contract, m));
+  return metadata?.map((m) => convertResponseToNFTType(contract, m)) || [];
 }
 /** **********************/
 /**     READ  HOOKS     **/
@@ -82,25 +86,26 @@ function convertResponseToNFTTypeArray(
  * @returns a response object that includes the metadata for the given tokenId
  * @beta
  */
-export function useNFT<TContract extends NFTContract>(
+export function useNFT<TContract extends NFTContractInput>(
   contract: RequiredParam<TContract>,
   tokenId: RequiredParam<BigNumberish>,
 ) {
-  const contractAddress = contract?.getAddress();
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
 
-  return useQueryWithNetwork<NFT<TContract>>(
+  return useQueryWithNetwork(
     cacheKeys.contract.nft.get(contractAddress, tokenId),
     async () => {
-      invariant(contract, "No Contract instance provided");
-      invariant(contract.get, "Contract instance does not support get");
+      invariant(nftContract, "No Contract instance provided");
+      invariant(nftContract.get, "Contract instance does not support get");
 
       return convertResponseToNFTType(
-        contract,
-        await contract.get(BigNumber.from(tokenId || 0)),
+        nftContract,
+        await nftContract.get(BigNumber.from(tokenId || 0)),
       );
     },
     {
-      enabled: !!contract && tokenId !== undefined,
+      enabled: !!nftContract && tokenId !== undefined,
     },
   );
 }
@@ -124,27 +129,29 @@ export function useNFT<TContract extends NFTContract>(
  * @returns a response object that includes an array of NFTs
  * @beta
  */
-export function useNFTs<TContract extends NFTContract>(
+export function useNFTs<TContract extends NFTContractInput>(
   contract: RequiredParam<TContract>,
   queryParams?: QueryAllParams,
 ) {
-  const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork<NFT<TContract>[]>(
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
+
+  return useQueryWithNetwork(
     cacheKeys.contract.nft.query.all(contractAddress, queryParams),
     async () => {
-      invariant(contract, "No Contract instance provided");
+      invariant(nftContract, "No Contract instance provided");
       invariant(
-        contract.query?.all,
+        nftContract.query?.all,
         "Contract instance does not support query.all",
       );
 
       return convertResponseToNFTTypeArray(
-        contract,
-        await contract.query.all(queryParams),
+        nftContract,
+        await nftContract.query.all(queryParams),
       );
     },
     {
-      enabled: !!contract || !contractAddress,
+      enabled: !!nftContract || !contractAddress,
       keepPreviousData: true,
     },
   );
@@ -168,30 +175,32 @@ export function useNFTs<TContract extends NFTContract>(
  * @returns a response object that incudes the total minted supply
  * @beta
  */
-export function useTotalCirculatingSupply<TContract extends NFTContract>(
+export function useTotalCirculatingSupply<TContract extends NFTContractInput>(
   ...[contract, tokenId]: useTotalCirculatingSupplyParams<TContract>
 ) {
-  const contractAddress = contract?.getAddress();
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
+
   return useQueryWithNetwork(
     cacheKeys.contract.nft.query.totalCirculatingSupply(contractAddress),
     () => {
-      invariant(contract, "No Contract instance provided");
-      if (contract instanceof Erc721) {
+      invariant(nftContract, "No Contract instance provided");
+      if (nftContract instanceof Erc721) {
         invariant(
-          contract?.query?.totalCirculatingSupply,
+          nftContract?.query?.totalCirculatingSupply,
           "Contract instance does not support query.totalCirculatingSupply",
         );
-        return contract.query.totalCirculatingSupply();
+        return nftContract.query.totalCirculatingSupply();
       }
       invariant(
-        contract.query?.totalCirculatingSupply,
+        nftContract.query?.totalCirculatingSupply,
         "Contract instance does not support query.getTotalCount",
       );
       invariant(tokenId, "No tokenId provided");
-      return contract.query.totalCirculatingSupply(tokenId);
+      return nftContract.query.totalCirculatingSupply(tokenId);
     },
     {
-      enabled: !!contract,
+      enabled: !!nftContract,
     },
   );
 }
@@ -217,27 +226,29 @@ export function useTotalCirculatingSupply<TContract extends NFTContract>(
  * @returns a response object that incudes the total number of tokens in the contract
  * @beta
  */
-export function useTotalCount(contract: RequiredParam<NFTContract>) {
-  const contractAddress = contract?.getAddress();
+export function useTotalCount(contract: RequiredParam<NFTContractInput>) {
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
+
   return useQueryWithNetwork(
     cacheKeys.contract.nft.query.totalCount(contractAddress),
     () => {
-      invariant(contract, "No Contract instance provided");
-      if (contract instanceof Erc721) {
+      invariant(nftContract, "No Contract instance provided");
+      if (nftContract instanceof Erc721) {
         invariant(
-          contract?.query?.totalCirculatingSupply,
+          nftContract?.query?.totalCirculatingSupply,
           "Contract instance does not support query.totalCirculatingSupply",
         );
-        return contract.query.totalCirculatingSupply();
+        return nftContract.query.totalCirculatingSupply();
       }
       invariant(
-        contract.query?.totalCount,
+        nftContract.query?.totalCount,
         "Contract instance does not support query.totalCount",
       );
-      return contract.query.totalCount();
+      return nftContract.query.totalCount();
     },
     {
-      enabled: !!contract,
+      enabled: !!nftContract,
     },
   );
 }
@@ -261,36 +272,38 @@ export function useTotalCount(contract: RequiredParam<NFTContract>) {
  * @returns a response object that includes the list of owned tokens
  * @beta
  */
-export function useOwnedNFTs<TContract extends NFTContract>(
+export function useOwnedNFTs<TContract extends NFTContractInput>(
   contract: RequiredParam<TContract>,
   ownerWalletAddress: RequiredParam<WalletAddress>,
 ) {
-  const contractAddress = contract?.getAddress();
-  return useQueryWithNetwork<NFT<TContract>[]>(
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
+
+  return useQueryWithNetwork(
     cacheKeys.contract.nft.query.owned.all(contractAddress, ownerWalletAddress),
     async () => {
-      invariant(contract, "No Contract instance provided");
-      if (contract instanceof Erc721) {
+      invariant(nftContract, "No Contract instance provided");
+      if (nftContract instanceof Erc721) {
         invariant(
-          contract.query?.owned?.all,
+          nftContract.query?.owned?.all,
           "Contract instance does not support query.owned.all",
         );
         return convertResponseToNFTTypeArray(
-          contract,
-          await contract.query.owned.all(ownerWalletAddress),
+          nftContract,
+          await nftContract.query.owned.all(ownerWalletAddress),
         );
       }
       invariant(
-        contract.query?.owned,
+        nftContract.query?.owned,
         "Contract instance does not support query.owned",
       );
       return convertResponseToNFTTypeArray(
-        contract,
-        await contract.query.owned(ownerWalletAddress),
+        nftContract,
+        await nftContract.query.owned(ownerWalletAddress),
       );
     },
     {
-      enabled: !!contract && !!ownerWalletAddress,
+      enabled: !!nftContract && !!ownerWalletAddress,
     },
   );
 }
@@ -317,7 +330,9 @@ export function useOwnedNFTs<TContract extends NFTContract>(
 export function useNFTBalance<TContract extends NFTContract>(
   ...[contract, ownerWalletAddress, tokenId]: useNFTBalanceParams<TContract>
 ) {
-  const contractAddress = contract?.getAddress();
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
+
   return useQueryWithNetwork(
     cacheKeys.contract.nft.balanceOf(
       contractAddress,
@@ -325,20 +340,20 @@ export function useNFTBalance<TContract extends NFTContract>(
       tokenId,
     ),
     () => {
-      invariant(contract, "No Contract instance provided");
+      invariant(nftContract, "No Contract instance provided");
       invariant(
-        contract.balanceOf,
+        nftContract.balanceOf,
         "Contract instance does not support balanceOf",
       );
       invariant(ownerWalletAddress, "No owner wallet address provided");
-      if (contract instanceof Erc1155) {
+      if (nftContract instanceof Erc1155) {
         invariant(tokenId, "No tokenId provided");
-        return contract.balanceOf(ownerWalletAddress, tokenId);
+        return nftContract.balanceOf(ownerWalletAddress, tokenId);
       }
-      return contract.balanceOf(ownerWalletAddress);
+      return nftContract.balanceOf(ownerWalletAddress);
     },
     {
-      enabled: !!contract && !!ownerWalletAddress,
+      enabled: !!nftContract && !!ownerWalletAddress,
     },
   );
 }
@@ -403,29 +418,30 @@ export function useNFTBalance<TContract extends NFTContract>(
  * @returns a mutation object that can be used to mint a new NFT token to the connected wallet
  * @beta
  */
-export function useMintNFT<TContract extends NFTContract>(
-  contract: RequiredParam<TContract>,
-) {
+export function useMintNFT(contract: RequiredParam<NFTContractInput>) {
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
+
   const activeChainId = useActiveChainId();
-  const contractAddress = contract?.getAddress();
+
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (data: MintNFTParams<TContract>) => {
+    async (data: MintNFTParams<typeof nftContract>) => {
       invariant(data.to, 'No "to" address provided');
-      invariant(contract?.mint?.to, "contract does not support mint.to");
-      if (contract instanceof Erc1155) {
+      invariant(nftContract?.mint?.to, "contract does not support mint.to");
+      if (nftContract instanceof Erc1155) {
         invariant("supply" in data, "supply not provided");
         const { to, metadata, supply } = data;
-        return (await contract.mint.to(to, {
+        return (await nftContract.mint.to(to, {
           metadata,
           supply: BigNumber.from(supply || 1),
-        })) as MintNFTReturnType<TContract>;
+        })) as MintNFTReturnType<typeof nftContract>;
       }
-      return (await contract.mint.to(
+      return (await nftContract.mint.to(
         data.to,
         data.metadata,
-      )) as MintNFTReturnType<TContract>;
+      )) as MintNFTReturnType<typeof nftContract>;
     },
     {
       onSettled: () =>
@@ -495,8 +511,11 @@ export function useMintNFT<TContract extends NFTContract>(
  * @beta
  */
 export function useMintNFTSupply(contract: Erc1155) {
+  const nftContract = getNftContract(contract);
+  const contractAddress = nftContract?.getAddress();
+
   const activeChainId = useActiveChainId();
-  const contractAddress = contract?.getAddress();
+
   const queryClient = useQueryClient();
 
   return useMutation(
