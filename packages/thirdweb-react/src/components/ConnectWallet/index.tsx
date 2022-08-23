@@ -29,6 +29,7 @@ import {
   FiChevronDown,
   FiCopy,
   FiLock,
+  FiShuffle,
   FiWifi,
   FiXCircle,
 } from "react-icons/fi";
@@ -70,6 +71,7 @@ interface ConnectWalletProps extends ThemeProviderProps {
 let connecting = false;
 let switchingNetwork = false;
 let authing = false;
+let switchingWallet = false;
 
 const chainIdToCurrencyMap: Record<
   SUPPORTED_CHAIN_ID,
@@ -307,6 +309,36 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
                       }}
                     />
                   </MenuItem>
+                  {/* allow switching wallets for metamask */}
+                  {connector &&
+                  connector.name === "MetaMask" &&
+                  connector.id === "injected" ? (
+                    <MenuItem
+                      {...api.getItemProps({
+                        id: "switch-wallet",
+                      })}
+                      leftElement={<FiShuffle width="1em" height="1em" />}
+                      onClick={async () => {
+                        if (switchingWallet) {
+                          return;
+                        }
+                        switchingWallet = true;
+                        try {
+                          await connector.getProvider().request({
+                            method: "wallet_requestPermissions",
+                            params: [{ eth_accounts: {} }],
+                          });
+                          api.close();
+                        } catch (err) {
+                          console.error("failed to switch wallets", err);
+                        }
+                        switchingWallet = false;
+                      }}
+                    >
+                      Switch Account
+                    </MenuItem>
+                  ) : null}
+
                   <MenuItem
                     {...api.getItemProps({
                       id: "disconnect",
