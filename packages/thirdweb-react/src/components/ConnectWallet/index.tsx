@@ -286,28 +286,28 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
                 </>
               ) : (
                 <>
-                  {supportedConnectors.findIndex((c) => c.name === "MetaMask") >
-                    -1 && (
-                    <MenuItem
-                      {...api.getItemProps({
-                        id: "metamask",
-                      })}
-                      onClick={async () => {
-                        if (!connecting) {
-                          connecting = true;
-                          await connectWithMetamask();
-                          connecting = false;
-                          api.close();
-                        }
-                      }}
-                      leftElement={<Icon boxSize="1.5em" name="metamask" />}
-                    >
-                      MetaMask
-                    </MenuItem>
-                  )}
+                  <MenuItem
+                    {...api.getItemProps({
+                      id: "metamask",
+                    })}
+                    onClick={async () => {
+                      if (!connecting) {
+                        connecting = true;
+                        await connectWithMetamask();
+                        connecting = false;
+                        api.close();
+                      }
+                    }}
+                    leftElement={<Icon boxSize="1.5em" name="metamask" />}
+                  >
+                    MetaMask
+                  </MenuItem>
                   {supportedConnectors
                     .filter((c) => c.name !== "MetaMask")
                     .map((c) => {
+                      if (!c.ready) {
+                        return null;
+                      }
                       return (
                         <MenuItem
                           key={c.id}

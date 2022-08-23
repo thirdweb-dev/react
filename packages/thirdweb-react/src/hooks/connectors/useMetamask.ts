@@ -60,9 +60,7 @@ export function useMetamask() {
     // if we don't have an injected provider
     if (!isMetaMaskInjected) {
       // this is the fallback uri that should work no matter what
-      let uri = `https://metamask.app.link/dapp/${
-        window.location.host + window.location.pathname + window.location.search
-      }`;
+      let uri = `https://metamask.app.link/dapp/${window.location.toString()}`;
 
       // if we have walletconnect etc, we can try to use that
       if (shouldUseWalletConnect && connector.id === "walletConnect") {
@@ -72,11 +70,7 @@ export function useMetamask() {
           uri = isAndroid()
             ? uri
             : // otherwise we have to use /dapp link for now
-              `https://metamask.app.link/dapp/${
-                window.location.host +
-                window.location.pathname +
-                window.location.search
-              }`;
+              `https://metamask.app.link/dapp/${window.location.toString()}`;
         } catch (err) {
           console.warn("failed to get provider.connector.uri", err);
         }
