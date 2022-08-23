@@ -65,6 +65,7 @@ interface ConnectWalletProps extends ThemeProviderProps {
   auth?: {
     loginOptions?: LoginOptions;
     loginConfig?: LoginConfig;
+    loginOptional?: boolean;
   };
 }
 
@@ -166,6 +167,10 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
   const authConfig = useThirdwebAuthConfig();
   const { user, isLoading, login, logout } = useAuth(auth?.loginConfig);
 
+  const requiresSignIn = auth?.loginOptional
+    ? false
+    : !!authConfig?.authUrl && !!mountedAddress && !user?.address;
+
   return (
     <ThemeProvider {...themeProps}>
       <div
@@ -175,9 +180,28 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
       >
         <Button
           style={{ height: "50px", minWidth: "200px" }}
-          {...api.triggerProps}
+          onClick={async (e) => {
+            if (requiresSignIn) {
+              e.preventDefault();
+              e.stopPropagation();
+              authing = true;
+              try {
+                await login(auth?.loginOptions);
+              } catch (err) {
+                console.error("failed to log in", err);
+              }
+              authing = false;
+            }
+          }}
+          {...(requiresSignIn ? {} : api.triggerProps)}
           leftElement={
-            mountedAddress && chainId && chainId in chainIdToCurrencyMap ? (
+            requiresSignIn ? (
+              isLoading ? (
+                <Spinner />
+              ) : (
+                <FiLock />
+              )
+            ) : mountedAddress && chainId && chainId in chainIdToCurrencyMap ? (
               <Icon
                 boxSize="1.5em"
                 name={chainIdToCurrencyMap[chainId as SUPPORTED_CHAIN_ID]}
@@ -185,41 +209,47 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
             ) : undefined
           }
           rightElement={
-            <>
-              {connector && getIconForConnector(connector)}
-              <FiChevronDown
-                style={{
-                  transition: "transform 150ms ease",
-                  transform: `rotate(${api.isOpen ? "-180deg" : "0deg"})`,
-                }}
-              />
-            </>
+            requiresSignIn ? undefined : (
+              <>
+                {connector && getIconForConnector(connector)}
+                <FiChevronDown
+                  style={{
+                    transition: "transform 150ms ease",
+                    transform: `rotate(${api.isOpen ? "-180deg" : "0deg"})`,
+                  }}
+                />
+              </>
+            )
           }
         >
           {mountedAddress ? (
-            <span
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                fontWeight: 400,
-                alignItems: "flex-start",
-                fontSize: "0.8em",
-              }}
-            >
-              <span style={{ whiteSpace: "nowrap", fontWeight: 500 }}>
-                {balanceQuery.isLoading ? (
-                  "Loading..."
-                ) : (
-                  <>
-                    {balanceQuery.data?.displayValue.slice(0, 5)}{" "}
-                    {balanceQuery.data?.symbol}
-                  </>
-                )}
+            requiresSignIn ? (
+              <span style={{ whiteSpace: "nowrap" }}>Sign in</span>
+            ) : (
+              <span
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  fontWeight: 400,
+                  alignItems: "flex-start",
+                  fontSize: "0.8em",
+                }}
+              >
+                <span style={{ whiteSpace: "nowrap", fontWeight: 500 }}>
+                  {balanceQuery.isLoading ? (
+                    "Loading..."
+                  ) : (
+                    <>
+                      {balanceQuery.data?.displayValue.slice(0, 5)}{" "}
+                      {balanceQuery.data?.symbol}
+                    </>
+                  )}
+                </span>
+                <span style={{ fontSize: "0.9em" }}>
+                  {shortenIfAddress(mountedAddress)}
+                </span>
               </span>
-              <span style={{ fontSize: "0.9em" }}>
-                {shortenIfAddress(mountedAddress)}
-              </span>
-            </span>
+            )
           ) : (
             <span style={{ whiteSpace: "nowrap" }}>Connect Wallet</span>
           )}
@@ -236,7 +266,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
             <Menu {...api.contentProps}>
               {!api.isOpen ? null : mountedAddress ? (
                 <>
-                  {authConfig?.authUrl && !user?.address ? (
+                  {authConfig?.authUrl && !user?.address && !requiresSignIn ? (
                     <MenuItem
                       {...api.getItemProps({
                         id: "auth",
@@ -256,7 +286,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
                         authing = false;
                       }}
                     >
-                      Sign in with web3
+                      Sign in
                     </MenuItem>
                   ) : null}
                   <MenuItem
@@ -375,6 +405,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
                   </MenuItem>
                   {supportedConnectors
                     .filter((c) => c.name !== "MetaMask")
+                    .sort((a, b) => a.name.localeCompare(b.name))
                     .map((c) => {
                       if (!c.ready) {
                         return null;
