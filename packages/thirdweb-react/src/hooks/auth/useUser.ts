@@ -3,7 +3,7 @@ import { cacheKeys } from "../../utils/cache-keys";
 import { useQuery } from "@tanstack/react-query";
 import invariant from "tiny-invariant";
 
-interface ThirdwebAuthUser {
+export interface ThirdwebAuthUser {
   address: string;
 }
 

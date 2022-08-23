@@ -1,4 +1,6 @@
+import { useThirdwebAuthConfig } from "../../contexts/thirdweb-auth";
 import { useBalance } from "../../hooks/async/wallet";
+import { LoginConfig, useAuth } from "../../hooks/auth";
 import { useMetamask } from "../../hooks/connectors/useMetamask";
 import { useAddress } from "../../hooks/useAddress";
 import { useChainId } from "../../hooks/useChainId";
@@ -18,7 +20,7 @@ import { ThemeProvider, ThemeProviderProps } from "../shared/ThemeProvider";
 import { fontFamily } from "../theme";
 import { SupportedNetworkSelect } from "./NetworkSelect";
 import { Portal } from "@reach/portal";
-import { ChainId, SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
+import { ChainId, LoginOptions, SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
 import * as menu from "@zag-js/menu";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import React, { useId, useMemo } from "react";
@@ -26,6 +28,7 @@ import {
   FiCheck,
   FiChevronDown,
   FiCopy,
+  FiLock,
   FiWifi,
   FiXCircle,
 } from "react-icons/fi";
@@ -57,10 +60,16 @@ function getIconForConnector(connector: Connector) {
   }
 }
 
-interface ConnectWalletProps extends ThemeProviderProps {}
+interface ConnectWalletProps extends ThemeProviderProps {
+  auth?: {
+    loginOptions?: LoginOptions;
+    loginConfig?: LoginConfig;
+  };
+}
 
 let connecting = false;
 let switchingNetwork = false;
+let authing = false;
 
 const chainIdToCurrencyMap: Record<
   SUPPORTED_CHAIN_ID,
@@ -108,6 +117,7 @@ const chainIdToCurrencyMap: Record<
  * @beta
  */
 export const ConnectWallet: React.FC<ConnectWalletProps> = ({
+  auth,
   ...themeProps
 }) => {
   const id = useId();
@@ -150,6 +160,9 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
   const balanceQuery = useBalance();
 
   const { onCopy, hasCopied } = useClipboard(mountedAddress || "");
+
+  const authConfig = useThirdwebAuthConfig();
+  const { user, isLoading, login, logout } = useAuth(auth?.loginConfig);
 
   return (
     <ThemeProvider {...themeProps}>
@@ -221,6 +234,29 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
             <Menu {...api.contentProps}>
               {!api.isOpen ? null : mountedAddress ? (
                 <>
+                  {authConfig?.authUrl && !user?.address ? (
+                    <MenuItem
+                      {...api.getItemProps({
+                        id: "auth",
+                        closeOnSelect: false,
+                      })}
+                      leftElement={isLoading ? <Spinner /> : <FiLock />}
+                      onClick={async () => {
+                        if (isLoading || authing || user?.address) {
+                          return;
+                        }
+                        authing = true;
+                        try {
+                          await login(auth?.loginOptions);
+                        } catch (err) {
+                          console.error("failed to log in", err);
+                        }
+                        authing = false;
+                      }}
+                    >
+                      Sign in with web3
+                    </MenuItem>
+                  ) : null}
                   <MenuItem
                     {...api.getItemProps({ id: "copy", closeOnSelect: false })}
                     leftElement={
@@ -278,6 +314,9 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
                     leftElement={<FiXCircle width="1em" height="1em" />}
                     onClick={() => {
                       disconnect();
+                      if (authConfig?.authUrl) {
+                        logout();
+                      }
                       api.close();
                     }}
                   >
