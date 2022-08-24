@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ClaimCondition,
   ClaimConditionInput,
+  Erc20,
   Erc1155,
 } from "@thirdweb-dev/sdk/dist/browser";
 import { BigNumberish } from "ethers";
@@ -77,7 +78,7 @@ export type SetClaimConditionsParams = {
  *
  * @beta
  */
-export function useActiveClaimCondition<TContract extends NFTContract>(
+export function useActiveClaimCondition<TContract extends NFTContract | Erc20>(
   ...[contract, tokenId]: ClaimConditionsInputParams<TContract>
 ) {
   const contractAddress = contract?.getAddress();
@@ -127,7 +128,7 @@ export function useActiveClaimCondition<TContract extends NFTContract>(
  *
  * @beta
  */
-export function useClaimConditions<TContract extends NFTContract>(
+export function useClaimConditions<TContract extends NFTContract | Erc20>(
   ...[contract, tokenId]: ClaimConditionsInputParams<TContract>
 ) {
   const contractAddress = contract?.getAddress();
@@ -177,9 +178,9 @@ export function useClaimConditions<TContract extends NFTContract>(
  *
  * @beta
  */
-export function useClaimIneligibilityReasons<TContract extends NFTContract>(
-  ...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>
-) {
+export function useClaimIneligibilityReasons<
+  TContract extends NFTContract | Erc20,
+>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>) {
   const contractAddress = contract?.getAddress();
 
   return useQueryWithNetwork(
@@ -284,7 +285,7 @@ export function useClaimIneligibilityReasons<TContract extends NFTContract>(
  * @returns a mutation object that can be used to set claim conditions
  * @beta
  */
-export function useSetClaimConditions<TContract extends NFTContract>(
+export function useSetClaimConditions<TContract extends NFTContract | Erc20>(
   ...[contract, tokenId]: ClaimConditionsInputParams<TContract>
 ) {
   const activeChainId = useActiveChainId();
@@ -370,7 +371,7 @@ export function useSetClaimConditions<TContract extends NFTContract>(
  * @returns a mutation object that can be used to reset claim conditions
  * @beta
  */
-export function useResetClaimConditions<TContract extends NFTContract>(
+export function useResetClaimConditions<TContract extends NFTContract | Erc20>(
   ...[contract, tokenId]: ClaimConditionsInputParams<TContract>
 ) {
   const activeChainId = useActiveChainId();

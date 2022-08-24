@@ -12,7 +12,7 @@ Use this to get the active claim conditon for ERC20, ERC721 or ERC1155 based con
 <b>Signature:</b>
 
 ```typescript
-export declare function useActiveClaimCondition<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseQueryResult<{
+export declare function useActiveClaimCondition<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseQueryResult<{
     snapshot?: {
         address: string;
         maxClaimable: string;

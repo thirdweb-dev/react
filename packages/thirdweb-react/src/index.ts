@@ -18,7 +18,7 @@ export * from "./hooks/useNetwork";
 
 // re-exports
 export { defaultChains, defaultL2Chains, useAccount, useProvider } from "wagmi";
-export { ChainId, IpfsStorage } from "@thirdweb-dev/sdk/dist/browser";
+export { ChainId } from "@thirdweb-dev/sdk/dist/browser";
 
 // async hooks
 export * from "./hooks/async/contracts";

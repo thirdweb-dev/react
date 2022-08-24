@@ -31,13 +31,12 @@ import { Edition } from '@thirdweb-dev/sdk/dist/browser';
 import { EditionDrop } from '@thirdweb-dev/sdk/dist/browser';
 import { Erc1155 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc1155Mintable } from '@thirdweb-dev/sdk/dist/browser';
-import type { Erc20 } from '@thirdweb-dev/sdk/dist/browser';
+import { Erc20 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
 import type { Erc721Mintable } from '@thirdweb-dev/sdk/dist/browser';
 import type { EventQueryFilter } from '@thirdweb-dev/sdk/dist/browser';
 import { FetchStatus } from '@tanstack/react-query';
 import { InjectedConnector } from 'wagmi/connectors/injected';
-import { IpfsStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { IStorage } from '@thirdweb-dev/sdk/dist/browser';
 import { Json } from '@thirdweb-dev/sdk/dist/browser';
 import { ListingType } from '@thirdweb-dev/sdk/dist/browser';
@@ -203,8 +202,6 @@ export type InjectedConnectorType = "injected" | "metamask" | {
     name: "injected" | "metamask";
     options?: InjectedConnector["options"];
 };
-
-export { IpfsStorage }
 
 // @public (undocumented)
 export interface LoginConfig {
@@ -404,7 +401,7 @@ export function useActiveChainId(): SUPPORTED_CHAIN_ID | undefined;
 // Warning: (ae-forgotten-export) The symbol "ClaimConditionsInputParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
-export function useActiveClaimCondition<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseQueryResult<    {
+export function useActiveClaimCondition<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -521,7 +518,7 @@ type: ListingType.Auction;
 export function useChainId(): number | undefined;
 
 // @beta
-export function useClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseQueryResult<    {
+export function useClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseQueryResult<    {
 snapshot?: {
 address: string;
 maxClaimable: string;
@@ -556,7 +553,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>): UseQ
 // Warning: (ae-forgotten-export) The symbol "ClaimIneligibilityInputParams" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
-export function useClaimIneligibilityReasons<TContract extends NFTContract>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
+export function useClaimIneligibilityReasons<TContract extends NFTContract | Erc20>(...[contract, params, tokenId]: ClaimIneligibilityInputParams<TContract>): UseQueryResult<ClaimEligibility[], unknown>;
 
 // @beta
 export function useClaimNFT<TContract extends DropContract>(contract: RequiredParam<TContract>): UseMutationResult<ClaimNFTReturnType<TContract>, unknown, ClaimNFTParams<TContract>, unknown>;
@@ -1488,7 +1485,7 @@ export function useIsAddressRole<TContract extends ContractWithRoles>(contract: 
 // @beta
 export function useLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): UseMutationResult<TransactionResultWithId<    {
 [x: string]: Json;
-name?: string | undefined;
+name?: string | number | undefined;
 description?: string | null | undefined;
 image?: string | null | undefined;
 external_url?: string | null | undefined;
@@ -1550,7 +1547,7 @@ export function useMintNFT<TContract extends NFTContract>(contract: RequiredPara
 export function useMintNFTSupply(contract: Erc1155): UseMutationResult<TransactionResultWithId<    {
 metadata: {
 [x: string]: Json;
-name?: string | undefined;
+name?: string | number | undefined;
 description?: string | null | undefined;
 image?: string | null | undefined;
 external_url?: string | null | undefined;
@@ -1652,7 +1649,7 @@ export { useProvider }
 export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage): ThirdwebSDK;
 
 // @beta
-export function useResetClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
+export function useResetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
 }, "data"> | undefined, unknown, void, unknown>;
@@ -1699,7 +1696,7 @@ export function useSDK(): ThirdwebSDK | undefined;
 export function useSetAllRoleMembers<TContract extends ContractWithRoles>(contract: RequiredParam<TContract>): UseMutationResult<void, unknown, { [role in RolesForContract<TContract>]: string[]; }, unknown>;
 
 // @beta
-export function useSetClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
+export function useSetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
 receipt: TransactionReceipt;
 data: () => Promise<unknown>;
 }, "data"> | undefined, unknown, SetClaimConditionsParams, unknown>;
@@ -1766,7 +1763,7 @@ data: () => Promise<unknown>;
 // @beta
 export function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): UseQueryResult<    {
 [x: string]: Json;
-name?: string | undefined;
+name?: string | number | undefined;
 description?: string | null | undefined;
 image?: string | null | undefined;
 external_url?: string | null | undefined;
