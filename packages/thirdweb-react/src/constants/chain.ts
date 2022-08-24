@@ -185,6 +185,7 @@ const chain: Record<string, Chain> = {
     ],
     testnet: true,
   },
+  // TODO add Binance here
 };
 
 export const defaultSupportedChains = Object.values(chain) as Chain[];
