@@ -4,16 +4,12 @@
 
 ## experimental\_useContract() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 <b>Signature:</b>
 
 ```typescript
-export declare function experimental_useContract(address: string): {
-    contract: import("@thirdweb-dev/sdk").SmartContract<import("ethers").BaseContract> | null;
-    useQuery: <TFn extends (...args: any) => any>(fn?: TFn | undefined, ...params: Parameters<TFn>) => import("@tanstack/react-query").UseQueryResult<Awaited<ReturnType<TFn>>, unknown>;
-    useMutation: <TFn_1 extends (...args: any) => any>(fn?: TFn_1 | undefined) => import("@tanstack/react-query").UseMutationResult<Awaited<ReturnType<TFn_1>>, unknown, Parameters<TFn_1>, unknown>;
+export declare function experimental_useContract(contractAddress: RequiredParam<ContractAddress>): {
+    contract: SmartContract<import("ethers").BaseContract> | null;
+    useRead: <TCallback extends (contract: SmartContract<import("ethers").BaseContract> | null) => any>(callback: TCallback) => import("@tanstack/react-query").UseQueryResult<Awaited<ReturnType<TCallback>>, unknown>;
 };
 ```
 
@@ -21,10 +17,9 @@ export declare function experimental_useContract(address: string): {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  address | string | The address of the contract to use |
+|  contractAddress | [RequiredParam](./react.requiredparam.md)<!-- -->&lt;[ContractAddress](./react.contractaddress.md)<!-- -->&gt; |  |
 
 <b>Returns:</b>
 
-{ contract: import("@thirdweb-dev/sdk").SmartContract&lt;import("ethers").BaseContract&gt; \| null; useQuery: &lt;TFn extends (...args: any) =&gt; any&gt;(fn?: TFn \| undefined, ...params: Parameters&lt;TFn&gt;) =&gt; import("@tanstack/react-query").UseQueryResult&lt;Awaited&lt;ReturnType&lt;TFn&gt;&gt;, unknown&gt;; useMutation: &lt;TFn\_1 extends (...args: any) =&gt; any&gt;(fn?: TFn\_1 \| undefined) =&gt; import("@tanstack/react-query").UseMutationResult&lt;Awaited&lt;ReturnType&lt;TFn\_1&gt;&gt;, unknown, Parameters&lt;TFn\_1&gt;, unknown&gt;; }
-
+{ contract: SmartContract&lt;import("ethers").BaseContract&gt; \| null; useRead: &lt;TCallback extends (contract: SmartContract&lt;import("ethers").BaseContract&gt; \| null) =&gt; any&gt;(callback: TCallback) =&gt; import("@tanstack/react-query").UseQueryResult&lt;Awaited&lt;ReturnType&lt;TCallback&gt;&gt;, unknown&gt;; }
 

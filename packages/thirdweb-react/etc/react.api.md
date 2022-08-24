@@ -188,11 +188,13 @@ export type DelayedRevealLazyMintInput = {
 // @beta
 export type DropContract = NFTDrop | EditionDrop | SignatureDrop;
 
-// @beta (undocumented)
-export function experimental_useContract(address: string): {
+// Warning: (ae-incompatible-release-tags) The symbol "experimental_useContract" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "experimental_useContract" is marked as @public, but its signature references "ContractAddress" which is marked as @beta
+//
+// @public (undocumented)
+export function experimental_useContract(contractAddress: RequiredParam<ContractAddress>): {
     contract: SmartContract_2<BaseContract> | null;
-    useQuery: <TFn extends (...args: any) => any>(fn?: TFn | undefined, ...params: Parameters<TFn>) => UseQueryResult<Awaited<ReturnType<TFn>>, unknown>;
-    useMutation: <TFn_1 extends (...args: any) => any>(fn?: TFn_1 | undefined) => UseMutationResult<Awaited<ReturnType<TFn_1>>, unknown, Parameters<TFn_1>, unknown>;
+    useRead: <TCallback extends (contract: SmartContract_2<BaseContract> | null) => any>(callback: TCallback) => UseQueryResult<Awaited<ReturnType<TCallback>>, unknown>;
 };
 
 // Warning: (ae-internal-missing-underscore) The name "GnosisConnectorType" should be prefixed with an underscore because the declaration is marked as @internal
