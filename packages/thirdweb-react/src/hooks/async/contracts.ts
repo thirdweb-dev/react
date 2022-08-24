@@ -236,7 +236,7 @@ function useContractTypeAndCompilerMetadata(
 }
 
 /**
- * Use this resolve a contract address to a thirdweb (built-in / custom) contract instance.
+ * Use this resolve a contract address to a smart contract instance.
  *
  * @example
  * ```javascript
@@ -245,7 +245,7 @@ function useContractTypeAndCompilerMetadata(
  *
  * @param contractAddress - the address of the deployed contract
  * @returns a response object that includes the contract once it is resolved
- * @beta
+ * @public
  */
 export function useContract(contractAddress: RequiredParam<ContractAddress>) {
   const sdk = useSDK();

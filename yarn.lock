@@ -2133,21 +2133,6 @@
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-3.1.0-1.tgz#8c4d068f0548f780a90cc723636bcc358cb946eb"
   integrity sha512-v19UtKKIpd6ol7fXcAL24F7Jwew1jIAmxstogTw9MdX2k9McwaI0Ebxu/3SSkQq2AhmruwOPp+E2xq1SWKsBUw==
 
-"@thirdweb-dev/react@*":
-  version "2.6.5"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/react/-/react-2.6.5.tgz#30bf45e8a78d9659ba5d512d6d772d4531c4634c"
-  integrity sha512-UEZdh6tVZKP4pqWBtYYPLKmmuuO30eXGpP2b1Ze5L4aUso4TIQ8uuNNWSSf87StnIGAPe3tJrK2p1/G8O6WBAA==
-  dependencies:
-    "@gnosis.pm/safe-core-sdk" "2.1.0"
-    "@gnosis.pm/safe-ethers-adapters" "0.1.0-alpha.9"
-    "@gnosis.pm/safe-ethers-lib" "1.1.0"
-    "@tanstack/react-query" "^4.0.10"
-    detect-browser "^5.3.0"
-    mime "^3.0.0"
-    react-cool-dimensions "^2.0.7"
-    tiny-invariant "^1.2.0"
-    wagmi "^0.2.28"
-
 "@thirdweb-dev/sdk@^2", "@thirdweb-dev/sdk@^2.3.35":
   version "2.3.38"
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.3.38.tgz#785ef14e6a03c3816dd71c7f377192e1edeb4177"
