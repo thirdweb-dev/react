@@ -15,7 +15,7 @@ Use this to mint a new NFT on your [NFTContract](./react.nftcontract.md)
 export declare function useMintNFTSupply(contract: Erc1155): import("@tanstack/react-query").UseMutationResult<import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId<{
     metadata: {
         [x: string]: import("@thirdweb-dev/sdk/dist/browser").Json;
-        name?: string | undefined;
+        name?: string | number | undefined;
         description?: string | null | undefined;
         image?: string | null | undefined;
         external_url?: string | null | undefined;
@@ -35,7 +35,7 @@ export declare function useMintNFTSupply(contract: Erc1155): import("@tanstack/r
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; name?: string \| undefined; description?: string \| null \| undefined; image?: string \| null \| undefined; external\_url?: string \| null \| undefined; animation\_url?: string \| null \| undefined; uri: string; id: BigNumber; }; supply: BigNumber; }&gt;, unknown, [MintNFTSupplyParams](./react.mintnftsupplyparams.md)<!-- -->, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId&lt;{ metadata: { \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; name?: string \| number \| undefined; description?: string \| null \| undefined; image?: string \| null \| undefined; external\_url?: string \| null \| undefined; animation\_url?: string \| null \| undefined; uri: string; id: BigNumber; }; supply: BigNumber; }&gt;, unknown, [MintNFTSupplyParams](./react.mintnftsupplyparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to mint a more supply of a token id to the provided wallet
 

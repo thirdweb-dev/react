@@ -12,7 +12,7 @@ Use this to set claim conditions on your [NFTContract](./react.nftcontract.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useSetClaimConditions<TContract extends NFTContract>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseMutationResult<Omit<{
+export declare function useSetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseMutationResult<Omit<{
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<unknown>;
 }, "data"> | undefined, unknown, SetClaimConditionsParams, unknown>;
