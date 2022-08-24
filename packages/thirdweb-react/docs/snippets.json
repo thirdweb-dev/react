@@ -1,7 +1,7 @@
 {
   "useContract": {
     "name": "useContract",
-    "summary": "Use this resolve a contract address to a thirdweb (built-in / custom) contract instance.\n\n",
+    "summary": "Use this resolve a contract address to a smart contract instance.\n\n",
     "examples": {
       "javascript": "const { contract, isLoading, error } = useContract(\"{{contract_address}}\");"
     },
