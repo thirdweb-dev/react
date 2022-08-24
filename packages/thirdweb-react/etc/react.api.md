@@ -568,7 +568,10 @@ export function useConnect(): readonly [{
     error?: Error | undefined;
 }>];
 
-// @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useContract" is marked as @public, but its signature references "RequiredParam" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "useContract" is marked as @public, but its signature references "ContractAddress" which is marked as @beta
+//
+// @public
 export function useContract(contractAddress: RequiredParam<ContractAddress>): {
     contract: null;
     data: undefined;
