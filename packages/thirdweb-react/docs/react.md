@@ -147,6 +147,7 @@ import { useWalletConnect } from "@thirdweb-dev/react"
 |  [MediaType](./react.mediatype.md) |  |
 |  [SharedMediaProps](./react.sharedmediaprops.md) |  |
 |  [ThirdwebAuthConfig](./react.thirdwebauthconfig.md) | <b><i>(BETA)</i></b> The configuration to use the react SDK with an \[auth\](https://portal.thirdweb.com/auth) server. |
+|  [ThirdwebAuthUser](./react.thirdwebauthuser.md) |  |
 |  [ThirdwebNftMediaProps](./react.thirdwebnftmediaprops.md) | The props for the [ThirdwebNftMedia](./react.thirdwebnftmedia.md) component. |
 |  [ThirdwebProviderProps](./react.thirdwebproviderprops.md) | The possible props for the ThirdwebProvider. |
 |  [ThirdwebSDKProviderProps](./react.thirdwebsdkproviderprops.md) |  |

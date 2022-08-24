@@ -1,4 +1,6 @@
+import { useThirdwebAuthConfig } from "../../contexts/thirdweb-auth";
 import { useBalance } from "../../hooks/async/wallet";
+import { LoginConfig, useAuth } from "../../hooks/auth";
 import { useMetamask } from "../../hooks/connectors/useMetamask";
 import { useAddress } from "../../hooks/useAddress";
 import { useChainId } from "../../hooks/useChainId";
@@ -18,7 +20,7 @@ import { ThemeProvider, ThemeProviderProps } from "../shared/ThemeProvider";
 import { fontFamily } from "../theme";
 import { SupportedNetworkSelect } from "./NetworkSelect";
 import { Portal } from "@reach/portal";
-import { ChainId, SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
+import { ChainId, LoginOptions, SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
 import * as menu from "@zag-js/menu";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import React, { useId, useMemo } from "react";
@@ -26,6 +28,8 @@ import {
   FiCheck,
   FiChevronDown,
   FiCopy,
+  FiLock,
+  FiShuffle,
   FiWifi,
   FiXCircle,
 } from "react-icons/fi";
@@ -57,10 +61,18 @@ function getIconForConnector(connector: Connector) {
   }
 }
 
-interface ConnectWalletProps extends ThemeProviderProps {}
+interface ConnectWalletProps extends ThemeProviderProps {
+  auth?: {
+    loginOptions?: LoginOptions;
+    loginConfig?: LoginConfig;
+    loginOptional?: boolean;
+  };
+}
 
 let connecting = false;
 let switchingNetwork = false;
+let authing = false;
+let switchingWallet = false;
 
 const chainIdToCurrencyMap: Record<
   SUPPORTED_CHAIN_ID,
@@ -108,6 +120,7 @@ const chainIdToCurrencyMap: Record<
  * @beta
  */
 export const ConnectWallet: React.FC<ConnectWalletProps> = ({
+  auth,
   ...themeProps
 }) => {
   const id = useId();
@@ -151,6 +164,13 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
 
   const { onCopy, hasCopied } = useClipboard(mountedAddress || "");
 
+  const authConfig = useThirdwebAuthConfig();
+  const { user, isLoading, login, logout } = useAuth(auth?.loginConfig);
+
+  const requiresSignIn = auth?.loginOptional
+    ? false
+    : !!authConfig?.authUrl && !!mountedAddress && !user?.address;
+
   return (
     <ThemeProvider {...themeProps}>
       <div
@@ -159,10 +179,29 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
         }}
       >
         <Button
-          style={{ height: "50px" }}
-          {...api.triggerProps}
+          style={{ height: "50px", minWidth: "200px" }}
+          onClick={async (e) => {
+            if (requiresSignIn) {
+              e.preventDefault();
+              e.stopPropagation();
+              authing = true;
+              try {
+                await login(auth?.loginOptions);
+              } catch (err) {
+                console.error("failed to log in", err);
+              }
+              authing = false;
+            }
+          }}
+          {...(requiresSignIn ? {} : api.triggerProps)}
           leftElement={
-            mountedAddress && chainId && chainId in chainIdToCurrencyMap ? (
+            requiresSignIn ? (
+              isLoading ? (
+                <Spinner />
+              ) : (
+                <FiLock />
+              )
+            ) : mountedAddress && chainId && chainId in chainIdToCurrencyMap ? (
               <Icon
                 boxSize="1.5em"
                 name={chainIdToCurrencyMap[chainId as SUPPORTED_CHAIN_ID]}
@@ -170,41 +209,47 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
             ) : undefined
           }
           rightElement={
-            <>
-              {connector && getIconForConnector(connector)}
-              <FiChevronDown
-                style={{
-                  transition: "transform 150ms ease",
-                  transform: `rotate(${api.isOpen ? "-180deg" : "0deg"})`,
-                }}
-              />
-            </>
+            requiresSignIn ? undefined : (
+              <>
+                {connector && getIconForConnector(connector)}
+                <FiChevronDown
+                  style={{
+                    transition: "transform 150ms ease",
+                    transform: `rotate(${api.isOpen ? "-180deg" : "0deg"})`,
+                  }}
+                />
+              </>
+            )
           }
         >
           {mountedAddress ? (
-            <span
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                fontWeight: 400,
-                alignItems: "flex-start",
-                fontSize: "0.8em",
-              }}
-            >
-              <span style={{ whiteSpace: "nowrap", fontWeight: 500 }}>
-                {balanceQuery.isLoading ? (
-                  "Loading..."
-                ) : (
-                  <>
-                    {balanceQuery.data?.displayValue.slice(0, 5)}{" "}
-                    {balanceQuery.data?.symbol}
-                  </>
-                )}
+            requiresSignIn ? (
+              <span style={{ whiteSpace: "nowrap" }}>Sign in</span>
+            ) : (
+              <span
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  fontWeight: 400,
+                  alignItems: "flex-start",
+                  fontSize: "0.8em",
+                }}
+              >
+                <span style={{ whiteSpace: "nowrap", fontWeight: 500 }}>
+                  {balanceQuery.isLoading ? (
+                    "Loading..."
+                  ) : (
+                    <>
+                      {balanceQuery.data?.displayValue.slice(0, 5)}{" "}
+                      {balanceQuery.data?.symbol}
+                    </>
+                  )}
+                </span>
+                <span style={{ fontSize: "0.9em" }}>
+                  {shortenIfAddress(mountedAddress)}
+                </span>
               </span>
-              <span style={{ fontSize: "0.9em" }}>
-                {shortenIfAddress(mountedAddress)}
-              </span>
-            </span>
+            )
           ) : (
             <span style={{ whiteSpace: "nowrap" }}>Connect Wallet</span>
           )}
@@ -221,6 +266,29 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
             <Menu {...api.contentProps}>
               {!api.isOpen ? null : mountedAddress ? (
                 <>
+                  {authConfig?.authUrl && !user?.address && !requiresSignIn ? (
+                    <MenuItem
+                      {...api.getItemProps({
+                        id: "auth",
+                        closeOnSelect: false,
+                      })}
+                      leftElement={isLoading ? <Spinner /> : <FiLock />}
+                      onClick={async () => {
+                        if (isLoading || authing || user?.address) {
+                          return;
+                        }
+                        authing = true;
+                        try {
+                          await login(auth?.loginOptions);
+                        } catch (err) {
+                          console.error("failed to log in", err);
+                        }
+                        authing = false;
+                      }}
+                    >
+                      Sign in
+                    </MenuItem>
+                  ) : null}
                   <MenuItem
                     {...api.getItemProps({ id: "copy", closeOnSelect: false })}
                     leftElement={
@@ -271,6 +339,36 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
                       }}
                     />
                   </MenuItem>
+                  {/* allow switching wallets for metamask */}
+                  {connector &&
+                  connector.name === "MetaMask" &&
+                  connector.id === "injected" ? (
+                    <MenuItem
+                      {...api.getItemProps({
+                        id: "switch-wallet",
+                      })}
+                      leftElement={<FiShuffle width="1em" height="1em" />}
+                      onClick={async () => {
+                        if (switchingWallet) {
+                          return;
+                        }
+                        switchingWallet = true;
+                        try {
+                          await connector.getProvider().request({
+                            method: "wallet_requestPermissions",
+                            params: [{ eth_accounts: {} }],
+                          });
+                          api.close();
+                        } catch (err) {
+                          console.error("failed to switch wallets", err);
+                        }
+                        switchingWallet = false;
+                      }}
+                    >
+                      Switch Account
+                    </MenuItem>
+                  ) : null}
+
                   <MenuItem
                     {...api.getItemProps({
                       id: "disconnect",
@@ -278,6 +376,9 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
                     leftElement={<FiXCircle width="1em" height="1em" />}
                     onClick={() => {
                       disconnect();
+                      if (authConfig?.authUrl) {
+                        logout();
+                      }
                       api.close();
                     }}
                   >
@@ -286,28 +387,29 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
                 </>
               ) : (
                 <>
-                  {supportedConnectors.findIndex((c) => c.name === "MetaMask") >
-                    -1 && (
-                    <MenuItem
-                      {...api.getItemProps({
-                        id: "metamask",
-                      })}
-                      onClick={async () => {
-                        if (!connecting) {
-                          connecting = true;
-                          await connectWithMetamask();
-                          connecting = false;
-                          api.close();
-                        }
-                      }}
-                      leftElement={<Icon boxSize="1.5em" name="metamask" />}
-                    >
-                      MetaMask
-                    </MenuItem>
-                  )}
+                  <MenuItem
+                    {...api.getItemProps({
+                      id: "metamask",
+                    })}
+                    onClick={async () => {
+                      if (!connecting) {
+                        connecting = true;
+                        await connectWithMetamask();
+                        connecting = false;
+                        api.close();
+                      }
+                    }}
+                    leftElement={<Icon boxSize="1.5em" name="metamask" />}
+                  >
+                    MetaMask
+                  </MenuItem>
                   {supportedConnectors
                     .filter((c) => c.name !== "MetaMask")
+                    .sort((a, b) => a.name.localeCompare(b.name))
                     .map((c) => {
+                      if (!c.ready) {
+                        return null;
+                      }
                       return (
                         <MenuItem
                           key={c.id}
