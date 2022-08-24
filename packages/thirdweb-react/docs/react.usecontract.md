@@ -4,10 +4,7 @@
 
 ## useContract() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
-Use this resolve a contract address to a thirdweb (built-in / custom) contract instance.
+Use this resolve a contract address to a smart contract instance.
 
 <b>Signature:</b>
 

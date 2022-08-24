@@ -23,6 +23,7 @@ const BaseButton = styled.button<BaseButtonProps>`
   display: flex;
   gap: 0.5em;
   align-items: center;
+  justify-content: space-evenly;
   color: ${(props) =>
     computeTextColorBasedOnBackground(
       (props.theme as TwUiTheme).colors.accent,
@@ -148,6 +149,8 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
           display: "inherit",
           gap: "inherit",
           alignItems: "inherit",
+          justifyContent: "inherit",
+          width: "100%",
         }}
       >
         {leftElement}

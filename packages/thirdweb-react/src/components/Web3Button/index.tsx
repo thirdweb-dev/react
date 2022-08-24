@@ -25,6 +25,27 @@ interface Web3ButtonProps extends ThemeProviderProps {
   isDisabled?: boolean;
 }
 
+/**
+ * A component that allows the user to call an on-chain function on a contract.
+ *
+ * The button has to be wrapped in a `ThirdwebProvider` in order to function.
+ *
+ * @example
+ * ```javascript
+ * import { Web3Button } from '@thirdweb-dev/react';
+ *
+ * const App = () => {
+ *  return (
+ *   <div>
+ *     <Web3Button contractAddress="0x..." functionName="mint" />
+ *   </div>
+ * )
+ * }
+ * ```
+ *
+ *
+ * @beta
+ */
 export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>> = ({
   contractAddress,
   functionName,
