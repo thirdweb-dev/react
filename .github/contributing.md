@@ -42,13 +42,13 @@ cd /packages/thirdweb-react/
 Install dependencies:
 
 ```bash
-npm install
+yarn install
 ```
 
 Now build the project:
 
 ```bash
-npm run build
+yarn build
 ```
 
 <br/>
@@ -62,13 +62,13 @@ Yalc allows you to export a version of the SDK with your changes locally, and in
 1. Install yalc globally:
 
    ```
-   npm i yalc -g
+   yarn global add yalc
    ```
 
 2. Build Your changes each time you make a change you want to test:
 
    ```
-   npm run build
+   yarn build
    ```
 
 3. Publish and push the SDK to yalc:
@@ -94,7 +94,7 @@ You will likely want to change stuff, test it, and then repeat this process unti
 
 After following the process above to initialize this connection between the local SDK and your test project, you can simply run both:
 
-- `npm run build`
+- `yarn build`
 - `yalc push`
 
 from the React SDK repo, which will push the changes you've made to any test projects that are using your yalc version of the SDK.
