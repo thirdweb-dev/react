@@ -12,10 +12,7 @@ Use this to set claim conditions on your [NFTContract](./react.nftcontract.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useSetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseMutationResult<Omit<{
-    receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
-    data: () => Promise<unknown>;
-}, "data"> | undefined, unknown, SetClaimConditionsParams, unknown>;
+export declare function useSetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseMutationResult<any, unknown, SetClaimConditionsParams, unknown>;
 ```
 
 ## Parameters
@@ -26,7 +23,7 @@ export declare function useSetClaimConditions<TContract extends NFTContract | Er
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt; \| undefined, unknown, [SetClaimConditionsParams](./react.setclaimconditionsparams.md)<!-- -->, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;any, unknown, [SetClaimConditionsParams](./react.setclaimconditionsparams.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to set claim conditions
 

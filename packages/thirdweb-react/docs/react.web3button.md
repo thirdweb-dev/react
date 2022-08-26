@@ -14,7 +14,7 @@ The button has to be wrapped in a `ThirdwebProvider` in order to function.
 <b>Signature:</b>
 
 ```typescript
-Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>>
+Web3Button: <TExecutableFn extends ExecutableFn>({ contractAddress, overrides, onSuccess, onError, onSubmit, isDisabled, children, accentColor, colorMode, functionName, params, onExecute, ...themeProps }: PropsWithChildren<Web3ButtonProps<TExecutableFn>>) => JSX.Element
 ```
 
 ## Example
