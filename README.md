@@ -29,7 +29,7 @@ yarn add @thirdweb-dev/react @thirdweb-dev/sdk ethers
 Learn how to run the project locally and start contributing in our [contributing guide](./.github/contributing.md).
 
 ### Good First Issues
-Check out our list of [good first issues](https://github.com/thirdweb-dev/react/contribute) that contain bugs which have a relatively limited scope. 
+Check out our list of [good first issues](https://github.com/thirdweb-dev/react/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) that contain bugs which have a relatively limited scope. 
 This is a great place to get started, gain experience, and get familiar with our contribution process.
 
 ## Starter Templates
