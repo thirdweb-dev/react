@@ -1871,7 +1871,7 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
 // Warning: (ae-forgotten-export) The symbol "Web3ButtonProps" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
-export const Web3Button: <TExecutableFn extends ExecutableFn>({ contractAddress, overrides, onSuccess, onError, onSubmit, isDisabled, children, accentColor, colorMode, functionName, params, callable, ...themeProps }: PropsWithChildren<Web3ButtonProps<TExecutableFn>>) => JSX.Element;
+export const Web3Button: <TExecutableFn extends ExecutableFn>({ contractAddress, overrides, onSuccess, onError, onSubmit, isDisabled, children, functionName, params, callable, ...themeProps }: PropsWithChildren<Web3ButtonProps<TExecutableFn>>) => JSX.Element;
 
 // Warnings were encountered during analysis:
 //

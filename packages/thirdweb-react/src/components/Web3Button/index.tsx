@@ -76,8 +76,6 @@ export const Web3Button = <TExecutableFn extends ExecutableFn>({
   onSubmit,
   isDisabled,
   children,
-  accentColor,
-  colorMode,
   functionName,
   params,
   callable,
