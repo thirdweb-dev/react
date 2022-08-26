@@ -16,7 +16,7 @@ export declare function useUpdateMetadata(contract: RequiredParam<SmartContract 
     receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
     data: () => Promise<any>;
 }, unknown, {
-    [x: string]: import("@thirdweb-dev/sdk/dist/browser").Json;
+    [x: string]: import("@thirdweb-dev/sdk").Json;
     description?: string | undefined;
     image?: any;
     external_link?: string | undefined;
@@ -32,7 +32,7 @@ export declare function useUpdateMetadata(contract: RequiredParam<SmartContract 
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;any&gt;; }, unknown, { \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;any&gt;; }, unknown, { \[x: string\]: import("@thirdweb-dev/sdk").Json; description?: string \| undefined; image?: any; external\_link?: string \| undefined; name: string; }, unknown&gt;
 
 a mutation object that can be used to update the metadata
 

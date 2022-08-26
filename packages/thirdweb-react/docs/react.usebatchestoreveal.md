@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useBatchesToReveal<TContract extends NFTContract>(contract: RequiredParam<TContract>): import("@tanstack/react-query").UseQueryResult<import("@thirdweb-dev/sdk/dist/browser").BatchToReveal[], unknown>;
+export declare function useBatchesToReveal<TContract extends NFTContract>(contract: RequiredParam<TContract>): import("@tanstack/react-query").UseQueryResult<import("@thirdweb-dev/sdk").BatchToReveal[], unknown>;
 ```
 
 ## Parameters
@@ -18,7 +18,7 @@ export declare function useBatchesToReveal<TContract extends NFTContract>(contra
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk/dist/browser").BatchToReveal\[\], unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;import("@thirdweb-dev/sdk").BatchToReveal\[\], unknown&gt;
 
 a response object that gets the batches to still be revealed
 

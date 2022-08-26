@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { NFTCollection } from "@thirdweb-dev/sdk/dist/browser";
+import { NFTCollection } from "@thirdweb-dev/sdk";
 
 /**
  * Hook for getting an instance of an `NFTCollection` contract. This contract is meant to interface with ERC721 compliant NFTs.

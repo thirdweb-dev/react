@@ -20,14 +20,14 @@ import { useSigner } from "./hooks/useSigner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   ChainOrRpc,
-  IStorage,
   SDKOptions,
   SUPPORTED_CHAIN_ID,
   SignerOrProvider,
   ThirdwebSDK,
   getProviderForNetwork,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 import { SDKOptionsOutput } from "@thirdweb-dev/sdk/dist/src/schema";
+import type { IStorage } from "@thirdweb-dev/storage";
 import { Signer } from "ethers";
 import React, { createContext, useEffect, useMemo } from "react";
 import invariant from "tiny-invariant";

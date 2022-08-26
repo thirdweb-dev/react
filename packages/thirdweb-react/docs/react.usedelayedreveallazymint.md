@@ -12,7 +12,7 @@ Use this to lazy mint a batch of delayed reveal NFTs on your [DropContract](./re
 <b>Signature:</b>
 
 ```typescript
-export declare function useDelayedRevealLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): import("@tanstack/react-query").UseMutationResult<import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId<never>[], unknown, DelayedRevealLazyMintInput, unknown>;
+export declare function useDelayedRevealLazyMint<TContract extends NFTContract>(contract: RequiredParam<TContract>, onProgress?: (progress: UploadProgressEvent) => void): import("@tanstack/react-query").UseMutationResult<import("@thirdweb-dev/sdk").TransactionResultWithId<never>[], unknown, DelayedRevealLazyMintInput, unknown>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function useDelayedRevealLazyMint<TContract extends NFTContract>(
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk/dist/browser").TransactionResultWithId&lt;never&gt;\[\], unknown, [DelayedRevealLazyMintInput](./react.delayedreveallazymintinput.md)<!-- -->, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;import("@thirdweb-dev/sdk").TransactionResultWithId&lt;never&gt;\[\], unknown, [DelayedRevealLazyMintInput](./react.delayedreveallazymintinput.md)<!-- -->, unknown&gt;
 
 a mutation object that can be used to lazy mint a batch of NFTs
 

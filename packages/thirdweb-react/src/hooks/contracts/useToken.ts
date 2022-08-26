@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Token } from "@thirdweb-dev/sdk/dist/browser";
+import { Token } from "@thirdweb-dev/sdk";
 
 /**
  * Hook for getting an instance of a `Token` contract. This contract supports ERC20 compliant tokens.
