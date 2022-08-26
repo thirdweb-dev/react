@@ -22,7 +22,7 @@ import {
   QueryAllParams,
   SignatureDrop,
   UploadProgressEvent,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 import invariant from "tiny-invariant";
 
 /** **********************/

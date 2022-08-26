@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Edition } from "@thirdweb-dev/sdk/dist/browser";
+import { Edition } from "@thirdweb-dev/sdk";
 
 /**
  * Hook for getting an instance of an `Edition` contract. This contract is used to interface with ERC1155 compliant NFTs.

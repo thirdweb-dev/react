@@ -4,89 +4,90 @@
 
 ```ts
 
-import { AbiFunction } from '@thirdweb-dev/sdk/dist/browser';
-import type { AirdropInput } from '@thirdweb-dev/sdk/dist/browser';
-import type { Amount } from '@thirdweb-dev/sdk/dist/browser';
-import { AuctionListing } from '@thirdweb-dev/sdk/dist/browser';
+import { AbiFunction } from '@thirdweb-dev/sdk';
+import type { AirdropInput } from '@thirdweb-dev/sdk';
+import type { Amount } from '@thirdweb-dev/sdk';
+import { AuctionListing } from '@thirdweb-dev/sdk';
 import { BaseContract } from 'ethers';
-import { BatchToReveal } from '@thirdweb-dev/sdk/dist/browser';
+import { BatchToReveal } from '@thirdweb-dev/sdk';
 import { BigNumber } from 'ethers';
 import { BigNumberish } from 'ethers';
 import { CallOverrides } from 'ethers';
 import { Chain } from './types';
-import { ChainId } from '@thirdweb-dev/sdk/dist/browser';
-import { ChainOrRpc } from '@thirdweb-dev/sdk/dist/browser';
-import { ClaimConditionInput } from '@thirdweb-dev/sdk/dist/browser';
-import { ClaimEligibility } from '@thirdweb-dev/sdk/dist/browser';
+import { ChainId } from '@thirdweb-dev/sdk';
+import { ChainOrRpc } from '@thirdweb-dev/sdk';
+import { ClaimConditionInput } from '@thirdweb-dev/sdk';
+import { ClaimEligibility } from '@thirdweb-dev/sdk';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector } from './connectors';
 import { ConnectorData } from './connectors';
-import type { ContractEvent } from '@thirdweb-dev/sdk/dist/browser';
-import { ContractForContractType } from '@thirdweb-dev/sdk/dist/browser';
-import { ContractType } from '@thirdweb-dev/sdk/dist/browser';
+import type { ContractEvent } from '@thirdweb-dev/sdk';
+import { ContractForContractType } from '@thirdweb-dev/sdk';
+import { ContractType } from '@thirdweb-dev/sdk';
 import { defaultChains } from './constants';
 import { defaultL2Chains } from './constants';
-import { DirectListing } from '@thirdweb-dev/sdk/dist/browser';
-import { Edition } from '@thirdweb-dev/sdk/dist/browser';
-import { EditionDrop } from '@thirdweb-dev/sdk/dist/browser';
-import { Erc1155 } from '@thirdweb-dev/sdk/dist/browser';
-import type { Erc1155Mintable } from '@thirdweb-dev/sdk/dist/browser';
-import { Erc20 } from '@thirdweb-dev/sdk/dist/browser';
-import type { Erc721 } from '@thirdweb-dev/sdk/dist/browser';
-import type { Erc721Mintable } from '@thirdweb-dev/sdk/dist/browser';
-import type { EventQueryFilter } from '@thirdweb-dev/sdk/dist/browser';
+import { DirectListing } from '@thirdweb-dev/sdk';
+import { Edition } from '@thirdweb-dev/sdk';
+import { EditionDrop } from '@thirdweb-dev/sdk';
+import { Erc1155 } from '@thirdweb-dev/sdk';
+import type { Erc1155Mintable } from '@thirdweb-dev/sdk';
+import { Erc20 } from '@thirdweb-dev/sdk';
+import type { Erc721 } from '@thirdweb-dev/sdk';
+import type { Erc721Mintable } from '@thirdweb-dev/sdk';
+import type { EventQueryFilter } from '@thirdweb-dev/sdk';
 import { FetchStatus } from '@tanstack/react-query';
 import { InjectedConnector } from 'wagmi/connectors/injected';
-import { IStorage } from '@thirdweb-dev/sdk/dist/browser';
-import { Json } from '@thirdweb-dev/sdk/dist/browser';
-import { ListingType } from '@thirdweb-dev/sdk/dist/browser';
+import type { IStorage } from '@thirdweb-dev/storage';
+import { IStorage as IStorage_2 } from '@thirdweb-dev/sdk';
+import { Json } from '@thirdweb-dev/sdk';
+import { ListingType } from '@thirdweb-dev/sdk';
 import { LoginOptions } from '@thirdweb-dev/sdk/dist/src/schema';
 import { LoginOptions as LoginOptions_2 } from '@thirdweb-dev/sdk';
 import { LoginWithMagicLinkConfiguration } from 'magic-sdk';
 import type { MagicSDKAdditionalConfiguration } from 'magic-sdk';
-import { Marketplace } from '@thirdweb-dev/sdk/dist/browser';
-import type { MarketplaceFilter } from '@thirdweb-dev/sdk/dist/browser';
-import { Multiwrap } from '@thirdweb-dev/sdk/dist/browser';
-import type { NewAuctionListing } from '@thirdweb-dev/sdk/dist/browser';
-import type { NewDirectListing } from '@thirdweb-dev/sdk/dist/browser';
-import { NFTCollection } from '@thirdweb-dev/sdk/dist/browser';
-import { NFTDrop } from '@thirdweb-dev/sdk/dist/browser';
-import { NFTMetadata } from '@thirdweb-dev/sdk/dist/browser';
-import { NFTMetadataInput } from '@thirdweb-dev/sdk/dist/browser';
+import { Marketplace } from '@thirdweb-dev/sdk';
+import type { MarketplaceFilter } from '@thirdweb-dev/sdk';
+import { Multiwrap } from '@thirdweb-dev/sdk';
+import type { NewAuctionListing } from '@thirdweb-dev/sdk';
+import type { NewDirectListing } from '@thirdweb-dev/sdk';
+import { NFTCollection } from '@thirdweb-dev/sdk';
+import { NFTDrop } from '@thirdweb-dev/sdk';
+import { NFTMetadata } from '@thirdweb-dev/sdk';
+import { NFTMetadataInput } from '@thirdweb-dev/sdk';
 import type { NFTMetadataInput as NFTMetadataInput_2 } from '@thirdweb-dev/sdk/dist/src/schema';
 import type { NFTMetadataOrUri } from '@thirdweb-dev/sdk/dist/src/schema';
-import { Offer } from '@thirdweb-dev/sdk/dist/browser';
-import { Pack } from '@thirdweb-dev/sdk/dist/browser';
-import type { Price } from '@thirdweb-dev/sdk/dist/browser';
+import { Offer } from '@thirdweb-dev/sdk';
+import { Pack } from '@thirdweb-dev/sdk';
+import type { Price } from '@thirdweb-dev/sdk';
 import { PropsWithChildren } from 'react';
-import { QueryAllParams } from '@thirdweb-dev/sdk/dist/browser';
+import { QueryAllParams } from '@thirdweb-dev/sdk';
 import { QueryClient } from '@tanstack/react-query';
 import { QueryObserverResult } from '@tanstack/react-query';
 import { default as React_2 } from 'react';
 import { RefetchOptions } from '@tanstack/react-query';
 import { RefetchQueryFilters } from '@tanstack/react-query';
-import type { Role } from '@thirdweb-dev/sdk/dist/browser';
-import { SDKOptions } from '@thirdweb-dev/sdk/dist/browser';
-import { SignatureDrop } from '@thirdweb-dev/sdk/dist/browser';
+import type { Role } from '@thirdweb-dev/sdk';
+import { SDKOptions } from '@thirdweb-dev/sdk';
+import { SignatureDrop } from '@thirdweb-dev/sdk';
 import { Signer } from 'ethers';
-import { SignerOrProvider } from '@thirdweb-dev/sdk/dist/browser';
-import { SmartContract } from '@thirdweb-dev/sdk/dist/browser';
-import { Split } from '@thirdweb-dev/sdk/dist/browser';
-import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk/dist/browser';
-import { ThirdwebSDK } from '@thirdweb-dev/sdk/dist/browser';
-import { Token } from '@thirdweb-dev/sdk/dist/browser';
-import { TokenDrop } from '@thirdweb-dev/sdk/dist/browser';
+import { SignerOrProvider } from '@thirdweb-dev/sdk';
+import { SmartContract } from '@thirdweb-dev/sdk';
+import { Split } from '@thirdweb-dev/sdk';
+import { SUPPORTED_CHAIN_ID } from '@thirdweb-dev/sdk';
+import { ThirdwebSDK } from '@thirdweb-dev/sdk';
+import { Token } from '@thirdweb-dev/sdk';
+import { TokenDrop } from '@thirdweb-dev/sdk';
 import { TransactionError } from '@thirdweb-dev/sdk';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { TransactionResult } from '@thirdweb-dev/sdk';
-import { TransactionResultWithId } from '@thirdweb-dev/sdk/dist/browser';
-import { UploadProgressEvent } from '@thirdweb-dev/sdk/dist/browser';
+import { TransactionResultWithId } from '@thirdweb-dev/sdk';
+import { UploadProgressEvent } from '@thirdweb-dev/sdk';
 import { useAccount } from './hooks';
 import { UseMutationResult } from '@tanstack/react-query';
 import { useProvider } from './hooks';
 import { UseQueryResult } from '@tanstack/react-query';
-import type { ValidContractInstance } from '@thirdweb-dev/sdk/dist/browser';
-import { Vote } from '@thirdweb-dev/sdk/dist/browser';
+import type { ValidContractInstance } from '@thirdweb-dev/sdk';
+import { Vote } from '@thirdweb-dev/sdk';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 // @beta
@@ -1646,7 +1647,7 @@ export { useProvider }
 // Warning: (ae-internal-missing-underscore) The name "useReadonlySDK" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage): ThirdwebSDK;
+export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage_2): ThirdwebSDK;
 
 // @beta
 export function useResetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{
@@ -1866,15 +1867,16 @@ export type WalletLinkConnectorType = "walletLink" | "coinbase" | {
     options: CoinbaseWalletConnector["options"];
 };
 
+// Warning: (ae-forgotten-export) The symbol "ExecutableFn" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 // Warning: (ae-forgotten-export) The symbol "Web3ButtonProps" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 //
 // @beta
-export const Web3Button: React.FC<PropsWithChildren<Web3ButtonProps>>;
+export const Web3Button: <TExecutableFn extends ExecutableFn>({ contractAddress, overrides, onSuccess, onError, onSubmit, isDisabled, children, functionName, params, callable, ...themeProps }: PropsWithChildren<Web3ButtonProps<TExecutableFn>>) => JSX.Element;
 
 // Warnings were encountered during analysis:
 //
-// dist/declarations/dist/Provider.d.ts:38:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
-// dist/declarations/dist/Provider.d.ts:45:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// dist/declarations/dist/Provider.d.ts:39:5 - (ae-forgotten-export) The symbol "MagicConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
+// dist/declarations/dist/Provider.d.ts:46:5 - (ae-forgotten-export) The symbol "GnosisConnectorArguments" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts
 // dist/declarations/dist/hooks/async/roles.d.ts:126:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/declarations/dist/hooks/async/roles.d.ts:161:5 - (ae-incompatible-release-tags) The symbol "role" is marked as @beta, but its signature references "RolesForContract" which is marked as @internal
 // dist/declarations/dist/hooks/useNetwork.d.ts:48:5 - (ae-forgotten-export) The symbol "SwitchChainError" needs to be exported by the entry point thirdweb-dev-react.cjs.d.ts

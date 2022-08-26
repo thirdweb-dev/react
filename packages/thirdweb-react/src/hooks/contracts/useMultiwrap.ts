@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Multiwrap } from "@thirdweb-dev/sdk/dist/browser";
+import { Multiwrap } from "@thirdweb-dev/sdk";
 
 /**
  * Hook for getting an instance of an `Multiwrap` contract. This contract is an ERC721 in which you can wrap ERC721, ERC1155 and ERC20 tokens.

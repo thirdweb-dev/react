@@ -1,5 +1,5 @@
 import { MediaRenderer, SharedMediaProps } from "./MediaRenderer";
-import { NFTMetadata } from "@thirdweb-dev/sdk/dist/browser";
+import { NFTMetadata } from "@thirdweb-dev/sdk";
 import React from "react";
 
 /**
@@ -46,7 +46,7 @@ export const ThirdwebNftMedia = React.forwardRef<
     <MediaRenderer
       src={metadata.animation_url || metadata.image}
       poster={metadata.image}
-      alt={metadata.name}
+      alt={metadata.name?.toString() || ""}
       ref={ref}
       {...props}
     />

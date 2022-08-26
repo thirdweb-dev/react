@@ -13,7 +13,7 @@ import type {
   Split,
   ValidContractInstance,
   Vote,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 import { constants } from "ethers";
 import invariant from "tiny-invariant";
 

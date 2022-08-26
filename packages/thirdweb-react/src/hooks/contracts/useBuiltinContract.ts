@@ -1,8 +1,5 @@
 import { useSDK } from "../../Provider";
-import {
-  ContractForContractType,
-  ContractType,
-} from "@thirdweb-dev/sdk/dist/browser";
+import { ContractForContractType, ContractType } from "@thirdweb-dev/sdk";
 
 /**
  * @internal

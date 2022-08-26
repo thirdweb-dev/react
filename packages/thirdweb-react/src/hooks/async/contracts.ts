@@ -16,9 +16,9 @@ import type {
   ContractEvent,
   EventQueryFilter,
   ThirdwebSDK,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 // eslint-disable-next-line no-duplicate-imports
-import { CONTRACTS_MAP, SmartContract } from "@thirdweb-dev/sdk/dist/browser";
+import { CONTRACTS_MAP, SmartContract } from "@thirdweb-dev/sdk";
 import type {
   CustomContractMetadata,
   PublishedMetadata,

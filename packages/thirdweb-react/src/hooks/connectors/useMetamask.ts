@@ -1,4 +1,4 @@
-import { isAndroid, isMobile } from "../../utils/isMobile";
+import { isMobile } from "../../utils/isMobile";
 import { useConnect } from "../useConnect";
 import invariant from "tiny-invariant";
 
@@ -60,21 +60,8 @@ export function useMetamask() {
     // if we don't have an injected provider
     if (!isMetaMaskInjected) {
       // this is the fallback uri that should work no matter what
-      let uri = `https://metamask.app.link/dapp/${window.location.toString()}`;
+      const uri = `https://metamask.app.link/dapp/${window.location.toString()}`;
 
-      // if we have walletconnect etc, we can try to use that
-      if (shouldUseWalletConnect && connector.id === "walletConnect") {
-        try {
-          uri = (await connector.getProvider()).connector.uri;
-          // if android we can use the uri straight
-          uri = isAndroid()
-            ? uri
-            : // otherwise we have to use /dapp link for now
-              `https://metamask.app.link/dapp/${window.location.toString()}`;
-        } catch (err) {
-          console.warn("failed to get provider.connector.uri", err);
-        }
-      }
       // open whatever uri we end up with in a new tab
       window.open(uri, "_blank");
 

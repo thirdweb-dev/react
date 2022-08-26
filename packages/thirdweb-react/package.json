@@ -1,6 +1,6 @@
 {
   "name": "@thirdweb-dev/react",
-  "version": "2.7.2",
+  "version": "2.7.3-4",
   "repository": {
     "type": "git",
     "url": "git+https://github.com:thirdweb-dev/react.git"
@@ -65,6 +65,7 @@
     "@gnosis.pm/safe-ethers-lib": "1.1.0",
     "@reach/portal": "^0.17.0",
     "@tanstack/react-query": "^4.0.10",
+    "@thirdweb-dev/storage": "^0.1.0",
     "@zag-js/menu": "^0.1.11",
     "@zag-js/react": "^0.1.13",
     "color": "^4.2.3",

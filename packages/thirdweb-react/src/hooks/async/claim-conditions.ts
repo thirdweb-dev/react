@@ -11,7 +11,7 @@ import {
   ClaimConditionInput,
   Erc20,
   Erc1155,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 import { BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 

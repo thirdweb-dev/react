@@ -6,10 +6,7 @@ import {
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type {
-  SmartContract,
-  ValidContractInstance,
-} from "@thirdweb-dev/sdk/dist/browser";
+import type { SmartContract, ValidContractInstance } from "@thirdweb-dev/sdk";
 import type { CustomContractMetadata } from "@thirdweb-dev/sdk/dist/src/schema/contracts/custom";
 import invariant from "tiny-invariant";
 
