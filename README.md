@@ -25,6 +25,13 @@ npm install @thirdweb-dev/react @thirdweb-dev/sdk ethers
 yarn add @thirdweb-dev/react @thirdweb-dev/sdk ethers
 ```
 
+## Contributing
+Learn how to run the project locally and start contributing in our [contributing guide](./contributing.md).
+
+### Good First Issues
+Check out our list of [good first issues](https://github.com/thirdweb-dev/react/contribute) that contain bugs which have a relatively limited scope. 
+This is a great place to get started, gain experience, and get familiar with our contribution process.
+
 ## Starter Templates
 
 We provide template repositories that already have the thirdweb React SDK setup and ready-to-go to help you get started with thirdweb quickly. You can find all the available starter respositories below.
