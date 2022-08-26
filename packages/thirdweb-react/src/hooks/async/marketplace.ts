@@ -12,9 +12,9 @@ import type {
   MarketplaceFilter,
   NewAuctionListing,
   NewDirectListing,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 // eslint-disable-next-line no-duplicate-imports
-import { ListingType } from "@thirdweb-dev/sdk/dist/browser";
+import { ListingType } from "@thirdweb-dev/sdk";
 import { BigNumber, BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 

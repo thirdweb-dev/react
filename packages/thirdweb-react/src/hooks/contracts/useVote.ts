@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { Vote } from "@thirdweb-dev/sdk/dist/browser";
+import { Vote } from "@thirdweb-dev/sdk";
 
 /**
  * Hook for getting an instance of an `Vote` contract. This contract enables fully featured voting-based decentralized governance systems.

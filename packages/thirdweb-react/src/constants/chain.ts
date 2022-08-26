@@ -1,5 +1,5 @@
 import { NATIVE_TOKENS, SUPPORTED_CHAIN_ID } from "@thirdweb-dev/sdk";
-import { ChainId } from "@thirdweb-dev/sdk/dist/browser";
+import { ChainId } from "@thirdweb-dev/sdk";
 import type { Chain as WagmiChain } from "wagmi";
 
 export type Chain = WagmiChain;

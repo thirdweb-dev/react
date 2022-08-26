@@ -1,5 +1,5 @@
 import { useBuiltinContract } from "./useBuiltinContract";
-import { TokenDrop } from "@thirdweb-dev/sdk/dist/browser";
+import { TokenDrop } from "@thirdweb-dev/sdk";
 
 /**
  * Hook for getting an instance of a `Token Drop` contract.

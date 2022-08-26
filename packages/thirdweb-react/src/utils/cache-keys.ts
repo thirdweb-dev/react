@@ -5,7 +5,7 @@ import type {
   MarketplaceFilter,
   QueryAllParams,
   SUPPORTED_CHAIN_ID,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 import { BigNumberish, constants } from "ethers";
 
 const TW_CACHE_KEY_PREFIX = "tw-cache";

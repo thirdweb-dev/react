@@ -6,7 +6,7 @@ import { useAddress } from "../useAddress";
 import { useChainId } from "../useChainId";
 import { useSigner } from "../useSigner";
 import { useQuery } from "@tanstack/react-query";
-import { UserWallet } from "@thirdweb-dev/sdk/dist/browser";
+import { UserWallet } from "@thirdweb-dev/sdk";
 import { useMemo } from "react";
 
 /**

@@ -11,7 +11,7 @@ import type {
   NFTMetadata,
   Price,
   SignatureDrop,
-} from "@thirdweb-dev/sdk/dist/browser";
+} from "@thirdweb-dev/sdk";
 import type {
   NFTMetadataInput,
   NFTMetadataOrUri,

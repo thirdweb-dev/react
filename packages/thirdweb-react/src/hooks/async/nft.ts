@@ -19,11 +19,7 @@ import {
 } from "../../utils/cache-keys";
 import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  Erc721,
-  Erc1155,
-  QueryAllParams,
-} from "@thirdweb-dev/sdk/dist/browser";
+import { Erc721, Erc1155, QueryAllParams } from "@thirdweb-dev/sdk";
 import { BigNumber, BigNumberish } from "ethers";
 import invariant from "tiny-invariant";
 
