@@ -14,7 +14,7 @@ Use this to get a list of \*unclaimed\* NFT tokens of your ERC721 Drop contract.
 ```typescript
 export declare function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, queryParams?: QueryAllParams): import("@tanstack/react-query").UseQueryResult<{
     [x: string]: import("@thirdweb-dev/sdk/dist/browser").Json;
-    name?: string | undefined;
+    name?: string | number | undefined;
     description?: string | null | undefined;
     image?: string | null | undefined;
     external_url?: string | null | undefined;
@@ -33,7 +33,7 @@ export declare function useUnclaimedNFTs(contract: RequiredParam<NFTDrop>, query
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; name?: string \| undefined; description?: string \| null \| undefined; image?: string \| null \| undefined; external\_url?: string \| null \| undefined; animation\_url?: string \| null \| undefined; uri: string; id: import("ethers").BigNumber; }\[\], unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;{ \[x: string\]: import("@thirdweb-dev/sdk/dist/browser").Json; name?: string \| number \| undefined; description?: string \| null \| undefined; image?: string \| null \| undefined; external\_url?: string \| null \| undefined; animation\_url?: string \| null \| undefined; uri: string; id: import("ethers").BigNumber; }\[\], unknown&gt;
 
 a response object that includes an array of NFTs that are unclaimed
 

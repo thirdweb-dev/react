@@ -12,7 +12,28 @@ Use this to get all claim conditons for ERC20, ERC721 or ERC1155 based contracts
 <b>Signature:</b>
 
 ```typescript
-export declare function useClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseQueryResult<any, unknown>;
+export declare function useClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseQueryResult<{
+    snapshot?: {
+        address: string;
+        maxClaimable: string;
+    }[] | undefined;
+    quantityLimitPerTransaction: string;
+    startTime: Date;
+    price: import("ethers").BigNumber;
+    currencyAddress: string;
+    maxQuantity: string;
+    waitInSeconds: import("ethers").BigNumber;
+    merkleRootHash: string | number[];
+    availableSupply: string;
+    currentMintSupply: string;
+    currencyMetadata: {
+        symbol: string;
+        value: import("ethers").BigNumber;
+        name: string;
+        decimals: number;
+        displayValue: string;
+    };
+}[], unknown>;
 ```
 
 ## Parameters
@@ -23,7 +44,7 @@ export declare function useClaimConditions<TContract extends NFTContract | Erc20
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseQueryResult&lt;any, unknown&gt;
+import("@tanstack/react-query").UseQueryResult&lt;{ snapshot?: { address: string; maxClaimable: string; }\[\] \| undefined; quantityLimitPerTransaction: string; startTime: Date; price: import("ethers").BigNumber; currencyAddress: string; maxQuantity: string; waitInSeconds: import("ethers").BigNumber; merkleRootHash: string \| number\[\]; availableSupply: string; currentMintSupply: string; currencyMetadata: { symbol: string; value: import("ethers").BigNumber; name: string; decimals: number; displayValue: string; }; }\[\], unknown&gt;
 
 a response object with the list of claim conditions
 

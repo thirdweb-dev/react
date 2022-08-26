@@ -12,7 +12,10 @@ Use this to reset claim conditions on your [NFTContract](./react.nftcontract.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useResetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseMutationResult<any, unknown, void, unknown>;
+export declare function useResetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): import("@tanstack/react-query").UseMutationResult<Omit<{
+    receipt: import("@ethersproject/abstract-provider").TransactionReceipt;
+    data: () => Promise<unknown>;
+}, "data"> | undefined, unknown, void, unknown>;
 ```
 
 ## Parameters
@@ -23,7 +26,7 @@ export declare function useResetClaimConditions<TContract extends NFTContract | 
 
 <b>Returns:</b>
 
-import("@tanstack/react-query").UseMutationResult&lt;any, unknown, void, unknown&gt;
+import("@tanstack/react-query").UseMutationResult&lt;Omit&lt;{ receipt: import("@ethersproject/abstract-provider").TransactionReceipt; data: () =&gt; Promise&lt;unknown&gt;; }, "data"&gt; \| undefined, unknown, void, unknown&gt;
 
 a mutation object that can be used to reset claim conditions
 
