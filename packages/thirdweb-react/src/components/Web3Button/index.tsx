@@ -40,9 +40,9 @@ type Web3ButtonPropsOptinalProps<TExecutableFn extends ExecutableFn> =
   | {
       functionName: string;
       params?: unknown[] | (() => Promise<unknown[]>);
-      onExecute?: never;
+      callable?: never;
     }
-  | { functionName?: never; params?: never; onExecute: TExecutableFn };
+  | { functionName?: never; params?: never; callable: TExecutableFn };
 
 type Web3ButtonProps<TExecutableFn extends ExecutableFn> =
   SharedWeb3ButtonProps & Web3ButtonPropsOptinalProps<TExecutableFn>;
@@ -80,7 +80,7 @@ export const Web3Button = <TExecutableFn extends ExecutableFn>({
   colorMode,
   functionName,
   params,
-  onExecute,
+  callable,
   ...themeProps
 }: PropsWithChildren<Web3ButtonProps<TExecutableFn>>) => {
   const address = useAddress();
@@ -114,8 +114,11 @@ export const Web3Button = <TExecutableFn extends ExecutableFn>({
       if (!contractQuery.contract) {
         throw new Error("contract not ready yet");
       }
-      if (onExecute) {
-        return await onExecute(contractQuery.contract);
+      if (callable) {
+        if (onSubmit) {
+          onSubmit();
+        }
+        return await callable(contractQuery.contract);
       }
 
       const vars = typeof params === "function" ? await params() : params;
@@ -128,6 +131,9 @@ export const Web3Button = <TExecutableFn extends ExecutableFn>({
 
       invariant(functionName, "functionName is required");
 
+      if (onSubmit) {
+        onSubmit();
+      }
       return await contractQuery.contract.call(functionName, ...withOverrides);
     },
     {
