@@ -2170,9 +2170,9 @@
     wagmi "^0.2.28"
 
 "@thirdweb-dev/sdk@^2", "@thirdweb-dev/sdk@^2.3.39":
-  version "2.3.41"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.3.41.tgz#afd8a8b76ba801302c91b523d1259f30a60a4262"
-  integrity sha512-P8+eydK9g/VkLZqpjYbJ1/YC7AQdzj7wsT5pymb5iVtgsx4wWuc6BNHyhtg5x0BnfJ3VhPWupGm0JubBasOceA==
+  version "2.3.42"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-2.3.42.tgz#4d821f91311e1b4653421105f1344d4d34b3cd9a"
+  integrity sha512-FRikDRujG5gS1OgasDeOjagI0AOshGC5zc2dNBGbylhrgnaiMuNn8guq1wgLMPQ+odvGRbYijqZETribnKrhLA==
   dependencies:
     "@thirdweb-dev/contracts" "3.1.2"
     "@thirdweb-dev/storage" "^0.1.0"
@@ -3580,9 +3580,9 @@ eip1193-provider@1.0.1:
     "@json-rpc-tools/provider" "^1.5.5"
 
 electron-to-chromium@^1.4.202:
-  version "1.4.232"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.232.tgz#67a0a874b0057662244230d18d3a9847c135a9d9"
-  integrity sha512-nd+FW8xHjM+PxNWG44nKnwHaBDdVpJUZuI2sS2JJPt/QpdombnmoCRWEEQNnzaktdIQhsNWdD+dlqxwO8Bn99g==
+  version "1.4.233"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.233.tgz#aa142e45468bda111b88abc9cc59d573b75d6a60"
+  integrity sha512-ejwIKXTg1wqbmkcRJh9Ur3hFGHFDZDw1POzdsVrB2WZjgRuRMHIQQKNpe64N/qh3ZtH2otEoRoS+s6arAAuAAw==
 
 elliptic@6.5.4, elliptic@^6.4.0, elliptic@^6.5.2, elliptic@^6.5.4:
   version "6.5.4"
