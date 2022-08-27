@@ -16,7 +16,6 @@ import { useQueryWithNetwork } from "../query-utils/useQueryWithNetwork";
 import { useNFTs } from "./nft";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Erc1155,
   NFTDrop,
   NFTMetadataInput,
   QueryAllParams,
@@ -117,7 +116,7 @@ export function useClaimedNFTSupply(contract: RequiredParam<DropContract>) {
     cacheKeys.contract.nft.drop.totalClaimedSupply(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         return contract.getTotalCount();
       }
       invariant(
@@ -198,7 +197,7 @@ export function useClaimNFT<TContract extends DropContract>(
     async (data: ClaimNFTParams<TContract>) => {
       invariant(data.to, 'No "to" address provided');
       invariant(contract?.claimTo, "contract does not support claimTo");
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant("tokenId" in data, "tokenId not provided");
         const { to, tokenId, quantity } = data;
         return (await contract.claimTo(

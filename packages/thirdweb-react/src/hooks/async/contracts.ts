@@ -18,7 +18,7 @@ import type {
   ThirdwebSDK,
 } from "@thirdweb-dev/sdk";
 // eslint-disable-next-line no-duplicate-imports
-import { CONTRACTS_MAP, SmartContract } from "@thirdweb-dev/sdk";
+import { CONTRACTS_MAP } from "@thirdweb-dev/sdk";
 import type {
   CustomContractMetadata,
   PublishedMetadata,
@@ -352,7 +352,7 @@ export function useContractFunctions(
         typeAndCompilerMetadata,
         sdk,
       );
-      if (contract instanceof SmartContract) {
+      if (contract?.publishedMetadata.extractFunctions) {
         return contract.publishedMetadata.extractFunctions();
       }
       return null;
