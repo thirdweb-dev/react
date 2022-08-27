@@ -119,7 +119,7 @@ export const Web3Button = <TExecutableFn extends ExecutableFn>({
         return await callable(contractQuery.contract);
       }
 
-      const vars = typeof params === "function" ? await params() : params;
+      const vars = typeof params === "function" ? await params() : params || [];
       const withOverrides =
         vars && overrides
           ? [...vars, overrides]
