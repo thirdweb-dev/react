@@ -34,7 +34,7 @@ export type ContractWithRoles =
 export type RolesForContract<TContract extends ContractWithRoles> =
   TContract extends SmartContract
     ? Role | (string & {})
-    : NonNullable<TContract["roles"]>["roles"][number];
+    : NonNullable<Exclude<TContract, SmartContract>["roles"]>["roles"][number];
 
 /**
  * @internal

@@ -38,7 +38,6 @@ import type { EventQueryFilter } from '@thirdweb-dev/sdk';
 import { FetchStatus } from '@tanstack/react-query';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import type { IStorage } from '@thirdweb-dev/storage';
-import { IStorage as IStorage_2 } from '@thirdweb-dev/sdk';
 import { Json } from '@thirdweb-dev/sdk';
 import { ListingType } from '@thirdweb-dev/sdk';
 import { LoginOptions } from '@thirdweb-dev/sdk/dist/src/schema';
@@ -288,7 +287,7 @@ export type RevealLazyMintInput = {
 // Warning: (ae-internal-missing-underscore) The name "RolesForContract" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export type RolesForContract<TContract extends ContractWithRoles> = TContract extends SmartContract ? Role | (string & {}) : NonNullable<TContract["roles"]>["roles"][number];
+export type RolesForContract<TContract extends ContractWithRoles> = TContract extends SmartContract ? Role | (string & {}) : NonNullable<Exclude<TContract, SmartContract>["roles"]>["roles"][number];
 
 // @beta
 export type SetClaimConditionsParams = {
@@ -1647,7 +1646,7 @@ export { useProvider }
 // Warning: (ae-internal-missing-underscore) The name "useReadonlySDK" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage_2): ThirdwebSDK;
+export function useReadonlySDK(readonlyRpcUrl: string, sdkOptions: SDKOptions, storageInterface?: IStorage): ThirdwebSDK;
 
 // @beta
 export function useResetClaimConditions<TContract extends NFTContract | Erc20>(...[contract, tokenId]: ClaimConditionsInputParams<TContract>): UseMutationResult<Omit<{

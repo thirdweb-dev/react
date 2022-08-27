@@ -30,7 +30,7 @@ function convertResponseToNFTType(
   contract: NFTContract,
   metadata: Awaited<ReturnType<typeof contract["get"]>>,
 ): NFT<typeof contract> {
-  if (contract instanceof Erc721) {
+  if (contract.featureName === "ERC721") {
     return {
       type: "ERC721",
       supply: 1,
@@ -172,7 +172,7 @@ export function useTotalCirculatingSupply<TContract extends NFTContract>(
     cacheKeys.contract.nft.query.totalCirculatingSupply(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
-      if (contract instanceof Erc721) {
+      if (contract.featureName === "ERC721") {
         invariant(
           contract?.query?.totalCirculatingSupply,
           "Contract instance does not support query.totalCirculatingSupply",
@@ -219,7 +219,7 @@ export function useTotalCount(contract: RequiredParam<NFTContract>) {
     cacheKeys.contract.nft.query.totalCount(contractAddress),
     () => {
       invariant(contract, "No Contract instance provided");
-      if (contract instanceof Erc721) {
+      if (contract.featureName === "ERC721") {
         invariant(
           contract?.query?.totalCirculatingSupply,
           "Contract instance does not support query.totalCirculatingSupply",
@@ -266,7 +266,7 @@ export function useOwnedNFTs<TContract extends NFTContract>(
     cacheKeys.contract.nft.query.owned.all(contractAddress, ownerWalletAddress),
     async () => {
       invariant(contract, "No Contract instance provided");
-      if (contract instanceof Erc721) {
+      if (contract.featureName === "ERC721") {
         invariant(
           contract.query?.owned?.all,
           "Contract instance does not support query.owned.all",
@@ -327,7 +327,7 @@ export function useNFTBalance<TContract extends NFTContract>(
         "Contract instance does not support balanceOf",
       );
       invariant(ownerWalletAddress, "No owner wallet address provided");
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant(tokenId, "No tokenId provided");
         return contract.balanceOf(ownerWalletAddress, tokenId);
       }
@@ -410,7 +410,7 @@ export function useMintNFT<TContract extends NFTContract>(
     async (data: MintNFTParams<TContract>) => {
       invariant(data.to, 'No "to" address provided');
       invariant(contract?.mint?.to, "contract does not support mint.to");
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant("supply" in data, "supply not provided");
         const { to, metadata, supply } = data;
         return (await contract.mint.to(to, {
@@ -589,7 +589,7 @@ export function useTransferNFT<TContract extends NFTContract>(
   return useMutation(
     (data: TransferNFTParams<TContract>) => {
       invariant(contract?.transfer, "contract does not support transfer");
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant("amount" in data, "amount not provided");
         return contract.transfer(data.to, data.tokenId, data.amount);
       }
@@ -761,7 +761,7 @@ export function useBurnNFT<TContract extends NFTContract>(
     async (data: BurnNFTParams<TContract>) => {
       invariant(data.tokenId, "No tokenId provided");
       invariant(contract?.burn, "contract does not support burn");
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant("amount" in data, "amount not provided");
         const { tokenId, amount } = data;
         return await contract.burn.tokens(tokenId, amount);

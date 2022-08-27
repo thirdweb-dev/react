@@ -91,7 +91,7 @@ export function useActiveClaimCondition<TContract extends NFTContract | Erc20>(
         contract?.drop?.claim?.conditions?.getActive,
         "Contract instance does not support contract?.drop?.claim?.conditions.getActive",
       );
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
         return contract?.drop?.claim?.conditions?.getActive(tokenId);
       }
@@ -101,7 +101,10 @@ export function useActiveClaimCondition<TContract extends NFTContract | Erc20>(
       // Checks that happen here:
       // 1. if the contract is based on ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
-      enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
+      enabled:
+        contract?.featureName === "ERC1155"
+          ? tokenId !== undefined
+          : !!contract,
     },
   );
 }
@@ -141,7 +144,7 @@ export function useClaimConditions<TContract extends NFTContract | Erc20>(
         contract?.drop?.claim?.conditions?.getAll,
         "Contract instance does not support drop.claim.conditions.getAll",
       );
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
         return contract?.drop?.claim?.conditions?.getAll(tokenId);
       }
@@ -151,7 +154,10 @@ export function useClaimConditions<TContract extends NFTContract | Erc20>(
       // Checks that happen here:
       // 1. if the contract is based on ERC1155 contract => tokenId cannot be `undefined`
       // 2. if the contract is NOT based on ERC1155 => contract has to still be provided
-      enabled: contract instanceof Erc1155 ? tokenId !== undefined : !!contract,
+      enabled:
+        contract?.featureName === "ERC1155"
+          ? tokenId !== undefined
+          : !!contract,
     },
   );
 }
@@ -195,7 +201,7 @@ export function useClaimIneligibilityReasons<
         contract?.drop?.claim?.conditions.getClaimIneligibilityReasons,
         "Contract instance does not support claimConditions.getClaimIneligibilityReasons",
       );
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant(
           tokenId,
           "tokenId is required for ERC1155 claim ineligibility reasons",
@@ -218,7 +224,9 @@ export function useClaimIneligibilityReasons<
       // 3. has a params object been passed?
       // 4. does params have an address in it?
       enabled:
-        (contract instanceof Erc1155 ? tokenId !== undefined : !!contract) &&
+        (contract?.featureName === "ERC1155"
+          ? tokenId !== undefined
+          : !!contract) &&
         !!params &&
         !!params.walletAddress,
     },
@@ -297,7 +305,7 @@ export function useSetClaimConditions<TContract extends NFTContract | Erc20>(
       invariant(contract, "No Contract instance provided");
       const { phases, reset = false } = data;
       invariant(phases, 'No "phases" provided');
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
         return contract?.drop?.claim?.conditions.set(tokenId, phases, reset);
       }
@@ -391,7 +399,7 @@ export function useResetClaimConditions<TContract extends NFTContract | Erc20>(
         }));
       };
 
-      if (contract instanceof Erc1155) {
+      if (contract.featureName === "ERC1155") {
         invariant(tokenId, "tokenId is required for ERC1155 claim conditions");
         const claimConditions = await contract?.drop?.claim?.conditions.getAll(
           tokenId,
