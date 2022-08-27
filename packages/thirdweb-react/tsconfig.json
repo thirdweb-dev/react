@@ -34,7 +34,7 @@
     "skipLibCheck": true,
     // error out if import and file system have a casing mismatch. Recommended by TS
     "forceConsistentCasingInFileNames": true,
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "target": "ES6",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
