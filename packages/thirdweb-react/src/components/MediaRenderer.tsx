@@ -124,10 +124,18 @@ const VideoPlayer = React.forwardRef<
     useEffect(() => {
       if (videoRef.current) {
         if (playing) {
-          videoRef.current.play();
+          try {
+            videoRef.current.play();
+          } catch (err) {
+            console.error("error playing video", err);
+          }
         } else {
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0;
+          try {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+          } catch (err) {
+            console.error("error pausing video", err);
+          }
         }
       }
     }, [playing]);
